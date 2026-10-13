@@ -1,4 +1,4 @@
-use crate::ui::theme;
+use crate::ui;
 
 pub const NUM_MODULES: usize = 7;
 pub const CELLS_PER_MODULE: usize = 16;
@@ -6,7 +6,10 @@ pub const THERMISTORS_PER_MODULE: usize = 10;
 
 pub const STALE_TIMEOUT_SECONDS: u64 = 1;
 
-pub fn sample_age(last_update: Option<daqcore::Time>, view_time: daqcore::Time) -> (bool, f64) {
+pub fn sample_age(
+    last_update: Option<daqcore::time::Time>,
+    view_time: daqcore::time::Time,
+) -> (bool, f64) {
     let elapsed = last_update
         .map(|t| view_time.secs(t).max(0.0))
         .unwrap_or(f64::INFINITY);
@@ -15,7 +18,7 @@ pub fn sample_age(last_update: Option<daqcore::Time>, view_time: daqcore::Time) 
 
 pub fn stale_banner(
     ui: &mut eframe::egui::Ui,
-    theme: &theme::ThemeColors,
+    theme: &ui::theme::ThemeColors,
     stale: bool,
     elapsed: f64,
 ) {
@@ -55,7 +58,7 @@ pub fn stale_banner(
 
 pub fn stat_card(
     ui: &mut eframe::egui::Ui,
-    theme: &theme::ThemeColors,
+    theme: &ui::theme::ThemeColors,
     label: &str,
     value: Option<f64>,
     unit: &str,

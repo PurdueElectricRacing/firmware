@@ -1,7 +1,4 @@
-use crate::{
-    log_parse::{consts, correlate},
-    superdbc,
-};
+use crate::{log_parse, superdbc};
 
 const HEADER_ROW_COUNT: usize = 7;
 const HEADER_COLUMN_COUNT: usize = 3; // real time, daq timestamp, then per-row header label
@@ -157,7 +154,7 @@ impl TableBuilder {
         &self,
         out_folder: &std::path::Path,
         output_prefix: &str,
-        correlated_chunks: Vec<correlate::CorrelationChunkResult>,
+        correlated_chunks: Vec<log_parse::correlate::CorrelationChunkResult>,
     ) -> Result<(), csv::Error> {
         std::fs::create_dir_all(out_folder)?;
 
@@ -165,7 +162,7 @@ impl TableBuilder {
             let first_time = chunk.parsed_msgs.first().map(|m| m.timestamp).unwrap_or(0);
             let last_time = chunk.parsed_msgs.last().map(|m| m.timestamp).unwrap_or(0);
 
-            let bin_width = u64::from(consts::BIN_WIDTH_MS);
+            let bin_width = u64::from(log_parse::consts::BIN_WIDTH_MS);
             let first_row_time = u64::from(first_time) / bin_width * bin_width;
             let last_row_time = u64::from(last_time).div_ceil(bin_width) * bin_width;
             let num_rows = last_row_time.saturating_sub(first_row_time) / bin_width + 1;

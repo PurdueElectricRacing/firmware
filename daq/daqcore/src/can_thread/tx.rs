@@ -1,8 +1,4 @@
-use crate::frame::{CanFrame, CanIdentity};
-use std::{
-    collections::BTreeMap,
-    time::{Duration, Instant},
-};
+use crate::frame;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SendAmount {
@@ -42,18 +38,18 @@ impl SendAmount {
 
 pub struct AddSendMessage {
     pub amount: SendAmount,
-    pub identity: CanIdentity,
+    pub identity: frame::CanIdentity,
     pub msg_bytes: Vec<u8>,
 }
 
 struct Scheduled {
-    frame: CanFrame,
+    frame: frame::CanFrame,
     amount: SendAmount,
-    sent: Option<Instant>,
+    sent: Option<std::time::Instant>,
 }
 
 #[derive(Default)]
-pub struct SendTable(BTreeMap<CanIdentity, Scheduled>);
+pub struct SendTable(std::collections::BTreeMap<frame::CanIdentity, Scheduled>);
 
 impl SendTable {
     pub fn add(&mut self, msg: AddSendMessage) -> Result<(), String> {
@@ -65,7 +61,7 @@ impl SendTable {
             return Err("send count and period must be positive".into());
         }
 
-        let frame = CanFrame::data(msg.identity, msg.msg_bytes)?;
+        let frame = frame::CanFrame::data(msg.identity, msg.msg_bytes)?;
 
         self.0.insert(
             msg.identity,
@@ -78,11 +74,11 @@ impl SendTable {
         Ok(())
     }
 
-    pub fn delete(&mut self, id: CanIdentity) {
+    pub fn delete(&mut self, id: frame::CanIdentity) {
         self.0.remove(&id);
     }
 
-    pub fn due(&self, now: Instant) -> Vec<CanFrame> {
+    pub fn due(&self, now: std::time::Instant) -> Vec<frame::CanFrame> {
         self.0
             .values()
             .filter(|scheduled| {
@@ -90,7 +86,7 @@ impl SendTable {
                     return true;
                 };
 
-                let period = Duration::from_millis(scheduled.amount.period() as u64);
+                let period = std::time::Duration::from_millis(scheduled.amount.period() as u64);
                 let elapsed = now.saturating_duration_since(last_sent);
 
                 elapsed >= period
@@ -99,7 +95,11 @@ impl SendTable {
             .collect()
     }
 
-    pub fn commit(&mut self, id: CanIdentity, now: Instant) -> Option<SendAmount> {
+    pub fn commit(
+        &mut self,
+        id: frame::CanIdentity,
+        now: std::time::Instant,
+    ) -> Option<SendAmount> {
         let scheduled = self.0.get_mut(&id)?;
         scheduled.sent = Some(now);
         let amount_left = scheduled.amount.subtract_one();

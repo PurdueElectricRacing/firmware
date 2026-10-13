@@ -1,19 +1,6 @@
 //! Loading, validating, and looking up definitions across all buses in one object.
 
-use std::{
-    collections::{HashMap, HashSet},
-    path::{Path, PathBuf},
-};
-
-use crate::{
-    frame::CanIdentity,
-    superdbc::{
-        decode::DecodedMessage,
-        error::{DecodeError, EncodeError, LoadError, ParseError},
-        message::{Message, MessageKey, RawValue, nonempty},
-        model::{self, Document, VersionProbe},
-    },
-};
+use crate::{frame, superdbc};
 
 /// An owned, validated SuperDBC database containing all of its buses.
 ///
@@ -22,14 +9,14 @@ use crate::{
 /// after the database that produced them is dropped.
 #[derive(Debug, Clone)]
 pub struct Database {
-    path: Option<PathBuf>,
+    path: Option<std::path::PathBuf>,
     content_hash: String,
     version_hash: String,
     schema_version: String,
     buses: Vec<Bus>,
-    bus_names: HashMap<String, usize>,
-    bus_ids: HashMap<u8, usize>,
-    message_index: HashMap<MessageKey, (usize, usize)>,
+    bus_names: std::collections::HashMap<String, usize>,
+    bus_ids: std::collections::HashMap<u8, usize>,
+    message_index: std::collections::HashMap<superdbc::message::MessageKey, (usize, usize)>,
 }
 
 impl Database {
@@ -40,24 +27,22 @@ impl Database {
     ///
     /// # Errors
     ///
-    /// Returns [`LoadError::Io`] if reading fails, or [`LoadError::Parse`] for
+    /// Returns [`crate::superdbc::error::LoadError::Io`] if reading fails, or [`crate::superdbc::error::LoadError::Parse`] for
     /// invalid JSON, an unsupported schema version, or invalid definitions.
     ///
     /// # Example
     ///
     /// ```no_run
-    /// use std::path::Path;
-    /// use daqcore::superdbc::database::Database;
     ///
     /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// let database = Database::load(Path::new("superdbc.json"))?;
+    /// let database = daqcore::superdbc::database::Database::load(std::path::Path::new("superdbc.json"))?;
     /// for bus in database.buses() {
     ///     println!("{}: {} messages", bus.name(), bus.messages().len());
     /// }
     /// # Ok(())
     /// # }
     /// ```
-    pub fn load(path: &Path) -> Result<Self, LoadError> {
+    pub fn load(path: &std::path::Path) -> Result<Self, superdbc::error::LoadError> {
         let json = std::fs::read_to_string(path)?;
         let mut database = Self::from_json(&json)?;
         database.path = Some(path.to_owned());
@@ -74,38 +59,41 @@ impl Database {
     ///
     /// # Errors
     ///
-    /// Returns [`ParseError::InvalidJson`] for deserialization failures,
-    /// [`ParseError::UnsupportedSchemaVersion`] for a different schema version,
-    /// or [`ParseError::InvalidDefinition`] for invalid metadata or wire layouts.
-    pub fn from_json(json: &str) -> Result<Self, ParseError> {
+    /// Returns [`crate::superdbc::error::ParseError::InvalidJson`] for deserialization failures,
+    /// [`crate::superdbc::error::ParseError::UnsupportedSchemaVersion`] for a different schema version,
+    /// or [`crate::superdbc::error::ParseError::InvalidDefinition`] for invalid metadata or wire layouts.
+    pub fn from_json(json: &str) -> Result<Self, superdbc::error::ParseError> {
         // Probe the version before interpreting fields under the 1.1 schema.
         // Deserialize from the original text to retain order and duplicate keys.
-        let probe: VersionProbe = serde_json::from_str(json)?;
+        let probe: superdbc::model::VersionProbe = serde_json::from_str(json)?;
 
-        if probe.versions.schema_version != model::SCHEMA_VERSION {
-            return Err(ParseError::UnsupportedSchemaVersion {
+        if probe.versions.schema_version != superdbc::model::SCHEMA_VERSION {
+            return Err(superdbc::error::ParseError::UnsupportedSchemaVersion {
                 found: probe.versions.schema_version,
             });
         }
 
-        let document: Document = serde_json::from_str(json)?;
+        let document: superdbc::model::Document = serde_json::from_str(json)?;
         // Keep definitions in document order; indexes point into the owned vectors
         // so fast lookups do not require duplicate definitions or shared ownership.
         let mut buses = Vec::with_capacity(document.buses.len());
-        let mut bus_names = HashMap::with_capacity(document.buses.len());
-        let mut bus_ids = HashMap::with_capacity(document.buses.len());
-        let mut message_index = HashMap::new();
+        let mut bus_names = std::collections::HashMap::with_capacity(document.buses.len());
+        let mut bus_ids = std::collections::HashMap::with_capacity(document.buses.len());
+        let mut message_index = std::collections::HashMap::new();
 
         for (name, model) in document.buses {
             let context = format!("bus {name:?}");
-            nonempty(&name, &context, "bus name")?;
+            superdbc::message::nonempty(&name, &context, "bus name")?;
 
             if model.bus_id > 7 {
-                return Err(ParseError::definition(&context, "bus_id must be 0..=7"));
+                return Err(superdbc::error::ParseError::definition(
+                    &context,
+                    "bus_id must be 0..=7",
+                ));
             }
 
             if model.baud_rate == 0 {
-                return Err(ParseError::definition(
+                return Err(superdbc::error::ParseError::definition(
                     &context,
                     "baud_rate must be positive",
                 ));
@@ -114,14 +102,17 @@ impl Database {
             let bus_index = buses.len();
 
             if bus_ids.insert(model.bus_id, bus_index).is_some() {
-                return Err(ParseError::definition(&context, "duplicate bus_id"));
+                return Err(superdbc::error::ParseError::definition(
+                    &context,
+                    "duplicate bus_id",
+                ));
             }
 
             bus_names.insert(name.clone(), bus_index);
             let mut nodes = Vec::with_capacity(model.nodes.len());
 
             for node in model.nodes {
-                nonempty(&node.name, &context, "node name")?;
+                superdbc::message::nonempty(&node.name, &context, "node name")?;
                 nodes.push(Node {
                     name: node.name,
                     is_external: node.is_external,
@@ -129,27 +120,28 @@ impl Database {
             }
 
             let mut messages = Vec::with_capacity(model.messages.len());
-            let mut identities = HashMap::with_capacity(model.messages.len());
-            let mut names = HashSet::with_capacity(model.messages.len());
+            let mut identities = std::collections::HashMap::with_capacity(model.messages.len());
+            let mut names = std::collections::HashSet::with_capacity(model.messages.len());
 
             for message in model.messages {
                 let message_context = format!("{context} / message {:?}", message.message_name);
 
                 if !names.insert(message.message_name.clone()) {
-                    return Err(ParseError::definition(
+                    return Err(superdbc::error::ParseError::definition(
                         message_context,
                         "duplicate message name",
                     ));
                 }
 
-                let message = Message::compile(model.bus_id, message, &message_context)?;
+                let message =
+                    superdbc::message::Message::compile(model.bus_id, message, &message_context)?;
                 let message_position = messages.len();
 
                 if identities
                     .insert(message.identity(), message_position)
                     .is_some()
                 {
-                    return Err(ParseError::definition(
+                    return Err(superdbc::error::ParseError::definition(
                         message_context,
                         "duplicate CAN identity",
                     ));
@@ -185,7 +177,7 @@ impl Database {
     }
 
     /// Return the supplied file path for [`Self::load`], or `None` for [`Self::from_json`].
-    pub fn path(&self) -> Option<&Path> {
+    pub fn path(&self) -> Option<&std::path::Path> {
         self.path.as_deref()
     }
 
@@ -220,18 +212,25 @@ impl Database {
     }
 
     /// Iterate over borrowed messages in bus declaration order, then message declaration order.
-    pub fn messages(&self) -> impl Iterator<Item = &Message> {
+    pub fn messages(&self) -> impl Iterator<Item = &superdbc::message::Message> {
         self.buses.iter().flat_map(|bus| &bus.messages)
     }
 
     /// Look up a message using both its bus ID and CAN identity.
-    pub fn message(&self, bus_id: u8, identity: CanIdentity) -> Option<&Message> {
-        self.message_by_key(MessageKey { bus_id, identity })
+    pub fn message(
+        &self,
+        bus_id: u8,
+        identity: frame::CanIdentity,
+    ) -> Option<&superdbc::message::Message> {
+        self.message_by_key(superdbc::message::MessageKey { bus_id, identity })
     }
 
     /// Resolve a complete key from a decoded message or retained UI selection.
     /// Returns `None` if this database lacks the key.
-    pub fn message_by_key(&self, key: MessageKey) -> Option<&Message> {
+    pub fn message_by_key(
+        &self,
+        key: superdbc::message::MessageKey,
+    ) -> Option<&superdbc::message::Message> {
         self.message_index
             .get(&key)
             .map(|&(bus, message)| &self.buses[bus].messages[message])
@@ -243,23 +242,20 @@ impl Database {
     /// at least the message's declared length and at most eight bytes; trailing
     /// padding is ignored. Scaling and offset are applied to physical values,
     /// while exact raw integers are retained. Non-finite telemetry is accepted.
-    /// See [`Message::decode`] for the numeric and ownership semantics.
+    /// See [`crate::superdbc::message::Message::decode`] for the numeric and ownership semantics.
     ///
     /// # Errors
     ///
-    /// Returns [`DecodeError::UnknownBus`], [`DecodeError::UnknownMessage`], or
-    /// [`DecodeError::InvalidPayloadLength`]. JSON errors occur only at load time.
+    /// Returns [`crate::superdbc::error::DecodeError::UnknownBus`], [`crate::superdbc::error::DecodeError::UnknownMessage`], or
+    /// [`crate::superdbc::error::DecodeError::InvalidPayloadLength`]. JSON errors occur only at load time.
     ///
     /// # Example
     ///
     /// ```no_run
-    /// use std::path::Path;
-    /// use daqcore::frame::CanIdentity;
-    /// use daqcore::superdbc::database::Database;
     ///
     /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// let database = Database::load(Path::new("superdbc.json"))?;
-    /// let identity = CanIdentity::new(0x123, false)?;
+    /// let database = daqcore::superdbc::database::Database::load(std::path::Path::new("superdbc.json"))?;
+    /// let identity = daqcore::frame::CanIdentity::new(0x123, false)?;
     /// if let Some(message) = database.message(0, identity) {
     ///     let payload = vec![0; usize::from(message.length_bytes())];
     ///     let decoded = database.decode(0, identity, &payload)?;
@@ -273,11 +269,11 @@ impl Database {
     pub fn decode(
         &self,
         bus_id: u8,
-        identity: CanIdentity,
+        identity: frame::CanIdentity,
         data: &[u8],
-    ) -> Result<DecodedMessage, DecodeError> {
+    ) -> Result<superdbc::decode::DecodedMessage, superdbc::error::DecodeError> {
         self.bus_by_id(bus_id)
-            .ok_or(DecodeError::UnknownBus { bus_id })?
+            .ok_or(superdbc::error::DecodeError::UnknownBus { bus_id })?
             .decode(identity, data)
     }
 
@@ -293,15 +289,15 @@ impl Database {
     ///
     /// Returns an error for an unknown bus or message, unknown/duplicate/missing
     /// signals, non-finite values, or values outside the wire representation.
-    /// See [`Message::encode`] for the conversion details.
+    /// See [`crate::superdbc::message::Message::encode`] for the conversion details.
     pub fn encode(
         &self,
         bus_id: u8,
-        identity: CanIdentity,
+        identity: frame::CanIdentity,
         values: &[(&str, f64)],
-    ) -> Result<Vec<u8>, EncodeError> {
+    ) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         self.bus_by_id(bus_id)
-            .ok_or(EncodeError::UnknownBus { bus_id })?
+            .ok_or(superdbc::error::EncodeError::UnknownBus { bus_id })?
             .encode(identity, values)
     }
 
@@ -316,20 +312,20 @@ impl Database {
     ///
     /// Returns an error for an unknown bus or message, unknown/duplicate/missing
     /// signals, mismatched raw types, out-of-range integers, or non-finite Float32
-    /// values. See [`Message::encode_raw`] for details.
+    /// values. See [`crate::superdbc::message::Message::encode_raw`] for details.
     pub fn encode_raw(
         &self,
         bus_id: u8,
-        identity: CanIdentity,
-        values: &[(&str, RawValue)],
-    ) -> Result<Vec<u8>, EncodeError> {
+        identity: frame::CanIdentity,
+        values: &[(&str, superdbc::message::RawValue)],
+    ) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         self.bus_by_id(bus_id)
-            .ok_or(EncodeError::UnknownBus { bus_id })?
+            .ok_or(superdbc::error::EncodeError::UnknownBus { bus_id })?
             .encode_raw(identity, values)
     }
 }
 
-/// Definitions and metadata for one bus, borrowed from a [`Database`].
+/// Definitions and metadata for one bus, borrowed from a [`crate::superdbc::database::Database`].
 ///
 /// Use its lookup and codec methods when the bus is already known, so callers
 /// only need to supply the CAN identity rather than repeating the bus ID.
@@ -339,8 +335,8 @@ pub struct Bus {
     bus_id: u8,
     baud_rate: u64,
     nodes: Vec<Node>,
-    messages: Vec<Message>,
-    message_index: HashMap<CanIdentity, usize>,
+    messages: Vec<superdbc::message::Message>,
+    message_index: std::collections::HashMap<frame::CanIdentity, usize>,
 }
 
 /// A node declared on a bus, including nodes supplied by external systems.
@@ -374,7 +370,7 @@ impl Bus {
     }
 
     /// Borrow all message definitions on this bus in declaration order.
-    pub fn messages(&self) -> &[Message] {
+    pub fn messages(&self) -> &[superdbc::message::Message] {
         &self.messages
     }
 
@@ -382,7 +378,7 @@ impl Bus {
     ///
     /// Returns `None` if absent. The extended flag is part of the identity, so a
     /// standard and extended message can have the same numeric ID.
-    pub fn message(&self, identity: CanIdentity) -> Option<&Message> {
+    pub fn message(&self, identity: frame::CanIdentity) -> Option<&superdbc::message::Message> {
         self.message_index
             .get(&identity)
             .map(|&index| &self.messages[index])
@@ -391,20 +387,20 @@ impl Bus {
     /// Decode a frame on this bus, returning owned names and signal values.
     ///
     /// Accepts the declared payload length through eight bytes and ignores
-    /// padding. See [`Message::decode`] for scaling and raw-value semantics.
+    /// padding. See [`crate::superdbc::message::Message::decode`] for scaling and raw-value semantics.
     ///
     /// # Errors
     ///
-    /// Returns [`DecodeError::UnknownMessage`] if this bus lacks the identity,
-    /// or [`DecodeError::InvalidPayloadLength`] for a short or oversized payload.
+    /// Returns [`crate::superdbc::error::DecodeError::UnknownMessage`] if this bus lacks the identity,
+    /// or [`crate::superdbc::error::DecodeError::InvalidPayloadLength`] for a short or oversized payload.
     pub fn decode(
         &self,
-        identity: CanIdentity,
+        identity: frame::CanIdentity,
         data: &[u8],
-    ) -> Result<DecodedMessage, DecodeError> {
+    ) -> Result<superdbc::decode::DecodedMessage, superdbc::error::DecodeError> {
         self.message(identity)
-            .ok_or(DecodeError::UnknownMessage {
-                key: MessageKey {
+            .ok_or(superdbc::error::DecodeError::UnknownMessage {
+                key: superdbc::message::MessageKey {
                     bus_id: self.bus_id,
                     identity,
                 },
@@ -416,17 +412,17 @@ impl Bus {
     ///
     /// Applies inverse scaling and offset, with integer rounding. Supply every
     /// signal exactly once, in any order; the result has the declared payload
-    /// length. See [`Message::encode`] for precision and range details.
+    /// length. See [`crate::superdbc::message::Message::encode`] for precision and range details.
     ///
     /// # Errors
     ///
-    /// Returns [`EncodeError::UnknownMessage`] if absent, or an encoding error
+    /// Returns [`crate::superdbc::error::EncodeError::UnknownMessage`] if absent, or an encoding error
     /// for invalid signal names, completeness, or numeric values.
     pub fn encode(
         &self,
-        identity: CanIdentity,
+        identity: frame::CanIdentity,
         values: &[(&str, f64)],
-    ) -> Result<Vec<u8>, EncodeError> {
+    ) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         self.resolve_encoder(identity)?.encode(values)
     }
 
@@ -434,26 +430,30 @@ impl Bus {
     ///
     /// Bypasses scaling and offset. Supply every signal exactly once, in any
     /// order; the result has the declared payload length. See
-    /// [`Message::encode_raw`] for type and range requirements.
+    /// [`crate::superdbc::message::Message::encode_raw`] for type and range requirements.
     ///
     /// # Errors
     ///
-    /// Returns [`EncodeError::UnknownMessage`] if absent, or an encoding error
+    /// Returns [`crate::superdbc::error::EncodeError::UnknownMessage`] if absent, or an encoding error
     /// for invalid signal names, completeness, raw types, or values.
     pub fn encode_raw(
         &self,
-        identity: CanIdentity,
-        values: &[(&str, RawValue)],
-    ) -> Result<Vec<u8>, EncodeError> {
+        identity: frame::CanIdentity,
+        values: &[(&str, superdbc::message::RawValue)],
+    ) -> Result<Vec<u8>, superdbc::error::EncodeError> {
         self.resolve_encoder(identity)?.encode_raw(values)
     }
 
-    fn resolve_encoder(&self, identity: CanIdentity) -> Result<&Message, EncodeError> {
-        self.message(identity).ok_or(EncodeError::UnknownMessage {
-            key: MessageKey {
-                bus_id: self.bus_id,
-                identity,
-            },
-        })
+    fn resolve_encoder(
+        &self,
+        identity: frame::CanIdentity,
+    ) -> Result<&superdbc::message::Message, superdbc::error::EncodeError> {
+        self.message(identity)
+            .ok_or(superdbc::error::EncodeError::UnknownMessage {
+                key: superdbc::message::MessageKey {
+                    bus_id: self.bus_id,
+                    identity,
+                },
+            })
     }
 }

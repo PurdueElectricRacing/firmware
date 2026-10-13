@@ -1,8 +1,5 @@
 //! Byte segments compiled once. The runtime path never walks individual bits.
-use crate::superdbc::{
-    error::ParseError,
-    message::{ByteOrder, RawType},
-};
+use crate::superdbc;
 
 #[derive(Debug, Clone)]
 struct Segment {
@@ -36,26 +33,26 @@ impl Codec {
     ///
     /// # Errors
     ///
-    /// Returns [`ParseError::InvalidDefinition`] for an invalid start or width,
+    /// Returns [`crate::superdbc::error::ParseError::InvalidDefinition`] for an invalid start or width,
     /// a Float32 width other than 32, or bits outside the declared payload.
     /// The caller must supply a classic-CAN payload length no larger than eight.
     pub fn compile(
         start: u8,
         length: u8,
-        order: ByteOrder,
-        raw_type: RawType,
+        order: superdbc::message::ByteOrder,
+        raw_type: superdbc::message::RawType,
         payload_length: u8,
         context: &str,
-    ) -> Result<Self, ParseError> {
+    ) -> Result<Self, superdbc::error::ParseError> {
         if start > 63 || !(1..=64).contains(&length) {
-            return Err(ParseError::definition(
+            return Err(superdbc::error::ParseError::definition(
                 context,
                 "start_bit must be 0..=63 and bit_length 1..=64",
             ));
         }
 
-        if raw_type == RawType::Float32 && length != 32 {
-            return Err(ParseError::definition(
+        if raw_type == superdbc::message::RawType::Float32 && length != 32 {
+            return Err(superdbc::error::ParseError::definition(
                 context,
                 "Float32 requires exactly 32 bits",
             ));
@@ -67,15 +64,15 @@ impl Codec {
 
         for i in 0..length {
             if wire_bit >= u16::from(payload_length) * 8 {
-                return Err(ParseError::definition(
+                return Err(superdbc::error::ParseError::definition(
                     context,
                     "signal occupies bits outside the declared payload",
                 ));
             }
             occupied |= 1u64 << wire_bit;
             let value_shift = match order {
-                ByteOrder::LittleEndian => i,
-                ByteOrder::BigEndian => length - 1 - i,
+                superdbc::message::ByteOrder::LittleEndian => i,
+                superdbc::message::ByteOrder::BigEndian => length - 1 - i,
             };
             let byte = usize::from(wire_bit / 8);
             let wire_shift = (wire_bit % 8) as u8;
@@ -97,16 +94,18 @@ impl Codec {
             // Motorola numbering descends to bit 0, then jumps to bit 7 of
             // the following byte; little endian simply advances one bit.
             wire_bit = match order {
-                ByteOrder::LittleEndian => wire_bit + 1,
-                ByteOrder::BigEndian if wire_bit % 8 == 0 => wire_bit + 15,
-                ByteOrder::BigEndian => wire_bit - 1,
+                superdbc::message::ByteOrder::LittleEndian => wire_bit + 1,
+                superdbc::message::ByteOrder::BigEndian if wire_bit % 8 == 0 => wire_bit + 15,
+                superdbc::message::ByteOrder::BigEndian => wire_bit - 1,
             };
         }
 
         // i128 can hold both unsigned 64-bit maxima and the 2^64 modulus
         // needed to interpret signed values without overflowing.
         let (min, max) = match raw_type {
-            RawType::Signed => (-(1i128 << (length - 1)), (1i128 << (length - 1)) - 1),
+            superdbc::message::RawType::Signed => {
+                (-(1i128 << (length - 1)), (1i128 << (length - 1)) - 1)
+            }
             _ => (0, (1i128 << length) - 1),
         };
         Ok(Self {

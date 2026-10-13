@@ -5,17 +5,13 @@ mod decode;
 mod events;
 mod firmware_session;
 mod run;
-mod tx;
+pub mod tx;
 
-use crate::{
-    ParsedFrame, Time, connection::ConnectionSource, firmware, frame::CanIdentity, hil, superdbc,
-};
-use std::{path::PathBuf, sync::mpsc, thread::JoinHandle};
-pub use tx::{AddSendMessage, SendAmount};
+use crate::{can_thread, firmware, frame, hil, superdbc, time};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DatabaseSource {
-    pub path: PathBuf,
+    pub path: std::path::PathBuf,
     pub bus_id: u8,
 }
 
@@ -24,7 +20,7 @@ pub struct DatabaseSource {
 #[derive(Debug, Clone)]
 pub enum DatabaseRequest {
     Load {
-        path: PathBuf,
+        path: std::path::PathBuf,
         preferred_bus: Option<u8>,
     },
     Bus {
@@ -46,25 +42,25 @@ pub enum DatabaseUpdate {
 
 #[derive(Default)]
 pub struct CanThreadConfig {
-    pub log_folder: Option<PathBuf>,
-    pub hil_dir: PathBuf,
+    pub log_folder: Option<std::path::PathBuf>,
+    pub hil_dir: std::path::PathBuf,
 }
 
 pub enum CanThreadCommand {
-    Connect(Option<ConnectionSource>),
+    Connect(Option<crate::connection::ConnectionSource>),
     SelectDatabase {
         request_id: u64,
         selection: DatabaseRequest,
     },
-    AddSendMessage(AddSendMessage),
+    AddSendMessage(can_thread::tx::AddSendMessage),
     DeleteSendMessage {
-        identity: CanIdentity,
+        identity: frame::CanIdentity,
     },
-    UpdateLogFolder(PathBuf),
+    UpdateLogFolder(std::path::PathBuf),
     Stop,
     Hil(hil::engine::HilCommand),
-    StartFirmwareUpdate(firmware::FirmwarePackage),
-    ArmFirmwareUpdate(firmware::FirmwarePackage),
+    StartFirmwareUpdate(firmware::protocol::FirmwarePackage),
+    ArmFirmwareUpdate(firmware::protocol::FirmwarePackage),
     CancelFirmwareUpdate,
 }
 
@@ -73,24 +69,24 @@ pub enum CanThreadEvent {
         request_id: u64,
         result: Result<DatabaseUpdate, String>,
     },
-    Frame(ParsedFrame),
-    SourceSelected(Option<ConnectionSource>),
+    Frame(frame::ParsedFrame),
+    SourceSelected(Option<crate::connection::ConnectionSource>),
     Disconnection,
     ConnectionSuccessful,
     ConnectionFailed(String),
     MessageSent {
-        identity: CanIdentity,
-        timestamp: Time,
-        amount_left: Option<SendAmount>,
+        identity: frame::CanIdentity,
+        timestamp: time::Time,
+        amount_left: Option<can_thread::tx::SendAmount>,
     },
     SendFailed {
-        identity: CanIdentity,
+        identity: frame::CanIdentity,
         error: String,
         retrying: bool,
     },
     Diagnostic(String),
     BusLoad {
-        timestamp: Time,
+        timestamp: time::Time,
         load_1s: f32,
         load_5s: f32,
         load_10s: f32,
@@ -102,19 +98,19 @@ pub enum CanThreadEvent {
 
 /// Single caller owns shutdown; cloned senders submit commands but do not own the worker.
 pub struct CanThreadHandle {
-    tx: mpsc::Sender<CanThreadCommand>,
-    join: Option<JoinHandle<()>>,
+    tx: std::sync::mpsc::Sender<CanThreadCommand>,
+    join: Option<std::thread::JoinHandle<()>>,
 }
 
 impl CanThreadHandle {
     pub fn command(
         &self,
         command: CanThreadCommand,
-    ) -> Result<(), mpsc::SendError<CanThreadCommand>> {
+    ) -> Result<(), std::sync::mpsc::SendError<CanThreadCommand>> {
         self.tx.send(command)
     }
 
-    pub fn sender(&self) -> mpsc::Sender<CanThreadCommand> {
+    pub fn sender(&self) -> std::sync::mpsc::Sender<CanThreadCommand> {
         self.tx.clone()
     }
 
@@ -135,9 +131,9 @@ impl Drop for CanThreadHandle {
 
 pub fn spawn_can_thread(
     config: CanThreadConfig,
-    out: mpsc::Sender<CanThreadEvent>,
+    out: std::sync::mpsc::Sender<CanThreadEvent>,
 ) -> std::io::Result<CanThreadHandle> {
-    let (tx, rx) = mpsc::channel();
+    let (tx, rx) = std::sync::mpsc::channel();
     let join = std::thread::Builder::new()
         .name("daq-can".into())
         .spawn(move || run::run(config, out, rx))?;

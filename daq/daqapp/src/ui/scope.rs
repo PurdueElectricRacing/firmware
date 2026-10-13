@@ -1,9 +1,9 @@
-use crate::{app, telemetry, ui::message_picker};
+use crate::{app, telemetry, ui};
 
 // Makes invalid combinations of id/name/signal name unrepresentable
 enum ScopeState {
     PickingMessage {
-        picker: message_picker::MessagePickerState,
+        picker: ui::message_picker::MessagePickerState,
     },
     PickingSignal {
         selected_msg: daqcore::superdbc::message::MessageKey,
@@ -18,7 +18,7 @@ enum ScopeState {
 impl Default for ScopeState {
     fn default() -> Self {
         ScopeState::PickingMessage {
-            picker: message_picker::MessagePickerState::default(),
+            picker: ui::message_picker::MessagePickerState::default(),
         }
     }
 }
@@ -111,7 +111,7 @@ impl Scope {
                 } else if ui.button("← Back to message search").clicked() {
                     (
                         ScopeState::PickingMessage {
-                            picker: message_picker::MessagePickerState::default(),
+                            picker: ui::message_picker::MessagePickerState::default(),
                         },
                         false,
                     )
@@ -146,7 +146,7 @@ impl Scope {
             if let Some(database) = database {
                 self.show_picker(ui, database);
             } else {
-                message_picker::no_database_placeholder(ui);
+                ui::message_picker::no_database_placeholder(ui);
             }
 
             return egui_tiles::UiResponse::None;
@@ -238,9 +238,9 @@ impl Scope {
 }
 
 fn scope_frames(
-    frames: &[daqcore::ParsedFrame],
+    frames: &[daqcore::frame::ParsedFrame],
     identity: daqcore::frame::CanIdentity,
-) -> impl Iterator<Item = &daqcore::ParsedFrame> {
+) -> impl Iterator<Item = &daqcore::frame::ParsedFrame> {
     frames
         .iter()
         .filter(move |frame| frame.identity == identity)

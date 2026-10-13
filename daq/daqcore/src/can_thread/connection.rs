@@ -1,20 +1,13 @@
-use crate::{
-    can::driver::{self, Driver, DriverError, DriverResult},
-    connection::{self, ConnectionSource},
-    frame::CanFrame,
-    superdbc,
-};
-
-use std::time::{Duration, Instant};
+use crate::{can, connection, frame, superdbc};
 
 pub struct ConnectionManager {
-    source: Option<ConnectionSource>,
-    driver: Option<Box<dyn Driver>>,
-    retry_at: Instant,
+    source: Option<connection::ConnectionSource>,
+    driver: Option<Box<dyn can::driver::Driver>>,
+    retry_at: std::time::Instant,
 }
 
 impl ConnectionManager {
-    pub fn new(now: Instant) -> Self {
+    pub fn new(now: std::time::Instant) -> Self {
         Self {
             source: None,
             driver: None,
@@ -22,7 +15,11 @@ impl ConnectionManager {
         }
     }
 
-    pub fn select(&mut self, source: Option<ConnectionSource>, now: Instant) {
+    pub fn select(
+        &mut self,
+        source: Option<connection::ConnectionSource>,
+        now: std::time::Instant,
+    ) {
         self.close();
         self.source = source;
         self.retry_at = now;
@@ -30,7 +27,7 @@ impl ConnectionManager {
 
     pub fn connect(
         &mut self,
-        now: Instant,
+        now: std::time::Instant,
         bus: Option<&superdbc::database::Bus>,
     ) -> Option<Result<(), String>> {
         if self.driver.is_some() || now < self.retry_at {
@@ -38,9 +35,9 @@ impl ConnectionManager {
         }
 
         let source = self.source.as_ref()?;
-        self.retry_at = now + Duration::from_millis(200);
+        self.retry_at = now + std::time::Duration::from_millis(200);
 
-        let result = match driver::create_driver(source, bus) {
+        let result = match can::driver::create_driver(source, bus) {
             Ok(driver) => {
                 self.driver = Some(driver);
                 Ok(())
@@ -62,24 +59,27 @@ impl ConnectionManager {
             .unwrap_or_default()
     }
 
-    pub fn read(&mut self) -> DriverResult<Vec<CanFrame>> {
-        let driver = self.driver.as_mut().ok_or(DriverError::Timeout)?;
+    pub fn read(&mut self) -> can::driver::DriverResult<Vec<frame::CanFrame>> {
+        let driver = self
+            .driver
+            .as_mut()
+            .ok_or(can::driver::DriverError::Timeout)?;
 
         driver.read_frames()
     }
 
-    pub fn write(&mut self, frame: CanFrame) -> DriverResult<()> {
+    pub fn write(&mut self, frame: frame::CanFrame) -> can::driver::DriverResult<()> {
         let driver = self
             .driver
             .as_mut()
-            .ok_or_else(|| DriverError::Write("disconnected".into()))?;
+            .ok_or_else(|| can::driver::DriverError::Write("disconnected".into()))?;
 
         driver.write_frame(frame)
     }
 
-    pub fn failed(&mut self, now: Instant) {
+    pub fn failed(&mut self, now: std::time::Instant) {
         self.close();
-        self.retry_at = now + Duration::from_millis(200);
+        self.retry_at = now + std::time::Duration::from_millis(200);
     }
 
     pub fn close(&mut self) {

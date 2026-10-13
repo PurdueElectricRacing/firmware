@@ -1,9 +1,3 @@
-use serde::Deserialize;
-use std::{
-    collections::HashSet,
-    path::{Component, Path, PathBuf},
-};
-
 pub const PACKAGE_FORMAT: &str = "per-firmware-package-v1";
 /// Start of the single application slot in the STM32G474 flash map.
 pub const APPLICATION_ADDRESS: u32 = 0x0800_8000;
@@ -28,7 +22,7 @@ pub struct FirmwarePackage {
 }
 
 #[derive(Debug)]
-struct PackageStorage(PathBuf);
+struct PackageStorage(std::path::PathBuf);
 
 impl Drop for PackageStorage {
     fn drop(&mut self) {
@@ -36,7 +30,7 @@ impl Drop for PackageStorage {
     }
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 struct Manifest {
     format: String,
     protocol_version: u32,
@@ -44,7 +38,7 @@ struct Manifest {
     boards: Vec<ManifestBoard>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, serde::Deserialize)]
 struct ManifestBoard {
     name: String,
     binary: String,
@@ -61,7 +55,7 @@ struct ManifestBoard {
 impl FirmwarePackage {
     /// Load a manifest or `.tar.gz`, validating its board set, paths, sizes,
     /// CRCs, application address, and CAN IDs before returning image bytes.
-    pub fn load(path: impl Into<PathBuf>) -> Result<Self, String> {
+    pub fn load(path: impl Into<std::path::PathBuf>) -> Result<Self, String> {
         let path = path.into();
         let (manifest_path, storage) = if path
             .file_name()
@@ -134,7 +128,7 @@ impl FirmwarePackage {
             "front_driveline",
             "rear_driveline",
         ];
-        let board_names: HashSet<_> = manifest
+        let board_names: std::collections::HashSet<_> = manifest
             .boards
             .iter()
             .map(|board| board.name.as_str())
@@ -150,7 +144,7 @@ impl FirmwarePackage {
             .ok_or_else(|| "manifest has no parent directory".to_string())?
             .to_path_buf();
         let mut images = Vec::with_capacity(manifest.boards.len());
-        let mut protocol_ids = HashSet::new();
+        let mut protocol_ids = std::collections::HashSet::new();
         for board in manifest.boards {
             if images
                 .iter()
@@ -168,12 +162,12 @@ impl FirmwarePackage {
                 ));
             }
 
-            let relative_binary = Path::new(&board.binary);
+            let relative_binary = std::path::Path::new(&board.binary);
             // Reject absolute/parent traversal and final-entry symlinks before reading.
             if relative_binary.is_absolute()
                 || relative_binary
                     .components()
-                    .any(|component| matches!(component, Component::ParentDir))
+                    .any(|component| matches!(component, std::path::Component::ParentDir))
             {
                 return Err(format!("unsafe binary path for board {}", board.name));
             }
@@ -246,7 +240,7 @@ impl FirmwarePackage {
     }
 }
 
-fn validate_archive(path: &Path) -> Result<(), String> {
+fn validate_archive(path: &std::path::Path) -> Result<(), String> {
     let listing = std::process::Command::new("tar")
         .args(["-tvzf"])
         .arg(path)
@@ -281,11 +275,11 @@ fn validate_archive(path: &Path) -> Result<(), String> {
     }
 
     for name in String::from_utf8_lossy(&names.stdout).lines() {
-        let member = Path::new(name);
+        let member = std::path::Path::new(name);
         if member.is_absolute()
             || member
                 .components()
-                .any(|component| matches!(component, Component::ParentDir))
+                .any(|component| matches!(component, std::path::Component::ParentDir))
         {
             return Err(format!("firmware archive contains unsafe path {name:?}"));
         }
@@ -293,10 +287,10 @@ fn validate_archive(path: &Path) -> Result<(), String> {
     Ok(())
 }
 
-fn secure_file_path(path: &Path, kind: &str) -> Result<PathBuf, String> {
+fn secure_file_path(path: &std::path::Path, kind: &str) -> Result<std::path::PathBuf, String> {
     if path
         .components()
-        .any(|component| matches!(component, Component::ParentDir))
+        .any(|component| matches!(component, std::path::Component::ParentDir))
     {
         return Err("path contains a parent traversal".to_string());
     }

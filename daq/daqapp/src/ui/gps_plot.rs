@@ -146,7 +146,7 @@ impl walkers::Plugin for CarDot {
     }
 }
 
-fn gps_sample(f: &daqcore::ParsedFrame) -> Option<(daqcore::Time, f64, f64)> {
+fn gps_sample(f: &daqcore::frame::ParsedFrame) -> Option<(daqcore::time::Time, f64, f64)> {
     let d = f.decoded.as_ref()?;
     if d.name() != "gps_coordinates" {
         return None;

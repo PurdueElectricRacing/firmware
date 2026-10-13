@@ -1,5 +1,4 @@
-use crate::{frame::CanIdentity, log_parse::consts, superdbc};
-use bytemuck::{Pod, Zeroable};
+use crate::{frame, log_parse, superdbc};
 
 #[derive(Debug)]
 pub struct ParsedMessage {
@@ -9,7 +8,7 @@ pub struct ParsedMessage {
 }
 
 #[repr(C)]
-#[derive(Pod, Zeroable, Copy, Clone)]
+#[derive(bytemuck::Pod, bytemuck::Zeroable, Copy, Clone)]
 // based on definition of timestamped_frame_t in timestamped_frame.h in firmware repo
 pub struct RawFrame {
     pub ticks_ms: u32,
@@ -77,10 +76,10 @@ fn parse_log_file(
             break;
         }
 
-        let extended = frame.identity & consts::IS_EID_MASK != 0;
-        let transport_flags = consts::IS_EID_MASK | consts::BUS_ID_MASK;
+        let extended = frame.identity & log_parse::consts::IS_EID_MASK != 0;
+        let transport_flags = log_parse::consts::IS_EID_MASK | log_parse::consts::BUS_ID_MASK;
         let raw_id = frame.identity & !transport_flags;
-        let identity = match CanIdentity::new(raw_id, extended) {
+        let identity = match frame::CanIdentity::new(raw_id, extended) {
             Ok(identity) => identity,
             Err(error) => {
                 log::error!("Invalid CAN identity in {}: {error}", in_file.display());
@@ -88,7 +87,7 @@ fn parse_log_file(
             }
         };
 
-        let bus_id = if (frame.identity & consts::BUS_ID_MASK) != 0 {
+        let bus_id = if (frame.identity & log_parse::consts::BUS_ID_MASK) != 0 {
             1
         } else {
             0
@@ -125,7 +124,7 @@ pub fn chunk_parsed(parsed: Vec<ParsedMessage>) -> Vec<Vec<ParsedMessage>> {
 
     for msg in parsed {
         if let Some(last_ts) = last_timestamp
-            && (msg.timestamp < last_ts || msg.timestamp - last_ts > consts::MAX_JUMP_MS)
+            && (msg.timestamp < last_ts || msg.timestamp - last_ts > log_parse::consts::MAX_JUMP_MS)
             && !current_chunk.is_empty()
         {
             chunks.push(current_chunk);

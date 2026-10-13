@@ -49,7 +49,7 @@ pub struct DAQApp {
     selection_request: u64,
     pub can_bus_speed: daqcore::connection::CanBusSpeed,
     pub udp_port: u16,
-    pub session: daqcore::Session,
+    pub session: daqcore::session::Session,
     pub bus_load_samples: Vec<telemetry::BusLoadSample>,
     pub can_thread: daqcore::can_thread::CanThreadHandle,
     hil_snapshot: daqcore::hil::engine::HilSnapshot,
@@ -96,7 +96,7 @@ impl DAQApp {
             30.0
         };
 
-        let session = daqcore::Session::live(daqcore::Time::now(), window_secs)?;
+        let session = daqcore::session::Session::live(daqcore::time::Time::now(), window_secs)?;
 
         let mut app = Self {
             connection_status: ConnectionStatus::Disconnected,
@@ -201,7 +201,7 @@ impl DAQApp {
                 return false;
             }
         }
-        self.session.reset(daqcore::Time::now());
+        self.session.reset(daqcore::time::Time::now());
         self.bus_load_samples.clear();
         self.hil_snapshot = daqcore::hil::engine::HilSnapshot::idle();
         self.diagnostic = None;
@@ -345,7 +345,7 @@ impl eframe::App for DAQApp {
                 }
                 daqcore::can_thread::CanThreadEvent::SourceSelected(Some(source)) => {
                     if self.active_source.as_ref() != Some(&source) {
-                        self.session.reset(daqcore::Time::now());
+                        self.session.reset(daqcore::time::Time::now());
                         self.bus_load_samples.clear();
                     }
                     self.active_source = Some(source);

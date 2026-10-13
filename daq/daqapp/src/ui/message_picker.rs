@@ -1,5 +1,3 @@
-use daqcore::superdbc::{database::Bus, message::MessageKey};
-
 /// Shared search state. Definitions stay borrowed from the selected database.
 #[derive(Default)]
 pub struct MessagePickerState {
@@ -10,9 +8,9 @@ impl MessagePickerState {
     pub fn show(
         &mut self,
         ui: &mut eframe::egui::Ui,
-        bus: &Bus,
+        bus: &daqcore::superdbc::database::Bus,
         selected_msg_is_none: bool,
-    ) -> Option<MessageKey> {
+    ) -> Option<daqcore::superdbc::message::MessageKey> {
         ui.horizontal(|ui| {
             ui.label("Search:");
             ui.add(

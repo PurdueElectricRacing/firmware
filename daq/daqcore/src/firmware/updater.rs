@@ -1,4 +1,4 @@
-use crate::firmware::{self, FirmwareProgress, protocol::FirmwarePackage};
+use crate::firmware;
 
 // Values mirror bootloader_status_t in firmware/can_library/generated/can_types.h.
 // Keeping the wire constants here avoids coupling the host updater to generated
@@ -31,7 +31,7 @@ enum Stage {
 }
 
 pub struct FirmwareUpdater {
-    package: FirmwarePackage,
+    package: firmware::protocol::FirmwarePackage,
     board_index: usize,
     byte_offset: usize,
     stage: Stage,
@@ -42,29 +42,32 @@ pub struct FirmwareUpdater {
 
 pub struct TickResult {
     pub frame: Option<OutboundFrame>,
-    pub progress: Option<FirmwareProgress>,
+    pub progress: Option<firmware::FirmwareProgress>,
 }
 
 impl FirmwareUpdater {
     /// Start with a request that either resets the application or begins an
     /// update directly when the board is already in its bootloader.
-    pub fn new(package: FirmwarePackage, now: std::time::Instant) -> (Self, FirmwareProgress) {
+    pub fn new(
+        package: firmware::protocol::FirmwarePackage,
+        now: std::time::Instant,
+    ) -> (Self, firmware::FirmwareProgress) {
         Self::new_with_arm(package, false, now)
     }
 
     /// Wait for one target's READY frame without sending a reset request.
     pub fn new_armed(
-        package: FirmwarePackage,
+        package: firmware::protocol::FirmwarePackage,
         now: std::time::Instant,
-    ) -> (Self, FirmwareProgress) {
+    ) -> (Self, firmware::FirmwareProgress) {
         Self::new_with_arm(package, true, now)
     }
 
     fn new_with_arm(
-        package: FirmwarePackage,
+        package: firmware::protocol::FirmwarePackage,
         armed: bool,
         now: std::time::Instant,
-    ) -> (Self, FirmwareProgress) {
+    ) -> (Self, firmware::FirmwareProgress) {
         let stage = if armed {
             Stage::Armed
         } else {
@@ -121,9 +124,13 @@ impl FirmwareUpdater {
         }
     }
 
-    fn progress(&self, phase: impl Into<String>, error: Option<String>) -> FirmwareProgress {
+    fn progress(
+        &self,
+        phase: impl Into<String>,
+        error: Option<String>,
+    ) -> firmware::FirmwareProgress {
         let image = self.current_image();
-        FirmwareProgress {
+        firmware::FirmwareProgress {
             board: image.name.clone(),
             board_index: self.board_index,
             board_count: self.package.images.len(),
@@ -134,7 +141,7 @@ impl FirmwareUpdater {
         }
     }
 
-    fn fail(&mut self, error: String) -> FirmwareProgress {
+    fn fail(&mut self, error: String) -> firmware::FirmwareProgress {
         self.stage = Stage::Finished;
         self.progress("failed", Some(error))
     }
@@ -146,7 +153,7 @@ impl FirmwareUpdater {
     /// Stop locally. The target is intentionally not reset here; the UI should
     /// treat a mid-transfer cancellation as a node that may still be in the
     /// bootloader and should be updated again before vehicle use.
-    pub fn cancel(&mut self) -> FirmwareProgress {
+    pub fn cancel(&mut self) -> firmware::FirmwareProgress {
         self.fail("cancelled by user".to_string())
     }
 
@@ -288,7 +295,7 @@ impl FirmwareUpdater {
         id: u32,
         data: &[u8],
         now: std::time::Instant,
-    ) -> Option<FirmwareProgress> {
+    ) -> Option<firmware::FirmwareProgress> {
         if self.is_finished() || id != self.current_image().response_id || data.len() < 5 {
             return None;
         }

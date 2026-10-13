@@ -79,7 +79,7 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
         }
 
         if ui.button("Clear history").clicked() {
-            app.session.reset(daqcore::Time::now());
+            app.session.reset(daqcore::time::Time::now());
             app.bus_load_samples.clear();
         }
 
@@ -96,7 +96,7 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
 fn field_value(
     timeline: &daqcore::timeline::Timeline,
     field: usize,
-) -> (&'static str, daqcore::Time, daqcore::timeline::Track) {
+) -> (&'static str, daqcore::time::Time, daqcore::timeline::Track) {
     match field {
         0 => ("start", timeline.start(), timeline.start_track()),
         1 => ("end", timeline.end(), timeline.end_track()),
@@ -107,8 +107,8 @@ fn field_value(
 fn ruler(
     ui: &mut eframe::egui::Ui,
     timeline: &mut daqcore::timeline::Timeline,
-    left: daqcore::Time,
-    right: daqcore::Time,
+    left: daqcore::time::Time,
+    right: daqcore::time::Time,
 ) {
     let (rect, background) = ui.allocate_exact_size(
         eframe::egui::vec2(ui.available_width(), 90.0),
@@ -116,7 +116,7 @@ fn ruler(
     );
     let area = rect.shrink2(eframe::egui::vec2(42.0, 0.0));
     let span_ms = (right.unix_millis() as i128 - left.unix_millis() as i128).max(1) as f64;
-    let x = |time: daqcore::Time| {
+    let x = |time: daqcore::time::Time| {
         let fraction = time.secs(left) * 1000.0 / span_ms;
 
         area.left() + fraction as f32 * area.width()

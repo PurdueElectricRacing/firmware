@@ -1,42 +1,36 @@
 //! Private, strict wire models. Required nullable fields must be present.
 
-use std::{fmt, marker::PhantomData};
-
-use indexmap::IndexMap;
-use serde::{
-    Deserialize, Deserializer,
-    de::{self, MapAccess, Visitor},
-};
+use serde::Deserialize as _;
 
 pub const SCHEMA_VERSION: &str = "1.1";
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 pub struct VersionProbe {
     pub versions: SchemaProbe,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 pub struct SchemaProbe {
     pub schema_version: String,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Document {
     pub content_hash: String,
     pub versions: Versions,
     #[serde(deserialize_with = "unique_map")]
-    pub buses: IndexMap<String, BusModel>,
+    pub buses: indexmap::IndexMap<String, BusModel>,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Versions {
     pub schema_version: String,
     pub hash: String,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct BusModel {
     pub bus_id: u8,
@@ -45,14 +39,14 @@ pub struct BusModel {
     pub messages: Vec<MessageModel>,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct NodeModel {
     pub name: String,
     pub is_external: bool,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct MessageModel {
     pub id: u32,
@@ -68,7 +62,7 @@ pub struct MessageModel {
     pub signals: Vec<SignalModel>,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SignalModel {
     pub signal_name: String,
@@ -89,20 +83,22 @@ pub struct SignalModel {
     pub display_format: Option<String>,
 }
 
-#[derive(Deserialize)]
+#[derive(serde::Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct LimitsModel {
     pub min: f64,
     pub max: f64,
 }
 
-#[derive(Deserialize)]
-pub struct Choices(#[serde(deserialize_with = "unique_map")] pub IndexMap<String, String>);
+#[derive(serde::Deserialize)]
+pub struct Choices(
+    #[serde(deserialize_with = "unique_map")] pub indexmap::IndexMap<String, String>,
+);
 
 fn required_nullable<'de, D, T>(deserializer: D) -> Result<Option<T>, D::Error>
 where
-    D: Deserializer<'de>,
-    T: Deserialize<'de>,
+    D: serde::Deserializer<'de>,
+    T: serde::Deserialize<'de>,
 {
     // Using deserialize_with without a default makes omission an error, while
     // still allowing an explicit JSON null to deserialize as None.
@@ -111,24 +107,27 @@ where
 
 // A normal map deserializer silently overwrites repeated JSON property names.
 // Reject them instead, while preserving document order without serde_json::Value.
-fn unique_map<'de, D, T>(deserializer: D) -> Result<IndexMap<String, T>, D::Error>
+fn unique_map<'de, D, T>(deserializer: D) -> Result<indexmap::IndexMap<String, T>, D::Error>
 where
-    D: Deserializer<'de>,
-    T: Deserialize<'de>,
+    D: serde::Deserializer<'de>,
+    T: serde::Deserialize<'de>,
 {
-    struct UniqueMap<T>(PhantomData<T>);
-    impl<'de, T: Deserialize<'de>> Visitor<'de> for UniqueMap<T> {
-        type Value = IndexMap<String, T>;
-        fn expecting(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+    struct UniqueMap<T>(std::marker::PhantomData<T>);
+    impl<'de, T: serde::Deserialize<'de>> serde::de::Visitor<'de> for UniqueMap<T> {
+        type Value = indexmap::IndexMap<String, T>;
+        fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
             f.write_str("an object with unique keys")
         }
-        fn visit_map<A: MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
-            let mut result = IndexMap::new();
+        fn visit_map<A: serde::de::MapAccess<'de>>(
+            self,
+            mut map: A,
+        ) -> Result<Self::Value, A::Error> {
+            let mut result = indexmap::IndexMap::new();
             // Consume the original object entries before a normal map could
             // silently replace repeated keys and hide ambiguous definitions.
             while let Some((key, value)) = map.next_entry::<String, T>()? {
                 if result.contains_key(&key) {
-                    return Err(de::Error::custom(format!("duplicate key {key:?}")));
+                    return Err(serde::de::Error::custom(format!("duplicate key {key:?}")));
                 }
 
                 result.insert(key, value);
@@ -138,5 +137,5 @@ where
         }
     }
 
-    deserializer.deserialize_map(UniqueMap(PhantomData))
+    deserializer.deserialize_map(UniqueMap(std::marker::PhantomData))
 }

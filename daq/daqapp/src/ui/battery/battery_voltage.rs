@@ -1,8 +1,4 @@
-use crate::{
-    telemetry,
-    ui::{self, battery::common},
-    util,
-};
+use crate::{telemetry, ui, util};
 
 const V_MIN: f64 = 2.7;
 const V_MAX: f64 = 4.2;
@@ -83,7 +79,8 @@ impl BatteryVoltage {
     ) -> egui_tiles::UiResponse {
         let (modules, cell_time) = cell_voltages(view.setpoint_frames);
         let (charging_telemetry, charging_time) = charging_voltages(view.setpoint_frames);
-        let (stale, elapsed) = common::sample_age(cell_time.max(charging_time), view.view_time());
+        let (stale, elapsed) =
+            ui::battery::common::sample_age(cell_time.max(charging_time), view.view_time());
 
         let theme = ui::theme::get_theme(ui.ctx());
 
@@ -102,7 +99,7 @@ impl BatteryVoltage {
             ui.heading(&self.title);
             ui.add_space(4.0);
 
-            common::stale_banner(ui, &theme, stale, elapsed);
+            ui::battery::common::stale_banner(ui, &theme, stale, elapsed);
 
             ui.add_space(8.0);
             ui.label(
@@ -113,11 +110,43 @@ impl BatteryVoltage {
             ui.add_space(4.0);
 
             ui.columns(5, |cols| {
-                common::stat_card(&mut cols[0], &theme, "PACK SUM", pack_sum, "V", stale, None);
-                common::stat_card(&mut cols[1], &theme, "CURRENT", current, "A", stale, None);
-                common::stat_card(&mut cols[2], &theme, "CELL MIN", pack_min, "V", stale, None);
-                common::stat_card(&mut cols[3], &theme, "CELL MAX", pack_max, "V", stale, None);
-                common::stat_card(
+                ui::battery::common::stat_card(
+                    &mut cols[0],
+                    &theme,
+                    "PACK SUM",
+                    pack_sum,
+                    "V",
+                    stale,
+                    None,
+                );
+                ui::battery::common::stat_card(
+                    &mut cols[1],
+                    &theme,
+                    "CURRENT",
+                    current,
+                    "A",
+                    stale,
+                    None,
+                );
+                ui::battery::common::stat_card(
+                    &mut cols[2],
+                    &theme,
+                    "CELL MIN",
+                    pack_min,
+                    "V",
+                    stale,
+                    None,
+                );
+                ui::battery::common::stat_card(
+                    &mut cols[3],
+                    &theme,
+                    "CELL MAX",
+                    pack_max,
+                    "V",
+                    stale,
+                    None,
+                );
+                ui::battery::common::stat_card(
                     &mut cols[4],
                     &theme,
                     "DELTA",
@@ -186,7 +215,7 @@ impl BatteryVoltage {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "sum {} V",
-                                    common::reading(module_sum, 2)
+                                    ui::battery::common::reading(module_sum, 2)
                                 ))
                                 .size(10.0)
                                 .color(theme.text_color().linear_multiply(0.55)),
@@ -194,7 +223,7 @@ impl BatteryVoltage {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "min {} V",
-                                    common::reading(module_min, 2)
+                                    ui::battery::common::reading(module_min, 2)
                                 ))
                                 .size(10.0)
                                 .color(theme.text_color().linear_multiply(0.55)),
@@ -202,7 +231,7 @@ impl BatteryVoltage {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "max {} V",
-                                    common::reading(module_max, 2)
+                                    ui::battery::common::reading(module_max, 2)
                                 ))
                                 .size(10.0)
                                 .color(theme.text_color().linear_multiply(0.55)),
@@ -210,7 +239,7 @@ impl BatteryVoltage {
                             ui.label(
                                 eframe::egui::RichText::new(format!(
                                     "Δ {} V",
-                                    common::reading(module_delta, 2)
+                                    ui::battery::common::reading(module_delta, 2)
                                 ))
                                 .size(10.0)
                                 .color(delta_color),
@@ -221,7 +250,7 @@ impl BatteryVoltage {
 
                         let available_width = ui.available_width();
                         let cell_spacing = ui.spacing().item_spacing.x;
-                        let cell_count = common::CELLS_PER_MODULE as f32;
+                        let cell_count = ui::battery::common::CELLS_PER_MODULE as f32;
                         let bar_width =
                             ((available_width - cell_spacing * cell_count) / cell_count).max(8.0);
 
@@ -307,7 +336,7 @@ fn cell_bar(
     });
 }
 
-fn cell_sample(frame: &daqcore::ParsedFrame) -> Option<(usize, usize, CellVoltage)> {
+fn cell_sample(frame: &daqcore::frame::ParsedFrame) -> Option<(usize, usize, CellVoltage)> {
     let decoded = frame.decoded.as_ref()?;
     if !matches!(decoded.name(), "cell_telemetry" | "cell_telemetry_ccan") {
         return None;
@@ -328,22 +357,24 @@ fn cell_sample(frame: &daqcore::ParsedFrame) -> Option<(usize, usize, CellVoltag
 
 /// Reconstruct multiplexed slots independently; newest frame per CAN ID is insufficient.
 fn cell_voltages(
-    frames: &[daqcore::ParsedFrame],
-) -> (Vec<Vec<CellVoltage>>, Option<daqcore::Time>) {
-    let mut modules =
-        vec![vec![CellVoltage::default(); common::CELLS_PER_MODULE]; common::NUM_MODULES];
+    frames: &[daqcore::frame::ParsedFrame],
+) -> (Vec<Vec<CellVoltage>>, Option<daqcore::time::Time>) {
+    let mut modules = vec![
+        vec![CellVoltage::default(); ui::battery::common::CELLS_PER_MODULE];
+        ui::battery::common::NUM_MODULES
+    ];
     let mut last_update = None;
     let mut filled = 0;
     for frame in frames.iter().rev() {
         if let Some((module, cell, value)) = cell_sample(frame)
-            && module < common::NUM_MODULES
-            && cell < common::CELLS_PER_MODULE
+            && module < ui::battery::common::NUM_MODULES
+            && cell < ui::battery::common::CELLS_PER_MODULE
             && modules[module][cell].voltage.is_nan()
         {
             modules[module][cell] = value;
             last_update = last_update.max(Some(frame.timestamp));
             filled += 1;
-            if filled == common::NUM_MODULES * common::CELLS_PER_MODULE {
+            if filled == ui::battery::common::NUM_MODULES * ui::battery::common::CELLS_PER_MODULE {
                 break;
             }
         }
@@ -352,8 +383,11 @@ fn cell_voltages(
 }
 
 fn charging_voltages(
-    frames: &[daqcore::ParsedFrame],
-) -> (Option<ChargingVoltageTelemetry>, Option<daqcore::Time>) {
+    frames: &[daqcore::frame::ParsedFrame],
+) -> (
+    Option<ChargingVoltageTelemetry>,
+    Option<daqcore::time::Time>,
+) {
     let mut values: Option<ChargingVoltageTelemetry> = None;
     let mut last_update = None;
     for frame in frames.iter().rev() {

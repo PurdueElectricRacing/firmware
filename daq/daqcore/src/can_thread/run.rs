@@ -1,48 +1,39 @@
-use crate::{
-    Time,
-    can::{bus_load::BusLoadTracker, driver::DriverError, logger::DaqLogger},
-    can_thread::{
-        self, CanThreadCommand as Command, CanThreadConfig, CanThreadEvent as Event,
-        connection::ConnectionManager, decode::FrameDecoder, events::Events, tx::SendTable,
-    },
-    frame, hil,
-};
+use crate::{can, can_thread, frame, hil, time};
 
-use std::{
-    sync::mpsc::{Receiver, RecvTimeoutError, Sender, TryRecvError},
-    time::{Duration, Instant},
-};
-
-const HIL_UPDATE_INTERVAL: Duration = Duration::from_millis(50);
-const BUS_LOAD_UPDATE_INTERVAL: Duration = Duration::from_millis(200);
+const HIL_UPDATE_INTERVAL: std::time::Duration = std::time::Duration::from_millis(50);
+const BUS_LOAD_UPDATE_INTERVAL: std::time::Duration = std::time::Duration::from_millis(200);
 const FIRMWARE_FRAMES_PER_BURST: usize = 8;
-const FIRMWARE_FRAME_DELAY: Duration = Duration::from_millis(4);
+const FIRMWARE_FRAME_DELAY: std::time::Duration = std::time::Duration::from_millis(4);
 
-pub fn run(config: CanThreadConfig, out: Sender<Event>, commands: Receiver<Command>) {
+pub fn run(
+    config: can_thread::CanThreadConfig,
+    out: std::sync::mpsc::Sender<can_thread::CanThreadEvent>,
+    commands: std::sync::mpsc::Receiver<can_thread::CanThreadCommand>,
+) {
     run_with_connection(
         config,
         out,
         commands,
-        ConnectionManager::new(Instant::now()),
+        can_thread::connection::ConnectionManager::new(std::time::Instant::now()),
     );
 }
 
 fn run_with_connection(
-    config: CanThreadConfig,
-    out: Sender<Event>,
-    commands: Receiver<Command>,
-    mut connection: ConnectionManager,
+    config: can_thread::CanThreadConfig,
+    out: std::sync::mpsc::Sender<can_thread::CanThreadEvent>,
+    commands: std::sync::mpsc::Receiver<can_thread::CanThreadCommand>,
+    mut connection: can_thread::connection::ConnectionManager,
 ) {
-    let events = Events(out);
-    let mut decoder = FrameDecoder::default();
-    let mut sends = SendTable::default();
-    let mut load = BusLoadTracker::default();
-    let mut logger = config.log_folder.map(DaqLogger::new);
+    let events = can_thread::events::Events(out);
+    let mut decoder = can_thread::decode::FrameDecoder::default();
+    let mut sends = can_thread::tx::SendTable::default();
+    let mut load = can::bus_load::BusLoadTracker::default();
+    let mut logger = config.log_folder.map(can::logger::DaqLogger::new);
     let mut firmware = can_thread::firmware_session::FirmwareSession::default();
     let mut hil = hil::engine::HilEngine::new(config.hil_dir);
-    let mut hil_last = Instant::now();
+    let mut hil_last = std::time::Instant::now();
     let mut hil_finished = false;
-    let mut load_last = Instant::now();
+    let mut load_last = std::time::Instant::now();
     let mut pending = None;
 
     'worker: loop {
@@ -63,115 +54,125 @@ fn run_with_connection(
 
             let command = match next_command {
                 Ok(command) => command,
-                Err(TryRecvError::Empty) => break,
-                Err(TryRecvError::Disconnected) => break 'worker,
+                Err(std::sync::mpsc::TryRecvError::Empty) => break,
+                Err(std::sync::mpsc::TryRecvError::Disconnected) => break 'worker,
             };
 
             match command {
-                Command::Stop => break 'worker,
-                Command::Connect(source) => {
+                can_thread::CanThreadCommand::Stop => break 'worker,
+                can_thread::CanThreadCommand::Connect(source) => {
                     if let Some(progress) = firmware.cancel() {
-                        emit!(Event::FirmwareProgress(progress));
+                        emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                     }
-                    connection.select(source.clone(), Instant::now());
-                    load = BusLoadTracker::default();
-                    emit!(Event::SourceSelected(source));
-                    emit!(Event::Disconnection);
+                    connection.select(source.clone(), std::time::Instant::now());
+                    load = can::bus_load::BusLoadTracker::default();
+                    emit!(can_thread::CanThreadEvent::SourceSelected(source));
+                    emit!(can_thread::CanThreadEvent::Disconnection);
                 }
-                Command::SelectDatabase {
+                can_thread::CanThreadCommand::SelectDatabase {
                     request_id,
                     selection,
                 } => {
                     let update = match decoder.select(&selection) {
                         Ok(update) => update,
                         Err(error) => {
-                            emit!(Event::DatabaseSelected {
+                            emit!(can_thread::CanThreadEvent::DatabaseSelected {
                                 request_id,
                                 result: Err(error)
                             });
                             continue;
                         }
                     };
-                    sends = SendTable::default();
-                    let now = Instant::now();
+                    sends = can_thread::tx::SendTable::default();
+                    let now = std::time::Instant::now();
                     hil.handle_command(hil::engine::HilCommand::Stop, now);
                     hil_finished = false;
-                    load = BusLoadTracker::default();
+                    load = can::bus_load::BusLoadTracker::default();
                     load_last = now;
                     if let Some(logger) = &mut logger {
                         logger.flush();
                     }
-                    emit!(Event::DatabaseSelected {
+                    emit!(can_thread::CanThreadEvent::DatabaseSelected {
                         request_id,
                         result: Ok(update)
                     });
-                    emit!(Event::Hil(hil.snapshot(now)));
+                    emit!(can_thread::CanThreadEvent::Hil(hil.snapshot(now)));
                     if decoder.bus_id() > 1 {
-                        emit!(Event::Diagnostic(format!(
+                        emit!(can_thread::CanThreadEvent::Diagnostic(format!(
                             "Legacy logging is unavailable for bus {}; only buses 0/1 are supported.",
                             decoder.bus_id()
                         )));
                     }
                 }
-                Command::AddSendMessage(message) => {
+                can_thread::CanThreadCommand::AddSendMessage(message) => {
                     let identity = message.identity;
                     if let Err(error) = sends.add(message) {
                         sends.delete(identity);
-                        emit!(Event::SendFailed {
+                        emit!(can_thread::CanThreadEvent::SendFailed {
                             identity,
                             error,
                             retrying: false
                         });
                     }
                 }
-                Command::DeleteSendMessage { identity } => sends.delete(identity),
-                Command::UpdateLogFolder(path) => match &mut logger {
+                can_thread::CanThreadCommand::DeleteSendMessage { identity } => {
+                    sends.delete(identity)
+                }
+                can_thread::CanThreadCommand::UpdateLogFolder(path) => match &mut logger {
                     Some(logger) => logger.update_folder(path),
-                    None => logger = Some(DaqLogger::new(path)),
+                    None => logger = Some(can::logger::DaqLogger::new(path)),
                 },
-                Command::Hil(command) => {
-                    let now = Instant::now();
+                can_thread::CanThreadCommand::Hil(command) => {
+                    let now = std::time::Instant::now();
                     hil.handle_command(command, now);
-                    emit!(Event::Hil(hil.snapshot(now)));
+                    emit!(can_thread::CanThreadEvent::Hil(hil.snapshot(now)));
                     hil_last = now;
                     hil_finished = false;
                 }
-                Command::StartFirmwareUpdate(package) => {
-                    let progress =
-                        firmware.start(package, false, connection.connected(), Instant::now());
-                    emit!(Event::FirmwareProgress(progress));
+                can_thread::CanThreadCommand::StartFirmwareUpdate(package) => {
+                    let progress = firmware.start(
+                        package,
+                        false,
+                        connection.connected(),
+                        std::time::Instant::now(),
+                    );
+                    emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                 }
-                Command::ArmFirmwareUpdate(package) => {
-                    let progress =
-                        firmware.start(package, true, connection.connected(), Instant::now());
-                    emit!(Event::FirmwareProgress(progress));
+                can_thread::CanThreadCommand::ArmFirmwareUpdate(package) => {
+                    let progress = firmware.start(
+                        package,
+                        true,
+                        connection.connected(),
+                        std::time::Instant::now(),
+                    );
+                    emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                 }
-                Command::CancelFirmwareUpdate => {
+                can_thread::CanThreadCommand::CancelFirmwareUpdate => {
                     if let Some(progress) = firmware.cancel() {
-                        emit!(Event::FirmwareProgress(progress));
+                        emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                     }
                 }
             }
         }
 
         // Reconnect the selected source when its retry delay has elapsed.
-        let now = Instant::now();
+        let now = std::time::Instant::now();
         if let Some(result) = connection.connect(now, decoder.bus()) {
             match result {
                 Ok(()) => {
                     if let Some(logger) = &mut logger {
                         logger.reset_start_time();
                     }
-                    emit!(Event::ConnectionSuccessful);
+                    emit!(can_thread::CanThreadEvent::ConnectionSuccessful);
                 }
-                Err(error) => emit!(Event::ConnectionFailed(error)),
+                Err(error) => emit!(can_thread::CanThreadEvent::ConnectionFailed(error)),
             }
         }
 
         hil.tick(now);
         if hil.is_running() && !hil_finished && now.duration_since(hil_last) >= HIL_UPDATE_INTERVAL
         {
-            emit!(Event::Hil(hil.snapshot(now)));
+            emit!(can_thread::CanThreadEvent::Hil(hil.snapshot(now)));
             hil_last = now;
             hil_finished = hil.all_finished();
         }
@@ -183,17 +184,17 @@ fn run_with_connection(
                 let identity = frame.identity;
                 match connection.write(frame) {
                     Ok(()) => {
-                        let amount_left = sends.commit(identity, Instant::now());
-                        emit!(Event::MessageSent {
+                        let amount_left = sends.commit(identity, std::time::Instant::now());
+                        emit!(can_thread::CanThreadEvent::MessageSent {
                             identity,
-                            timestamp: Time::now(),
+                            timestamp: time::Time::now(),
                             amount_left
                         });
                     }
                     Err(error) => {
-                        let unsupported = matches!(error, DriverError::Unsupported(_));
+                        let unsupported = matches!(error, can::driver::DriverError::Unsupported(_));
 
-                        emit!(Event::SendFailed {
+                        emit!(can_thread::CanThreadEvent::SendFailed {
                             identity,
                             error: error.to_string(),
                             retrying: !unsupported,
@@ -201,8 +202,10 @@ fn run_with_connection(
                         if unsupported {
                             sends.delete(identity);
                         } else {
-                            connection.failed(Instant::now());
-                            emit!(Event::ConnectionFailed(error.to_string()));
+                            connection.failed(std::time::Instant::now());
+                            emit!(can_thread::CanThreadEvent::ConnectionFailed(
+                                error.to_string()
+                            ));
                             break;
                         }
                     }
@@ -213,9 +216,9 @@ fn run_with_connection(
         // Pace firmware words in bounded bursts to protect the target RX queue.
         if firmware.active() && connection.connected() {
             for _ in 0..FIRMWARE_FRAMES_PER_BURST {
-                let result = firmware.tick(Instant::now());
+                let result = firmware.tick(std::time::Instant::now());
                 if let Some(progress) = result.progress {
-                    emit!(Event::FirmwareProgress(progress));
+                    emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                 }
 
                 let Some(frame) = result.frame else {
@@ -226,15 +229,17 @@ fn run_with_connection(
                     .map_err(|error| error.to_string())
                     .and_then(|identity| frame::CanFrame::data(identity, frame.data));
                 let result = frame
-                    .map_err(DriverError::Write)
+                    .map_err(can::driver::DriverError::Write)
                     .and_then(|frame| connection.write(frame));
                 if let Err(error) = result {
                     if let Some(mut progress) = firmware.cancel() {
                         progress.error = Some(format!("firmware write failed: {error}"));
-                        emit!(Event::FirmwareProgress(progress));
+                        emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                     }
-                    connection.failed(Instant::now());
-                    emit!(Event::ConnectionFailed(error.to_string()));
+                    connection.failed(std::time::Instant::now());
+                    emit!(can_thread::CanThreadEvent::ConnectionFailed(
+                        error.to_string()
+                    ));
                     break;
                 }
                 std::thread::sleep(FIRMWARE_FRAME_DELAY);
@@ -248,12 +253,12 @@ fn run_with_connection(
                 Ok(frames) => {
                     got_frames = !frames.is_empty();
                     for frame in frames {
-                        load.record_frame(frame.data.len(), Instant::now());
+                        load.record_frame(frame.data.len(), std::time::Instant::now());
                         if decoder.bus_id() <= 1
                             && let Some(logger) = &mut logger
                             && let Err(error) = logger.log_frame(&frame, decoder.bus_id())
                         {
-                            emit!(Event::Diagnostic(error));
+                            emit!(can_thread::CanThreadEvent::Diagnostic(error));
                         }
 
                         let updating = firmware.active();
@@ -262,34 +267,36 @@ fn run_with_connection(
                             && let Some(progress) = firmware.receive(
                                 frame.identity.raw_id(),
                                 &frame.data,
-                                Instant::now(),
+                                std::time::Instant::now(),
                             )
                         {
-                            emit!(Event::FirmwareProgress(progress));
+                            emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                         }
 
-                        let frame = decoder.decode(frame, Time::now());
+                        let frame = decoder.decode(frame, time::Time::now());
                         if !updating {
-                            hil.process_parsed(&frame, Instant::now());
+                            hil.process_parsed(&frame, std::time::Instant::now());
                         }
 
-                        emit!(Event::Frame(frame));
+                        emit!(can_thread::CanThreadEvent::Frame(frame));
                     }
                 }
-                Err(DriverError::Timeout) => {}
+                Err(can::driver::DriverError::Timeout) => {}
                 Err(error) => {
-                    connection.failed(Instant::now());
-                    emit!(Event::ConnectionFailed(error.to_string()));
+                    connection.failed(std::time::Instant::now());
+                    emit!(can_thread::CanThreadEvent::ConnectionFailed(
+                        error.to_string()
+                    ));
                 }
             }
         }
 
-        let now = Instant::now();
+        let now = std::time::Instant::now();
         if now.duration_since(load_last) >= BUS_LOAD_UPDATE_INTERVAL {
             load.cleanup(now);
             let speed = connection.speed();
-            emit!(Event::BusLoad {
-                timestamp: Time::now(),
+            emit!(can_thread::CanThreadEvent::BusLoad {
+                timestamp: time::Time::now(),
                 load_1s: load.get_load(1, speed, now),
                 load_5s: load.get_load(5, speed, now),
                 load_10s: load.get_load(10, speed, now),
@@ -299,25 +306,25 @@ fn run_with_connection(
         }
 
         let wait = if !connection.connected() {
-            Duration::from_millis(50)
+            std::time::Duration::from_millis(50)
         } else if got_frames {
             // Drain queued traffic without delaying the next read; commands and
             // scheduled work still run between driver batches.
-            Duration::ZERO
+            std::time::Duration::ZERO
         } else {
-            Duration::from_millis(2)
+            std::time::Duration::from_millis(2)
         };
 
         match commands.recv_timeout(wait) {
             Ok(command) => pending = Some(command),
-            Err(RecvTimeoutError::Disconnected) => break,
-            Err(RecvTimeoutError::Timeout) => {}
+            Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => break,
+            Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {}
         }
     }
 
     // All shutdown paths cancel operations, flush logs, and close the driver.
     if let Some(progress) = firmware.cancel() {
-        let _ = events.emit(Event::FirmwareProgress(progress));
+        let _ = events.emit(can_thread::CanThreadEvent::FirmwareProgress(progress));
     }
 
     if let Some(logger) = &mut logger {

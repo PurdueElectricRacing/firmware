@@ -1,16 +1,11 @@
-use std::{
-    collections::{HashMap, HashSet},
-    time::{Duration, Instant},
-};
-
-const CAPABILITY_TIMEOUT: Duration = Duration::from_secs(12);
-const PROTOCOL_OBSERVATION_TIMEOUT: Duration = Duration::from_secs(5);
+const CAPABILITY_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(12);
+const PROTOCOL_OBSERVATION_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
 
 #[derive(Clone, Copy)]
 struct TelemetryObservation {
     git_hash: Option<u32>,
     bootloadable: Option<bool>,
-    last_seen: Instant,
+    last_seen: std::time::Instant,
 }
 
 #[derive(Default)]
@@ -44,16 +39,17 @@ enum CapabilityState {
 pub struct Bootloader {
     pub title: String,
     manifest_path: Option<std::path::PathBuf>,
-    package: Option<daqcore::firmware::FirmwarePackage>,
+    package: Option<daqcore::firmware::protocol::FirmwarePackage>,
     status: String,
     running: bool,
-    observations: HashMap<String, TargetObservations>,
-    selected_targets: HashSet<String>,
-    board_statuses: HashMap<String, BoardUpdateStatus>,
+    observations: std::collections::HashMap<String, TargetObservations>,
+    selected_targets: std::collections::HashSet<String>,
+    board_statuses: std::collections::HashMap<String, BoardUpdateStatus>,
     run_board_names: Vec<String>,
     confirming_update: bool,
     package_error: Option<String>,
-    protocol_observations: HashMap<u32, (HashSet<String>, Instant)>,
+    protocol_observations:
+        std::collections::HashMap<u32, (std::collections::HashSet<String>, std::time::Instant)>,
 }
 
 impl Bootloader {
@@ -64,13 +60,13 @@ impl Bootloader {
             package: None,
             status: "Choose a package to begin".to_string(),
             running: false,
-            observations: HashMap::new(),
-            selected_targets: HashSet::new(),
-            board_statuses: HashMap::new(),
+            observations: std::collections::HashMap::new(),
+            selected_targets: std::collections::HashSet::new(),
+            board_statuses: std::collections::HashMap::new(),
             run_board_names: Vec::new(),
             confirming_update: false,
             package_error: None,
-            protocol_observations: HashMap::new(),
+            protocol_observations: std::collections::HashMap::new(),
         }
     }
 
@@ -79,7 +75,8 @@ impl Bootloader {
         ui: &mut eframe::egui::Ui,
         ui_to_can_tx: &std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     ) -> egui_tiles::UiResponse {
-        ui.ctx().request_repaint_after(Duration::from_secs(1));
+        ui.ctx()
+            .request_repaint_after(std::time::Duration::from_secs(1));
 
         eframe::egui::ScrollArea::vertical()
             .auto_shrink([false, false])
@@ -106,7 +103,7 @@ impl Bootloader {
                 };
 
                 let target_names: Vec<_> = package.images.iter().map(|image| image.name.clone()).collect();
-                let now = Instant::now();
+                let now = std::time::Instant::now();
 
                 let available_count = target_names.iter()
                     .filter(|name| self.capability_state(name, now) == CapabilityState::Available)
@@ -253,7 +250,7 @@ impl Bootloader {
 
     fn load_package(&mut self, path: std::path::PathBuf) {
         self.protocol_observations.clear();
-        match daqcore::firmware::FirmwarePackage::load(path.clone()) {
+        match daqcore::firmware::protocol::FirmwarePackage::load(path.clone()) {
             Ok(package) => {
                 self.manifest_path = Some(path);
                 self.package = Some(package);
@@ -282,7 +279,7 @@ impl Bootloader {
         target_names: &[String],
         available_count: usize,
         selected_count: usize,
-        now: Instant,
+        now: std::time::Instant,
     ) {
         ui.horizontal(|ui| {
             ui.strong("Targets");
@@ -329,7 +326,12 @@ impl Bootloader {
         });
     }
 
-    fn show_targets(&mut self, ui: &mut eframe::egui::Ui, target_names: &[String], now: Instant) {
+    fn show_targets(
+        &mut self,
+        ui: &mut eframe::egui::Ui,
+        target_names: &[String],
+        now: std::time::Instant,
+    ) {
         eframe::egui::Frame::group(ui.style()).show(ui, |ui| {
             eframe::egui::ScrollArea::horizontal().show(ui, |ui| {
                 eframe::egui::Grid::new(eframe::egui::Id::new(("bootloader-targets", &self.title)))
@@ -427,7 +429,7 @@ impl Bootloader {
         package_names: &[String],
         selected_names: &[String],
         protocol_matches: &[ProtocolMatch],
-        now: Instant,
+        now: std::time::Instant,
     ) {
         eframe::egui::Frame::group(ui.style()).show(ui, |ui| {
             ui.set_min_width(ui.available_width());
@@ -543,7 +545,7 @@ impl Bootloader {
                         selected_names.to_vec()
                     };
 
-                    let now = Instant::now();
+                    let now = std::time::Instant::now();
                     if !armed
                         && !action_names.iter().all(|name| {
                             self.capability_state(name, now) == CapabilityState::Available
@@ -568,7 +570,7 @@ impl Bootloader {
                         .filter(|image| action_names.contains(&image.name))
                         .cloned()
                         .collect();
-                    let package = daqcore::firmware::FirmwarePackage { images: action_images };
+                    let package = daqcore::firmware::protocol::FirmwarePackage { images: action_images };
                     let message = if armed {
                         daqcore::can_thread::CanThreadCommand::ArmFirmwareUpdate(package)
                     } else {
@@ -625,7 +627,7 @@ impl Bootloader {
             return;
         };
 
-        let boards: HashSet<_> = package
+        let boards: std::collections::HashSet<_> = package
             .images
             .iter()
             .filter(|image| image_protocol_ids(image).contains(&id))
@@ -633,17 +635,17 @@ impl Bootloader {
             .collect();
         if !boards.is_empty() {
             self.protocol_observations
-                .insert(id, (boards, Instant::now()));
+                .insert(id, (boards, std::time::Instant::now()));
         }
     }
 
-    fn expire_protocol_observations(&mut self, now: Instant) {
+    fn expire_protocol_observations(&mut self, now: std::time::Instant) {
         self.protocol_observations.retain(|_, (_, seen)| {
             now.saturating_duration_since(*seen) <= PROTOCOL_OBSERVATION_TIMEOUT
         });
     }
 
-    fn recent_protocol_matches(&self, now: Instant) -> Vec<ProtocolMatch> {
+    fn recent_protocol_matches(&self, now: std::time::Instant) -> Vec<ProtocolMatch> {
         let mut matches: Vec<_> = self
             .protocol_observations
             .iter()
@@ -659,16 +661,16 @@ impl Bootloader {
         matches
     }
 
-    fn refresh_protocol_state(&mut self, now: Instant) -> Vec<ProtocolMatch> {
+    fn refresh_protocol_state(&mut self, now: std::time::Instant) -> Vec<ProtocolMatch> {
         self.expire_protocol_observations(now);
         self.recent_protocol_matches(now)
     }
 
-    fn capability_state(&self, target: &str, now: Instant) -> CapabilityState {
+    fn capability_state(&self, target: &str, now: std::time::Instant) -> CapabilityState {
         capability_state(self.observations.get(target), now, CAPABILITY_TIMEOUT)
     }
 
-    fn hash_label(&self, target: &str, application: bool, now: Instant) -> String {
+    fn hash_label(&self, target: &str, application: bool, now: std::time::Instant) -> String {
         let observation = self.observations.get(target).and_then(|observations| {
             if application {
                 observations.application
@@ -766,7 +768,7 @@ impl Bootloader {
                 observations.bootloader
             };
 
-            let now = Instant::now();
+            let now = std::time::Instant::now();
             let observation = TelemetryObservation {
                 git_hash: git_hash.or_else(|| previous.and_then(|previous| previous.git_hash)),
                 bootloadable: bootloadable
@@ -883,8 +885,8 @@ fn format_bytes(bytes: usize) -> String {
 
 fn capability_state(
     observations: Option<&TargetObservations>,
-    now: Instant,
-    timeout: Duration,
+    now: std::time::Instant,
+    timeout: std::time::Duration,
 ) -> CapabilityState {
     let Some(observations) = observations else {
         return CapabilityState::NoRecentTelemetry;
@@ -908,7 +910,7 @@ fn capability_state(
 }
 
 fn apply_progress(
-    statuses: &mut HashMap<String, BoardUpdateStatus>,
+    statuses: &mut std::collections::HashMap<String, BoardUpdateStatus>,
     board_names: &[String],
     progress: &daqcore::firmware::FirmwareProgress,
 ) {

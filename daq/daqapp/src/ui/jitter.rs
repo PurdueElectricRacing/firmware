@@ -1,8 +1,8 @@
-use crate::{app, telemetry, ui::message_picker};
+use crate::{app, telemetry, ui};
 
 pub struct Jitter {
     pub title: String,
-    msg_picker: message_picker::MessagePickerState,
+    msg_picker: ui::message_picker::MessagePickerState,
     selected_msg: Option<daqcore::superdbc::message::MessageKey>,
     period_ms: usize,
 }
@@ -11,7 +11,7 @@ impl Jitter {
     pub fn new(instance: usize) -> Self {
         Self {
             title: format!("Jitter #{instance}"),
-            msg_picker: message_picker::MessagePickerState::default(),
+            msg_picker: ui::message_picker::MessagePickerState::default(),
             selected_msg: None,
             period_ms: 100,
         }
@@ -19,7 +19,7 @@ impl Jitter {
 
     pub fn reset_database(&mut self) {
         self.selected_msg = None;
-        self.msg_picker = message_picker::MessagePickerState::default();
+        self.msg_picker = ui::message_picker::MessagePickerState::default();
     }
 
     pub fn show(
@@ -29,7 +29,7 @@ impl Jitter {
         view: &telemetry::TelemetryView<'_>,
     ) -> egui_tiles::UiResponse {
         let Some(database) = database else {
-            message_picker::no_database_placeholder(ui);
+            ui::message_picker::no_database_placeholder(ui);
             return egui_tiles::UiResponse::None;
         };
         let Some(bus) = database.bus() else {
@@ -70,7 +70,7 @@ impl Jitter {
 }
 
 fn interval_deviations(
-    frames: &[daqcore::ParsedFrame],
+    frames: &[daqcore::frame::ParsedFrame],
     identity: daqcore::frame::CanIdentity,
     period_ms: usize,
 ) -> Vec<f64> {

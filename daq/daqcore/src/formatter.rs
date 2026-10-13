@@ -1,9 +1,4 @@
-use crate::superdbc::{
-    decode::DecodedSignalValue,
-    message::{RawType, SignalDefinition},
-};
-use indexmap::IndexMap;
-use serde::{Deserialize, Deserializer, Serialize, Serializer};
+use crate::superdbc;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Formatting {
@@ -13,16 +8,16 @@ pub enum Formatting {
 }
 
 // Message name/pattern -> signal name/pattern -> formatting
-type FormatterConfig = IndexMap<String, IndexMap<String, Formatting>>;
+type FormatterConfig = indexmap::IndexMap<String, indexmap::IndexMap<String, Formatting>>;
 type CompiledFormatterConfig = Vec<(
     globset::GlobMatcher,
     Vec<(globset::GlobMatcher, Formatting)>,
 )>;
 
-impl Serialize for Formatting {
+impl serde::Serialize for Formatting {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
-        S: Serializer,
+        S: serde::Serializer,
     {
         match self {
             Formatting::Hex => serializer.serialize_str("hex"),
@@ -32,10 +27,10 @@ impl Serialize for Formatting {
     }
 }
 
-impl<'de> Deserialize<'de> for Formatting {
+impl<'de> serde::Deserialize<'de> for Formatting {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
-        D: Deserializer<'de>,
+        D: serde::Deserializer<'de>,
     {
         struct FormattingVisitor;
 
@@ -127,9 +122,9 @@ impl Formatter {
         &self,
         msg_name: &str,
         signal_name: &str,
-        sig_def: Option<&SignalDefinition>,
+        sig_def: Option<&superdbc::message::SignalDefinition>,
         unit: Option<&str>,
-        value: &DecodedSignalValue,
+        value: &superdbc::decode::DecodedSignalValue,
     ) -> String {
         for (msg_glob, signal_vec) in &self.compiled_config {
             if !msg_glob.is_match(msg_name) {
@@ -187,9 +182,9 @@ pub fn try_format(
     formatter: &Option<Formatter>,
     msg_name: &str,
     signal_name: &str,
-    sig_def: Option<&SignalDefinition>,
+    sig_def: Option<&superdbc::message::SignalDefinition>,
     unit: Option<&str>,
-    value: &DecodedSignalValue,
+    value: &superdbc::decode::DecodedSignalValue,
 ) -> String {
     if let Some(fmt) = formatter {
         fmt.format(msg_name, signal_name, sig_def, unit, value)
@@ -201,7 +196,7 @@ pub fn try_format(
     }
 }
 
-pub fn default_format(unit: Option<&str>, value: &DecodedSignalValue) -> String {
+pub fn default_format(unit: Option<&str>, value: &superdbc::decode::DecodedSignalValue) -> String {
     if let Some(enum_label) = value.enum_label() {
         format!("{} ({})", enum_label, value.int_rounded())
     } else if let Some(u) = unit
@@ -213,12 +208,15 @@ pub fn default_format(unit: Option<&str>, value: &DecodedSignalValue) -> String 
     }
 }
 
-fn format_hex(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> String {
+fn format_hex(
+    sig_def: &superdbc::message::SignalDefinition,
+    value: &superdbc::decode::DecodedSignalValue,
+) -> String {
     let bits = sig_def.bit_length() as u32;
     let nybbles = bits.div_ceil(4) as usize;
 
     match sig_def.raw_type() {
-        RawType::Unsigned | RawType::Float32 => {
+        superdbc::message::RawType::Unsigned | superdbc::message::RawType::Float32 => {
             let mask = if bits == 64 {
                 u64::MAX
             } else {
@@ -230,7 +228,7 @@ fn format_hex(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> String 
             format!("0x{:0width$X}", val, width = nybbles)
         }
 
-        RawType::Signed => {
+        superdbc::message::RawType::Signed => {
             let val = value.int_rounded();
 
             if val < 0 {
@@ -242,11 +240,14 @@ fn format_hex(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> String 
     }
 }
 
-fn format_binary(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> String {
+fn format_binary(
+    sig_def: &superdbc::message::SignalDefinition,
+    value: &superdbc::decode::DecodedSignalValue,
+) -> String {
     let bits = sig_def.bit_length() as usize;
 
     match sig_def.raw_type() {
-        RawType::Unsigned | RawType::Float32 => {
+        superdbc::message::RawType::Unsigned | superdbc::message::RawType::Float32 => {
             let mask = if bits == 64 {
                 u64::MAX
             } else {
@@ -258,7 +259,7 @@ fn format_binary(sig_def: &SignalDefinition, value: &DecodedSignalValue) -> Stri
             format!("0b{:0width$b}", val, width = bits)
         }
 
-        RawType::Signed => {
+        superdbc::message::RawType::Signed => {
             let val = value.int_rounded();
 
             if val < 0 {

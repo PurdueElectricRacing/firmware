@@ -1,7 +1,5 @@
 use crate::{telemetry, ui};
 
-use std::f32::consts::PI;
-
 const STALE_TIMEOUT_SECONDS: u64 = 1;
 const WHEELBASE_M: f32 = 1.530; // Standard Formula Student wheelbase
 const CHASSIS_WIDTH_M: f32 = 1.4;
@@ -9,8 +7,8 @@ const CHASSIS_LENGTH_M: f32 = 2.5;
 const ACCEL_VECTOR_SCALE: f32 = 20.0;
 const SPEED_VECTOR_SCALE: f32 = 2.0;
 const YAW_RATE_MAX_FOR_DRAW: f32 = 2.0; // rad/s clamp for visualization
-const YAW_ARC_MIN_SWEEP_RAD: f32 = PI / 8.0;
-const YAW_ARC_MAX_SWEEP_RAD: f32 = PI * 1.4;
+const YAW_ARC_MIN_SWEEP_RAD: f32 = std::f32::consts::PI / 8.0;
+const YAW_ARC_MAX_SWEEP_RAD: f32 = std::f32::consts::PI * 1.4;
 const YAW_ARC_SEGMENTS: usize = 28;
 
 pub struct Dynamics {
@@ -89,10 +87,10 @@ struct DynamicsValues {
     steer_angle_rad: f32,
     yaw_rate_rads: f32,
 
-    last_update: Option<daqcore::Time>,
+    last_update: Option<daqcore::time::Time>,
 }
 
-fn dynamics_values(frames: &[daqcore::ParsedFrame]) -> DynamicsValues {
+fn dynamics_values(frames: &[daqcore::frame::ParsedFrame]) -> DynamicsValues {
     let mut values = DynamicsValues {
         velocity_mps: 0.0,
         accel_x: 0.0,
@@ -318,7 +316,7 @@ fn draw_yaw_rotation_arrow(
         1.0
     };
 
-    let start_angle = -PI / 2.0;
+    let start_angle = -std::f32::consts::PI / 2.0;
     let end_angle = start_angle + direction * sweep;
     let radius = pixels_per_meter * (CHASSIS_WIDTH_M * 0.75);
     let stroke = eframe::egui::Stroke::new(1.5 + 1.5 * yaw_norm, theme.success_color());

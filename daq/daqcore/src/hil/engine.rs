@@ -1,4 +1,4 @@
-use crate::{ParsedFrame, hil};
+use crate::{frame, hil};
 
 pub enum HilCommand {
     StartTest(hil::config::TestInfo),
@@ -96,7 +96,7 @@ impl HilEngine {
         }
     }
 
-    pub fn process_parsed(&mut self, parsed: &ParsedFrame, now: std::time::Instant) {
+    pub fn process_parsed(&mut self, parsed: &frame::ParsedFrame, now: std::time::Instant) {
         if let HilState::Running {
             start_time, tests, ..
         } = &mut self.state

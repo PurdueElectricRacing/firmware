@@ -1,9 +1,9 @@
-use crate::{app, ui::message_picker};
+use crate::{app, ui};
 
 pub struct SendUi {
     pub title: String,
 
-    msg_picker: message_picker::MessagePickerState,
+    msg_picker: ui::message_picker::MessagePickerState,
 
     selected_msg: Option<daqcore::superdbc::message::MessageKey>,
     signal_values: Vec<SignalValue>,
@@ -37,13 +37,13 @@ struct SignalValue {
 }
 
 struct SendingMessage {
-    pub amount: daqcore::can_thread::SendAmount,
+    pub amount: daqcore::can_thread::tx::SendAmount,
     pub msg_name: String,
     pub identity: daqcore::frame::CanIdentity,
     pub msg_bytes: Vec<u8>,
     pub signal_values: Vec<SignalValue>,
     pub adjustable_values_enabled: bool,
-    pub last_sent: daqcore::Time,
+    pub last_sent: daqcore::time::Time,
 }
 
 enum SendUiActions {
@@ -87,7 +87,7 @@ impl SendUi {
         Self {
             title: format!("Send UI {}", num),
 
-            msg_picker: message_picker::MessagePickerState::default(),
+            msg_picker: ui::message_picker::MessagePickerState::default(),
 
             selected_msg: None,
             signal_values: Vec::new(),
@@ -112,7 +112,7 @@ impl SendUi {
         formatter: &Option<daqcore::formatter::Formatter>,
     ) -> egui_tiles::UiResponse {
         let Some(database) = database else {
-            message_picker::no_database_placeholder(ui);
+            ui::message_picker::no_database_placeholder(ui);
             return egui_tiles::UiResponse::None;
         };
         let Some(bus) = database.bus() else {
@@ -244,13 +244,15 @@ impl SendUi {
                             self.error = None;
 
                             let send_amount = match self.send_mode {
-                                SendMode::Once => daqcore::can_thread::SendAmount::Once,
+                                SendMode::Once => daqcore::can_thread::tx::SendAmount::Once,
 
-                                SendMode::Infinite => daqcore::can_thread::SendAmount::Infinite {
-                                    period: self.period_ms,
-                                },
+                                SendMode::Infinite => {
+                                    daqcore::can_thread::tx::SendAmount::Infinite {
+                                        period: self.period_ms,
+                                    }
+                                }
 
-                                SendMode::Finite => daqcore::can_thread::SendAmount::Finite {
+                                SendMode::Finite => daqcore::can_thread::tx::SendAmount::Finite {
                                     amount: self.finite_amount,
                                     period: self.period_ms,
                                 },
@@ -266,10 +268,10 @@ impl SendUi {
                                 msg_bytes: msg_bytes.clone(),
                                 signal_values: self.signal_values.clone(),
                                 adjustable_values_enabled: self.adjustable_values_enabled,
-                                last_sent: daqcore::Time::now(),
+                                last_sent: daqcore::time::Time::now(),
                             });
 
-                            let add_send_msg = daqcore::can_thread::AddSendMessage {
+                            let add_send_msg = daqcore::can_thread::tx::AddSendMessage {
                                 amount: send_amount,
                                 identity,
                                 msg_bytes,
@@ -329,7 +331,7 @@ impl SendUi {
 
                         self.ui_to_can_tx
                             .send(daqcore::can_thread::CanThreadCommand::AddSendMessage(
-                                daqcore::can_thread::AddSendMessage {
+                                daqcore::can_thread::tx::AddSendMessage {
                                     amount: self.sending_messages[idx].amount,
                                     identity: self.sending_messages[idx].identity,
                                     msg_bytes,
@@ -361,7 +363,7 @@ impl SendUi {
     }
 
     pub fn reset_database(&mut self) {
-        self.msg_picker = message_picker::MessagePickerState::default();
+        self.msg_picker = ui::message_picker::MessagePickerState::default();
         self.selected_msg = None;
         self.signal_values.clear();
         self.sending_messages.clear();
@@ -436,7 +438,7 @@ impl SendingMessage {
             ui.label(
                 eframe::egui::RichText::new(format!(
                     "~{} ms ago",
-                    (daqcore::Time::now().secs(self.last_sent) * 1000.0) as i64
+                    (daqcore::time::Time::now().secs(self.last_sent) * 1000.0) as i64
                 ))
                 .italics()
                 .color(ui.visuals().weak_text_color()),

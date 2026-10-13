@@ -1,7 +1,7 @@
 use chrono::Datelike as _;
 use chrono::TimeZone as _;
 
-use crate::{log_parse::parse::ParsedMessage, superdbc};
+use crate::{log_parse, superdbc};
 
 // In that case we use this fallback slope value. It is generally safe to assume a
 // slope of 1.0 since the DAQ runs at 1 tick = 1 ms, but in post-processing there
@@ -35,23 +35,28 @@ impl CorrelationFunction {
 }
 
 pub struct CorrelationChunkResult {
-    pub parsed_msgs: Vec<ParsedMessage>,
+    pub parsed_msgs: Vec<log_parse::parse::ParsedMessage>,
     pub correlation_fn: Option<CorrelationFunction>,
 }
 
-pub fn time_correlate_chunks(chunks: Vec<Vec<ParsedMessage>>) -> Vec<CorrelationChunkResult> {
+pub fn time_correlate_chunks(
+    chunks: Vec<Vec<log_parse::parse::ParsedMessage>>,
+) -> Vec<CorrelationChunkResult> {
     chunks.into_iter().map(time_correlate_chunk).collect()
 }
 
 impl CorrelationChunkResult {
-    pub fn uncorrelated_new(chunk: Vec<ParsedMessage>) -> Self {
+    pub fn uncorrelated_new(chunk: Vec<log_parse::parse::ParsedMessage>) -> Self {
         Self {
             parsed_msgs: chunk,
             correlation_fn: None,
         }
     }
 
-    pub fn correlated_new(chunk: Vec<ParsedMessage>, correlation_fn: CorrelationFunction) -> Self {
+    pub fn correlated_new(
+        chunk: Vec<log_parse::parse::ParsedMessage>,
+        correlation_fn: CorrelationFunction,
+    ) -> Self {
         Self {
             parsed_msgs: chunk,
             correlation_fn: Some(correlation_fn),
@@ -63,7 +68,7 @@ pub fn physical_to_u64(dsv: &superdbc::decode::DecodedSignalValue) -> u64 {
     dsv.physical().round() as u64
 }
 
-pub fn time_correlate_chunk(chunk: Vec<ParsedMessage>) -> CorrelationChunkResult {
+pub fn time_correlate_chunk(chunk: Vec<log_parse::parse::ParsedMessage>) -> CorrelationChunkResult {
     // Idea: in the chunk, look for GPS messages which have both a timestamp and a corresponding real time
     // Use those to create a mapping from the log's timestamps to real time, and use that mapping to convert
     // all messages in the chunk to have real timestamps.

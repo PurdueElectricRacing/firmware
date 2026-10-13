@@ -1,27 +1,26 @@
 //! Borrowed per-render projections of the single shared history.
 
-use std::collections::BTreeMap;
-
 pub struct TelemetryView<'a> {
     // All frames in the current timeline range (start to end)
-    pub all_frames: &'a [daqcore::ParsedFrame],
+    pub all_frames: &'a [daqcore::frame::ParsedFrame],
     // Frames in the current timeline range that are at or before the setpoint (start to setpoint)
-    pub setpoint_frames: &'a [daqcore::ParsedFrame],
+    pub setpoint_frames: &'a [daqcore::frame::ParsedFrame],
     // Latest frame for each message before the setpoint
     // (Latest message in the time range start to setpoint)
-    pub latest_setpoint_frames: BTreeMap<daqcore::frame::CanIdentity, &'a daqcore::ParsedFrame>,
+    pub latest_setpoint_frames:
+        std::collections::BTreeMap<daqcore::frame::CanIdentity, &'a daqcore::frame::ParsedFrame>,
     pub timeline: &'a daqcore::timeline::Timeline,
-    view_time: daqcore::Time,
+    view_time: daqcore::time::Time,
 }
 
 impl<'a> TelemetryView<'a> {
-    pub fn new(session: &'a daqcore::Session) -> Self {
+    pub fn new(session: &'a daqcore::session::Session) -> Self {
         let cache = session.cache();
         let timeline = session.timeline();
         let all_frames = cache.frames_in_range(timeline.range());
         let setpoint_frames = cache.frames_in_range(timeline.setpoint_range());
 
-        let mut latest_setpoint_frames = BTreeMap::new();
+        let mut latest_setpoint_frames = std::collections::BTreeMap::new();
         for frame in setpoint_frames.iter().rev() {
             latest_setpoint_frames
                 .entry(frame.identity)
@@ -32,7 +31,7 @@ impl<'a> TelemetryView<'a> {
         }
 
         let view_time = if timeline.is_live() {
-            daqcore::Time::now()
+            daqcore::time::Time::now()
         } else {
             timeline.setpoint()
         };
@@ -46,7 +45,7 @@ impl<'a> TelemetryView<'a> {
         }
     }
 
-    pub fn view_time(&self) -> daqcore::Time {
+    pub fn view_time(&self) -> daqcore::time::Time {
         self.view_time
     }
 }
@@ -88,6 +87,6 @@ pub fn decimate(points: &[[f64; 2]], pixels: usize) -> Vec<[f64; 2]> {
 }
 
 pub struct BusLoadSample {
-    pub timestamp: daqcore::Time,
+    pub timestamp: daqcore::time::Time,
     pub values: [f32; 4],
 }

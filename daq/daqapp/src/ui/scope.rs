@@ -1,12 +1,12 @@
-use crate::{app, telemetry, ui::dbc_msg_picker};
+use crate::{app, telemetry, ui::message_picker};
 
 // Makes invalid combinations of id/name/signal name unrepresentable
 enum ScopeState {
     PickingMessage {
-        picker: dbc_msg_picker::DbcMsgPickerState,
+        picker: message_picker::MessagePickerState,
     },
     PickingSignal {
-        selected_msg: can_dbc::Message,
+        selected_msg: daqcore::superdbc::message::MessageKey,
     },
     Configured {
         identity: daqcore::frame::CanIdentity,
@@ -18,7 +18,7 @@ enum ScopeState {
 impl Default for ScopeState {
     fn default() -> Self {
         ScopeState::PickingMessage {
-            picker: dbc_msg_picker::DbcMsgPickerState::default(),
+            picker: message_picker::MessagePickerState::default(),
         }
     }
 }
@@ -55,40 +55,42 @@ impl Scope {
         }
     }
 
-    fn show_picker(&mut self, ui: &mut eframe::egui::Ui, parser: &app::ParserInfo) -> bool {
+    fn show_picker(
+        &mut self,
+        ui: &mut eframe::egui::Ui,
+        database: &app::DatabaseSelection,
+    ) -> bool {
         let state = std::mem::take(&mut self.state);
 
         let (new_state, just_configured) = match state {
             ScopeState::PickingMessage { mut picker } => {
-                let picked = picker.show(ui, &parser.parser, true);
+                let picked = picker.show(ui, database.bus(), true);
                 match picked {
                     Some(msg) => (ScopeState::PickingSignal { selected_msg: msg }, false),
                     None => (ScopeState::PickingMessage { picker }, false),
                 }
             }
             ScopeState::PickingSignal { selected_msg } => {
-                let identity = match daqcore::can::can_dbc_identity(&selected_msg.id) {
-                    Ok(identity) => identity,
-                    Err(error) => {
-                        ui.colored_label(ui.visuals().error_fg_color, error.to_string());
-                        self.state = ScopeState::default();
-                        return false;
-                    }
+                let Some(message) = database.bus().message(selected_msg.identity) else {
+                    self.state = ScopeState::default();
+                    return false;
                 };
+                let identity = message.identity();
 
                 ui.separator();
                 ui.label(
                     eframe::egui::RichText::new(format!(
                         "Selected Message: {} ({}) — pick a signal:",
-                        selected_msg.name, identity
+                        message.name(),
+                        identity
                     ))
                     .strong(),
                 );
 
                 let mut picked_signal = None;
-                for sig in &selected_msg.signals {
-                    if ui.button(&sig.name).clicked() {
-                        picked_signal = Some(sig.name.clone());
+                for sig in message.signals() {
+                    if ui.button(sig.name()).clicked() {
+                        picked_signal = Some(sig.name().to_owned());
                         break;
                     }
                 }
@@ -98,7 +100,7 @@ impl Scope {
                     (
                         ScopeState::Configured {
                             identity,
-                            msg_name: selected_msg.name.clone(),
+                            msg_name: message.name().to_owned(),
                             signal_name,
                         },
                         true,
@@ -106,7 +108,7 @@ impl Scope {
                 } else if ui.button("← Back to message search").clicked() {
                     (
                         ScopeState::PickingMessage {
-                            picker: dbc_msg_picker::DbcMsgPickerState::default(),
+                            picker: message_picker::MessagePickerState::default(),
                         },
                         false,
                     )
@@ -126,17 +128,22 @@ impl Scope {
         just_configured
     }
 
+    pub fn reset_database(&mut self) {
+        self.state = ScopeState::default();
+        self.title = format!("Scope #{}", self.instance_num);
+    }
+
     pub fn show(
         &mut self,
         ui: &mut eframe::egui::Ui,
-        parser: Option<&app::ParserInfo>,
+        database: Option<&app::DatabaseSelection>,
         view: &telemetry::TelemetryView<'_>,
     ) -> egui_tiles::UiResponse {
         if !matches!(self.state, ScopeState::Configured { .. }) {
-            if let Some(parser) = parser {
-                self.show_picker(ui, parser);
+            if let Some(database) = database {
+                self.show_picker(ui, database);
             } else {
-                dbc_msg_picker::no_dbc_placeholder(ui);
+                message_picker::no_database_placeholder(ui);
             }
 
             return egui_tiles::UiResponse::None;
@@ -160,7 +167,7 @@ impl Scope {
         let points: Vec<[f64; 2]> = scope_frames(view.all_frames, id)
             .filter_map(|frame| {
                 let decoded = frame.decoded.as_ref()?;
-                let value = decoded.signals.get(&signal)?.value.physical;
+                let value = decoded.signal(&signal)?.physical();
 
                 Some([frame.timestamp.secs(start), value])
             })

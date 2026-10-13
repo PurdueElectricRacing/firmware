@@ -1,0 +1,32 @@
+type = "time_series"
+title = "Vehicle-Axis Accelerometer vs Time"
+filename = "accelerometer_vs_time.png"
+time_column = "real_time"
+width = 12
+height = 9
+forward_fill = true
+
+[[panels]]
+label = "Longitudinal (X)"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.IMU_acceleration.X_axis"
+label = "Longitudinal (X)"
+color = "tab:blue"
+
+[[panels]]
+label = "Lateral (Y)"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.IMU_acceleration.Y_axis"
+label = "Lateral (Y)"
+color = "tab:orange"
+
+[[panels]]
+label = "Vertical (Z)"
+
+[[panels.traces]]
+column = "VCAN.TORQUE_VECTOR.IMU_acceleration.Z_axis"
+label = "Vertical (Z)"
+color = "tab:green"
+

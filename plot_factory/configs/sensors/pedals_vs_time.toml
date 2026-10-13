@@ -1,0 +1,32 @@
+type = "time_series"
+title = "Pedal Commands vs Time"
+filename = "pedals_vs_time.png"
+time_column = "real_time"
+width = 12
+height = 9
+forward_fill = true
+
+[[panels]]
+label = "Throttle"
+
+[[panels.traces]]
+column = "VCAN.DASHBOARD.pedals.throttle"
+label = "Throttle"
+color = "tab:blue"
+
+[[panels]]
+label = "Regen"
+
+[[panels.traces]]
+column = "VCAN.DASHBOARD.pedals.regen"
+label = "Regen"
+color = "tab:orange"
+
+[[panels]]
+label = "Brake"
+
+[[panels.traces]]
+column = "VCAN.DASHBOARD.pedals.brake"
+label = "Brake"
+color = "tab:green"
+

@@ -14,7 +14,7 @@ from .signals.library import SignalLibrary
 
 ANALYSIS_DIRECTORY = Path(__file__).resolve().parent
 DATA_DIRECTORY = ANALYSIS_DIRECTORY / "data"
-CONFIGURATION_DIRECTORY = ANALYSIS_DIRECTORY / "configuration"
+CONFIGURATION_DIRECTORY = ANALYSIS_DIRECTORY / "configs"
 SIGNALS_DIRECTORY = CONFIGURATION_DIRECTORY / "derived_signals"
 OUTPUT_DIRECTORY = ANALYSIS_DIRECTORY / "output"
 
@@ -57,6 +57,8 @@ def render_configurations(
     dataset: TelemetryDataset,
     configuration_paths: Iterable[str | Path],
     output_directory: str | Path = OUTPUT_DIRECTORY,
+    *,
+    configuration_directory: str | Path | None = None,
 ) -> AnalysisResult:
     """Render configurations in supplied order, collecting per-plot failures."""
 
@@ -67,7 +69,12 @@ def render_configurations(
         path = Path(configuration_path)
         try:
             specification = load_specification(path)
-            successful.append(render_plot(dataset, specification, output_directory))
+            destination = Path(output_directory)
+            if configuration_directory is not None:
+                destination /= path.resolve().relative_to(
+                    Path(configuration_directory).resolve()
+                ).parent
+            successful.append(render_plot(dataset, specification, destination))
         except Exception as error:
             failed.append(PlotFailure(path, type(error).__name__, str(error)))
 
@@ -81,13 +88,19 @@ def run_analysis(
     signals_directory: str | Path = SIGNALS_DIRECTORY,
     output_directory: str | Path = OUTPUT_DIRECTORY,
 ) -> AnalysisResult:
-    """Prepare a dataset and render all top-level TOML plot configurations."""
+    """Recursively render plot configs into matching output subdirectories."""
 
     directory = Path(configuration_directory)
     if not directory.is_dir():
         raise FileNotFoundError(f"Plot configuration directory not found: {directory}")
 
     dataset = prepare_dataset(data_directory, signals_directory)
+    signals_root = Path(signals_directory).resolve()
+    paths = sorted(
+        path for path in directory.rglob("*.toml")
+        if not path.resolve().is_relative_to(signals_root)
+        and "derived_signals" not in path.relative_to(directory).parts
+    )
     return render_configurations(
-        dataset, sorted(directory.glob("*.toml")), output_directory
+        dataset, paths, output_directory, configuration_directory=directory
     )

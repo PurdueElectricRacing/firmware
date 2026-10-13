@@ -23,9 +23,3 @@ serde_json.workspace = true
 syn = { version = "2", features = ["full"] }
 prettyplease = "0.2"
 tempfile = "3"
-
-[dev-dependencies]
-typify = { version = "=0.8.0", default-features = false }
-syn = { version = "2", features = ["full"] }
-prettyplease = "0.2"
-tempfile = "3"

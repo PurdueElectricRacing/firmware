@@ -300,6 +300,21 @@ void USB_PRIV_stall(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction) {
     usb_set_status(endpoint, direction, USB_PRIV_STATUS_STALL);
 }
 
+void USB_PRIV_clearHalt(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction) {
+    // Stop accepting tokens before discarding/resetting a potentially live pipe.
+    usb_set_status(endpoint, direction, USB_PRIV_STATUS_NAK);
+    usb_clear_transfer(endpoint, direction);
+
+    // DTOG is toggle-on-write: write its current value to return it to DATA0.
+    volatile uint16_t *reg = usb_endpoint_register(endpoint);
+    uint16_t current = *reg;
+    uint16_t toggle = direction == PHAL_USB_ENDPOINT_DIRECTION_IN ? USB_EP_DTOG_TX : USB_EP_DTOG_RX;
+    *reg = (current & (USB_EPREG_MASK & ~USB_EP_SETUP)) | (current & toggle);
+    
+    uint8_t status = direction == PHAL_USB_ENDPOINT_DIRECTION_IN ? USB_PRIV_STATUS_NAK : USB_PRIV_STATUS_VALID;
+    usb_set_status(endpoint, direction, status);
+}
+
 bool USB_PRIV_write(uint8_t endpoint, const void *source, uint16_t length_bytes) {
     // NAK is the idle IN state. VALID means a packet is already queued, while
     // STALL requires host recovery before another normal transfer can begin.
@@ -380,6 +395,13 @@ void USB_PRIV_handleInterrupt(void) {
             event.transfer_data.direction == PHAL_USB_ENDPOINT_DIRECTION_OUT
             && ((*usb_endpoint_register(event.transfer_data.endpoint) & USB_EP_SETUP) != 0U);
 
+        if (event.transfer_data.setup) {
+            // SETUP aborts any previous control-IN packet, including a STALL.
+            // Hardware sets the control data toggle for the new request.
+            usb_clear_transfer(event.transfer_data.endpoint, PHAL_USB_ENDPOINT_DIRECTION_IN);
+            usb_set_status(event.transfer_data.endpoint,
+                           PHAL_USB_ENDPOINT_DIRECTION_IN, USB_PRIV_STATUS_NAK);
+        }
         if (event.transfer_data.direction == PHAL_USB_ENDPOINT_DIRECTION_IN) {
             // Retire an IN packet before the callback. NAK makes the endpoint
             // available for PHAL_USB_write() to queue its next packet immediately.

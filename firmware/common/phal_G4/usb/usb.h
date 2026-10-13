@@ -159,12 +159,22 @@ bool PHAL_USB_setAddress(uint8_t address);
 bool PHAL_USB_stall(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction);
 
 /**
+ * @brief Clear endpoint halt, discard any pending transfer, and reset to DATA0.
+ *
+ * Use for CLEAR_FEATURE(ENDPOINT_HALT) and bulk endpoint configuration changes.
+ * IN returns to NAK; OUT is rearmed. Call with USB interrupts excluded.
+ * @return false for an inactive peripheral or invalid endpoint/direction.
+ */
+bool PHAL_USB_clearHalt(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction);
+
+/**
  * @brief Queue one device-to-host packet.
  *
  * The HAL copies exactly length_bytes into USB packet memory, where
  * length_bytes may be zero through PHAL_USB_PACKET_SIZE_BYTES. A zero-length
  * packet accepts a null source. The endpoint is ready for its next packet when
- * the IN completion callback runs.
+ * the IN completion callback runs. Success does not establish host presence or
+ * delivery: without host polling the packet stays pending and later writes fail.
  *
  * @param endpoint PHAL_USB_CONTROL_ENDPOINT or PHAL_USB_DATA_ENDPOINT.
  * @param source Packet bytes, or null for a zero-length packet.

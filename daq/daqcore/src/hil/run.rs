@@ -1,4 +1,4 @@
-use crate::hil;
+use crate::{hil, superdbc};
 
 #[derive(PartialEq, Eq, Clone, Copy)]
 pub enum ExpectResult {
@@ -117,7 +117,7 @@ impl HilRunningTest {
 
     pub fn process_can(
         &mut self,
-        decoded: &can_decode::DecodedMessage,
+        decoded: &superdbc::decode::DecodedMessage,
         elapsed: std::time::Duration,
     ) {
         self.update_expect_statuses(elapsed);
@@ -129,9 +129,9 @@ impl HilRunningTest {
                 } else {
                     let mut failures = Vec::new();
                     for (sig_name, sig_range) in &expect.expect.signals {
-                        match decoded.signals.get(sig_name) {
+                        match decoded.signal(sig_name) {
                             Some(sig_value) => {
-                                let value = sig_value.value.physical;
+                                let value = sig_value.physical();
                                 if !value.is_finite()
                                     || value < sig_range[0]
                                     || value > sig_range[1]
@@ -193,7 +193,7 @@ impl InProgressExpect {
         }
     }
 
-    pub fn matches_message(&self, decoded: &can_decode::DecodedMessage) -> bool {
-        self.expect.msg_name == decoded.name
+    pub fn matches_message(&self, decoded: &superdbc::decode::DecodedMessage) -> bool {
+        self.expect.msg_name == decoded.name()
     }
 }

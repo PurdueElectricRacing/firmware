@@ -99,7 +99,11 @@ impl Message {
     /// Returns [`ParseError::InvalidDefinition`] for invalid metadata or CAN
     /// identity, duplicate signal names, invalid signal definitions, overlapping
     /// bits, or layouts extending beyond the declared payload.
-    pub fn compile(bus_id: u8, model: MessageModel, context: &str) -> Result<Self, ParseError> {
+    pub fn compile(
+        bus_id: u8,
+        model: MessageModel,
+        context: &str,
+    ) -> Result<Self, ParseError> {
         nonempty(&model.message_name, context, "message_name")?;
         nonempty(&model.transmitter, context, "transmitter")?;
 

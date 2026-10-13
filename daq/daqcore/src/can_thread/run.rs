@@ -45,13 +45,6 @@ fn run_with_connection(
     let mut load_last = Instant::now();
     let mut pending = None;
 
-    if let Some(path) = config.dbc_path
-        && let Err(error) = decoder.reload(&path)
-        && !events.emit(Event::Diagnostic(error))
-    {
-        return;
-    }
-
     'worker: loop {
         macro_rules! emit {
             ($event:expr) => {

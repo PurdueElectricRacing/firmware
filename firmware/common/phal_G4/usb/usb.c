@@ -67,6 +67,14 @@ bool PHAL_USB_stall(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction) {
     return true;
 }
 
+bool PHAL_USB_clearHalt(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction) {
+    if (!g_initialized || !usb_endpoint_is_valid(endpoint) || !usb_direction_is_valid(direction)) {
+        return false;
+    }
+    USB_PRIV_clearHalt(endpoint, direction);
+    return true;
+}
+
 bool PHAL_USB_write(uint8_t endpoint, const void *source, uint16_t length_bytes) {
     if (!g_initialized || !usb_endpoint_is_valid(endpoint)
         || length_bytes > PHAL_USB_PACKET_SIZE_BYTES

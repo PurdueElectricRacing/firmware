@@ -35,6 +35,9 @@ void USB_PRIV_setAddress(uint8_t address);
 /** @brief Set one endpoint direction to the USB STALL handshake state. */
 void USB_PRIV_stall(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction);
 
+/** @brief Discard a transfer, clear STALL, and reset the direction to DATA0. */
+void USB_PRIV_clearHalt(uint8_t endpoint, PHAL_USB_EndpointDirection_t direction);
+
 /**
  * @brief Copy one IN packet to packet memory and make it available to the host.
  * @return true when the endpoint was idle and accepted the packet.

@@ -148,12 +148,12 @@ impl walkers::Plugin for CarDot {
 
 fn gps_sample(f: &daqcore::ParsedFrame) -> Option<(daqcore::Time, f64, f64)> {
     let d = f.decoded.as_ref()?;
-    if d.name != "gps_coordinates" {
+    if d.name() != "gps_coordinates" {
         return None;
     }
 
-    let lat = d.signals.get("latitude")?.value.physical;
-    let lon = d.signals.get("longitude")?.value.physical;
+    let lat = d.signal("latitude")?.physical();
+    let lon = d.signal("longitude")?.physical();
     if !lat.is_finite() || !lon.is_finite() || lat.abs() > 90.0 || lon.abs() > 180.0 {
         return None;
     }

@@ -1,0 +1,15 @@
+type = "scatter"
+title = "Steering Angle vs Lateral Acceleration"
+filename = "steering_angle_vs_ay.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Lateral acceleration (g)"
+y_label = "Steering angle (deg)"
+
+[[traces]]
+x_column = "VCAN.TORQUE_VECTOR.IMU_acceleration.Y_axis"
+y_column = "VCAN.DASHBOARD.steering_angle.angle"
+label = "Steering angle"
+color = "tab:blue"

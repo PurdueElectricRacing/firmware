@@ -1,6 +1,6 @@
 type = "scatter"
 title = "G-G Diagram"
-filename = "gg_diagram.png"
+filename = "ax_vs_ay.png"
 width = 10
 height = 10
 time_column = "real_time"

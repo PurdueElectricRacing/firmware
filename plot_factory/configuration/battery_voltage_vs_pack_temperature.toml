@@ -1,0 +1,15 @@
+type = "scatter"
+title = "Battery Voltage vs Pack Temperature"
+filename = "battery_voltage_vs_pack_temperature.png"
+width = 10
+height = 8
+time_column = "real_time"
+match_tolerance_seconds = 0.1
+x_label = "Maximum pack temperature (C)"
+y_label = "Battery voltage (V, vbatt source)"
+
+[[traces]]
+x_column = "VCAN.A_BOX.pack_stats.max_temp"
+y_column = "battery.voltage_v"
+label = "Battery voltage"
+color = "tab:blue"

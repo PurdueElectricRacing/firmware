@@ -1,6 +1,6 @@
 type = "time_series"
-title = "Actual Torque vs Cold Plate Temperature"
-filename = "actual_torque_vs_cold_plate_temperature.png"
+title = "Actual Torque and Cold Plate Temperature vs Time"
+filename = "actual_torque_and_cold_plate_temperature_vs_time.png"
 time_column = "real_time"
 width = 12
 height = 8

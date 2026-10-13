@@ -1,6 +1,6 @@
 type = "time_series"
 title = "Motor Speeds"
-filename = "motor_speeds.png"
+filename = "motor_speed_vs_time.png"
 time_column = "real_time"
 width = 12
 height = 6

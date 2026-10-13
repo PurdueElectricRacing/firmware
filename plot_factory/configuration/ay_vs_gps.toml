@@ -1,6 +1,6 @@
 type = "gps_scatter"
 title = "Lateral Acceleration on GPS Track"
-filename = "gps_track_lateral_acceleration.png"
+filename = "ay_vs_gps.png"
 width = 12
 height = 8
 time_column = "real_time"

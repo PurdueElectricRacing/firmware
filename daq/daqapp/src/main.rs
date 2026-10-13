@@ -24,7 +24,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let hil_dir = std::env::current_dir()?.join("hil_config");
 
     let config = daqcore::can_thread::CanThreadConfig {
-        dbc_path: settings.dbc_path.clone(),
         log_folder: Some(log_folder),
         hil_dir,
     };

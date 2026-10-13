@@ -104,29 +104,29 @@ fn dynamics_values(frames: &[daqcore::ParsedFrame]) -> DynamicsValues {
 
     for frame in frames {
         if let Some(parsed) = frame.decoded_view() {
-            match parsed.decoded.name.as_str() {
+            match parsed.decoded.name() {
                 "IMU_acceleration" => {
-                    for (_, sig) in parsed.decoded.signals.iter() {
-                        match sig.name.as_str() {
-                            "X_axis" => values.accel_x = sig.value.physical as f32,
-                            "Y_axis" => values.accel_y = sig.value.physical as f32,
+                    for (name, sig) in parsed.decoded.iter() {
+                        match name {
+                            "X_axis" => values.accel_x = sig.physical() as f32,
+                            "Y_axis" => values.accel_y = sig.physical() as f32,
                             _ => {}
                         }
                     }
                     values.last_update = Some(parsed.timestamp);
                 }
                 "IMU_angular_rate" => {
-                    for (_, sig) in parsed.decoded.signals.iter() {
-                        if sig.name.as_str() == "Z_axis" {
-                            values.yaw_rate_rads = sig.value.physical.to_radians() as f32
+                    for (name, sig) in parsed.decoded.iter() {
+                        if name == "Z_axis" {
+                            values.yaw_rate_rads = sig.physical().to_radians() as f32
                         }
                     }
                     values.last_update = Some(parsed.timestamp);
                 }
                 "steering_angle" => {
-                    for (_, sig) in parsed.decoded.signals.iter() {
-                        if sig.name == "angle" {
-                            values.steer_angle_rad = sig.value.physical.to_radians() as f32;
+                    for (name, sig) in parsed.decoded.iter() {
+                        if name == "angle" {
+                            values.steer_angle_rad = sig.physical().to_radians() as f32;
                         }
                     }
                     values.last_update = Some(parsed.timestamp);

@@ -1,9 +1,11 @@
 <map id="firmware/common/utils/abs.h" name="firmware/common/utils/abs.h">
-<area shape="rect" id="Node000001" title="Absolute value functions utility header." alt="" coords="112,5,265,46"/>
+<area shape="rect" id="Node000001" title="Absolute value functions utility header." alt="" coords="195,5,348,46"/>
 <area shape="rect" id="Node000002" href="$geometry_8h.html" title="Planar computational geometry utility header." alt="" coords="18,94,170,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,59,117,96,114,92,154,55"/>
-<area shape="rect" id="Node000004" href="$pedals_8c.html" title="Pedal processing logic." alt="" coords="195,94,372,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,55,264,92,260,96,220,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,55,135,96,133,91,216,51"/>
+<area shape="rect" id="Node000004" href="$abs__test__shim_8c.html" title=" " alt="" coords="195,94,348,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,62,274,94,269,94,269,62"/>
+<area shape="rect" id="Node000005" href="$pedals_8c.html" title="Pedal processing logic." alt="" coords="372,94,549,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="329,50,419,91,417,96,327,55"/>
 <area shape="rect" id="Node000003" href="$lap__timer_8c.html" title="DASHBOARD lap timer task implementations." alt="" coords="5,183,183,223"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,150,97,182,91,182,91,150"/>
 </map>

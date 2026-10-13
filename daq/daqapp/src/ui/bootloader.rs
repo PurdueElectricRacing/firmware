@@ -692,6 +692,10 @@ impl Bootloader {
         format!("0x{git_hash:08X}{suffix}")
     }
 
+    pub fn reset_database(&mut self) {
+        self.observations.clear();
+    }
+
     pub fn handle_can_message(&mut self, msg: &daqcore::can_thread::CanThreadEvent) {
         match msg {
             daqcore::can_thread::CanThreadEvent::Disconnection
@@ -704,7 +708,7 @@ impl Bootloader {
                 self.observe_protocol_frame(
                     frame.identity.raw_id(),
                     frame.identity.is_extended(),
-                    frame.decoded.as_ref().map(|d| d.name.as_str()),
+                    frame.decoded.as_ref().map(|d| d.name()),
                 );
             }
             _ => {}
@@ -715,7 +719,7 @@ impl Bootloader {
                 return;
             };
 
-            let (target, application) = match parsed.decoded.name.as_str() {
+            let (target, application) = match parsed.decoded.name() {
                 "main_version" => ("main_module", true),
                 "dash_version" => ("dashboard", true),
                 "torque_vector_version" => ("torque_vector", true),
@@ -733,15 +737,13 @@ impl Bootloader {
 
             let git_hash = parsed
                 .decoded
-                .signals
-                .get("git_hash")
-                .map(|signal| signal.value.physical.round() as u32);
+                .signal("git_hash")
+                .map(|signal| signal.int_rounded() as u32);
             let bootloadable = parsed
                 .decoded
-                .signals
-                .get(if application { "bootloadable" } else { "flags" })
+                .signal(if application { "bootloadable" } else { "flags" })
                 .map(|signal| {
-                    let raw_value = signal.value.physical.round() as u32;
+                    let raw_value = signal.int_rounded() as u32;
                     if application {
                         raw_value != 0
                     } else {
@@ -749,9 +751,9 @@ impl Bootloader {
                     }
                 });
             let resident_git_hash = application
-                .then(|| parsed.decoded.signals.get("bootloader_git_hash"))
+                .then(|| parsed.decoded.signal("bootloader_git_hash"))
                 .flatten()
-                .map(|signal| signal.value.physical.round() as u32)
+                .map(|signal| signal.int_rounded() as u32)
                 .filter(|hash| *hash != 0);
             if git_hash.is_none() && resident_git_hash.is_none() && bootloadable.is_none() {
                 return;

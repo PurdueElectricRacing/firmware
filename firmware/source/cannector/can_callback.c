@@ -24,7 +24,7 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     // todo replace when superDBC is merged
     set_bus_id(&frame, (msg->Bus == FDCAN1) ? 0 : 1); 
     set_xid(&frame, msg->IDE);
-    set_can_id(&frame, msg->ExtId);
+    set_can_id(&frame, msg->IDE ? msg->ExtId : msg->StdId);
 
     memcpy(&frame.payload, msg->Data, msg->DLC);
 

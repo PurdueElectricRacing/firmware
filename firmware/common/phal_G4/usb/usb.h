@@ -104,7 +104,8 @@ typedef struct {
  * packets, and IN completions. Check event->transfer before accessing
  * transfer_data. The HAL provides a weak empty implementation. OUT data remains
  * available through PHAL_USB_read(). An IN completion marks the endpoint ready
- * for PHAL_USB_write().
+ * for PHAL_USB_write(). If SETUP and a prior IN completion are both pending,
+ * the HAL delivers the IN completion first so SETUP cannot erase pending state.
  *
  * @param event USB event for the current interrupt.
  */

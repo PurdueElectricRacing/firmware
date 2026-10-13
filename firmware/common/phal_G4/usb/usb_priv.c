@@ -372,8 +372,8 @@ static void usb_clear_interrupt_flags(uint16_t interrupt_status) {
 }
 
 void USB_PRIV_handleInterrupt(void) {
-    // Snapshot ISTR once so the callback receives one coherent event. If more
-    // events arrive concurrently, their flags remain set and retrigger the ISR.
+    // Snapshot ISTR once. If more events arrive concurrently, their flags
+    // remain set and retrigger the ISR. SETUP may also report a prior IN completion.
     uint16_t interrupt_status = USB->ISTR;
     PHAL_USB_Event_t event = {0};
 
@@ -396,6 +396,24 @@ void USB_PRIV_handleInterrupt(void) {
             && ((*usb_endpoint_register(event.transfer_data.endpoint) & USB_EP_SETUP) != 0U);
 
         if (event.transfer_data.setup) {
+            // OUT takes priority in ISTR when both completion flags are set.
+            // Deliver an already completed IN status stage before the new SETUP
+            // cancels application pending state (address/configuration changes).
+            if ((*usb_endpoint_register(event.transfer_data.endpoint) & USB_EP_CTR_TX) != 0U) {
+                usb_clear_transfer(event.transfer_data.endpoint, PHAL_USB_ENDPOINT_DIRECTION_IN);
+                usb_set_status(event.transfer_data.endpoint,
+                               PHAL_USB_ENDPOINT_DIRECTION_IN, USB_PRIV_STATUS_NAK);
+                PHAL_USB_Event_t completed = {
+                    .transfer = true,
+                    .transfer_data = {
+                        .endpoint = event.transfer_data.endpoint,
+                        .direction = PHAL_USB_ENDPOINT_DIRECTION_IN,
+                        .setup = false,
+                    },
+                };
+                PHAL_USB_callback(&completed);
+            }
+
             // SETUP aborts any previous control-IN packet, including a STALL.
             // Hardware sets the control data toggle for the new request.
             usb_clear_transfer(event.transfer_data.endpoint, PHAL_USB_ENDPOINT_DIRECTION_IN);

@@ -57,7 +57,12 @@ static bool handle_get_descriptor(const PHAL_USB_SetupPacket_t *setup) {
     bool is_device_in = setup->type == PHAL_USB_REQUEST_TYPE_DEVICE_IN;
     bool is_index_zero = setup->index == 0U;
     bool is_nonzero_length = setup->length != 0U;
-    if (is_device_in && is_index_zero && is_nonzero_length) {
+    bool is_descriptor_index_zero = (setup->value & 0xFFU) == 0U;
+    if (is_device_in &&
+        is_index_zero &&
+        is_descriptor_index_zero &&
+        is_nonzero_length
+    ) {
         uint16_t descriptor_type = setup->value >> 8U;
         if (descriptor_type == PHAL_USB_DESCRIPTOR_DEVICE) {
             respond(DEVICE_DESCRIPTOR, sizeof(DEVICE_DESCRIPTOR), setup->length);
@@ -74,11 +79,11 @@ static bool handle_get_descriptor(const PHAL_USB_SetupPacket_t *setup) {
 static bool handle_set_address(const PHAL_USB_SetupPacket_t *setup) {
     bool is_device_out = setup->type == PHAL_USB_REQUEST_TYPE_DEVICE_OUT;
     bool is_index_zero = setup->index == 0U;
-    bool is_nonzero_length = setup->length == 0U;
+    bool is_length_zero = setup->length == 0U;
     bool valid_address = setup->value <= 127U;
     if (is_device_out &&
         is_index_zero &&
-        is_nonzero_length &&
+        is_length_zero &&
         valid_address &&
         !g_usb_context.configured
     ) {
@@ -94,8 +99,10 @@ static bool handle_set_address(const PHAL_USB_SetupPacket_t *setup) {
 static bool handle_get_configuration(const PHAL_USB_SetupPacket_t *setup) {
     bool is_device_in = setup->type == PHAL_USB_REQUEST_TYPE_DEVICE_IN;
     bool is_index_zero = setup->index == 0U;
+    bool is_value_zero = setup->value == 0U;
     if (is_device_in &&
         is_index_zero &&
+        is_value_zero &&
         setup->length == 1U &&
         g_usb_context.address != 0U
     ) {
@@ -109,10 +116,10 @@ static bool handle_get_configuration(const PHAL_USB_SetupPacket_t *setup) {
 static bool handle_set_configuration(const PHAL_USB_SetupPacket_t *setup) {
     bool is_device_out = setup->type == PHAL_USB_REQUEST_TYPE_DEVICE_OUT;
     bool is_index_zero = setup->index == 0U;
-    bool is_nonzero_length = setup->length == 0U;
+    bool is_length_zero = setup->length == 0U;
     if (is_device_out &&
         is_index_zero &&
-        is_nonzero_length &&
+        is_length_zero &&
         setup->value <= 1U
         && g_usb_context.address != 0U
     ) {

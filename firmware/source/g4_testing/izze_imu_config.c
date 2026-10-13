@@ -7,7 +7,6 @@
 #include "common/phal_G4/rcc/rcc.h"
 #include "common/phal_G4/pin_defs/g474ret6.h"
 #include "common/rtos/rtos.h"
-#include "common/izze_imu/izze_imu.h"
 #include "common/utils/countof.h"
 
 // Status LEDs
@@ -28,6 +27,7 @@ PHAL_GPIO_InitConfig_t gpio_config[] = {
 
 void HardFault_Handler();
 
+static constexpr uint16_t IZZE_IMU_PROGRAMMING_CONSTANT = 0x7530;
 static constexpr uint16_t NEW_CAN_BASE_ID = 0x4EE;
 static_assert(NEW_CAN_BASE_ID >= 1, "CAN Base ID must be greater than or equal to 1");
 static_assert(NEW_CAN_BASE_ID <= 0x7FF, "CAN Base ID must be less than or equal to 0x7FF");
@@ -46,7 +46,8 @@ void config_imu() {
     CAN_SEND_IZZE_IMU_config(
         IZZE_IMU_PROGRAMMING_CONSTANT,
         NEW_CAN_BASE_ID,
-        GYRO_SCALE_250DPS, ACCEL_SCALE_2G, ODR_104HZ, BIT_RATE_1MBPS
+        IZZE_GYRO_SCALE_250DPS, IZZE_ACCEL_SCALE_2G,
+        IZZE_OUTPUT_DATA_RATE_104HZ, IZZE_BIT_RATE_1MBPS
     );
 }
 

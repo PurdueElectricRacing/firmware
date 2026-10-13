@@ -7,6 +7,7 @@
                 {
                     "message_name": "IZZE_IMU_config",
                     "description": "Config message. Power cycle after 10-15 seconds of sending",
+                    "byte_order": "big_endian",
                     "signals": [
                         {
                             "signal_name": "programming_constant",
@@ -22,19 +23,19 @@
                         },
                         {
                             "signal_name": "gyro_scale",
-                            "data_type": "uint8_t"
+                            "data_type": "izze_gyro_scale_t"
                         },
                         {
                             "signal_name": "accel_scale",
-                            "data_type": "uint8_t"
+                            "data_type": "izze_accel_scale_t"
                         },
                         {
                             "signal_name": "output_data_rate",
-                            "data_type": "uint8_t"
+                            "data_type": "izze_output_data_rate_t"
                         },
                         {
                             "signal_name": "bit_rate",
-                            "data_type": "uint8_t"
+                            "data_type": "izze_bit_rate_t"
                         }
                     ],
                     "period_ms": 1000,

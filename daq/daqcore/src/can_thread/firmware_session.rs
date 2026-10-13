@@ -1,4 +1,5 @@
 use crate::firmware;
+use std::time;
 
 #[derive(Default)]
 pub struct FirmwareSession(Option<firmware::updater::FirmwareUpdater>);
@@ -13,7 +14,7 @@ impl FirmwareSession {
         package: firmware::protocol::FirmwarePackage,
         armed: bool,
         connected: bool,
-        now: std::time::Instant,
+        now: time::Instant,
     ) -> firmware::FirmwareProgress {
         let invalid_image = package.images.iter().any(|image| {
             image.bytes.is_empty() || image.bytes.len() > firmware::protocol::APPLICATION_SLOT_SIZE
@@ -58,7 +59,7 @@ impl FirmwareSession {
         self.0.take().map(|mut u| u.cancel())
     }
 
-    pub fn tick(&mut self, now: std::time::Instant) -> firmware::updater::TickResult {
+    pub fn tick(&mut self, now: time::Instant) -> firmware::updater::TickResult {
         let result = match &mut self.0 {
             Some(updater) => updater.tick(now),
             None => firmware::updater::TickResult {
@@ -75,7 +76,7 @@ impl FirmwareSession {
         &mut self,
         id: u32,
         data: &[u8],
-        now: std::time::Instant,
+        now: time::Instant,
     ) -> Option<firmware::FirmwareProgress> {
         let progress = self
             .0

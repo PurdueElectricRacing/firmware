@@ -1,6 +1,7 @@
 //! Message identities, validated signal definitions, and presentation metadata.
 
 use crate::{frame, superdbc};
+use std::collections::{BTreeMap, HashMap};
 
 /// Complete lookup key within one active database version.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -76,7 +77,7 @@ pub struct Message {
     /// Signal definitions in declaration order; indexes must remain consistent.
     pub signals: Vec<SignalDefinition>,
     /// Signal names mapped to positions in `signals`.
-    pub signal_index: std::collections::HashMap<String, usize>,
+    pub signal_index: HashMap<String, usize>,
 }
 
 impl Message {
@@ -127,7 +128,7 @@ impl Message {
         let identity = frame::CanIdentity::new(model.id, model.is_extended_id)
             .map_err(|error| superdbc::error::ParseError::definition(context, error.to_string()))?;
         let mut signals = Vec::with_capacity(model.signals.len());
-        let mut signal_index = std::collections::HashMap::with_capacity(model.signals.len());
+        let mut signal_index = HashMap::with_capacity(model.signals.len());
         let mut occupied = 0u64;
 
         for signal in model.signals {
@@ -244,7 +245,7 @@ pub struct SignalDefinition {
     limits: Option<SignalLimits>,
     unit: String,
     display_format: Option<DisplayFormat>,
-    choices: std::collections::BTreeMap<i128, String>,
+    choices: BTreeMap<i128, String>,
     /// Compiled layout used for extraction, insertion, and integer range checks.
     pub codec: superdbc::extract::Codec,
 }
@@ -308,7 +309,7 @@ impl SignalDefinition {
             payload_length,
             context,
         )?;
-        let mut choices = std::collections::BTreeMap::new();
+        let mut choices = BTreeMap::new();
 
         let raw_choices = model.choices.map(|choices| choices.0).unwrap_or_default();
 

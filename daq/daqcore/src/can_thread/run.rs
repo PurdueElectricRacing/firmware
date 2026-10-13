@@ -1,27 +1,28 @@
-use crate::{can, can_thread, frame, hil, time};
+use crate::{can, can_thread, frame, hil};
+use std::{sync::mpsc, thread, time};
 
-const HIL_UPDATE_INTERVAL: std::time::Duration = std::time::Duration::from_millis(50);
-const BUS_LOAD_UPDATE_INTERVAL: std::time::Duration = std::time::Duration::from_millis(200);
+const HIL_UPDATE_INTERVAL: time::Duration = time::Duration::from_millis(50);
+const BUS_LOAD_UPDATE_INTERVAL: time::Duration = time::Duration::from_millis(200);
 const FIRMWARE_FRAMES_PER_BURST: usize = 8;
-const FIRMWARE_FRAME_DELAY: std::time::Duration = std::time::Duration::from_millis(4);
+const FIRMWARE_FRAME_DELAY: time::Duration = time::Duration::from_millis(4);
 
 pub fn run(
     config: can_thread::CanThreadConfig,
-    out: std::sync::mpsc::Sender<can_thread::CanThreadEvent>,
-    commands: std::sync::mpsc::Receiver<can_thread::CanThreadCommand>,
+    out: mpsc::Sender<can_thread::CanThreadEvent>,
+    commands: mpsc::Receiver<can_thread::CanThreadCommand>,
 ) {
     run_with_connection(
         config,
         out,
         commands,
-        can_thread::connection::ConnectionManager::new(std::time::Instant::now()),
+        can_thread::connection::ConnectionManager::new(time::Instant::now()),
     );
 }
 
 fn run_with_connection(
     config: can_thread::CanThreadConfig,
-    out: std::sync::mpsc::Sender<can_thread::CanThreadEvent>,
-    commands: std::sync::mpsc::Receiver<can_thread::CanThreadCommand>,
+    out: mpsc::Sender<can_thread::CanThreadEvent>,
+    commands: mpsc::Receiver<can_thread::CanThreadCommand>,
     mut connection: can_thread::connection::ConnectionManager,
 ) {
     let events = can_thread::events::Events(out);
@@ -31,9 +32,9 @@ fn run_with_connection(
     let mut logger = config.log_folder.map(can::logger::DaqLogger::new);
     let mut firmware = can_thread::firmware_session::FirmwareSession::default();
     let mut hil = hil::engine::HilEngine::new(config.hil_dir);
-    let mut hil_last = std::time::Instant::now();
+    let mut hil_last = time::Instant::now();
     let mut hil_finished = false;
-    let mut load_last = std::time::Instant::now();
+    let mut load_last = time::Instant::now();
     let mut pending = None;
 
     'worker: loop {
@@ -54,8 +55,8 @@ fn run_with_connection(
 
             let command = match next_command {
                 Ok(command) => command,
-                Err(std::sync::mpsc::TryRecvError::Empty) => break,
-                Err(std::sync::mpsc::TryRecvError::Disconnected) => break 'worker,
+                Err(mpsc::TryRecvError::Empty) => break,
+                Err(mpsc::TryRecvError::Disconnected) => break 'worker,
             };
 
             match command {
@@ -64,7 +65,7 @@ fn run_with_connection(
                     if let Some(progress) = firmware.cancel() {
                         emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                     }
-                    connection.select(source.clone(), std::time::Instant::now());
+                    connection.select(source.clone(), time::Instant::now());
                     load = can::bus_load::BusLoadTracker::default();
                     emit!(can_thread::CanThreadEvent::SourceSelected(source));
                     emit!(can_thread::CanThreadEvent::Disconnection);
@@ -84,7 +85,7 @@ fn run_with_connection(
                         }
                     };
                     sends = can_thread::tx::SendTable::default();
-                    let now = std::time::Instant::now();
+                    let now = time::Instant::now();
                     hil.handle_command(hil::engine::HilCommand::Stop, now);
                     hil_finished = false;
                     load = can::bus_load::BusLoadTracker::default();
@@ -123,7 +124,7 @@ fn run_with_connection(
                     None => logger = Some(can::logger::DaqLogger::new(path)),
                 },
                 can_thread::CanThreadCommand::Hil(command) => {
-                    let now = std::time::Instant::now();
+                    let now = time::Instant::now();
                     hil.handle_command(command, now);
                     emit!(can_thread::CanThreadEvent::Hil(hil.snapshot(now)));
                     hil_last = now;
@@ -134,17 +135,13 @@ fn run_with_connection(
                         package,
                         false,
                         connection.connected(),
-                        std::time::Instant::now(),
+                        time::Instant::now(),
                     );
                     emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                 }
                 can_thread::CanThreadCommand::ArmFirmwareUpdate(package) => {
-                    let progress = firmware.start(
-                        package,
-                        true,
-                        connection.connected(),
-                        std::time::Instant::now(),
-                    );
+                    let progress =
+                        firmware.start(package, true, connection.connected(), time::Instant::now());
                     emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                 }
                 can_thread::CanThreadCommand::CancelFirmwareUpdate => {
@@ -156,7 +153,7 @@ fn run_with_connection(
         }
 
         // Reconnect the selected source when its retry delay has elapsed.
-        let now = std::time::Instant::now();
+        let now = time::Instant::now();
         if let Some(result) = connection.connect(now, decoder.bus()) {
             match result {
                 Ok(()) => {
@@ -184,10 +181,10 @@ fn run_with_connection(
                 let identity = frame.identity;
                 match connection.write(frame) {
                     Ok(()) => {
-                        let amount_left = sends.commit(identity, std::time::Instant::now());
+                        let amount_left = sends.commit(identity, time::Instant::now());
                         emit!(can_thread::CanThreadEvent::MessageSent {
                             identity,
-                            timestamp: time::Time::now(),
+                            timestamp: crate::time::Time::now(),
                             amount_left
                         });
                     }
@@ -202,7 +199,7 @@ fn run_with_connection(
                         if unsupported {
                             sends.delete(identity);
                         } else {
-                            connection.failed(std::time::Instant::now());
+                            connection.failed(time::Instant::now());
                             emit!(can_thread::CanThreadEvent::ConnectionFailed(
                                 error.to_string()
                             ));
@@ -216,7 +213,7 @@ fn run_with_connection(
         // Pace firmware words in bounded bursts to protect the target RX queue.
         if firmware.active() && connection.connected() {
             for _ in 0..FIRMWARE_FRAMES_PER_BURST {
-                let result = firmware.tick(std::time::Instant::now());
+                let result = firmware.tick(time::Instant::now());
                 if let Some(progress) = result.progress {
                     emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                 }
@@ -236,13 +233,13 @@ fn run_with_connection(
                         progress.error = Some(format!("firmware write failed: {error}"));
                         emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                     }
-                    connection.failed(std::time::Instant::now());
+                    connection.failed(time::Instant::now());
                     emit!(can_thread::CanThreadEvent::ConnectionFailed(
                         error.to_string()
                     ));
                     break;
                 }
-                std::thread::sleep(FIRMWARE_FRAME_DELAY);
+                thread::sleep(FIRMWARE_FRAME_DELAY);
             }
         }
 
@@ -253,7 +250,7 @@ fn run_with_connection(
                 Ok(frames) => {
                     got_frames = !frames.is_empty();
                     for frame in frames {
-                        load.record_frame(frame.data.len(), std::time::Instant::now());
+                        load.record_frame(frame.data.len(), time::Instant::now());
                         if decoder.bus_id() <= 1
                             && let Some(logger) = &mut logger
                             && let Err(error) = logger.log_frame(&frame, decoder.bus_id())
@@ -267,15 +264,15 @@ fn run_with_connection(
                             && let Some(progress) = firmware.receive(
                                 frame.identity.raw_id(),
                                 &frame.data,
-                                std::time::Instant::now(),
+                                time::Instant::now(),
                             )
                         {
                             emit!(can_thread::CanThreadEvent::FirmwareProgress(progress));
                         }
 
-                        let frame = decoder.decode(frame, time::Time::now());
+                        let frame = decoder.decode(frame, crate::time::Time::now());
                         if !updating {
-                            hil.process_parsed(&frame, std::time::Instant::now());
+                            hil.process_parsed(&frame, time::Instant::now());
                         }
 
                         emit!(can_thread::CanThreadEvent::Frame(frame));
@@ -283,7 +280,7 @@ fn run_with_connection(
                 }
                 Err(can::driver::DriverError::Timeout) => {}
                 Err(error) => {
-                    connection.failed(std::time::Instant::now());
+                    connection.failed(time::Instant::now());
                     emit!(can_thread::CanThreadEvent::ConnectionFailed(
                         error.to_string()
                     ));
@@ -291,12 +288,12 @@ fn run_with_connection(
             }
         }
 
-        let now = std::time::Instant::now();
+        let now = time::Instant::now();
         if now.duration_since(load_last) >= BUS_LOAD_UPDATE_INTERVAL {
             load.cleanup(now);
             let speed = connection.speed();
             emit!(can_thread::CanThreadEvent::BusLoad {
-                timestamp: time::Time::now(),
+                timestamp: crate::time::Time::now(),
                 load_1s: load.get_load(1, speed, now),
                 load_5s: load.get_load(5, speed, now),
                 load_10s: load.get_load(10, speed, now),
@@ -306,19 +303,19 @@ fn run_with_connection(
         }
 
         let wait = if !connection.connected() {
-            std::time::Duration::from_millis(50)
+            time::Duration::from_millis(50)
         } else if got_frames {
             // Drain queued traffic without delaying the next read; commands and
             // scheduled work still run between driver batches.
-            std::time::Duration::ZERO
+            time::Duration::ZERO
         } else {
-            std::time::Duration::from_millis(2)
+            time::Duration::from_millis(2)
         };
 
         match commands.recv_timeout(wait) {
             Ok(command) => pending = Some(command),
-            Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => break,
-            Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {}
+            Err(mpsc::RecvTimeoutError::Disconnected) => break,
+            Err(mpsc::RecvTimeoutError::Timeout) => {}
         }
     }
 

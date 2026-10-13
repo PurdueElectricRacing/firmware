@@ -1,4 +1,5 @@
 use crate::{frame, log_parse, superdbc};
+use std::{fs, io, mem, path};
 
 #[derive(Debug)]
 pub struct ParsedMessage {
@@ -17,13 +18,13 @@ pub struct RawFrame {
 }
 
 pub fn parse_log_files(
-    in_folder: &std::path::Path,
+    in_folder: &path::Path,
     database: &superdbc::database::Database,
-) -> std::io::Result<Vec<ParsedMessage>> {
+) -> io::Result<Vec<ParsedMessage>> {
     let mut all_parsed = Vec::new();
-    let entries = std::fs::read_dir(in_folder)?;
+    let entries = fs::read_dir(in_folder)?;
     let mut file_paths = entries
-        .collect::<std::io::Result<Vec<_>>>()?
+        .collect::<io::Result<Vec<_>>>()?
         .into_iter()
         .map(|entry| entry.path())
         .filter(|path| {
@@ -41,11 +42,11 @@ pub fn parse_log_files(
 }
 
 fn parse_log_file(
-    in_file: &std::path::Path,
+    in_file: &path::Path,
     database: &superdbc::database::Database,
-) -> std::io::Result<Vec<ParsedMessage>> {
-    let mut content = std::fs::read(in_file)?;
-    let frame_size = std::mem::size_of::<RawFrame>();
+) -> io::Result<Vec<ParsedMessage>> {
+    let mut content = fs::read(in_file)?;
+    let frame_size = mem::size_of::<RawFrame>();
 
     // add padding zeroes if content length is not multiple of raw frame size
     let mut added_padding = false;

@@ -1,4 +1,5 @@
 use crate::{app, telemetry, ui};
+use std::{fs, mem};
 
 // Makes invalid combinations of id/name/signal name unrepresentable
 enum ScopeState {
@@ -63,7 +64,7 @@ impl Scope {
         let Some(bus) = database.bus() else {
             return false;
         };
-        let state = std::mem::take(&mut self.state);
+        let state = mem::take(&mut self.state);
 
         let (new_state, just_configured) = match state {
             ScopeState::PickingMessage { mut picker } => {
@@ -193,7 +194,7 @@ impl Scope {
                     text.push_str(&format!("{},{}\n", p[0], p[1]));
                 }
 
-                if let Err(e) = std::fs::write(path, text) {
+                if let Err(e) = fs::write(path, text) {
                     log::error!("Export failed: {e}");
                 }
             }

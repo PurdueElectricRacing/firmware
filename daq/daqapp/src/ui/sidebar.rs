@@ -1,4 +1,5 @@
 use crate::{action, app, assets, settings, util, widget_constructor};
+use std::path;
 
 pub fn select_database(app: &mut app::DAQApp) {
     let mut dialog = rfd::FileDialog::new().add_filter("SuperDBC JSON", &["json"]);
@@ -325,7 +326,7 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                 let log_display = app
                     .log_folder
                     .clone()
-                    .unwrap_or_else(|| std::path::PathBuf::from(settings::DEFAULT_LOG_FOLDER));
+                    .unwrap_or_else(|| path::PathBuf::from(settings::DEFAULT_LOG_FOLDER));
 
                 ui.label(log_display.display().to_string());
             });

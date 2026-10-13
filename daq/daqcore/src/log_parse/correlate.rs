@@ -1,7 +1,6 @@
+use crate::{log_parse, superdbc};
 use chrono::Datelike as _;
 use chrono::TimeZone as _;
-
-use crate::{log_parse, superdbc};
 
 // In that case we use this fallback slope value. It is generally safe to assume a
 // slope of 1.0 since the DAQ runs at 1 tick = 1 ms, but in post-processing there

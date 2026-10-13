@@ -1,4 +1,5 @@
 use crate::{log_parse, superdbc};
+use std::{collections::HashMap, fs, path};
 
 const HEADER_ROW_COUNT: usize = 7;
 const HEADER_COLUMN_COUNT: usize = 3; // real time, daq timestamp, then per-row header label
@@ -41,8 +42,8 @@ pub struct TableBuilder {
     header_columns: Vec<TableColumn>,
 
     // Key is (bus name, msg name, signal name), value is numeric column index
-    indexer: std::collections::HashMap<(String, String, String), usize>,
-    enum_indexer: std::collections::HashMap<(String, String, String), usize>,
+    indexer: HashMap<(String, String, String), usize>,
+    enum_indexer: HashMap<(String, String, String), usize>,
     next_col_idx: usize,
 }
 
@@ -51,8 +52,8 @@ impl Default for TableBuilder {
         Self {
             header_columns: Vec::new(),
             next_col_idx: HEADER_COLUMN_COUNT,
-            indexer: std::collections::HashMap::new(),
-            enum_indexer: std::collections::HashMap::new(),
+            indexer: HashMap::new(),
+            enum_indexer: HashMap::new(),
         }
     }
 }
@@ -152,11 +153,11 @@ impl TableBuilder {
 
     pub fn create_and_write_tables(
         &self,
-        out_folder: &std::path::Path,
+        out_folder: &path::Path,
         output_prefix: &str,
         correlated_chunks: Vec<log_parse::correlate::CorrelationChunkResult>,
     ) -> Result<(), csv::Error> {
-        std::fs::create_dir_all(out_folder)?;
+        fs::create_dir_all(out_folder)?;
 
         for (chunk_idx, chunk) in correlated_chunks.iter().enumerate() {
             let first_time = chunk.parsed_msgs.first().map(|m| m.timestamp).unwrap_or(0);

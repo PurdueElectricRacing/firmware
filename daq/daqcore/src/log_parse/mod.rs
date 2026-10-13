@@ -1,13 +1,14 @@
+use std::path;
+
 pub mod consts;
 pub mod correlate;
 pub mod parse;
 pub mod table;
-
 use crate::superdbc;
 
 pub fn parse_logs_to_tables(
-    logs_dir: &std::path::Path,
-    output_dir: &std::path::Path,
+    logs_dir: &path::Path,
+    output_dir: &path::Path,
     output_prefix: &str,
     database: &superdbc::database::Database,
 ) -> Result<(), csv::Error> {

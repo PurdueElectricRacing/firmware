@@ -1,6 +1,10 @@
 //! Loading, validating, and looking up definitions across all buses in one object.
 
 use crate::{frame, superdbc};
+use std::{
+    collections::{HashMap, HashSet},
+    fs, path,
+};
 
 /// An owned, validated SuperDBC database containing all of its buses.
 ///
@@ -9,14 +13,14 @@ use crate::{frame, superdbc};
 /// after the database that produced them is dropped.
 #[derive(Debug, Clone)]
 pub struct Database {
-    path: Option<std::path::PathBuf>,
+    path: Option<path::PathBuf>,
     content_hash: String,
     version_hash: String,
     schema_version: String,
     buses: Vec<Bus>,
-    bus_names: std::collections::HashMap<String, usize>,
-    bus_ids: std::collections::HashMap<u8, usize>,
-    message_index: std::collections::HashMap<superdbc::message::MessageKey, (usize, usize)>,
+    bus_names: HashMap<String, usize>,
+    bus_ids: HashMap<u8, usize>,
+    message_index: HashMap<superdbc::message::MessageKey, (usize, usize)>,
 }
 
 impl Database {
@@ -34,16 +38,18 @@ impl Database {
     ///
     /// ```no_run
     ///
-    /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// let database = daqcore::superdbc::database::Database::load(std::path::Path::new("superdbc.json"))?;
+    /// use std::{error, path};
+    ///
+    /// # fn main() -> Result<(), Box<dyn error::Error>> {
+    /// let database = daqcore::superdbc::database::Database::load(path::Path::new("superdbc.json"))?;
     /// for bus in database.buses() {
     ///     println!("{}: {} messages", bus.name(), bus.messages().len());
     /// }
     /// # Ok(())
     /// # }
     /// ```
-    pub fn load(path: &std::path::Path) -> Result<Self, superdbc::error::LoadError> {
-        let json = std::fs::read_to_string(path)?;
+    pub fn load(path: &path::Path) -> Result<Self, superdbc::error::LoadError> {
+        let json = fs::read_to_string(path)?;
         let mut database = Self::from_json(&json)?;
         database.path = Some(path.to_owned());
         Ok(database)
@@ -77,9 +83,9 @@ impl Database {
         // Keep definitions in document order; indexes point into the owned vectors
         // so fast lookups do not require duplicate definitions or shared ownership.
         let mut buses = Vec::with_capacity(document.buses.len());
-        let mut bus_names = std::collections::HashMap::with_capacity(document.buses.len());
-        let mut bus_ids = std::collections::HashMap::with_capacity(document.buses.len());
-        let mut message_index = std::collections::HashMap::new();
+        let mut bus_names = HashMap::with_capacity(document.buses.len());
+        let mut bus_ids = HashMap::with_capacity(document.buses.len());
+        let mut message_index = HashMap::new();
 
         for (name, model) in document.buses {
             let context = format!("bus {name:?}");
@@ -120,8 +126,8 @@ impl Database {
             }
 
             let mut messages = Vec::with_capacity(model.messages.len());
-            let mut identities = std::collections::HashMap::with_capacity(model.messages.len());
-            let mut names = std::collections::HashSet::with_capacity(model.messages.len());
+            let mut identities = HashMap::with_capacity(model.messages.len());
+            let mut names = HashSet::with_capacity(model.messages.len());
 
             for message in model.messages {
                 let message_context = format!("{context} / message {:?}", message.message_name);
@@ -177,7 +183,7 @@ impl Database {
     }
 
     /// Return the supplied file path for [`Self::load`], or `None` for [`Self::from_json`].
-    pub fn path(&self) -> Option<&std::path::Path> {
+    pub fn path(&self) -> Option<&path::Path> {
         self.path.as_deref()
     }
 
@@ -253,8 +259,10 @@ impl Database {
     ///
     /// ```no_run
     ///
-    /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
-    /// let database = daqcore::superdbc::database::Database::load(std::path::Path::new("superdbc.json"))?;
+    /// use std::{error, path};
+    ///
+    /// # fn main() -> Result<(), Box<dyn error::Error>> {
+    /// let database = daqcore::superdbc::database::Database::load(path::Path::new("superdbc.json"))?;
     /// let identity = daqcore::frame::CanIdentity::new(0x123, false)?;
     /// if let Some(message) = database.message(0, identity) {
     ///     let payload = vec![0; usize::from(message.length_bytes())];
@@ -336,7 +344,7 @@ pub struct Bus {
     baud_rate: u64,
     nodes: Vec<Node>,
     messages: Vec<superdbc::message::Message>,
-    message_index: std::collections::HashMap<frame::CanIdentity, usize>,
+    message_index: HashMap<frame::CanIdentity, usize>,
 }
 
 /// A node declared on a bus, including nodes supplied by external systems.

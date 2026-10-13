@@ -1,5 +1,7 @@
 //! Borrowed per-render projections of the single shared history.
 
+use std::collections::BTreeMap;
+
 pub struct TelemetryView<'a> {
     // All frames in the current timeline range (start to end)
     pub all_frames: &'a [daqcore::frame::ParsedFrame],
@@ -8,7 +10,7 @@ pub struct TelemetryView<'a> {
     // Latest frame for each message before the setpoint
     // (Latest message in the time range start to setpoint)
     pub latest_setpoint_frames:
-        std::collections::BTreeMap<daqcore::frame::CanIdentity, &'a daqcore::frame::ParsedFrame>,
+        BTreeMap<daqcore::frame::CanIdentity, &'a daqcore::frame::ParsedFrame>,
     pub timeline: &'a daqcore::timeline::Timeline,
     view_time: daqcore::time::Time,
 }
@@ -20,7 +22,7 @@ impl<'a> TelemetryView<'a> {
         let all_frames = cache.frames_in_range(timeline.range());
         let setpoint_frames = cache.frames_in_range(timeline.setpoint_range());
 
-        let mut latest_setpoint_frames = std::collections::BTreeMap::new();
+        let mut latest_setpoint_frames = BTreeMap::new();
         for frame in setpoint_frames.iter().rev() {
             latest_setpoint_frames
                 .entry(frame.identity)

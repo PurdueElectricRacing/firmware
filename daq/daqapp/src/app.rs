@@ -1,6 +1,7 @@
 use crate::{
     action, paths, settings, shortcuts, telemetry, ui, util, widget_ids, widgets, workspace,
 };
+use std::{error, mem, path, sync::mpsc};
 
 const UI_SCALE_STEP: f32 = 0.2;
 
@@ -36,8 +37,8 @@ pub struct DAQApp {
     pub command_palette: ui::command_palette::CommandPalette,
     pub tile_tree: egui_tiles::Tree<widgets::Widget>,
     pub widget_ids: widget_ids::WidgetIds,
-    pub can_to_ui_rx: std::sync::mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
-    pub ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    pub can_to_ui_rx: mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
+    pub ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     pub action_queue: Vec<action::AppAction>,
     pub selected_source: Option<daqcore::connection::ConnectionSource>,
     pub theme: eframe::egui::Style,
@@ -55,7 +56,7 @@ pub struct DAQApp {
     hil_snapshot: daqcore::hil::engine::HilSnapshot,
     active_source: Option<daqcore::connection::ConnectionSource>,
     pub diagnostic: Option<String>,
-    pub log_folder: Option<std::path::PathBuf>,
+    pub log_folder: Option<path::PathBuf>,
 }
 
 impl DAQApp {
@@ -79,11 +80,11 @@ impl DAQApp {
     }
 
     pub fn new(
-        can_to_ui_rx: std::sync::mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
+        can_to_ui_rx: mpsc::Receiver<daqcore::can_thread::CanThreadEvent>,
         can_thread: daqcore::can_thread::CanThreadHandle,
         settings: settings::Settings,
         cc: &eframe::CreationContext,
-    ) -> Result<Self, Box<dyn std::error::Error + Send + Sync>> {
+    ) -> Result<Self, Box<dyn error::Error + Send + Sync>> {
         let theme_selection = settings.theme;
         let theme_style = theme_selection.get_style();
         ui::theme::store_theme(&cc.egui_ctx, theme_selection.get_colors());
@@ -136,7 +137,7 @@ impl DAQApp {
         self.pending_database.is_some()
     }
 
-    pub fn request_database(&mut self, path: &std::path::Path, preferred_bus: Option<u8>) {
+    pub fn request_database(&mut self, path: &path::Path, preferred_bus: Option<u8>) {
         self.request_selection(daqcore::can_thread::DatabaseRequest::Load {
             path: path.to_owned(),
             preferred_bus,
@@ -399,7 +400,7 @@ impl eframe::App for DAQApp {
         self.action_queue.extend(self.command_palette.ui(ctx));
 
         // Drain the action queue and handle all actions
-        for action in std::mem::take(&mut self.action_queue) {
+        for action in mem::take(&mut self.action_queue) {
             self.handle_action(action, ctx);
         }
 

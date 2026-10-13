@@ -1,11 +1,12 @@
 //! Operation-specific errors: loading/parsing, decoding, and encoding.
 
 use crate::superdbc;
+use std::{error, fmt, io};
 
 /// Reading a file or parsing its contents failed.
 #[derive(Debug)]
 pub enum LoadError {
-    Io(std::io::Error),
+    Io(io::Error),
     Parse(ParseError),
 }
 
@@ -90,14 +91,14 @@ pub enum EncodeError {
     },
 }
 
-impl std::fmt::Display for superdbc::message::MessageKey {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for superdbc::message::MessageKey {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "bus {} / {}", self.bus_id, self.identity)
     }
 }
 
-impl std::fmt::Display for LoadError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for LoadError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::Io(error) => write!(f, "cannot read SuperDBC: {error}"),
             Self::Parse(error) => error.fmt(f),
@@ -105,8 +106,8 @@ impl std::fmt::Display for LoadError {
     }
 }
 
-impl std::fmt::Display for ParseError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for ParseError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::InvalidJson(error) => write!(f, "invalid SuperDBC JSON: {error}"),
             Self::UnsupportedSchemaVersion { found } => write!(
@@ -120,8 +121,8 @@ impl std::fmt::Display for ParseError {
     }
 }
 
-impl std::fmt::Display for DecodeError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for DecodeError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::UnknownBus { bus_id } => write!(f, "unknown CAN bus {bus_id}"),
             Self::UnknownMessage { key } => write!(f, "unknown CAN message {key}"),
@@ -137,8 +138,8 @@ impl std::fmt::Display for DecodeError {
     }
 }
 
-impl std::fmt::Display for EncodeError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for EncodeError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::UnknownBus { bus_id } => write!(f, "unknown CAN bus {bus_id}"),
             Self::UnknownMessage { key } => write!(f, "unknown CAN message {key}"),
@@ -180,8 +181,8 @@ impl std::fmt::Display for EncodeError {
     }
 }
 
-impl std::error::Error for LoadError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+impl error::Error for LoadError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         Some(match self {
             Self::Io(error) => error,
             Self::Parse(error) => error,
@@ -189,8 +190,8 @@ impl std::error::Error for LoadError {
     }
 }
 
-impl std::error::Error for ParseError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+impl error::Error for ParseError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
         match self {
             Self::InvalidJson(error) => Some(error),
             _ => None,
@@ -198,11 +199,11 @@ impl std::error::Error for ParseError {
     }
 }
 
-impl std::error::Error for DecodeError {}
-impl std::error::Error for EncodeError {}
+impl error::Error for DecodeError {}
+impl error::Error for EncodeError {}
 
-impl From<std::io::Error> for LoadError {
-    fn from(error: std::io::Error) -> Self {
+impl From<io::Error> for LoadError {
+    fn from(error: io::Error) -> Self {
         Self::Io(error)
     }
 }

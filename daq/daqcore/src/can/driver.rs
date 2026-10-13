@@ -1,5 +1,7 @@
 //! Drivers are single-owner I/O adapters; no transport type escapes this module.
+
 use crate::{can, connection, frame, log_parse, superdbc};
+use std::{error, fmt, io, mem, net, time};
 
 #[derive(Debug)]
 pub enum DriverError {
@@ -10,13 +12,13 @@ pub enum DriverError {
     Unsupported(String),
 }
 
-impl std::fmt::Display for DriverError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for DriverError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "{self:?}")
     }
 }
 
-impl std::error::Error for DriverError {}
+impl error::Error for DriverError {}
 pub type DriverResult<T> = Result<T, DriverError>;
 pub trait Driver {
     fn read_frames(&mut self) -> DriverResult<Vec<frame::CanFrame>>;
@@ -39,10 +41,10 @@ pub fn create_driver(
             Ok(Box::new(serial::SerialDriver::new(path, *speed)?))
         }
         connection::ConnectionSource::Udp(port) => {
-            let socket = std::net::UdpSocket::bind(("0.0.0.0", *port))
+            let socket = net::UdpSocket::bind(("0.0.0.0", *port))
                 .map_err(|e| DriverError::ConnectionFailed(e.to_string()))?;
             socket
-                .set_read_timeout(Some(std::time::Duration::from_millis(10)))
+                .set_read_timeout(Some(time::Duration::from_millis(10)))
                 .map_err(|e| DriverError::ConnectionFailed(e.to_string()))?;
             Ok(Box::new(UdpDriver(socket)))
         }
@@ -58,7 +60,7 @@ pub fn create_driver(
                 .unwrap_or_default();
             Ok(Box::new(SimulatedDriver {
                 messages,
-                next: std::time::Instant::now(),
+                next: time::Instant::now(),
             }))
         }
         _ => Err(DriverError::ConnectionFailed(format!(
@@ -78,7 +80,7 @@ impl Driver for LoopbackDriver {
         if self.queued.is_empty() {
             Err(DriverError::Timeout)
         } else {
-            Ok(std::mem::take(&mut self.queued))
+            Ok(mem::take(&mut self.queued))
         }
     }
 
@@ -88,7 +90,7 @@ impl Driver for LoopbackDriver {
     }
 }
 
-struct UdpDriver(std::net::UdpSocket);
+struct UdpDriver(net::UdpSocket);
 
 impl Driver for UdpDriver {
     fn read_frames(&mut self) -> DriverResult<Vec<frame::CanFrame>> {
@@ -104,10 +106,10 @@ impl Driver for UdpDriver {
     }
 }
 
-fn io_read(e: std::io::Error) -> DriverError {
+fn io_read(e: io::Error) -> DriverError {
     if matches!(
         e.kind(),
-        std::io::ErrorKind::WouldBlock | std::io::ErrorKind::TimedOut
+        io::ErrorKind::WouldBlock | io::ErrorKind::TimedOut
     ) {
         DriverError::Timeout
     } else {
@@ -139,7 +141,7 @@ fn parse_udp_buffer(buf: &[u8]) -> DriverResult<Vec<frame::CanFrame>> {
 
 struct SimulatedDriver {
     messages: Vec<(frame::CanIdentity, usize)>,
-    next: std::time::Instant,
+    next: time::Instant,
 }
 
 impl Driver for SimulatedDriver {
@@ -147,11 +149,11 @@ impl Driver for SimulatedDriver {
         use rand::Rng as _;
         use rand::RngExt as _;
         use rand::prelude::IndexedRandom as _;
-        let now = std::time::Instant::now();
+        let now = time::Instant::now();
         if now < self.next {
             return Err(DriverError::Timeout);
         }
-        self.next += std::time::Duration::from_millis(1);
+        self.next += time::Duration::from_millis(1);
         let mut rng = rand::rng();
         let (identity, size) = match self.messages.choose(&mut rng).copied() {
             Some(message) => message,
@@ -179,6 +181,8 @@ impl Driver for SimulatedDriver {
     }
 }
 mod serial {
+    use std::time;
+
     use crate::{can, connection, frame};
 
     pub struct SerialDriver {
@@ -189,7 +193,7 @@ mod serial {
     impl SerialDriver {
         pub fn new(path: &str, speed: connection::CanBusSpeed) -> can::driver::DriverResult<Self> {
             let port = serialport::new(path, 115200)
-                .timeout(std::time::Duration::from_millis(10))
+                .timeout(time::Duration::from_millis(10))
                 .open()
                 .map_err(|e| can::driver::DriverError::ConnectionFailed(e.to_string()))?;
             let _ = port.clear(serialport::ClearBuffer::All);

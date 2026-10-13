@@ -1,4 +1,5 @@
 use crate::{app, ui};
+use std::sync::mpsc;
 
 pub struct SendUi {
     pub title: String,
@@ -18,7 +19,7 @@ pub struct SendUi {
     error: Option<String>,
 
     // Required to be stored on the struct so Drop can send cancellation messages when the UI closes
-    ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
 }
 
 #[derive(Clone, Copy, PartialEq)]
@@ -82,7 +83,7 @@ impl Drop for SendUi {
 impl SendUi {
     pub fn new(
         num: usize,
-        ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+        ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     ) -> Self {
         Self {
             title: format!("Send UI {}", num),

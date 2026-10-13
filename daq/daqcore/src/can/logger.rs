@@ -1,8 +1,7 @@
 use crate::{frame, log_parse};
-
 use chrono::Datelike as _;
 use chrono::Timelike as _;
-use std::io::Write as _;
+use std::{fs, io, path, time};
 
 pub const LOG_FILE_ROTATE_MS: u128 = 60000;
 pub const DEFAULT_FLUSH_MS: u128 = 1000;
@@ -12,23 +11,23 @@ pub fn byte_to_bcd_format(val: u8) -> u8 {
 }
 
 struct OpenLogFile {
-    file: std::fs::File,
-    current_file_path: std::path::PathBuf,
+    file: fs::File,
+    current_file_path: path::PathBuf,
 }
 
 pub struct DaqLogger {
     open_file: Option<OpenLogFile>,
-    folder_path: std::path::PathBuf,
+    folder_path: path::PathBuf,
     buffer: Vec<log_parse::parse::RawFrame>,
-    file_created_at: std::time::Instant,
-    start_time: std::time::Instant,
-    last_flush: std::time::Instant,
+    file_created_at: time::Instant,
+    start_time: time::Instant,
+    last_flush: time::Instant,
     buffer_capacity: usize,
 }
 
 impl DaqLogger {
-    pub fn new(folder_path: std::path::PathBuf) -> Self {
-        if let Err(e) = std::fs::create_dir_all(&folder_path) {
+    pub fn new(folder_path: path::PathBuf) -> Self {
+        if let Err(e) = fs::create_dir_all(&folder_path) {
             log::error!(
                 "Failed to create directory for logs: {:?}: {}",
                 folder_path,
@@ -40,22 +39,22 @@ impl DaqLogger {
             open_file: None,
             folder_path,
             buffer: Vec::with_capacity(10000),
-            file_created_at: std::time::Instant::now(),
-            start_time: std::time::Instant::now(),
-            last_flush: std::time::Instant::now(),
+            file_created_at: time::Instant::now(),
+            start_time: time::Instant::now(),
+            last_flush: time::Instant::now(),
             buffer_capacity: 5000,
         }
     }
 
     pub fn reset_start_time(&mut self) {
-        self.start_time = std::time::Instant::now();
+        self.start_time = time::Instant::now();
     }
 
-    pub fn update_folder(&mut self, new_folder: std::path::PathBuf) {
+    pub fn update_folder(&mut self, new_folder: path::PathBuf) {
         self.flush();
         self.open_file = None;
         self.folder_path = new_folder;
-        if let Err(e) = std::fs::create_dir_all(&self.folder_path) {
+        if let Err(e) = fs::create_dir_all(&self.folder_path) {
             log::error!(
                 "Failed to create directory for logs: {:?}: {}",
                 self.folder_path,
@@ -135,7 +134,7 @@ impl DaqLogger {
 
         if self.open_file.is_none() {
             let now = chrono::Local::now();
-            self.file_created_at = std::time::Instant::now();
+            self.file_created_at = time::Instant::now();
 
             let year_bcd = byte_to_bcd_format((now.year() % 100) as u8);
             let month_bcd = byte_to_bcd_format(now.month() as u8);
@@ -150,20 +149,20 @@ impl DaqLogger {
             );
 
             let file_path = self.folder_path.join(filename);
-            let created = std::fs::File::create(&file_path).or_else(|e| {
+            let created = fs::File::create(&file_path).or_else(|e| {
                 log::warn!(
                     "Failed to create log file {:?}: {}; recreating log folder",
                     file_path,
                     e
                 );
-                if let Err(e) = std::fs::create_dir_all(&self.folder_path) {
+                if let Err(e) = fs::create_dir_all(&self.folder_path) {
                     log::error!(
                         "Failed to recreate directory for logs: {:?}: {}",
                         self.folder_path,
                         e
                     );
                 }
-                std::fs::File::create(&file_path)
+                fs::File::create(&file_path)
             });
 
             match created {
@@ -176,24 +175,26 @@ impl DaqLogger {
                 Err(e) => {
                     log::error!("Failed to create log file {:?}: {}", file_path, e);
                     self.buffer.clear();
-                    self.last_flush = std::time::Instant::now();
+                    self.last_flush = time::Instant::now();
                     return;
                 }
             }
         }
 
         if let Some(ref mut open_file) = self.open_file {
-            if let Err(e) = open_file.file.write_all(bytemuck::cast_slice(&self.buffer)) {
+            if let Err(e) =
+                io::Write::write_all(&mut open_file.file, bytemuck::cast_slice(&self.buffer))
+            {
                 log::error!("Failed to write to log file: {}", e);
             }
 
-            if let Err(e) = open_file.file.flush() {
+            if let Err(e) = io::Write::flush(&mut open_file.file) {
                 log::error!("Failed to flush log file: {}", e);
             }
         }
 
         self.buffer.clear();
-        self.last_flush = std::time::Instant::now();
+        self.last_flush = time::Instant::now();
     }
 }
 

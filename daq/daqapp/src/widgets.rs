@@ -1,4 +1,5 @@
 use crate::{action, app, telemetry, ui, widget_constructor};
+use std::sync::mpsc;
 
 pub enum Widget {
     ViewerTable(ui::viewer_table::ViewerTable),
@@ -22,7 +23,7 @@ pub struct WidgetContext<'a> {
     pub bus_load: &'a [telemetry::BusLoadSample],
     pub action_queue: &'a mut Vec<action::AppAction>,
     pub database: Option<&'a app::DatabaseSelection>,
-    pub ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    pub ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     pub formatter: &'a Option<daqcore::formatter::Formatter>,
 }
 

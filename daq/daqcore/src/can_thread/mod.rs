@@ -1,17 +1,18 @@
 //! Caller-managed worker. Only commands/events cross threads; telemetry stays with callers.
 
+use std::{io, path, sync::mpsc, thread};
+
 mod connection;
 mod decode;
 mod events;
 mod firmware_session;
 mod run;
 pub mod tx;
-
 use crate::{can_thread, firmware, frame, hil, superdbc, time};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DatabaseSource {
-    pub path: std::path::PathBuf,
+    pub path: path::PathBuf,
     pub bus_id: u8,
 }
 
@@ -20,7 +21,7 @@ pub struct DatabaseSource {
 #[derive(Debug, Clone)]
 pub enum DatabaseRequest {
     Load {
-        path: std::path::PathBuf,
+        path: path::PathBuf,
         preferred_bus: Option<u8>,
     },
     Bus {
@@ -42,8 +43,8 @@ pub enum DatabaseUpdate {
 
 #[derive(Default)]
 pub struct CanThreadConfig {
-    pub log_folder: Option<std::path::PathBuf>,
-    pub hil_dir: std::path::PathBuf,
+    pub log_folder: Option<path::PathBuf>,
+    pub hil_dir: path::PathBuf,
 }
 
 pub enum CanThreadCommand {
@@ -56,7 +57,7 @@ pub enum CanThreadCommand {
     DeleteSendMessage {
         identity: frame::CanIdentity,
     },
-    UpdateLogFolder(std::path::PathBuf),
+    UpdateLogFolder(path::PathBuf),
     Stop,
     Hil(hil::engine::HilCommand),
     StartFirmwareUpdate(firmware::protocol::FirmwarePackage),
@@ -98,23 +99,23 @@ pub enum CanThreadEvent {
 
 /// Single caller owns shutdown; cloned senders submit commands but do not own the worker.
 pub struct CanThreadHandle {
-    tx: std::sync::mpsc::Sender<CanThreadCommand>,
-    join: Option<std::thread::JoinHandle<()>>,
+    tx: mpsc::Sender<CanThreadCommand>,
+    join: Option<thread::JoinHandle<()>>,
 }
 
 impl CanThreadHandle {
     pub fn command(
         &self,
         command: CanThreadCommand,
-    ) -> Result<(), std::sync::mpsc::SendError<CanThreadCommand>> {
+    ) -> Result<(), mpsc::SendError<CanThreadCommand>> {
         self.tx.send(command)
     }
 
-    pub fn sender(&self) -> std::sync::mpsc::Sender<CanThreadCommand> {
+    pub fn sender(&self) -> mpsc::Sender<CanThreadCommand> {
         self.tx.clone()
     }
 
-    pub fn stop(&mut self) -> std::thread::Result<()> {
+    pub fn stop(&mut self) -> thread::Result<()> {
         let _ = self.tx.send(CanThreadCommand::Stop);
         match self.join.take() {
             Some(thread) => thread.join(),
@@ -131,10 +132,10 @@ impl Drop for CanThreadHandle {
 
 pub fn spawn_can_thread(
     config: CanThreadConfig,
-    out: std::sync::mpsc::Sender<CanThreadEvent>,
-) -> std::io::Result<CanThreadHandle> {
-    let (tx, rx) = std::sync::mpsc::channel();
-    let join = std::thread::Builder::new()
+    out: mpsc::Sender<CanThreadEvent>,
+) -> io::Result<CanThreadHandle> {
+    let (tx, rx) = mpsc::channel();
+    let join = thread::Builder::new()
         .name("daq-can".into())
         .spawn(move || run::run(config, out, rx))?;
     Ok(CanThreadHandle {

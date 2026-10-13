@@ -1,19 +1,20 @@
 use clap::Parser as _;
+use std::{path, process};
 
 #[derive(clap::Parser)]
 #[command(name = "daqcli", about = "Parse DAQ logs into CSV tables")]
 struct Cli {
     #[arg(long)]
-    logs_dir: std::path::PathBuf,
+    logs_dir: path::PathBuf,
     #[arg(long)]
-    output_dir: std::path::PathBuf,
+    output_dir: path::PathBuf,
     #[arg(long, default_value = "out")]
     prefix: String,
     #[arg(long)]
-    superdbc: std::path::PathBuf,
+    superdbc: path::PathBuf,
 }
 
-fn main() -> std::process::ExitCode {
+fn main() -> process::ExitCode {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
 
     let cli = Cli::parse();
@@ -22,7 +23,7 @@ fn main() -> std::process::ExitCode {
         Ok(database) => database,
         Err(error) => {
             log::error!("SuperDBC load failed ({}): {error}", cli.superdbc.display());
-            return std::process::ExitCode::FAILURE;
+            return process::ExitCode::FAILURE;
         }
     };
 
@@ -32,10 +33,10 @@ fn main() -> std::process::ExitCode {
         &cli.prefix,
         &database,
     ) {
-        Ok(()) => std::process::ExitCode::SUCCESS,
+        Ok(()) => process::ExitCode::SUCCESS,
         Err(e) => {
             log::error!("log parsing failed: {e}");
-            std::process::ExitCode::FAILURE
+            process::ExitCode::FAILURE
         }
     }
 }

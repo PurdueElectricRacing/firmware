@@ -1,4 +1,5 @@
 //! Byte segments compiled once. The runtime path never walks individual bits.
+
 use crate::superdbc;
 
 #[derive(Debug, Clone)]

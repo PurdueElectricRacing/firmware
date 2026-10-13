@@ -1,3 +1,5 @@
+use std::{collections::HashSet, env, fs, path, process, time};
+
 pub const PACKAGE_FORMAT: &str = "per-firmware-package-v1";
 /// Start of the single application slot in the STM32G474 flash map.
 pub const APPLICATION_ADDRESS: u32 = 0x0800_8000;
@@ -22,11 +24,11 @@ pub struct FirmwarePackage {
 }
 
 #[derive(Debug)]
-struct PackageStorage(std::path::PathBuf);
+struct PackageStorage(path::PathBuf);
 
 impl Drop for PackageStorage {
     fn drop(&mut self) {
-        let _ = std::fs::remove_dir_all(&self.0);
+        let _ = fs::remove_dir_all(&self.0);
     }
 }
 
@@ -55,24 +57,24 @@ struct ManifestBoard {
 impl FirmwarePackage {
     /// Load a manifest or `.tar.gz`, validating its board set, paths, sizes,
     /// CRCs, application address, and CAN IDs before returning image bytes.
-    pub fn load(path: impl Into<std::path::PathBuf>) -> Result<Self, String> {
+    pub fn load(path: impl Into<path::PathBuf>) -> Result<Self, String> {
         let path = path.into();
         let (manifest_path, storage) = if path
             .file_name()
             .and_then(|name| name.to_str())
             .is_some_and(|name| name.ends_with(".tar.gz"))
         {
-            let nonce = std::time::SystemTime::now()
-                .duration_since(std::time::UNIX_EPOCH)
+            let nonce = time::SystemTime::now()
+                .duration_since(time::UNIX_EPOCH)
                 .map_err(|error| format!("cannot create package nonce: {error}"))?
                 .as_nanos();
-            let root = std::env::temp_dir()
-                .join(format!("per-daqapp-package-{}-{nonce}", std::process::id()));
-            std::fs::create_dir(&root)
+            let root =
+                env::temp_dir().join(format!("per-daqapp-package-{}-{nonce}", process::id()));
+            fs::create_dir(&root)
                 .map_err(|error| format!("cannot create package extraction directory: {error}"))?;
             let storage = PackageStorage(root.clone());
             validate_archive(&path)?;
-            let extraction = std::process::Command::new("tar")
+            let extraction = process::Command::new("tar")
                 .args(["-xzf"])
                 .arg(&path)
                 .args(["-C"])
@@ -82,7 +84,7 @@ impl FirmwarePackage {
                     format!("cannot run tar to extract {}: {error}", path.display())
                 })?;
             if !extraction.status.success() {
-                let _ = std::fs::remove_dir_all(&root);
+                let _ = fs::remove_dir_all(&root);
                 return Err(format!(
                     "cannot extract {}: {}",
                     path.display(),
@@ -95,7 +97,7 @@ impl FirmwarePackage {
         };
 
         let manifest_path = secure_file_path(&manifest_path, "manifest")?;
-        let manifest_text = std::fs::read_to_string(&manifest_path)
+        let manifest_text = fs::read_to_string(&manifest_path)
             .map_err(|error| format!("cannot read {}: {error}", manifest_path.display()))?;
         let manifest: Manifest = serde_json::from_str(&manifest_text)
             .map_err(|error| format!("invalid firmware manifest: {error}"))?;
@@ -128,7 +130,7 @@ impl FirmwarePackage {
             "front_driveline",
             "rear_driveline",
         ];
-        let board_names: std::collections::HashSet<_> = manifest
+        let board_names: HashSet<_> = manifest
             .boards
             .iter()
             .map(|board| board.name.as_str())
@@ -144,7 +146,7 @@ impl FirmwarePackage {
             .ok_or_else(|| "manifest has no parent directory".to_string())?
             .to_path_buf();
         let mut images = Vec::with_capacity(manifest.boards.len());
-        let mut protocol_ids = std::collections::HashSet::new();
+        let mut protocol_ids = HashSet::new();
         for board in manifest.boards {
             if images
                 .iter()
@@ -162,12 +164,12 @@ impl FirmwarePackage {
                 ));
             }
 
-            let relative_binary = std::path::Path::new(&board.binary);
+            let relative_binary = path::Path::new(&board.binary);
             // Reject absolute/parent traversal and final-entry symlinks before reading.
             if relative_binary.is_absolute()
                 || relative_binary
                     .components()
-                    .any(|component| matches!(component, std::path::Component::ParentDir))
+                    .any(|component| matches!(component, path::Component::ParentDir))
             {
                 return Err(format!("unsafe binary path for board {}", board.name));
             }
@@ -181,13 +183,13 @@ impl FirmwarePackage {
                 ));
             }
 
-            let metadata = std::fs::symlink_metadata(&binary_path)
+            let metadata = fs::symlink_metadata(&binary_path)
                 .map_err(|error| format!("cannot inspect {}: {error}", binary_path.display()))?;
             if metadata.len() > APPLICATION_SLOT_SIZE as u64 {
                 return Err(format!("invalid image file for {}", board.name));
             }
 
-            let bytes = std::fs::read(&binary_path)
+            let bytes = fs::read(&binary_path)
                 .map_err(|error| format!("cannot read {}: {error}", binary_path.display()))?;
             if bytes.len() != board.size_bytes {
                 return Err(format!(
@@ -240,8 +242,8 @@ impl FirmwarePackage {
     }
 }
 
-fn validate_archive(path: &std::path::Path) -> Result<(), String> {
-    let listing = std::process::Command::new("tar")
+fn validate_archive(path: &path::Path) -> Result<(), String> {
+    let listing = process::Command::new("tar")
         .args(["-tvzf"])
         .arg(path)
         .output()
@@ -261,7 +263,7 @@ fn validate_archive(path: &std::path::Path) -> Result<(), String> {
         return Err("firmware archive contains a symlink or special file".to_string());
     }
 
-    let names = std::process::Command::new("tar")
+    let names = process::Command::new("tar")
         .args(["-tzf"])
         .arg(path)
         .output()
@@ -275,11 +277,11 @@ fn validate_archive(path: &std::path::Path) -> Result<(), String> {
     }
 
     for name in String::from_utf8_lossy(&names.stdout).lines() {
-        let member = std::path::Path::new(name);
+        let member = path::Path::new(name);
         if member.is_absolute()
             || member
                 .components()
-                .any(|component| matches!(component, std::path::Component::ParentDir))
+                .any(|component| matches!(component, path::Component::ParentDir))
         {
             return Err(format!("firmware archive contains unsafe path {name:?}"));
         }
@@ -287,17 +289,17 @@ fn validate_archive(path: &std::path::Path) -> Result<(), String> {
     Ok(())
 }
 
-fn secure_file_path(path: &std::path::Path, kind: &str) -> Result<std::path::PathBuf, String> {
+fn secure_file_path(path: &path::Path, kind: &str) -> Result<path::PathBuf, String> {
     if path
         .components()
-        .any(|component| matches!(component, std::path::Component::ParentDir))
+        .any(|component| matches!(component, path::Component::ParentDir))
     {
         return Err("path contains a parent traversal".to_string());
     }
 
     // Reject a symlink as the selected file itself, but permit canonical system
     // path aliases such as macOS `/var` -> `/private/var` in ancestor directories.
-    let metadata = std::fs::symlink_metadata(path)
+    let metadata = fs::symlink_metadata(path)
         .map_err(|error| format!("cannot inspect {}: {error}", path.display()))?;
     if metadata.file_type().is_symlink() {
         return Err(format!("{kind} is a symlink"));

@@ -1,4 +1,5 @@
 use crate::{action, app, telemetry, ui, widgets};
+use std::sync::mpsc;
 
 pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
     ui::timeline::show(app, ctx);
@@ -38,7 +39,7 @@ struct WorkspaceTileBehavior<'a> {
     bus_load: &'a [telemetry::BusLoadSample],
     action_queue: &'a mut Vec<action::AppAction>,
     database: Option<&'a app::DatabaseSelection>,
-    ui_to_can_tx: std::sync::mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
+    ui_to_can_tx: mpsc::Sender<daqcore::can_thread::CanThreadCommand>,
     formatter: &'a Option<daqcore::formatter::Formatter>,
 }
 

@@ -1,5 +1,7 @@
 //! Three independent tracks, owned by the UI/main thread.
+
 use crate::time;
+use std::ops;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Track {
@@ -86,11 +88,11 @@ impl Timeline {
         self.setpoint_track == Track::Marching && self.end_track == Track::Marching
     }
 
-    pub fn range(&self) -> std::ops::RangeInclusive<time::Time> {
+    pub fn range(&self) -> ops::RangeInclusive<time::Time> {
         self.start..=self.end
     }
 
-    pub fn setpoint_range(&self) -> std::ops::RangeInclusive<time::Time> {
+    pub fn setpoint_range(&self) -> ops::RangeInclusive<time::Time> {
         self.start..=self.setpoint
     }
 

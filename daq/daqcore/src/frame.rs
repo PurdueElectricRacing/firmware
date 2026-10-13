@@ -1,5 +1,7 @@
 //! Transport-neutral frames; owned by the receiving thread until moved to its caller.
+
 use crate::{can, superdbc, time};
+use std::{error, fmt};
 
 /// Complete CAN identity. Ordering follows the packed identity representation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -12,8 +14,8 @@ pub struct InvalidCanId {
     pub extended: bool,
 }
 
-impl std::fmt::Display for InvalidCanId {
-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for InvalidCanId {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         let format = if self.extended {
             "extended"
         } else {
@@ -24,7 +26,7 @@ impl std::fmt::Display for InvalidCanId {
     }
 }
 
-impl std::error::Error for InvalidCanId {}
+impl error::Error for InvalidCanId {}
 
 impl CanIdentity {
     pub fn new(id: u32, extended: bool) -> Result<Self, InvalidCanId> {
@@ -52,8 +54,8 @@ impl CanIdentity {
     }
 }
 
-impl std::fmt::Display for CanIdentity {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl fmt::Display for CanIdentity {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let format = if self.is_extended() {
             "extended"
         } else {

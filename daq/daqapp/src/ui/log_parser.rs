@@ -1,13 +1,14 @@
 use crate::{app, settings};
+use std::{path, sync::mpsc, thread};
 
 pub struct LogParser {
     pub title: String,
-    pub logs_dir: Option<std::path::PathBuf>,
-    pub output_dir: Option<std::path::PathBuf>,
+    pub logs_dir: Option<path::PathBuf>,
+    pub output_dir: Option<path::PathBuf>,
     output_prefix: String,
-    database_override: Option<std::path::PathBuf>,
+    database_override: Option<path::PathBuf>,
     use_override: bool,
-    parse_to_ui_rx: Option<std::sync::mpsc::Receiver<Result<String, String>>>,
+    parse_to_ui_rx: Option<mpsc::Receiver<Result<String, String>>>,
     parse_text: String,
 }
 
@@ -50,10 +51,10 @@ impl LogParser {
             prefix => prefix,
         }
         .to_owned();
-        let (tx, rx) = std::sync::mpsc::channel();
+        let (tx, rx) = mpsc::channel();
         self.parse_to_ui_rx = Some(rx);
         self.parse_text = "Parsing logs…".to_owned();
-        std::thread::spawn(move || {
+        thread::spawn(move || {
             let result = daqcore::superdbc::database::Database::load(&path)
                 .map_err(|error| error.to_string())
                 .and_then(|database| {
@@ -153,12 +154,12 @@ impl LogParser {
                     self.parse_text = result.unwrap_or_else(|error| format!("Error: {error}"));
                     self.parse_to_ui_rx = None;
                 }
-                Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                Err(mpsc::TryRecvError::Disconnected) => {
                     self.parse_text =
                         "Error: Log parser stopped before reporting a result".to_owned();
                     self.parse_to_ui_rx = None;
                 }
-                Err(std::sync::mpsc::TryRecvError::Empty) => {}
+                Err(mpsc::TryRecvError::Empty) => {}
             }
         }
         ui.label(&self.parse_text);

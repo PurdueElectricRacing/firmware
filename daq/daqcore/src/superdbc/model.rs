@@ -1,6 +1,7 @@
 //! Private, strict wire models. Required nullable fields must be present.
 
 use serde::Deserialize as _;
+use std::{fmt, marker};
 
 pub const SCHEMA_VERSION: &str = "1.1";
 
@@ -112,10 +113,10 @@ where
     D: serde::Deserializer<'de>,
     T: serde::Deserialize<'de>,
 {
-    struct UniqueMap<T>(std::marker::PhantomData<T>);
+    struct UniqueMap<T>(marker::PhantomData<T>);
     impl<'de, T: serde::Deserialize<'de>> serde::de::Visitor<'de> for UniqueMap<T> {
         type Value = indexmap::IndexMap<String, T>;
-        fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        fn expecting(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
             f.write_str("an object with unique keys")
         }
         fn visit_map<A: serde::de::MapAccess<'de>>(
@@ -137,5 +138,5 @@ where
         }
     }
 
-    deserializer.deserialize_map(UniqueMap(std::marker::PhantomData))
+    deserializer.deserialize_map(UniqueMap(marker::PhantomData))
 }

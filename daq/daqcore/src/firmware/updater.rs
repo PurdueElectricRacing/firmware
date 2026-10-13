@@ -1,4 +1,5 @@
 use crate::firmware;
+use std::time;
 
 // Values mirror bootloader_status_t in firmware/can_library/generated/can_types.h.
 // Keeping the wire constants here avoids coupling the host updater to generated
@@ -9,8 +10,8 @@ const ACK: u8 = 0x01;
 const CRC_ERROR: u8 = 0x03;
 
 // Flash erase/verification operations get a longer timeout; all retries remain bounded.
-const BOOT_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
-const JUMP_DELAY: std::time::Duration = std::time::Duration::from_millis(700);
+const BOOT_TIMEOUT: time::Duration = time::Duration::from_secs(5);
+const JUMP_DELAY: time::Duration = time::Duration::from_millis(700);
 const MAX_RETRIES: u8 = 3;
 
 #[derive(Clone, Debug)]
@@ -36,7 +37,7 @@ pub struct FirmwareUpdater {
     byte_offset: usize,
     stage: Stage,
     pending_frame: Option<OutboundFrame>,
-    deadline: std::time::Instant,
+    deadline: time::Instant,
     retries: u8,
 }
 
@@ -50,7 +51,7 @@ impl FirmwareUpdater {
     /// update directly when the board is already in its bootloader.
     pub fn new(
         package: firmware::protocol::FirmwarePackage,
-        now: std::time::Instant,
+        now: time::Instant,
     ) -> (Self, firmware::FirmwareProgress) {
         Self::new_with_arm(package, false, now)
     }
@@ -58,7 +59,7 @@ impl FirmwareUpdater {
     /// Wait for one target's READY frame without sending a reset request.
     pub fn new_armed(
         package: firmware::protocol::FirmwarePackage,
-        now: std::time::Instant,
+        now: time::Instant,
     ) -> (Self, firmware::FirmwareProgress) {
         Self::new_with_arm(package, true, now)
     }
@@ -66,7 +67,7 @@ impl FirmwareUpdater {
     fn new_with_arm(
         package: firmware::protocol::FirmwarePackage,
         armed: bool,
-        now: std::time::Instant,
+        now: time::Instant,
     ) -> (Self, firmware::FirmwareProgress) {
         let stage = if armed {
             Stage::Armed
@@ -157,7 +158,7 @@ impl FirmwareUpdater {
         self.fail("cancelled by user".to_string())
     }
 
-    pub fn tick(&mut self, now: std::time::Instant) -> TickResult {
+    pub fn tick(&mut self, now: time::Instant) -> TickResult {
         if self.is_finished() {
             return TickResult {
                 frame: None,
@@ -294,7 +295,7 @@ impl FirmwareUpdater {
         &mut self,
         id: u32,
         data: &[u8],
-        now: std::time::Instant,
+        now: time::Instant,
     ) -> Option<firmware::FirmwareProgress> {
         if self.is_finished() || id != self.current_image().response_id || data.len() < 5 {
             return None;

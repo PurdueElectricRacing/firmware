@@ -1,13 +1,14 @@
 use crate::{can, connection, frame, superdbc};
+use std::time;
 
 pub struct ConnectionManager {
     source: Option<connection::ConnectionSource>,
     driver: Option<Box<dyn can::driver::Driver>>,
-    retry_at: std::time::Instant,
+    retry_at: time::Instant,
 }
 
 impl ConnectionManager {
-    pub fn new(now: std::time::Instant) -> Self {
+    pub fn new(now: time::Instant) -> Self {
         Self {
             source: None,
             driver: None,
@@ -15,11 +16,7 @@ impl ConnectionManager {
         }
     }
 
-    pub fn select(
-        &mut self,
-        source: Option<connection::ConnectionSource>,
-        now: std::time::Instant,
-    ) {
+    pub fn select(&mut self, source: Option<connection::ConnectionSource>, now: time::Instant) {
         self.close();
         self.source = source;
         self.retry_at = now;
@@ -27,7 +24,7 @@ impl ConnectionManager {
 
     pub fn connect(
         &mut self,
-        now: std::time::Instant,
+        now: time::Instant,
         bus: Option<&superdbc::database::Bus>,
     ) -> Option<Result<(), String>> {
         if self.driver.is_some() || now < self.retry_at {
@@ -35,7 +32,7 @@ impl ConnectionManager {
         }
 
         let source = self.source.as_ref()?;
-        self.retry_at = now + std::time::Duration::from_millis(200);
+        self.retry_at = now + time::Duration::from_millis(200);
 
         let result = match can::driver::create_driver(source, bus) {
             Ok(driver) => {
@@ -77,9 +74,9 @@ impl ConnectionManager {
         driver.write_frame(frame)
     }
 
-    pub fn failed(&mut self, now: std::time::Instant) {
+    pub fn failed(&mut self, now: time::Instant) {
         self.close();
-        self.retry_at = now + std::time::Duration::from_millis(200);
+        self.retry_at = now + time::Duration::from_millis(200);
     }
 
     pub fn close(&mut self) {

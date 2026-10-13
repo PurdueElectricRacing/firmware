@@ -1,4 +1,5 @@
 use crate::frame;
+use std::{collections::BTreeMap, time};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SendAmount {
@@ -45,11 +46,11 @@ pub struct AddSendMessage {
 struct Scheduled {
     frame: frame::CanFrame,
     amount: SendAmount,
-    sent: Option<std::time::Instant>,
+    sent: Option<time::Instant>,
 }
 
 #[derive(Default)]
-pub struct SendTable(std::collections::BTreeMap<frame::CanIdentity, Scheduled>);
+pub struct SendTable(BTreeMap<frame::CanIdentity, Scheduled>);
 
 impl SendTable {
     pub fn add(&mut self, msg: AddSendMessage) -> Result<(), String> {
@@ -78,7 +79,7 @@ impl SendTable {
         self.0.remove(&id);
     }
 
-    pub fn due(&self, now: std::time::Instant) -> Vec<frame::CanFrame> {
+    pub fn due(&self, now: time::Instant) -> Vec<frame::CanFrame> {
         self.0
             .values()
             .filter(|scheduled| {
@@ -86,7 +87,7 @@ impl SendTable {
                     return true;
                 };
 
-                let period = std::time::Duration::from_millis(scheduled.amount.period() as u64);
+                let period = time::Duration::from_millis(scheduled.amount.period() as u64);
                 let elapsed = now.saturating_duration_since(last_sent);
 
                 elapsed >= period
@@ -95,11 +96,7 @@ impl SendTable {
             .collect()
     }
 
-    pub fn commit(
-        &mut self,
-        id: frame::CanIdentity,
-        now: std::time::Instant,
-    ) -> Option<SendAmount> {
+    pub fn commit(&mut self, id: frame::CanIdentity, now: time::Instant) -> Option<SendAmount> {
         let scheduled = self.0.get_mut(&id)?;
         scheduled.sent = Some(now);
         let amount_left = scheduled.amount.subtract_one();

@@ -1,4 +1,5 @@
 use crate::superdbc;
+use std::{error, fmt};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Formatting {
@@ -37,7 +38,7 @@ impl<'de> serde::Deserialize<'de> for Formatting {
         impl<'de> serde::de::Visitor<'de> for FormattingVisitor {
             type Value = Formatting;
 
-            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
                 formatter.write_str(r#"a non-negative integer, "hex", or "binary""#)
             }
 
@@ -109,7 +110,7 @@ impl Formatter {
         Ok(Self { compiled_config })
     }
 
-    pub fn from_json(config_str: &str) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn from_json(config_str: &str) -> Result<Self, Box<dyn error::Error>> {
         let config: FormatterConfig = serde_json::from_str(config_str)?;
         Self::new(config).map_err(|e| e.into())
     }

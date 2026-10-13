@@ -1,4 +1,5 @@
 use crate::{frame, time};
+use std::{collections::HashMap, mem, ops};
 
 pub type CachedFrame = frame::ParsedFrame;
 
@@ -6,7 +7,7 @@ pub type CachedFrame = frame::ParsedFrame;
 pub struct RamCache {
     frames: Vec<CachedFrame>,
     first_index: usize,
-    latest: std::collections::HashMap<frame::CanIdentity, CachedFrame>,
+    latest: HashMap<frame::CanIdentity, CachedFrame>,
 }
 
 impl RamCache {
@@ -39,7 +40,7 @@ impl RamCache {
         self.latest.get(&id)
     }
 
-    pub fn latest_map(&self) -> &std::collections::HashMap<frame::CanIdentity, CachedFrame> {
+    pub fn latest_map(&self) -> &HashMap<frame::CanIdentity, CachedFrame> {
         &self.latest
     }
 
@@ -72,7 +73,7 @@ impl RamCache {
 
         let retained_count = self.len();
         let mut merged = Vec::with_capacity(retained_count + batch.len());
-        let mut old = std::mem::take(&mut self.frames)
+        let mut old = mem::take(&mut self.frames)
             .into_iter()
             .skip(self.first_index)
             .peekable();
@@ -125,7 +126,7 @@ impl RamCache {
         removed
     }
 
-    pub fn frames_in_range(&self, range: std::ops::RangeInclusive<time::Time>) -> &[CachedFrame] {
+    pub fn frames_in_range(&self, range: ops::RangeInclusive<time::Time>) -> &[CachedFrame] {
         let frames = self.active();
         if range.is_empty() {
             return &frames[..0];
@@ -146,7 +147,7 @@ impl RamCache {
         &self,
         id: frame::CanIdentity,
         signal: &str,
-        range: std::ops::RangeInclusive<time::Time>,
+        range: ops::RangeInclusive<time::Time>,
     ) -> Vec<(time::Time, f64)> {
         self.frames_in_range(range)
             .iter()

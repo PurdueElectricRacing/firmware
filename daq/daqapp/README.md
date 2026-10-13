@@ -80,10 +80,11 @@ cargo run
 
 The app's source is organized by responsibility:
 
-- `src/can/` - CAN connection, decoding, state, and background thread.
 - `src/ui/` - application views and panels.
-- `src/daq_log_parse/` - recorded-log parsing and correlation.
-- `src/hil/` and `hil_config/` - hardware-in-the-loop support and presets.
+- `../daqcore/src/can_thread/` - CAN worker and operational commands/events.
+- `../daqcore/src/superdbc/` - bus-aware definitions, decoding, and encoding.
+- `../daqcore/src/log_parse/` - recorded-log parsing and correlation.
+- `../daqcore/src/hil/` and `hil_config/` - HIL support and presets
 - `themes/` - user-selectable visual themes.
 
 ### Thread overview
@@ -94,6 +95,3 @@ The app's source is organized by responsibility:
 ### Testing
 
 For easy testing, you can use the loopback or simulated CAN sources. The loopback source is a virtual CAN bus that echoes messages sent to it, while the simulated source generates random messages for testing purposes.
-
-Rust tests cover direct streaming, the 480 KiB boundary, the 24-bit word index,
-and the READY handshake. Run them from `daq/daqapp/` with `cargo test`.

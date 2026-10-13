@@ -10,17 +10,6 @@ pub struct DatabaseSelection {
 }
 
 impl DatabaseSelection {
-    pub fn new(path: &std::path::Path, preferred_bus: Option<u8>) -> Result<Self, String> {
-        let database =
-            daqcore::superdbc::database::Database::load(path).map_err(|error| error.to_string())?;
-        let bus_id = preferred_bus
-            .filter(|id| database.bus_by_id(*id).is_some())
-            .or_else(|| database.bus_by_id(0).map(|bus| bus.bus_id()))
-            .or_else(|| database.buses().first().map(|bus| bus.bus_id()))
-            .ok_or_else(|| "SuperDBC contains no selectable buses".to_owned())?;
-        Ok(Self { database, bus_id })
-    }
-
     pub fn bus(&self) -> &daqcore::superdbc::database::Bus {
         self.database
             .bus_by_id(self.bus_id)
@@ -62,7 +51,7 @@ pub struct DAQApp {
     pub pixels_per_point: Option<f32>,
     pub serial_ports: Vec<serialport::SerialPortInfo>,
     pub database: Option<DatabaseSelection>,
-    pending_database: Option<(u64, DatabaseSelection)>,
+    pending_database: Option<u64>,
     selection_request: u64,
     pub can_bus_speed: daqcore::connection::CanBusSpeed,
     pub udp_port: u16,
@@ -153,24 +142,38 @@ impl DAQApp {
     }
 
     pub fn request_database(&mut self, path: &std::path::Path, preferred_bus: Option<u8>) {
+        self.request_selection(daqcore::can_thread::DatabaseRequest::Load {
+            path: path.to_owned(),
+            preferred_bus,
+        });
+    }
+
+    pub fn request_bus(&mut self, bus_id: u8) {
+        let Some(selection) = &self.database else {
+            return;
+        };
+        if selection.bus_id == bus_id {
+            return;
+        }
+        if selection.database.bus_by_id(bus_id).is_none() {
+            self.diagnostic = Some(format!("SuperDBC has no bus {bus_id}"));
+            return;
+        }
+        self.request_selection(daqcore::can_thread::DatabaseRequest::Bus { bus_id });
+    }
+
+    fn request_selection(&mut self, selection: daqcore::can_thread::DatabaseRequest) {
         if self.selection_pending() {
             return;
         }
-        let selection = match DatabaseSelection::new(path, preferred_bus) {
-            Ok(selection) => selection,
-            Err(error) => {
-                self.diagnostic = Some(error);
-                return;
-            }
-        };
         self.selection_request += 1;
         let request_id = self.selection_request;
         let command = daqcore::can_thread::CanThreadCommand::SelectDatabase {
             request_id,
-            source: selection.source(),
+            selection,
         };
         match self.ui_to_can_tx.send(command) {
-            Ok(()) => self.pending_database = Some((request_id, selection)),
+            Ok(()) => self.pending_database = Some(request_id),
             Err(error) => self.diagnostic = Some(error.to_string()),
         }
     }
@@ -178,40 +181,41 @@ impl DAQApp {
     fn apply_database_result(
         &mut self,
         request_id: u64,
-        result: Result<daqcore::can_thread::DatabaseSource, String>,
+        result: Result<daqcore::can_thread::DatabaseUpdate, String>,
     ) -> bool {
-        if !self
-            .pending_database
-            .as_ref()
-            .is_some_and(|(id, _)| *id == request_id)
-        {
+        if self.pending_database != Some(request_id) {
             return false;
         }
-        let (_, selection) = self
-            .pending_database
-            .take()
-            .expect("matching pending selection");
+        self.pending_database = None;
         match result {
-            Ok(source) if source == selection.source() => {
-                self.database = Some(selection);
-                self.session.reset(daqcore::Time::now());
-                self.bus_load_samples.clear();
-                self.hil_snapshot = daqcore::hil::engine::HilSnapshot::idle();
-                self.diagnostic = None;
-                for tile in self.tile_tree.tiles.tiles_mut() {
-                    if let egui_tiles::Tile::Pane(widget) = tile {
-                        widget.reset_database();
-                    }
-                }
-                return true;
+            Ok(daqcore::can_thread::DatabaseUpdate::Loaded { database, bus_id }) => {
+                self.database = Some(DatabaseSelection {
+                    database: *database,
+                    bus_id,
+                });
             }
-            Ok(_) => {
-                self.diagnostic =
-                    Some("Worker acknowledged a different database selection".to_owned())
+            Ok(daqcore::can_thread::DatabaseUpdate::Bus { bus_id }) => {
+                let Some(selection) = &mut self.database else {
+                    self.diagnostic = Some("No UI database is loaded".to_owned());
+                    return false;
+                };
+                selection.bus_id = bus_id;
             }
-            Err(error) => self.diagnostic = Some(error),
+            Err(error) => {
+                self.diagnostic = Some(error);
+                return false;
+            }
         }
-        false
+        self.session.reset(daqcore::Time::now());
+        self.bus_load_samples.clear();
+        self.hil_snapshot = daqcore::hil::engine::HilSnapshot::idle();
+        self.diagnostic = None;
+        for tile in self.tile_tree.tiles.tiles_mut() {
+            if let egui_tiles::Tile::Pane(widget) = tile {
+                widget.reset_database();
+            }
+        }
+        true
     }
 
     fn add_widget_to_tree(&mut self, widget: widgets::Widget) {

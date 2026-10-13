@@ -289,7 +289,7 @@ pub fn show(app: &mut app::DAQApp, ctx: &eframe::egui::Context) {
                             }
                         });
                     if bus_id != source.bus_id {
-                        app.request_database(&source.path, Some(bus_id));
+                        app.request_bus(bus_id);
                     }
                 } else {
                     ui.label("SuperDBC: None selected");

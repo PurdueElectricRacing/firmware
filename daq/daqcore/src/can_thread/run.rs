@@ -78,14 +78,20 @@ fn run_with_connection(
                     emit!(Event::SourceSelected(source));
                     emit!(Event::Disconnection);
                 }
-                Command::SelectDatabase { request_id, source } => {
-                    if let Err(error) = decoder.reload(&source) {
-                        emit!(Event::DatabaseSelected {
-                            request_id,
-                            result: Err(error)
-                        });
-                        continue;
-                    }
+                Command::SelectDatabase {
+                    request_id,
+                    selection,
+                } => {
+                    let update = match decoder.select(&selection) {
+                        Ok(update) => update,
+                        Err(error) => {
+                            emit!(Event::DatabaseSelected {
+                                request_id,
+                                result: Err(error)
+                            });
+                            continue;
+                        }
+                    };
                     sends = SendTable::default();
                     let now = Instant::now();
                     hil.handle_command(hil::engine::HilCommand::Stop, now);
@@ -97,7 +103,7 @@ fn run_with_connection(
                     }
                     emit!(Event::DatabaseSelected {
                         request_id,
-                        result: Ok(source)
+                        result: Ok(update)
                     });
                     emit!(Event::Hil(hil.snapshot(now)));
                     if decoder.bus_id() > 1 {

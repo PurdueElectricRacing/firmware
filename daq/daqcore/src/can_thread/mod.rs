@@ -7,7 +7,7 @@ mod firmware_session;
 mod run;
 mod tx;
 
-use crate::{ParsedFrame, Time, connection::ConnectionSource, firmware, frame::CanIdentity, hil};
+use crate::{superdbc, ParsedFrame, Time, connection::ConnectionSource, firmware, frame::CanIdentity, hil};
 use std::{path::PathBuf, sync::mpsc, thread::JoinHandle};
 pub use tx::{AddSendMessage, SendAmount};
 
@@ -15,6 +15,29 @@ pub use tx::{AddSendMessage, SendAmount};
 pub struct DatabaseSource {
     pub path: PathBuf,
     pub bus_id: u8,
+}
+
+/// A file replacement loads on the worker.
+///Aa bus change reuses its active database.
+#[derive(Debug, Clone)]
+pub enum DatabaseRequest {
+    Load {
+        path: PathBuf,
+        preferred_bus: Option<u8>,
+    },
+    Bus {
+        bus_id: u8,
+    },
+}
+
+/// Successful selection, sent only after the worker applies the new context.
+#[derive(Debug)]
+pub enum DatabaseUpdate {
+    Loaded {
+        database: Box<superdbc::database::Database>,
+        bus_id: u8,
+    },
+    Bus { bus_id: u8 },
 }
 
 #[derive(Default)]
@@ -27,7 +50,7 @@ pub enum CanThreadCommand {
     Connect(Option<ConnectionSource>),
     SelectDatabase {
         request_id: u64,
-        source: DatabaseSource,
+        selection: DatabaseRequest,
     },
     AddSendMessage(AddSendMessage),
     DeleteSendMessage {
@@ -44,7 +67,7 @@ pub enum CanThreadCommand {
 pub enum CanThreadEvent {
     DatabaseSelected {
         request_id: u64,
-        result: Result<DatabaseSource, String>,
+        result: Result<DatabaseUpdate, String>,
     },
     Frame(ParsedFrame),
     SourceSelected(Option<ConnectionSource>),

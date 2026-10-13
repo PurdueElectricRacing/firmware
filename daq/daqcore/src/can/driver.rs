@@ -4,6 +4,7 @@ use crate::{
     connection::{CanBusSpeed, ConnectionSource},
     frame::{CanFrame, CanIdentity},
     log_parse,
+    superdbc
 };
 
 use std::time::{Duration, Instant};
@@ -37,7 +38,10 @@ pub trait Driver {
     }
 }
 
-pub fn create_driver(source: &ConnectionSource) -> DriverResult<Box<dyn Driver>> {
+pub fn create_driver(
+    source: &ConnectionSource,
+    bus: Option<&superdbc::database::Bus>,
+) -> DriverResult<Box<dyn Driver>> {
     match source {
         ConnectionSource::Serial(path, speed) => {
             Ok(Box::new(serial::SerialDriver::new(path, *speed)?))
@@ -51,15 +55,17 @@ pub fn create_driver(source: &ConnectionSource) -> DriverResult<Box<dyn Driver>>
             Ok(Box::new(UdpDriver(socket)))
         }
         ConnectionSource::Loopback => Ok(Box::new(LoopbackDriver::default())),
-        ConnectionSource::Simulated(true, path) => {
-            let parser = path
-                .as_ref()
-                .map(|path| can_decode::Parser::from_dbc_file(path))
-                .transpose()
-                .map_err(|error| DriverError::ConnectionFailed(error.to_string()))?;
-
+        ConnectionSource::Simulated(true) => {
+            let messages = bus
+                .map(|bus| {
+                    bus.messages()
+                        .iter()
+                        .map(|message| (message.identity(), usize::from(message.length_bytes())))
+                        .collect()
+                })
+                .unwrap_or_default();
             Ok(Box::new(SimulatedDriver {
-                parser,
+                messages,
                 next: Instant::now(),
             }))
         }
@@ -140,7 +146,7 @@ fn parse_udp_buffer(buf: &[u8]) -> DriverResult<Vec<CanFrame>> {
 }
 
 struct SimulatedDriver {
-    parser: Option<can_decode::Parser>,
+    messages: Vec<(CanIdentity, usize)>,
     next: Instant,
 }
 
@@ -153,22 +159,11 @@ impl Driver for SimulatedDriver {
         }
         self.next += Duration::from_millis(1);
         let mut rng = rand::rng();
-        let msg = self
-            .parser
-            .as_ref()
-            .and_then(|p| p.msg_defs().choose(&mut rng).cloned());
-        let (identity, size) = match msg {
-            Some(message) => {
-                let identity = can::can_dbc_identity(&message.id)
-                    .map_err(|error| DriverError::Read(error.to_string()))?;
-
-                (identity, message.size as usize)
-            }
+        let (identity, size) = match self.messages.choose(&mut rng).copied() {
+            Some(message) => message,
             None => {
-                let id = rng.random_range(0..=can::STANDARD_ID_MASK);
-                let identity = CanIdentity::new(id, false)
+                let identity = CanIdentity::new(rng.random_range(0..=can::STANDARD_ID_MASK), false)
                     .map_err(|error| DriverError::Read(error.to_string()))?;
-
                 (identity, 8)
             }
         };

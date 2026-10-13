@@ -1,7 +1,7 @@
 //! Generate wire models directly from CANpiler's schema and maintain the fallback.
 
-use std::{error, fs, path};
 use std::io::Write as _;
+use std::{error, fs, path};
 
 type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
 
@@ -75,7 +75,7 @@ pub fn generate(schema: &str) -> Result<String> {
         .as_str()
         .ok_or("schema_version must be a string constant")?
         .to_owned();
-    
+
     // These are deserialization models, so builders are unnecessary
     // IndexMap preserves bus and signal orders from the artifact
     let mut settings = typify::TypeSpaceSettings::default();
@@ -84,7 +84,7 @@ pub fn generate(schema: &str) -> Result<String> {
         .with_map_type("::indexmap::IndexMap");
     let mut types = typify::TypeSpace::new(&settings);
     types.add_root_schema(serde_json::from_value(schema)?)?;
-    
+
     // Format Typify's tokens as readable, deterministic source for code review.
     let syntax = syn::parse2::<syn::File>(types.to_stream())?;
     Ok(format!(

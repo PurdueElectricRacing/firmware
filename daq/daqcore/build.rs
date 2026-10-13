@@ -4,7 +4,7 @@ mod superdbc;
 fn main() {
     // Resolve paths from this crate rather than the caller's working directory
     let manifest = std::path::PathBuf::from(std::env::var_os("CARGO_MANIFEST_DIR").unwrap());
-    
+
     // CANpiler writes its schema into the repository's ignored dbc directory
     let schema = manifest.join("../../dbc/superdbc.schema.json");
 

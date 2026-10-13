@@ -112,7 +112,8 @@ impl fmt::Display for ParseError {
             Self::InvalidJson(error) => write!(f, "invalid SuperDBC JSON: {error}"),
             Self::UnsupportedSchemaVersion { found } => write!(
                 f,
-                "unsupported SuperDBC schema version {found:?}; expected 1.1"
+                "unsupported SuperDBC schema version {found:?}; expected {}",
+                superdbc::model::SCHEMA_VERSION
             ),
             Self::InvalidDefinition { context, reason } => {
                 write!(f, "invalid SuperDBC definition at {context}: {reason}")

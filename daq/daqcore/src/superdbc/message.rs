@@ -104,28 +104,30 @@ impl Message {
             nonempty(receiver, context, "receiver")?;
         }
 
-        if model.length_bytes > 8 {
+        let length_bytes: u8 =
+            superdbc::model::narrow(model.length_bytes, context, "length_bytes")?;
+        let priority: u8 = superdbc::model::narrow(model.priority, context, "priority")?;
+
+        if length_bytes > 8 {
             return Err(superdbc::error::ParseError::definition(
                 context,
                 "length_bytes must be 0..=8",
             ));
         }
 
-        if model.priority > 5 {
+        if priority > 5 {
             return Err(superdbc::error::ParseError::definition(
                 context,
                 "priority must be 0..=5",
             ));
         }
 
-        if model.nominal_period_ms == Some(0) {
-            return Err(superdbc::error::ParseError::definition(
-                context,
-                "nominal_period_ms must be positive or null",
-            ));
-        }
-
-        let identity = frame::CanIdentity::new(model.id, model.is_extended_id)
+        let nominal_period_ms = model
+            .nominal_period_ms
+            .map(|period| superdbc::model::narrow(period.get(), context, "nominal_period_ms"))
+            .transpose()?;
+        let id = superdbc::model::narrow(model.id, context, "id")?;
+        let identity = frame::CanIdentity::new(id, model.is_extended_id)
             .map_err(|error| superdbc::error::ParseError::definition(context, error.to_string()))?;
         let mut signals = Vec::with_capacity(model.signals.len());
         let mut signal_index = HashMap::with_capacity(model.signals.len());
@@ -135,7 +137,7 @@ impl Message {
             let signal_context = format!("{context} / signal {:?}", signal.signal_name);
 
             if signal_index
-                .insert(signal.signal_name.clone(), signals.len())
+                .insert(String::from(signal.signal_name.clone()), signals.len())
                 .is_some()
             {
                 return Err(superdbc::error::ParseError::definition(
@@ -144,7 +146,7 @@ impl Message {
                 ));
             }
 
-            let signal = SignalDefinition::compile(signal, model.length_bytes, &signal_context)?;
+            let signal = SignalDefinition::compile(signal, length_bytes, &signal_context)?;
 
             // Compare actual occupied wire bits, so overlaps are rejected even
             // when signals use different byte orders.
@@ -160,12 +162,12 @@ impl Message {
 
         Ok(Self {
             key: MessageKey { bus_id, identity },
-            name: model.message_name,
-            length_bytes: model.length_bytes,
-            transmitter: model.transmitter,
-            receivers: model.receivers,
-            nominal_period_ms: model.nominal_period_ms,
-            priority: model.priority,
+            name: model.message_name.into(),
+            length_bytes,
+            transmitter: model.transmitter.into(),
+            receivers: model.receivers.into_iter().map(Into::into).collect(),
+            nominal_period_ms,
+            priority,
             description: model.description,
             signals,
             signal_index,
@@ -258,26 +260,14 @@ impl SignalDefinition {
     ) -> Result<Self, superdbc::error::ParseError> {
         nonempty(&model.signal_name, context, "signal_name")?;
         nonempty(&model.data_type, context, "data_type")?;
-        let raw_type = match model.raw_type.as_str() {
-            "unsigned" => RawType::Unsigned,
-            "signed" => RawType::Signed,
-            "float32" => RawType::Float32,
-            _ => {
-                return Err(superdbc::error::ParseError::definition(
-                    context,
-                    "unsupported raw_type",
-                ));
-            }
+        let raw_type = match model.raw_type {
+            superdbc::model::RawType::Unsigned => RawType::Unsigned,
+            superdbc::model::RawType::Signed => RawType::Signed,
+            superdbc::model::RawType::Float32 => RawType::Float32,
         };
-        let byte_order = match model.byte_order.as_str() {
-            "little_endian" => ByteOrder::LittleEndian,
-            "big_endian" => ByteOrder::BigEndian,
-            _ => {
-                return Err(superdbc::error::ParseError::definition(
-                    context,
-                    "unsupported byte_order",
-                ));
-            }
+        let byte_order = match model.byte_order {
+            superdbc::model::ByteOrder::LittleEndian => ByteOrder::LittleEndian,
+            superdbc::model::ByteOrder::BigEndian => ByteOrder::BigEndian,
         };
         if !model.scale.is_finite() || model.scale == 0.0 || !model.offset.is_finite() {
             return Err(superdbc::error::ParseError::definition(
@@ -301,9 +291,11 @@ impl SignalDefinition {
 
         // Validate and compile once; runtime codecs can then work by byte
         // segments without checking the layout or walking individual bits.
+        let start_bit = superdbc::model::narrow(model.start_bit, context, "start_bit")?;
+        let bit_length = superdbc::model::narrow(model.bit_length.get(), context, "bit_length")?;
         let codec = superdbc::extract::Codec::compile(
-            model.start_bit,
-            model.bit_length,
+            start_bit,
+            bit_length,
             byte_order,
             raw_type,
             payload_length,
@@ -311,7 +303,7 @@ impl SignalDefinition {
         )?;
         let mut choices = BTreeMap::new();
 
-        let raw_choices = model.choices.map(|choices| choices.0).unwrap_or_default();
+        let raw_choices = model.choices.unwrap_or_default();
 
         for (key, label) in raw_choices {
             // The canonical decimal syntax also prevents two textual keys
@@ -341,7 +333,8 @@ impl SignalDefinition {
 
         // Presentation hints are parsed into metadata; they never affect
         // raw extraction, scaling, or encoder range checks.
-        let display_format = match model.display_format.as_deref() {
+        let display_format_text = model.display_format.map(|format| format.to_string());
+        let display_format = match display_format_text.as_deref() {
             None => None,
             Some("hex") => Some(DisplayFormat::Hex),
             Some("binary") => Some(DisplayFormat::Binary),
@@ -359,12 +352,12 @@ impl SignalDefinition {
         };
 
         Ok(Self {
-            name: model.signal_name,
+            name: model.signal_name.into(),
             description: model.description,
-            data_type: model.data_type,
+            data_type: model.data_type.into(),
             raw_type,
-            start_bit: model.start_bit,
-            bit_length: model.bit_length,
+            start_bit,
+            bit_length,
             byte_order,
             scale: model.scale,
             offset: model.offset,

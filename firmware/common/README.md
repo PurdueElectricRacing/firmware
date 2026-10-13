@@ -8,11 +8,9 @@ Libraries, drivers, generic data structures, and other utilities.
 
 ## Device / protocol drivers
 - `amk` AMK motor controller helpers.
-- `bmi088` BMI088 IMU driver.
 - `nextion` Nextion display communication helpers.
 - `sdio` SDIO helpers.
 - `ublox` u-blox GNSS parsing and configuration helpers.
-- `izze_imu` IZZE IMU message definitions/helpers.
 
 ## System services
 - `heartbeat` Board heartbeat / liveness utilities.

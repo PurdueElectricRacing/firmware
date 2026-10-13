@@ -48,7 +48,7 @@
                 "RUNNING",
                 "RECOVERING",
                 "FATAL"
-             ]
+            ]
         },
         {
             "name": "bootloader_status_t",
@@ -71,6 +71,58 @@
                 "TORQUE_VECTOR",
                 "FRONT_DRIVELINE",
                 "REAR_DRIVELINE"
+            ]
+        },
+        {
+            "name": "izze_gyro_scale_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "RESERVED",
+                "125DPS",
+                "250DPS",
+                "500DPS",
+                "1000DPS",
+                "2000DPS",
+                "4000DPS"
+            ]
+        },
+        {
+            "name": "izze_accel_scale_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "RESERVED",
+                "2G",
+                "4G",
+                "8G",
+                "16G"
+            ]
+        },
+        {
+            "name": "izze_output_data_rate_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "RESERVED",
+                "12HZ",
+                "26HZ",
+                "52HZ",
+                "104HZ",
+                "208HZ",
+                "416HZ",
+                "833HZ",
+                "1667HZ",
+                "3333HZ",
+                "6667HZ"
+            ]
+        },
+        {
+            "name": "izze_bit_rate_t",
+            "base_type": "uint8_t",
+            "choices": [
+                "RESERVED",
+                "1MBPS",
+                "500KBPS",
+                "250KBPS",
+                "125KBPS"
             ]
         }
     ]

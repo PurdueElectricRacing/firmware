@@ -78,9 +78,29 @@ fn run_with_connection(
                     emit!(Event::SourceSelected(source));
                     emit!(Event::Disconnection);
                 }
-                Command::DbcSelected(path) => {
-                    if let Err(error) = decoder.reload(&path) {
-                        emit!(Event::Diagnostic(error));
+                Command::SelectDatabase { request_id, source } => {
+                    if let Err(error) = decoder.reload(&source) {
+                        emit!(Event::DatabaseSelected {
+                            request_id,
+                            result: Err(error)
+                        });
+                        continue;
+                    }
+                    sends = SendTable::default();
+                    let now = Instant::now();
+                    hil.handle_command(hil::engine::HilCommand::Stop, now);
+                    hil_finished = false;
+                    load = BusLoadTracker::default();
+                    load_last = now;
+                    connection.database_changed(now);
+                    if let Some(logger) = &mut logger {
+                        logger.flush();
+                    }
+                    emit!(Event::DatabaseSelected {
+                        request_id,
+                        result: Ok(source)
+                    });
+                    emit!(Event::Hil(hil.snapshot(now)));
                     }
                 }
                 Command::AddSendMessage(message) => {

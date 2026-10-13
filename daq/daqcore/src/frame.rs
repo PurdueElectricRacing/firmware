@@ -1,7 +1,9 @@
 //! Transport-neutral frames; owned by the receiving thread until moved to its caller.
-use crate::{Time, can};
+use crate::{
+    superdbc,
+    Time, can};
 
-/// Complete CAN identity. Ordering follows the flagged DBC representation.
+/// Complete CAN identity. Ordering follows the packed identity representation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct CanIdentity(u32);
 
@@ -49,10 +51,6 @@ impl CanIdentity {
 
     pub fn is_extended(self) -> bool {
         self.0 & can::EXTENDED_ID_FLAG != 0
-    }
-
-    pub fn dbc_id(self) -> u32 {
-        self.0
     }
 }
 
@@ -106,7 +104,7 @@ pub struct ParsedFrame {
     pub dlc: u8,
     pub identity: CanIdentity,
     pub raw_bytes: Vec<u8>,
-    pub decoded: Option<can_decode::DecodedMessage>,
+    pub decoded: Option<superdbc::decode::DecodedMessage>,
 }
 
 /// Borrowed decoded view; no frame or decoded-message clone is required for projections.
@@ -114,7 +112,7 @@ pub struct DecodedFrame<'a> {
     pub timestamp: Time,
     pub identity: CanIdentity,
     pub raw_bytes: &'a [u8],
-    pub decoded: &'a can_decode::DecodedMessage,
+    pub decoded: &'a superdbc::decode::DecodedMessage,
 }
 
 impl ParsedFrame {

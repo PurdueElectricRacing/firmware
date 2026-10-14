@@ -15,9 +15,6 @@
 #include "colors.h"
 #include "lap_timer.h"
 
-// critical temperature thresholds in celcius
-static constexpr uint16_t TEMP_CRITICAL = 60;
-static constexpr uint16_t TEMP_WARNING = 50;
 
 static inline void update_car_state_telemetry() {
     if (can_data.main_hb.is_stale()) {

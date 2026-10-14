@@ -37,10 +37,10 @@ static constexpr uint16_t TEMP_WARNING = 50;
  * @param critical_threshold critical temperature threshold in celcius
  * @return uint16_t color value
  */
-static inline uint16_t temp_display_color(int16_t value, uint16_t warning_threshold, uint16_t critical_threshold) {
-    if (value >= critical_threshold) {
+static inline uint16_t temp_display_color(int16_t value) {
+    if (value >= TEMP_CRITICAL) {
         return RED;
-    } else if (value >= warning_threshold) {
+    } else if (value >= TEMP_WARNING) {
         return YELLOW;
     } else {
         return WHITE;

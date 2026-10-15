@@ -4,6 +4,7 @@ members = [
     "daqapp",
     "daqcore",
     "daqcli",
+    "daqcloud",
 ]
 
 [workspace.package]

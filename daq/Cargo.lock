@@ -1031,6 +1031,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "daqcloud"
+version = "0.1.0"
+
+[[package]]
 name = "daqcore"
 version = "0.1.0"
 dependencies = [

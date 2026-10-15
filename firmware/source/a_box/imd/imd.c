@@ -13,6 +13,8 @@
 #include "main.h"
 
 static uint8_t g_imd_duty_pct = 0;
+// last 3 frequency samples for noise filtering
+static uint8_t g_imd_freq_history[3] = {0};
 
 // for noise resilience
 static uint8_t imd_median3(uint8_t a, uint8_t b, uint8_t c) {
@@ -97,12 +99,10 @@ void imd_periodic(void) {
         g_imd_duty_pct = 0;
     }
 
-    // Track the last 3 samples so a noisy cycle doesn't change the reported state.
-    static uint8_t freq_history[3] = {0};
-    freq_history[2] = freq_history[1];
-    freq_history[1] = freq_history[0];
-    freq_history[0] = valid ? freq_hz : 0U;
-    uint8_t filtered_hz = imd_median3(freq_history[0], freq_history[1], freq_history[2]);
+    g_imd_freq_history[2] = g_imd_freq_history[1];
+    g_imd_freq_history[1] = g_imd_freq_history[0];
+    g_imd_freq_history[0] = valid ? freq_hz : 0U;
+    uint8_t filtered_hz = imd_median3(g_imd_freq_history[0], g_imd_freq_history[1], g_imd_freq_history[2]);
 
     imd_state_t state = imd_state_from_measurement(filtered_hz != 0U, filtered_hz);
     bool imd_status = PHAL_GPIO_read(IMD_STATUS_PORT, IMD_STATUS_PIN);

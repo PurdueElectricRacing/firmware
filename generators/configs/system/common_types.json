@@ -300,13 +300,13 @@
             "name": "imd_state_t",
             "base_type": "uint8_t",
             "choices": [
-                "OFF_OR_SHORT_CIRCUIT",
-                "NORMAL",
-                "UNDERVOLTAGE",
-                "SPEED_START",
-                "DEVICE_ERROR",
-                "CONNECTION_FAULT",
-                "UNKNOWN"
+                { "name": "OFF_OR_SHORT_CIRCUIT", "value": 0 },
+                { "name": "NORMAL", "value": 1 },
+                { "name": "UNDERVOLTAGE", "value": 2 },
+                { "name": "SPEED_START", "value": 3 },
+                { "name": "DEVICE_ERROR", "value": 4 },
+                { "name": "CONNECTION_FAULT", "value": 5 },
+                { "name": "UNKNOWN", "value": 6 }
             ]
         }
     ]

@@ -1,0 +1,13 @@
+<map id="temp_display_color" name="temp_display_color">
+<area shape="rect" id="Node000001" title="determine the color of the text based on celcius temperature" alt="" coords="414,55,546,80"/>
+<area shape="rect" id="Node000002" href="$race_8c.html#ac86b7955f40539589f8904e0213c368e" title=" " alt="" coords="212,5,360,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="411,53,339,34,340,29,412,48"/>
+<area shape="rect" id="Node000004" href="$race_8c.html#a236fe508f9d82e9178cdb22b363116b7" title=" " alt="" coords="206,55,366,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="398,70,367,70,367,65,398,65"/>
+<area shape="rect" id="Node000005" href="$race_8c.html#a218ea7152d92e1c6574e594de6c5f0be" title=" " alt="" coords="208,104,364,130"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="412,87,340,106,339,101,411,82"/>
+<area shape="rect" id="Node000003" href="$race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092" title="Updates telemetry data on the race dashboard LCD display." alt="" coords="5,55,158,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,38,139,57,137,51,214,33"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="190,70,158,70,158,65,190,65"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="214,102,137,84,139,78,215,97"/>
+</map>

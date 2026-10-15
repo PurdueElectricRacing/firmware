@@ -1,5 +1,8 @@
 var NAVTREEINDEX28 =
 {
+"structstatus__leds__t.html#afb9ffa3eaeac2f3fd160ba84612b2e66":[32,0,262,0],
+"structsteering__angle__data__t.html":[32,0,263],
+"structsteering__angle__data__t.html#a3e8fe6238594de996f62e9c9f662a989":[32,0,263,0],
 "structsteering__angle__data__t.html#a522a375768959ef158ddd31ff4916b14":[32,0,263,2],
 "structsteering__angle__data__t.html#ab37bd105bc2d5c07c4577737ab9dc214":[32,0,263,3],
 "structsteering__angle__data__t.html#afa855cb3ac4e95fcf2729bd0684cf964":[32,0,263,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX28 =
 "switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a3624ce7c67672c683bab4fc454c90ac6":[33,0,1,2,9,4,1,0,12],
 "switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a5e8e716a88499c0a90bfd44d3e853a53":[33,0,1,2,9,4,1,0,2],
 "switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a5fbc87f44b15245bd4588936a5863f6b":[33,0,1,2,9,4,1,0,14],
-"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a65288571c443d6b008a416108b2aa47d":[33,0,1,2,9,4,1,0,17],
-"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a6726b6535a6601856e8d2d78ae306681":[33,0,1,2,9,4,1,0,0],
-"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a76de9f5d47a3c407855236c918001a22":[33,0,1,2,9,4,1,0,18],
-"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a8c31a195778d040f66f1ea4d57a8c0ea":[33,0,1,2,9,4,1,0,22]
+"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a65288571c443d6b008a416108b2aa47d":[33,0,1,2,9,4,1,0,17]
 };

@@ -1,5 +1,8 @@
 var NAVTREEINDEX29 =
 {
+"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a6726b6535a6601856e8d2d78ae306681":[33,0,1,2,9,4,1,0,0],
+"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a76de9f5d47a3c407855236c918001a22":[33,0,1,2,9,4,1,0,18],
+"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a8c31a195778d040f66f1ea4d57a8c0ea":[33,0,1,2,9,4,1,0,22],
 "switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a8d0c2ae3c90f4a3976fe6c62497998e8":[33,0,1,2,9,4,1,0,13],
 "switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a9562311c83616798106796c8bc2aa78d":[33,0,1,2,9,4,1,0,4],
 "switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908aa81a14807496f1d0a61a11c7df86d9a1":[33,0,1,2,9,4,1,0,8],
@@ -246,8 +249,5 @@ var NAVTREEINDEX29 =
 "usb__control_8h.html#a007ec817cfbe7954f14f8dd1f4b3175a":[33,0,1,2,2,0,1,2],
 "usb__control_8h.html#abe9c0e5af4436d1693b38a37de472f88":[33,0,1,2,2,0,1,1],
 "usb__control_8h_source.html":[33,0,1,2,2,0,1],
-"usb__descriptors_8h.html":[33,0,1,2,2,0,2],
-"usb__descriptors_8h.html#a0b3c17bf918cef3aa66d8b67557e7242":[33,0,1,2,2,0,2,0],
-"usb__descriptors_8h.html#a645779e5cdbd378fa7e019d75e71ec6b":[33,0,1,2,2,0,2,2],
-"usb__descriptors_8h.html#a8507b6118ceb03ea4eb4239870a758fe":[33,0,1,2,2,0,2,1]
+"usb__descriptors_8h.html":[33,0,1,2,2,0,2]
 };

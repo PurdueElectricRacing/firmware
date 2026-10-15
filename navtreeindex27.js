@@ -1,5 +1,8 @@
 var NAVTREEINDEX27 =
 {
+"structpVCU__struct.html#a29c2cb765b447fe3a8a866b774d0eb9b":[32,0,228,8],
+"structpVCU__struct.html#a301acd718e734c0742e1ca1c94ead140":[32,0,228,16],
+"structpVCU__struct.html#a30555f4793a8e3cd7b759ed6035b8699":[32,0,228,43],
 "structpVCU__struct.html#a30bf119bf8290e8b715fb2aaff19d39f":[32,0,228,14],
 "structpVCU__struct.html#a31dbe2e7f85774fd2ecdb4a38d5423df":[32,0,228,36],
 "structpVCU__struct.html#a431848172f94a241671ce271d691df16":[32,0,228,48],
@@ -246,8 +249,5 @@ var NAVTREEINDEX27 =
 "structstatus__leds__t.html#a7ff9a556d30478d37f75254365fee7f7":[32,0,262,3],
 "structstatus__leds__t.html#ab44fafa19a09a8bd44cea504b35bcb2f":[32,0,262,6],
 "structstatus__leds__t.html#ae3a2313c230092835ec6155c8c8c526a":[32,0,262,4],
-"structstatus__leds__t.html#ae4dc83c710e18df7170a9dc432e03fa8":[32,0,262,5],
-"structstatus__leds__t.html#afb9ffa3eaeac2f3fd160ba84612b2e66":[32,0,262,0],
-"structsteering__angle__data__t.html":[32,0,263],
-"structsteering__angle__data__t.html#a3e8fe6238594de996f62e9c9f662a989":[32,0,263,0]
+"structstatus__leds__t.html#ae4dc83c710e18df7170a9dc432e03fa8":[32,0,262,5]
 };

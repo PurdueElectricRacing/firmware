@@ -1,5 +1,8 @@
 var NAVTREEINDEX8 =
 {
+"commands_8h.html#a26d470e28a1ae39f1a0484e788b2b60e":[33,0,1,2,0,0,5,72],
+"commands_8h.html#a2e215be7eeeae273275761f22727ce74":[33,0,1,2,0,0,5,46],
+"commands_8h.html#a2ed840d59cef20eae18f908d2379964d":[33,0,1,2,0,0,5,71],
 "commands_8h.html#a36f3873dca04379254c85bf5aa8b335d":[33,0,1,2,0,0,5,52],
 "commands_8h.html#a4059cf3f2035ee91eb4eee4db6d8131b":[33,0,1,2,0,0,5,42],
 "commands_8h.html#a40d780f9e56350dd9557c24a519d8f73":[33,0,1,2,0,0,5,30],
@@ -246,8 +249,5 @@ var NAVTREEINDEX8 =
 "dashboard_2driver__interface_2pages_2faults_8h.html#a0134f6a995002734e8984816a7ca45ab":[33,0,1,2,4,1,0,5,3],
 "dashboard_2driver__interface_2pages_2faults_8h.html#a0a344e22ec915588172914c3a5a523a6":[33,0,1,2,4,1,0,5,9],
 "dashboard_2driver__interface_2pages_2faults_8h.html#a3f455e15d51cd5d24653f79cd3b30a7f":[33,0,1,2,4,1,0,5,0],
-"dashboard_2driver__interface_2pages_2faults_8h.html#a4210a5e9b94d931af5874be2d5c38677":[33,0,1,2,4,1,0,5,5],
-"dashboard_2driver__interface_2pages_2faults_8h.html#a7b6930e5aea9b1f35c48a5a976dfe529":[33,0,1,2,4,1,0,5,2],
-"dashboard_2driver__interface_2pages_2faults_8h.html#a9b3a3d15a61836bc8747994b6fd90be1":[33,0,1,2,4,1,0,5,11],
-"dashboard_2driver__interface_2pages_2faults_8h.html#aa9ca83e0655a91e48e63bd0c55017204":[33,0,1,2,4,1,0,5,10]
+"dashboard_2driver__interface_2pages_2faults_8h.html#a4210a5e9b94d931af5874be2d5c38677":[33,0,1,2,4,1,0,5,5]
 };

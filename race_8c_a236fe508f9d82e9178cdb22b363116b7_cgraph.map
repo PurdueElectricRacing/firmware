@@ -1,13 +1,19 @@
 <map id="update_motor_telemetry" name="update_motor_telemetry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,166,56"/>
-<area shape="rect" id="Node000002" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="243,5,342,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,31,227,23,228,29,166,36"/>
-<area shape="rect" id="Node000005" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="214,55,371,80"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="166,50,198,54,198,59,165,55"/>
-<area shape="rect" id="Node000003" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="419,5,522,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="342,16,403,16,403,21,342,21"/>
-<area shape="rect" id="Node000004" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="426,55,516,80"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="342,29,411,48,410,54,341,34"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="341,51,406,33,408,38,342,57"/>
-<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="371,65,410,65,410,70,371,70"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,166,106"/>
+<area shape="rect" id="Node000002" href="$nextion_8c.html#af603b7d431ae4f94d55bf04b2034a8cc" title="Sets the font color of a specified object on the Nextion display." alt="" coords="228,5,357,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,77,213,40,230,34,232,39,215,45,119,82"/>
+<area shape="rect" id="Node000005" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="243,55,342,80"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="165,80,227,73,228,78,166,86"/>
+<area shape="rect" id="Node000006" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="214,104,371,130"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="166,99,198,103,198,109,165,105"/>
+<area shape="rect" id="Node000007" href="$colors_8h.html#ac89667e0f076e58ef33f7498cefe9195" title="determine the color of the text based on celcius temperature" alt="" coords="226,153,358,179"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="120,104,215,140,233,146,231,151,213,145,118,109"/>
+<area shape="rect" id="Node000003" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="419,31,522,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="358,25,404,31,403,37,357,30"/>
+<area shape="rect" id="Node000004" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="426,80,516,106"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="343,29,372,40,420,66,428,70,426,75,418,71,370,45,342,34"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="342,58,403,50,404,55,342,64"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="343,72,411,82,410,87,342,77"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="341,101,370,90,418,65,426,61,429,66,420,70,372,95,343,106"/>
+<area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="371,104,409,98,410,104,372,109"/>
 </map>

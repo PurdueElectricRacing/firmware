@@ -13,8 +13,7 @@ async fn main() -> Result<(), db::Error> {
         .route("/", axum::routing::get(|| async { "daqcloud\n" }))
         .with_state(state);
 
-    let address: std::net::SocketAddr = consts::BIND_ADDR.parse().expect("Invalid bind address");
-    let listener = tokio::net::TcpListener::bind(address).await?;
+    let listener = tokio::net::TcpListener::bind(consts::BIND_ADDR).await?;
     log::info!("daqcloud listening on http://{}", listener.local_addr()?);
 
     axum::serve(listener, app)

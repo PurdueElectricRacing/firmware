@@ -50,3 +50,6 @@ venv
 /plot_factory/data/**
 !/plot_factory/data/README.md
 /plot_factory/output/
+
+# daqcloud db
+daq/daqcloud/daqcloud.db

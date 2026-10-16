@@ -4,8 +4,7 @@ mod state;
 
 #[tokio::main]
 async fn main() -> Result<(), db::Error> {
-    let database =
-        tokio::task::spawn_blocking(move || db::init_pool(consts::DATABASE_URL)).await??;
+    let database = db::init_pool(consts::DATABASE_URL)?;
     let state = state::AppState { db: database };
 
     let app = axum::Router::new()

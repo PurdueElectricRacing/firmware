@@ -1,5 +1,6 @@
 var NAVTREEINDEX21 =
 {
+"sensors_8h.html#af03363200e864b749b70d67a947369e9":[33,0,1,2,10,1,2,9],
 "sensors_8h_source.html":[33,0,1,2,10,1,2],
 "source_2dashboard_2driver__interface_2pages_2amk_8c.html":[33,0,1,2,4,1,0,0],
 "source_2dashboard_2driver__interface_2pages_2amk_8c.html#a062432901dfe910f61a8fdfa5b2a71ba":[33,0,1,2,4,1,0,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX21 =
 "structINVA__ERR__2__data__t.html":[32,0,116],
 "structINVA__ERR__2__data__t.html#a3353d6a2d42fc0abf8eb89b04337c01c":[32,0,116,1],
 "structINVA__ERR__2__data__t.html#a62c1a68040d2a7e578e20566511c9ca0":[32,0,116,2],
-"structINVA__ERR__2__data__t.html#ac442585f30d5214cbee637e44566379d":[32,0,116,3],
-"structINVA__ERR__2__data__t.html#aea544914108bdbc5003e8253a8d8d386":[32,0,116,0]
+"structINVA__ERR__2__data__t.html#ac442585f30d5214cbee637e44566379d":[32,0,116,3]
 };

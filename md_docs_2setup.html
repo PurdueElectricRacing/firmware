@@ -139,6 +139,7 @@ Table of Contents</h1>
 <li>5. Install Rust/DAQ Tools<ul>
 <li>5.1 Rust</li>
 <li>5.2 Linux / WSL DAQ Dependencies</li>
+<li>5.3 DaqCloud Database Tools</li>
 </ul>
 </li>
 <li>6. Build the Repository</li>
@@ -346,32 +347,43 @@ Platforms supported</h2>
 <p>Linux needs additional packages for serial-device enumeration:</p>
 <div class="fragment"><div class="line">sudo apt install libudev-dev pkg-config</div>
 </div><!-- fragment --><p>These were already installed in the Linux setup section.</p>
-<h1><a class="anchor" id="autotoc_md138"></a>
+<h2><a class="anchor" id="autotoc_md138"></a>
+5.3 DaqCloud Database Tools</h2>
+<p>On Ubuntu or Ubuntu inside WSL, install the SQLite CLI:</p>
+<div class="fragment"><div class="line">sudo apt update</div>
+<div class="line">sudo apt install sqlite3</div>
+</div><!-- fragment --><p>Install the Diesel CLI with bundled SQLite support:</p>
+<div class="fragment"><div class="line">cargo install diesel_cli --version 2.3.3 --locked --no-default-features --features sqlite-bundled</div>
+</div><!-- fragment --><p>Check:</p>
+<div class="fragment"><div class="line">diesel --version</div>
+<div class="line">sqlite3 --version</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md139"></a>
 6. Build the Repository</h1>
 <p>The repository's main build entry point is:</p>
 <div class="fragment"><div class="line">python3 build_all.py</div>
 </div><!-- fragment --><p>This builds the firmware and all DAQ workspace targets, then runs the generator and firmware host-test workflow.</p>
 <p>If this completes successfully, your development environment is set up correctly.</p>
-<h1><a class="anchor" id="autotoc_md139"></a>
+<h1><a class="anchor" id="autotoc_md140"></a>
 7. Individual Build Commands</h1>
 <p>You can also build individual parts of the repository.</p>
-<h2><a class="anchor" id="autotoc_md140"></a>
+<h2><a class="anchor" id="autotoc_md141"></a>
 7.1 Build All Firmware</h2>
 <div class="fragment"><div class="line">python3 firmware/build_firmware.py</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md141"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md142"></a>
 7.2 Run Firmware Static Analysis</h2>
 <div class="fragment"><div class="line">python3 firmware/check_firmware.py</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md142"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md143"></a>
 7.3 DAQ Workspace</h2>
 <p>From the repository root, build all workspace members and targets: </p><div class="fragment"><div class="line">cargo build --manifest-path daq/Cargo.toml --workspace --all-targets --locked</div>
 </div><!-- fragment --><p>To build only DaqApp from the repository root: </p><div class="fragment"><div class="line">cargo build --manifest-path daq/daqapp/Cargo.toml --locked</div>
 </div><!-- fragment --><p>Running binaries is supported only from their individual package directories. From the repository root, run DaqApp with: </p><div class="fragment"><div class="line">cd daq/daqapp &amp;&amp; cargo run</div>
 </div><!-- fragment --><p>From the repository root, run DaqCli with: </p><div class="fragment"><div class="line">cd daq/daqcli &amp;&amp; cargo run</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md143"></a>
+</div><!-- fragment --><p>From the repository root, run DaqCloud with: </p><div class="fragment"><div class="line">cd daq/daqcloud &amp;&amp; cargo run</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md144"></a>
 7.4 Run Generator and Firmware Host Tests</h2>
 <div class="fragment"><div class="line">python3 tests/run_tests.py</div>
 </div><!-- fragment --><p>This also generates the host-test coverage report.</p>
-<h1><a class="anchor" id="autotoc_md144"></a>
+<h1><a class="anchor" id="autotoc_md145"></a>
 8. Build from VS Code</h1>
 <p>Once the repository is open in VS Code, use:</p>
 <ul>
@@ -384,7 +396,7 @@ Platforms supported</h2>
 <li><code>Ctrl/Cmd + Shift + B</code> -&gt; "Tasks: Run Task"</li>
 </ul>
 <p>Then select the individual build task you want to run.</p>
-<h1><a class="anchor" id="autotoc_md145"></a>
+<h1><a class="anchor" id="autotoc_md146"></a>
 9. Hardware Debugging</h1>
 <p>Once your software build works, you can connect an ST-LINK debugger and flash firmware.</p>
 <p>In VS Code:</p>

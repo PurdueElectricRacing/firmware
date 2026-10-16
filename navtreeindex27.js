@@ -1,5 +1,6 @@
 var NAVTREEINDEX27 =
 {
+"structpVCU__struct.html#a25b14de9626c6862dff7dcdcd755e527":[32,0,228,28],
 "structpVCU__struct.html#a29c2cb765b447fe3a8a866b774d0eb9b":[32,0,228,8],
 "structpVCU__struct.html#a301acd718e734c0742e1ca1c94ead140":[32,0,228,16],
 "structpVCU__struct.html#a30555f4793a8e3cd7b759ed6035b8699":[32,0,228,43],
@@ -248,6 +249,5 @@ var NAVTREEINDEX27 =
 "structstatus__leds__t.html#a6cc07c4442bf7158ab552581c3ae924e":[32,0,262,1],
 "structstatus__leds__t.html#a7ff9a556d30478d37f75254365fee7f7":[32,0,262,3],
 "structstatus__leds__t.html#ab44fafa19a09a8bd44cea504b35bcb2f":[32,0,262,6],
-"structstatus__leds__t.html#ae3a2313c230092835ec6155c8c8c526a":[32,0,262,4],
-"structstatus__leds__t.html#ae4dc83c710e18df7170a9dc432e03fa8":[32,0,262,5]
+"structstatus__leds__t.html#ae3a2313c230092835ec6155c8c8c526a":[32,0,262,4]
 };

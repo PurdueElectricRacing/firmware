@@ -154,6 +154,6 @@ var searchData=
   ['voltage_5ffrom_151',['voltage_from',['../dearunits_8h.html#ae800f6ec5c7eb8826a5e2aeae661db43',1,'dearunits.h']]],
   ['voltage_5flimit_152',['voltage_limit',['../structelcon__command__data__t.html#a1c05aef4f8e91f98aa3812ca52fec185',1,'elcon_command_data_t::voltage_limit'],['../structcharging__fsm__internals__data__t.html#a2f452922ddb52fb45249d76ac4d0cb33',1,'charging_fsm_internals_data_t::voltage_limit']]],
   ['vportsvchandler_153',['vPortSVCHandler',['../FreeRTOSConfig_8h.html#ad43047b3ea0a146673e30637488bf754',1,'FreeRTOSConfig.h']]],
-  ['vs_20code_154',['8. Build from VS Code',['../md_docs_2setup.html#autotoc_md144',1,'']]],
+  ['vs_20code_154',['8. Build from VS Code',['../md_docs_2setup.html#autotoc_md145',1,'']]],
   ['vs_20code_20inside_20of_20wsl_155',['3C.3 Use VS Code inside of WSL',['../md_docs_2setup.html#autotoc_md132',1,'']]]
 ];

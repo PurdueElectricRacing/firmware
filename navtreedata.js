@@ -194,30 +194,31 @@ var NAVTREE =
       [ "Install Python Dependencies", "md_docs_2setup.html#autotoc_md134", null ],
       [ "Install Rust/DAQ Tools", "md_docs_2setup.html#autotoc_md135", [
         [ "5.1 Rust", "md_docs_2setup.html#autotoc_md136", null ],
-        [ "5.2 Linux / WSL DAQ Dependencies", "md_docs_2setup.html#autotoc_md137", null ]
+        [ "5.2 Linux / WSL DAQ Dependencies", "md_docs_2setup.html#autotoc_md137", null ],
+        [ "5.3 DaqCloud Database Tools", "md_docs_2setup.html#autotoc_md138", null ]
       ] ],
-      [ "Build the Repository", "md_docs_2setup.html#autotoc_md138", null ],
-      [ "Individual Build Commands", "md_docs_2setup.html#autotoc_md139", [
-        [ "7.1 Build All Firmware", "md_docs_2setup.html#autotoc_md140", null ],
-        [ "7.2 Run Firmware Static Analysis", "md_docs_2setup.html#autotoc_md141", null ],
-        [ "7.3 DAQ Workspace", "md_docs_2setup.html#autotoc_md142", null ],
-        [ "7.4 Run Generator and Firmware Host Tests", "md_docs_2setup.html#autotoc_md143", null ]
+      [ "Build the Repository", "md_docs_2setup.html#autotoc_md139", null ],
+      [ "Individual Build Commands", "md_docs_2setup.html#autotoc_md140", [
+        [ "7.1 Build All Firmware", "md_docs_2setup.html#autotoc_md141", null ],
+        [ "7.2 Run Firmware Static Analysis", "md_docs_2setup.html#autotoc_md142", null ],
+        [ "7.3 DAQ Workspace", "md_docs_2setup.html#autotoc_md143", null ],
+        [ "7.4 Run Generator and Firmware Host Tests", "md_docs_2setup.html#autotoc_md144", null ]
       ] ],
-      [ "Build from VS Code", "md_docs_2setup.html#autotoc_md144", null ],
-      [ "Hardware Debugging", "md_docs_2setup.html#autotoc_md145", null ]
+      [ "Build from VS Code", "md_docs_2setup.html#autotoc_md145", null ],
+      [ "Hardware Debugging", "md_docs_2setup.html#autotoc_md146", null ]
     ] ],
     [ "PER CAN Library", "md_firmware_2can__library_2README.html", [
-      [ "Logic", "md_firmware_2can__library_2README.html#autotoc_md147", null ],
-      [ "Stale Detection", "md_firmware_2can__library_2README.html#autotoc_md148", null ],
-      [ "Usage", "md_firmware_2can__library_2README.html#autotoc_md149", null ],
-      [ "Fault System", "md_firmware_2can__library_2README.html#autotoc_md150", [
-        [ "Usage:", "md_firmware_2can__library_2README.html#autotoc_md151", null ]
+      [ "Logic", "md_firmware_2can__library_2README.html#autotoc_md148", null ],
+      [ "Stale Detection", "md_firmware_2can__library_2README.html#autotoc_md149", null ],
+      [ "Usage", "md_firmware_2can__library_2README.html#autotoc_md150", null ],
+      [ "Fault System", "md_firmware_2can__library_2README.html#autotoc_md151", [
+        [ "Usage:", "md_firmware_2can__library_2README.html#autotoc_md152", null ]
       ] ]
     ] ],
     [ "Support", "md_firmware_2support_2README.html", [
-      [ "linker/", "md_firmware_2support_2README.html#autotoc_md153", null ],
-      [ "svd/", "md_firmware_2support_2README.html#autotoc_md154", null ],
-      [ "openocd/", "md_firmware_2support_2README.html#autotoc_md155", null ]
+      [ "linker/", "md_firmware_2support_2README.html#autotoc_md154", null ],
+      [ "svd/", "md_firmware_2support_2README.html#autotoc_md155", null ],
+      [ "openocd/", "md_firmware_2support_2README.html#autotoc_md156", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -269,22 +270,22 @@ var NAVTREEINDEX =
 "fdcan__priv_8c.html#ab6b9bb4a293762bbf3d7c0c52d247da1",
 "globals_d.html",
 "led_8h.html#a0184a4e7222928c90cf82a41d804abb8",
-"md_firmware_2source_2daq_2README.html",
-"pdu_2main_8h.html#a082e4029783873271e2b8019c29bde39",
-"phal__F4_2crc_2crc_8c.html#a1ab9120903355a797f3f536d5546fa0b",
-"phal__G4_2adc_2adc_8c.html#ab1d3e1e78099bd0f30e345ce46dd626a",
-"powertrain_8c.html#a059575ddd2df3c7c23a2ad1eb3ee564b",
-"sdio_8c.html#a64baac72a75a2c522e837935009cbe93",
-"sensors_8h_source.html",
-"structINVA__INFO__data__t.html",
-"structNAV__PVT__data__t.html#aacf68ac9b7c71ce3ee9cc9faabb9c1aa",
-"structabox__init__data__t.html#a95232c2bd5c6850262062f9a51a231df",
-"structcan__data__t.html#a41ffc71a5b9099e6d32421301e3d5c18",
-"structfront__driveline__version__data__t.html#a5bc6f7c933aaaa7e9e0de14b0019cb0f",
-"structpVCU__struct.html#a29c2cb765b447fe3a8a866b774d0eb9b",
-"structstatus__leds__t.html#afb9ffa3eaeac2f3fd160ba84612b2e66",
-"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a6726b6535a6601856e8d2d78ae306681",
-"usb__descriptors_8h.html#a0b3c17bf918cef3aa66d8b67557e7242"
+"md_firmware_2source_2bootloader_2README.html#autotoc_md27",
+"pdu_2main_8h.html#a07fa221502b305e4c2460f2118e95a5b",
+"phal__F4_2crc_2crc_8c.html",
+"phal__G4_2adc_2adc_8c.html#a9225d89f89aa3f074fe94e2b7061e864",
+"powertrain_8c.html#a02ec81ffc56b69d59884d5d0b95c33e9",
+"sdio_8c.html#a5bff3a6dd53b72101f6200feeebabf92",
+"sensors_8h.html#af03363200e864b749b70d67a947369e9",
+"structINVA__ERR__2__data__t.html#aea544914108bdbc5003e8253a8d8d386",
+"structNAV__PVT__data__t.html#aa7fc2e0107d3bdf9a174d5b532f38502",
+"structabox__init__data__t.html",
+"structcan__data__t.html#a36a24615c899bfe14db897347bf72f49",
+"structfront__driveline__version__data__t.html#a27a8318b20aa8a3289167aec4ea270e4",
+"structpVCU__struct.html#a25b14de9626c6862dff7dcdcd755e527",
+"structstatus__leds__t.html#ae4dc83c710e18df7170a9dc432e03fa8",
+"switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a65288571c443d6b008a416108b2aa47d",
+"usb__descriptors_8h.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -4,6 +4,8 @@ mod state;
 
 #[tokio::main]
 async fn main() -> Result<(), db::Error> {
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
+
     let database = db::init_pool(consts::DATABASE_URL)?;
     let state = state::AppState { db: database };
 
@@ -13,12 +15,12 @@ async fn main() -> Result<(), db::Error> {
 
     let address: std::net::SocketAddr = consts::BIND_ADDR.parse().expect("Invalid bind address");
     let listener = tokio::net::TcpListener::bind(address).await?;
-    println!("daqcloud listening on http://{}", listener.local_addr()?);
+    log::info!("daqcloud listening on http://{}", listener.local_addr()?);
 
     axum::serve(listener, app)
         .with_graceful_shutdown(async {
             if let Err(error) = tokio::signal::ctrl_c().await {
-                eprintln!("Could not listen for shutdown: {error}");
+                log::error!("Could not listen for shutdown: {error}");
             }
         })
         .await?;

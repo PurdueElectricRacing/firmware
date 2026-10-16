@@ -1089,7 +1089,9 @@ dependencies = [
  "axum",
  "diesel",
  "diesel_migrations",
+ "env_logger",
  "libsqlite3-sys",
+ "log",
  "tokio",
 ]
 

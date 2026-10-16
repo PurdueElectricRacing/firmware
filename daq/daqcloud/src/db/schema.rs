@@ -16,7 +16,6 @@ diesel::table! {
         id -> Integer,
         upload_id -> Integer,
         can_id -> Integer,
-        name -> Text,
         desc -> Text,
     }
 }

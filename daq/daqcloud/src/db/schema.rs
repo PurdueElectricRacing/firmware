@@ -2,8 +2,8 @@
 
 diesel::table! {
     events (id) {
-        id -> Integer,
-        upload_id -> Integer,
+        id -> BigInt,
+        upload_id -> BigInt,
         name -> Text,
         color -> Text,
         start_time_ms -> BigInt,
@@ -13,8 +13,8 @@ diesel::table! {
 
 diesel::table! {
     message_defs (id) {
-        id -> Integer,
-        upload_id -> Integer,
+        id -> BigInt,
+        upload_id -> BigInt,
         can_id -> Integer,
         name -> Text,
         desc -> Text,
@@ -23,8 +23,8 @@ diesel::table! {
 
 diesel::table! {
     message_samples (id) {
-        id -> Integer,
-        message_def_id -> Integer,
+        id -> BigInt,
+        message_def_id -> BigInt,
         daq_ticks -> BigInt,
         timestamp_ms -> BigInt,
     }
@@ -32,8 +32,8 @@ diesel::table! {
 
 diesel::table! {
     signal_defs (id) {
-        id -> Integer,
-        message_def_id -> Integer,
+        id -> BigInt,
+        message_def_id -> BigInt,
         name -> Text,
         desc -> Text,
         unit -> Text,
@@ -42,16 +42,16 @@ diesel::table! {
 
 diesel::table! {
     signal_samples (id) {
-        id -> Integer,
-        message_sample_id -> Integer,
-        signal_def_id -> Integer,
+        id -> BigInt,
+        message_sample_id -> BigInt,
+        signal_def_id -> BigInt,
         value -> Double,
     }
 }
 
 diesel::table! {
     uploads (id) {
-        id -> Integer,
+        id -> BigInt,
         name -> Text,
         git_hash -> Text,
         superdbc_hash -> Text,

@@ -25,7 +25,7 @@ impl CustomizeConnection<SqliteConnection, diesel::r2d2::Error> for SqliteSettin
 
 /// Open a file-backed SQLite database and migrate it before serving requests.
 /// Call from a blocking thread: Diesel's SQLite driver is synchronous.
-pub fn connect(database_url: &str) -> Result<DbPool, Error> {
+pub fn init_pool(database_url: &str) -> Result<DbPool, Error> {
     let manager = ConnectionManager::<SqliteConnection>::new(database_url);
     let pool = Pool::builder()
         .max_size(4)

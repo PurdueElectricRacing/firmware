@@ -5,7 +5,7 @@ use axum::{Router, routing::get};
 #[tokio::main]
 async fn main() -> Result<(), db::Error> {
     let database_url = std::env::var("DATABASE_URL").unwrap_or_else(|_| "daqcloud.sqlite3".into());
-    let database = tokio::task::spawn_blocking(move || db::connect(&database_url)).await??;
+    let database = tokio::task::spawn_blocking(move || db::init_pool(&database_url)).await??;
 
     let app = Router::new()
         .route("/", get(|| async { "daqcloud\n" }))

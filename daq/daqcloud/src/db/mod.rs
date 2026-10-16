@@ -28,7 +28,6 @@ impl diesel::r2d2::CustomizeConnection<diesel::SqliteConnection, diesel::r2d2::E
 }
 
 /// Open a file-backed SQLite database and migrate it before serving requests.
-/// Call from a blocking thread: Diesel's SQLite driver is synchronous.
 pub fn init_pool(database_url: &str) -> Result<DbPool, Error> {
     let manager = diesel::r2d2::ConnectionManager::<diesel::SqliteConnection>::new(database_url);
     let pool = diesel::r2d2::Pool::builder()
@@ -39,7 +38,8 @@ pub fn init_pool(database_url: &str) -> Result<DbPool, Error> {
 
     {
         let mut conn = pool.get()?;
-        // WAL is persistent for this database file and allows readers during writes.
+        // WAL is persistent for this database file.
+        // Allows readers during writes.
         conn.batch_execute("PRAGMA journal_mode = WAL;")?;
         conn.run_pending_migrations(MIGRATIONS)?;
     }

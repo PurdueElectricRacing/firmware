@@ -1,3 +1,5 @@
+pub mod schema;
+
 use std::{error, time};
 
 use diesel::connection::SimpleConnection as _;

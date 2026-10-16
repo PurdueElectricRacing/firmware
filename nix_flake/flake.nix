@@ -73,6 +73,7 @@
               postgresqlSupport = false;
               mysqlSupport = false;
             })
+            sqlite
 
             python
             mypy

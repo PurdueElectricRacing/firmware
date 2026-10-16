@@ -64,6 +64,8 @@ Running DAQ binaries is supported only from their own package directories:
 cd daq/daqapp && cargo run
 # DaqCLI
 cd daq/daqcli && cargo run
+# DaqCloud
+cd daq/daqcloud && cargo run
 ```
 
 To run tests and generate a coverage report:

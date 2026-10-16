@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   daqcloud_schema:
-    name: Check generated DAQ Cloud schema
+    name: Check generated diesel schema
     runs-on: ubuntu-latest
     container:
       image: irvingywang/per-firmware:latest

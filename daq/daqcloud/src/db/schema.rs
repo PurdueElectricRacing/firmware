@@ -6,8 +6,8 @@ diesel::table! {
         upload_id -> Integer,
         name -> Text,
         color -> Text,
-        start_time_ms -> Integer,
-        end_time_ms -> Nullable<Integer>,
+        start_time_ms -> BigInt,
+        end_time_ms -> Nullable<BigInt>,
     }
 }
 
@@ -25,8 +25,8 @@ diesel::table! {
     message_samples (id) {
         id -> Integer,
         message_def_id -> Integer,
-        daq_ticks -> Integer,
-        timestamp_ms -> Integer,
+        daq_ticks -> BigInt,
+        timestamp_ms -> BigInt,
     }
 }
 
@@ -45,7 +45,7 @@ diesel::table! {
         id -> Integer,
         message_sample_id -> Integer,
         signal_def_id -> Integer,
-        value -> Float,
+        value -> Double,
     }
 }
 
@@ -56,8 +56,8 @@ diesel::table! {
         git_hash -> Text,
         superdbc_hash -> Text,
         superdbc_version -> Text,
-        start_time_ms -> Integer,
-        upload_time_ms -> Integer,
+        start_time_ms -> BigInt,
+        upload_time_ms -> BigInt,
         short_comments -> Text,
         long_notes -> Text,
     }

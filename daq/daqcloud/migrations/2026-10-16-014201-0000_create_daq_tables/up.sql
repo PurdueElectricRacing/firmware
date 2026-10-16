@@ -5,8 +5,8 @@ CREATE TABLE uploads (
     git_hash			TEXT NOT NULL,
     superdbc_hash 		TEXT NOT NULL,
     superdbc_version	TEXT NOT NULL,
-    start_time_ms		INTEGER NOT NULL,
-    upload_time_ms		INTEGER NOT NULL,
+    start_time_ms		BIGINT NOT NULL,
+    upload_time_ms		BIGINT NOT NULL,
     short_comments		TEXT NOT NULL DEFAULT '',
     long_notes			TEXT NOT NULL DEFAULT ''
 );
@@ -17,8 +17,8 @@ CREATE TABLE events (
         REFERENCES uploads(id) ON DELETE CASCADE,
     name 				TEXT NOT NULL,
     color				TEXT NOT NULL,
-    start_time_ms		INTEGER NOT NULL,
-    end_time_ms			INTEGER,
+    start_time_ms		BIGINT NOT NULL,
+    end_time_ms			BIGINT,
 
     CHECK(end_time_ms IS NULL OR end_time_ms >= start_time_ms)
 );
@@ -38,8 +38,8 @@ CREATE TABLE message_samples (
     id					INTEGER PRIMARY KEY NOT NULL,
     message_def_id		INTEGER NOT NULL
         REFERENCES message_defs(id) ON DELETE CASCADE,
-    daq_ticks			INTEGER NOT NULL,
-    timestamp_ms		INTEGER NOT NULL,
+    daq_ticks			BIGINT NOT NULL,
+    timestamp_ms		BIGINT NOT NULL,
 
     CHECK(daq_ticks >= 0)
 );
@@ -59,7 +59,7 @@ CREATE TABLE signal_samples (
         REFERENCES message_samples(id) ON DELETE CASCADE,
     signal_def_id		INTEGER NOT NULL
         REFERENCES signal_defs(id) ON DELETE CASCADE,
-    value 				REAL NOT NULL
+    value 				DOUBLE NOT NULL
 );
 
 CREATE INDEX idx_events_upload_start

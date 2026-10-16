@@ -1,5 +1,4 @@
 mod db;
-mod schema;
 
 use axum::{Router, routing::get};
 

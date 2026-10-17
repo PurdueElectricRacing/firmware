@@ -53,7 +53,27 @@ static bool valid_endpoint(uint16_t index) {
 
 static bool handle_get_descriptor(const PHAL_USB_SetupPacket_t *setup) {
     // wValue holds descriptor type in its high byte and descriptor index in its low byte.
-    // Only device/configuration descriptor index zero exists.
+    uint16_t descriptor_type = setup->value >> 8U;
+    uint8_t descriptor_index = setup->value & 0xFFU;
+    if (setup->type == PHAL_USB_REQUEST_TYPE_DEVICE_IN &&
+        descriptor_type == PHAL_USB_DESCRIPTOR_STRING && setup->length != 0U) {
+        if (descriptor_index == 0U && setup->index == 0U) {
+            respond(LANGUAGE_DESCRIPTOR, sizeof(LANGUAGE_DESCRIPTOR), setup->length);
+            return true;
+        }
+        if (descriptor_index == USB_PRODUCT_STRING_INDEX && setup->index == USB_LANGUAGE_ID) {
+            static uint8_t product_descriptor[2U + 2U * (sizeof(USB_PRODUCT_NAME) - 1U)];
+            product_descriptor[0] = sizeof(product_descriptor);
+            product_descriptor[1] = PHAL_USB_DESCRIPTOR_STRING;
+            for (size_t i = 0U; i < sizeof(USB_PRODUCT_NAME) - 1U; ++i) {
+                product_descriptor[2U + 2U * i] = (uint8_t)USB_PRODUCT_NAME[i];
+                product_descriptor[3U + 2U * i] = 0U;
+            }
+            respond(product_descriptor, sizeof(product_descriptor), setup->length);
+            return true;
+        }
+        return false;
+    }
     bool is_device_in = setup->type == PHAL_USB_REQUEST_TYPE_DEVICE_IN;
     bool is_index_zero = setup->index == 0U;
     bool is_nonzero_length = setup->length != 0U;
@@ -63,7 +83,6 @@ static bool handle_get_descriptor(const PHAL_USB_SetupPacket_t *setup) {
         is_descriptor_index_zero &&
         is_nonzero_length
     ) {
-        uint16_t descriptor_type = setup->value >> 8U;
         if (descriptor_type == PHAL_USB_DESCRIPTOR_DEVICE) {
             respond(DEVICE_DESCRIPTOR, sizeof(DEVICE_DESCRIPTOR), setup->length);
             return true;

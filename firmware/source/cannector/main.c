@@ -6,6 +6,7 @@
  */
 
 #include "main.h"
+#include "activity_leds.h"
 
 #include "can_library/generated/MCAN.h"
 #include "can_library/generated/SCAN.h"

@@ -3,6 +3,7 @@
  * @brief Periodic CAN-to-USB forwarding; enumeration lives in usb/usb_control.c.
  */
 #include "usb_device.h"
+#include "activity_leds.h"
 
 #include "common/rtos/rtos.h"
 #include "main.h"
@@ -15,6 +16,7 @@ void usb_tx_periodic(void) {
         count++;
     }
     if (count == 0U) {
+        // no frames to send
         return;
     }
 
@@ -25,7 +27,9 @@ void usb_tx_periodic(void) {
     if (usb_data_enabled()) {
         // Best effort: discard this batch if IN is busy
         uint16_t packet_length = (uint16_t)(count * sizeof(packet[0]));
-        (void)PHAL_USB_write(PHAL_USB_DATA_ENDPOINT, packet, packet_length);
+        if (PHAL_USB_write(PHAL_USB_DATA_ENDPOINT, packet, packet_length)) {
+            activity_leds_record(ACTIVITY_USB, xTaskGetTickCount());
+        }
     }
     __set_PRIMASK(saved_primask);
 

@@ -6,6 +6,7 @@
  */
 
 #include <string.h>
+#include "activity_leds.h"
 
 #include "common/phal_G4/fdcan/fdcan.h"
 #include "common/rtos/rtos.h"
@@ -35,5 +36,14 @@ void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
         timestamped_frame_t oldest;
         xQueueReceiveFromISR(can_queue, &oldest, nullptr);
         xQueueSendToBackFromISR(can_queue, &frame, nullptr);
+    }
+
+    // Update the activity LED for this bus
+    if (msg->Bus == FDCAN1) {
+        activity_leds_record(ACTIVITY_VCAN, frame.ticks_ms);
+    } else if (msg->Bus == FDCAN2) {
+        activity_leds_record(ACTIVITY_MCAN, frame.ticks_ms);
+    } else if (msg->Bus == FDCAN3) {
+        activity_leds_record(ACTIVITY_SCAN, frame.ticks_ms);
     }
 }

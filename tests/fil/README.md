@@ -50,6 +50,11 @@ expectations. It checks:
 `ready_to_drive_stimuli.json` is the PER-owned copy of the scenario initially
 imported from FIL. Keep it aligned with vehicle behavior as firmware evolves.
 
+The `run_tests.yml` GitHub Actions workflow also runs the full PGO build and PER
+scenarios on pull requests targeting `master` and pushes to `master`. Its FIL
+job uses the existing firmware container, installs the PGO tools, and builds
+vehicle firmware before running the tests, independently of host unit tests.
+
 `python3 build_all.py` builds firmware, builds/tests FIL with PGO, then builds
 DAQ and runs the existing host-test workflow. The standalone host-test runner
 remains independent and does not require FIL or prebuilt vehicle firmware.

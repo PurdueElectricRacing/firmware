@@ -28,7 +28,8 @@ static constexpr uint8_t BULK_IN_ADDRESS = PHAL_USB_ENDPOINT_ADDRESS_IN | PHAL_U
  * 1. USB version: 2.0.
  * 2. Device class: vendor-specific (the daqcore driver knows our format)
  * 3. Control packet size: 64 bytes.
- * 4. Vendor/product IDs: 1209:0003
+ * 4. IDs (vendor:product): 5045:0271
+ *    Unregistered; replace with allocated IDs before distribution.
  * 5. Device version: 0.01.
  * 6. Product string includes the build's Git hash; no manufacturer or serial string.
  * 7. One available configuration.
@@ -41,8 +42,8 @@ static const uint8_t DEVICE_DESCRIPTOR[] = {
     0U,                                  // Device subclass
     0U,                                  // Device protocol
     PHAL_USB_PACKET_SIZE_BYTES,          // EP0 maximum packet size
-    0x09U, 0x12U,                        // Vendor ID: 0x1209
-    0x03U, 0x00U,                        // Product ID: 0x0003
+    0x45U, 0x50U,                        // Vendor ID: 0x5045 ("PE")
+    0x71U, 0x02U,                        // Product ID: 0x0271
     0x01U, 0x00U,                        // bcdDevice: 0.01
     0U,                                  // No manufacturer string
     USB_PRODUCT_STRING_INDEX,            // Product string

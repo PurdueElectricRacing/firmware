@@ -1,36 +1,39 @@
 <map id="firmware/source/cannector/usb_device.c" name="firmware/source/cannector/usb_device.c">
-<area shape="rect" id="Node000001" title="Periodic CAN&#45;to&#45;USB forwarding; enumeration lives in usb/usb_control.c." alt="" coords="397,5,572,46"/>
-<area shape="rect" id="Node000002" href="$usb__device_8h.html" title="USB tx thread." alt="" coords="193,94,290,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="425,49,294,91,293,86,423,44"/>
-<area shape="rect" id="Node000007" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="534,175,667,201"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="501,45,585,161,580,164,496,48"/>
-<area shape="rect" id="Node000014" href="$cannector_2main_8h.html" title="&quot;CANnector&quot; node source code" alt="" coords="571,94,630,120"/>
-<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="515,44,571,83,569,87,512,49"/>
-<area shape="rect" id="Node000015" href="$usb__control_8h.html" title="Interface between USB control handling and CAN forwarding." alt="" coords="373,94,497,120"/>
-<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="474,48,453,82,448,79,470,45"/>
+<area shape="rect" id="Node000001" title="Periodic CAN&#45;to&#45;USB forwarding; enumeration lives in usb/usb_control.c." alt="" coords="425,5,600,46"/>
+<area shape="rect" id="Node000002" href="$usb__device_8h.html" title="USB tx thread." alt="" coords="192,94,289,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="445,49,298,92,296,87,444,44"/>
+<area shape="rect" id="Node000007" href="$activity__leds_8h.html" title=" " alt="" coords="461,94,564,120"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="515,46,515,78,510,78,510,46"/>
+<area shape="rect" id="Node000008" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="535,175,668,201"/>
+<area shape="poly" id="edge17_Node000001_Node000008" title=" " alt="" coords="538,45,559,66,579,93,593,126,601,159,595,160,588,128,574,95,555,70,534,48"/>
+<area shape="rect" id="Node000015" href="$cannector_2main_8h.html" title="&quot;CANnector&quot; node source code" alt="" coords="639,94,698,120"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="552,44,632,84,630,89,550,49"/>
+<area shape="rect" id="Node000016" href="$usb__control_8h.html" title="Interface between USB control handling and CAN forwarding." alt="" coords="313,94,437,120"/>
+<area shape="poly" id="edge20_Node000001_Node000016" title=" " alt="" coords="479,49,410,88,408,84,477,44"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,175,73,201"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,123,85,172,83,167,209,118"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="250,256,313,282"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="200,123,165,141,149,153,137,169,130,188,137,207,157,228,182,243,209,253,235,260,234,265,207,258,179,248,153,232,133,210,125,188,133,166,146,150,162,136,198,118"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,123,85,171,83,167,208,118"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="251,256,315,282"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="200,123,165,141,149,154,137,169,130,188,137,207,157,228,182,243,210,254,237,260,236,265,208,259,180,248,154,232,133,210,125,188,133,166,146,150,162,136,197,118"/>
 <area shape="rect" id="Node000005" href="$usb_8h.html" title="STM32G4 USB full&#45;speed device API." alt="" coords="361,168,509,208"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="272,118,374,159,372,164,270,123"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="271,118,373,159,371,164,269,123"/>
 <area shape="rect" id="Node000006" href="$timestamped__frame_8h.html" title="Definition for timestamped CAN frames." alt="" coords="146,168,337,208"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="244,120,244,152,239,152,239,120"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="398,211,319,252,317,247,395,207"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="254,208,271,241,266,243,249,210"/>
-<area shape="poly" id="edge15_Node000007_Node000004" title=" " alt="" coords="552,204,329,259,328,254,551,199"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="358,256,451,282"/>
-<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="571,204,449,253,447,248,569,199"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="475,256,523,282"/>
-<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="587,203,528,249,525,244,583,199"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="547,256,614,282"/>
-<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="600,202,590,242,584,241,595,201"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="638,256,712,282"/>
-<area shape="poly" id="edge12_Node000007_Node000011" title=" " alt="" coords="614,199,655,243,651,247,610,203"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="736,256,792,282"/>
-<area shape="poly" id="edge13_Node000007_Node000012" title=" " alt="" coords="627,199,727,247,724,252,624,204"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="816,256,883,282"/>
-<area shape="poly" id="edge14_Node000007_Node000013" title=" " alt="" coords="640,199,802,250,800,255,638,204"/>
-<area shape="poly" id="edge17_Node000014_Node000007" title=" " alt="" coords="603,120,603,159,598,159,598,120"/>
-<area shape="poly" id="edge19_Node000015_Node000005" title=" " alt="" coords="438,120,438,152,432,152,432,120"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="243,120,244,152,238,152,238,120"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="398,211,321,251,319,246,396,207"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="254,207,272,241,267,243,250,210"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="528,118,578,163,575,167,524,122"/>
+<area shape="poly" id="edge16_Node000008_Node000004" title=" " alt="" coords="553,204,331,259,329,254,552,199"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="359,256,452,282"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="572,204,450,253,448,248,570,199"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="476,256,524,282"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="588,203,529,249,526,244,585,199"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="548,256,615,282"/>
+<area shape="poly" id="edge12_Node000008_Node000011" title=" " alt="" coords="601,202,591,242,586,241,596,201"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="639,256,714,282"/>
+<area shape="poly" id="edge13_Node000008_Node000012" title=" " alt="" coords="615,199,656,243,653,247,611,203"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="738,256,794,282"/>
+<area shape="poly" id="edge14_Node000008_Node000013" title=" " alt="" coords="628,199,728,247,726,252,626,204"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="817,256,885,282"/>
+<area shape="poly" id="edge15_Node000008_Node000014" title=" " alt="" coords="641,199,803,250,802,255,639,204"/>
+<area shape="poly" id="edge19_Node000015_Node000008" title=" " alt="" coords="660,122,624,165,620,162,656,118"/>
+<area shape="poly" id="edge21_Node000016_Node000005" title=" " alt="" coords="386,118,413,154,409,157,382,122"/>
 </map>

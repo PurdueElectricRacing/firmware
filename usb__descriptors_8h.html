@@ -106,10 +106,11 @@ $(function(){initNavTree('usb__descriptors_8h.html',''); initResizable(true); })
 <p>CANnector's USB identity, describe the device to the host.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="usb_8h_source.html">common/phal_G4/usb/usb.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="can__version_8h_source.html">can_library/generated/can_version.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for usb_descriptors.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="usb__descriptors_8h__incl.svg" width="186" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="usb__descriptors_8h__incl.svg" width="328" height="214"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -121,6 +122,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:ac97e116fbc5cf0c6c4bf5e70d7277c2a" id="r_ac97e116fbc5cf0c6c4bf5e70d7277c2a"><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac97e116fbc5cf0c6c4bf5e70d7277c2a">USB_PRODUCT_NAME</a> [] = &quot;CANnector27_&quot; <a class="el" href="can__version_8h.html#acac2b5788f787f9d888659a0c1473565">FIRMWARE_GIT_HASH_STRING</a></td></tr>
+<tr class="separator:ac97e116fbc5cf0c6c4bf5e70d7277c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af56d8fe62e6a5118bf08849e11b4ba89" id="r_af56d8fe62e6a5118bf08849e11b4ba89"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af56d8fe62e6a5118bf08849e11b4ba89">USB_PRODUCT_STRING_INDEX</a> = 1U</td></tr>
+<tr class="separator:af56d8fe62e6a5118bf08849e11b4ba89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db9972d92557324a3a49e1a00761d06" id="r_a2db9972d92557324a3a49e1a00761d06"><td class="memItemLeft" align="right" valign="top">static constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2db9972d92557324a3a49e1a00761d06">USB_LANGUAGE_ID</a> = 0x0409U</td></tr>
+<tr class="separator:a2db9972d92557324a3a49e1a00761d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad19fe849dc7f25e325e9087c1893acb8" id="r_ad19fe849dc7f25e325e9087c1893acb8"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad19fe849dc7f25e325e9087c1893acb8">LANGUAGE_DESCRIPTOR</a> []</td></tr>
+<tr class="separator:ad19fe849dc7f25e325e9087c1893acb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b3c17bf918cef3aa66d8b67557e7242" id="r_a0b3c17bf918cef3aa66d8b67557e7242"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b3c17bf918cef3aa66d8b67557e7242">BULK_IN_ADDRESS</a> = <a class="el" href="usb_8h.html#adaaabf1c2b49fc467d6ccec4b32a0c7b">PHAL_USB_ENDPOINT_ADDRESS_IN</a> | <a class="el" href="usb_8h.html#ac11d5e808a4d0ee4824043c138bed127">PHAL_USB_DATA_ENDPOINT</a></td></tr>
 <tr class="separator:a0b3c17bf918cef3aa66d8b67557e7242"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a645779e5cdbd378fa7e019d75e71ec6b" id="r_a645779e5cdbd378fa7e019d75e71ec6b"><td class="memItemLeft" align="right" valign="top">static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a645779e5cdbd378fa7e019d75e71ec6b">DEVICE_DESCRIPTOR</a> []</td></tr>
@@ -204,11 +213,11 @@ Variables</h2></td></tr>
 <div class="line">    0U,                                  </div>
 <div class="line">    0U,                                  </div>
 <div class="line">    <a class="code hl_variable" href="usb_8h.html#a2e6f1c105cb6578615bf45ec8d123a71">PHAL_USB_PACKET_SIZE_BYTES</a>,          </div>
-<div class="line">    0x09U, 0x12U,                        </div>
-<div class="line">    0x03U, 0x00U,                        </div>
+<div class="line">    0x45U, 0x50U,                        </div>
+<div class="line">    0x71U, 0x02U,                        </div>
 <div class="line">    0x01U, 0x00U,                        </div>
 <div class="line">    0U,                                  </div>
-<div class="line">    0U,                                  </div>
+<div class="line">    <a class="code hl_variable" href="#af56d8fe62e6a5118bf08849e11b4ba89">USB_PRODUCT_STRING_INDEX</a>,            </div>
 <div class="line">    0U,                                  </div>
 <div class="line">    1U,                                  </div>
 <div class="line">}</div>
@@ -216,15 +225,108 @@ Variables</h2></td></tr>
 <div class="ttc" id="ausb_8h_html_a87a54ce368555d72fe2a96153d73d430a348861592e6e6db50a83ccd1dde61d17"><div class="ttname"><a href="usb_8h.html#a87a54ce368555d72fe2a96153d73d430a348861592e6e6db50a83ccd1dde61d17">PHAL_USB_DESCRIPTOR_DEVICE</a></div><div class="ttdeci">@ PHAL_USB_DESCRIPTOR_DEVICE</div><div class="ttdef"><b>Definition</b> usb.h:40</div></div>
 <div class="ttc" id="ausb_8h_html_abdfd00458fb0eca20f1ef62ad1292085"><div class="ttname"><a href="usb_8h.html#abdfd00458fb0eca20f1ef62ad1292085">PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC</a></div><div class="ttdeci">static constexpr uint8_t PHAL_USB_DEVICE_CLASS_VENDOR_SPECIFIC</div><div class="ttdef"><b>Definition</b> usb.h:65</div></div>
 <div class="ttc" id="ausb_8h_html_ad7b27e04257ea1117d2a4cb4d121ab90"><div class="ttname"><a href="usb_8h.html#ad7b27e04257ea1117d2a4cb4d121ab90">PHAL_USB_DEVICE_DESCRIPTOR_LENGTH</a></div><div class="ttdeci">static constexpr uint8_t PHAL_USB_DEVICE_DESCRIPTOR_LENGTH</div><div class="ttdef"><b>Definition</b> usb.h:61</div></div>
+<div class="ttc" id="ausb__descriptors_8h_html_af56d8fe62e6a5118bf08849e11b4ba89"><div class="ttname"><a href="#af56d8fe62e6a5118bf08849e11b4ba89">USB_PRODUCT_STRING_INDEX</a></div><div class="ttdeci">static constexpr uint8_t USB_PRODUCT_STRING_INDEX</div><div class="ttdef"><b>Definition</b> usb_descriptors.h:15</div></div>
 </div><!-- fragment --><p>Device identity:</p><ol type="1">
 <li>USB version: 2.0.</li>
 <li>Device class: vendor-specific (the daqcore driver knows our format)</li>
 <li>Control packet size: 64 bytes.</li>
-<li>Vendor/product IDs: 1209:0003</li>
+<li>IDs (vendor:product): 5045:0271 Unregistered; replace with allocated IDs before distribution.</li>
 <li>Device version: 0.01.</li>
-<li>No manufacturer, product, or serial-number strings.</li>
+<li>Product string includes the build's Git hash; no manufacturer or serial string.</li>
 <li>One available configuration. </li>
 </ol>
+
+</div>
+</div>
+<a id="ad19fe849dc7f25e325e9087c1893acb8" name="ad19fe849dc7f25e325e9087c1893acb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad19fe849dc7f25e325e9087c1893acb8">&#9670;&#160;</a></span>LANGUAGE_DESCRIPTOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t LANGUAGE_DESCRIPTOR[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    4U, <a class="code hl_enumvalue" href="usb_8h.html#a87a54ce368555d72fe2a96153d73d430a09b754c7e349f84b9e67e39b444f9db3">PHAL_USB_DESCRIPTOR_STRING</a>, 0x09U, 0x04U,</div>
+<div class="line">}</div>
+<div class="ttc" id="ausb_8h_html_a87a54ce368555d72fe2a96153d73d430a09b754c7e349f84b9e67e39b444f9db3"><div class="ttname"><a href="usb_8h.html#a87a54ce368555d72fe2a96153d73d430a09b754c7e349f84b9e67e39b444f9db3">PHAL_USB_DESCRIPTOR_STRING</a></div><div class="ttdeci">@ PHAL_USB_DESCRIPTOR_STRING</div><div class="ttdef"><b>Definition</b> usb.h:42</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2db9972d92557324a3a49e1a00761d06" name="a2db9972d92557324a3a49e1a00761d06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db9972d92557324a3a49e1a00761d06">&#9670;&#160;</a></span>USB_LANGUAGE_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t USB_LANGUAGE_ID = 0x0409U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac97e116fbc5cf0c6c4bf5e70d7277c2a" name="ac97e116fbc5cf0c6c4bf5e70d7277c2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac97e116fbc5cf0c6c4bf5e70d7277c2a">&#9670;&#160;</a></span>USB_PRODUCT_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char USB_PRODUCT_NAME[] = &quot;CANnector27_&quot; <a class="el" href="can__version_8h.html#acac2b5788f787f9d888659a0c1473565">FIRMWARE_GIT_HASH_STRING</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af56d8fe62e6a5118bf08849e11b4ba89" name="af56d8fe62e6a5118bf08849e11b4ba89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af56d8fe62e6a5118bf08849e11b4ba89">&#9670;&#160;</a></span>USB_PRODUCT_STRING_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t USB_PRODUCT_STRING_INDEX = 1U</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

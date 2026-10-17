@@ -1,0 +1,9 @@
+<map id="activity_leds_record" name="activity_leds_record">
+<area shape="rect" id="Node000001" title=" " alt="" coords="327,31,463,56"/>
+<area shape="rect" id="Node000002" href="$can__callback_8c.html#a8b126471775c8ec5765594c0c9bbbdff" title="Weak callback fired once per received frame." alt="" coords="103,5,279,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="311,36,279,32,280,26,312,31"/>
+<area shape="rect" id="Node000003" href="$usb__device_8c.html#ab07772c7097c38a915f51871f9ac6104" title=" " alt="" coords="135,55,246,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="312,56,247,64,247,58,311,51"/>
+<area shape="rect" id="Node000004" href="$cannector_2main_8c.html#acdef7a1fd863a6d3770c1268cb06add3" title=" " alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="120,70,55,70,55,65,120,65"/>
+</map>

@@ -107,6 +107,7 @@ $(function(){initNavTree('cannector_2main_8c.html',''); initResizable(true); });
 <p>"CANnector" node source code  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="cannector_2main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="activity__leds_8h_source.html">activity_leds.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MCAN_8h_source.html">can_library/generated/MCAN.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="SCAN_8h_source.html">can_library/generated/SCAN.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="VCAN_8h_source.html">can_library/generated/VCAN.h</a>&quot;</code><br />
@@ -130,6 +131,8 @@ Include dependency graph for main.c:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a6c4dd6704f081b537a0b2e7f2ad954f6" id="r_a6c4dd6704f081b537a0b2e7f2ad954f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c4dd6704f081b537a0b2e7f2ad954f6">RTOS_DEFINE_TASK</a> (<a class="el" href="usb__device_8c.html#ab07772c7097c38a915f51871f9ac6104">usb_tx_periodic</a>, 1, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a853af49cf23aa50140b8d8341f42b4cf">TASK_PRIORITY_HIGH</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>)</td></tr>
 <tr class="separator:a6c4dd6704f081b537a0b2e7f2ad954f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8df060b41585b2418131fea89b06ebce" id="r_a8df060b41585b2418131fea89b06ebce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8df060b41585b2418131fea89b06ebce">RTOS_DEFINE_TASK</a> (<a class="el" href="activity__leds_8c.html#ab6c8c2aeda7554db08899cf2ca238ac5">activity_leds_periodic</a>, 10, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
+<tr class="separator:a8df060b41585b2418131fea89b06ebce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845eaf447179a8baf75c69794c49856d" id="r_a845eaf447179a8baf75c69794c49856d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845eaf447179a8baf75c69794c49856d">DEFINE_HEARTBEAT_TASK</a> (nullptr)</td></tr>
 <tr class="separator:a845eaf447179a8baf75c69794c49856d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac12377aa39dcdfd7bfa31d9103785e1c" id="r_ac12377aa39dcdfd7bfa31d9103785e1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac12377aa39dcdfd7bfa31d9103785e1c">RTOS_DEFINE_QUEUE</a> (<a class="el" href="cannector_2main_8h.html#a6ae643a6c345b50c16f667ed312fdd4b">can_queue</a>, <a class="el" href="structtimestamped__frame__t.html">timestamped_frame_t</a>, 256)</td></tr>
@@ -230,8 +233,39 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a8df060b41585b2418131fea89b06ebce" name="a8df060b41585b2418131fea89b06ebce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df060b41585b2418131fea89b06ebce">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="activity__leds_8c.html#ab6c8c2aeda7554db08899cf2ca238ac5">activity_leds_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">10</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6c4dd6704f081b537a0b2e7f2ad954f6" name="a6c4dd6704f081b537a0b2e7f2ad954f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c4dd6704f081b537a0b2e7f2ad954f6">&#9670;&#160;</a></span>RTOS_DEFINE_TASK()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c4dd6704f081b537a0b2e7f2ad954f6">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

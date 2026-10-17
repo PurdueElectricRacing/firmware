@@ -12,7 +12,7 @@ void activity_leds_record(activity_led_t led, uint32_t tick) {
 }
 
 void activity_leds_periodic(void) {
-    bool set_on[ACTIVITY_COUNT];
+    bool set_on[ACTIVITY_COUNT] = {false};
 
     // Snapshot timestamps and time together so ISR can't trigger a timestamp newer than now
     uint32_t saved_primask = __get_PRIMASK();

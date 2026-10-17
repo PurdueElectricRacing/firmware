@@ -29,6 +29,8 @@
 #define CHARGER_PORT (GPIOB)
 #define CHARGER_PIN  (2)
 
+static constexpr uint32_t USB_LED_BLINK_PERIOD_MS = 50U;
+
 extern QueueHandle_t can_queue;
 
 #endif // MAIN_H

@@ -208,6 +208,8 @@ Add a separate daqcore Parquet-export entry point and an explicit format selecti
 
 ## 9. Implementation Steps and Tests
 
+See the [ordered implementation roadmap](daq-parquet-implementation.md) for stage dependencies, completion checks, and milestones. The steps below summarize the design's validation requirements.
+
 1. Define the three flat schemas, segment-level frame/event layout, and small manifest. Write and read a tiny fixture using the Rust Parquet reader to verify field types, metadata, and empty event files. Consumer application integration is not required for format validation.
 2. Introduce a streaming raw-record reader with source positions. Test byte order, packed identity, unknown messages, duplicate ticks, and trailing partial records.
 3. Implement the Parquet-only two-pass path using the existing segmentation and correction semantics. Test gaps below, exactly at, and above 300 seconds; multiple files in one segment; backwards ticks/rollover; unknown frames between decoded messages; and zero/one/many GPS anchors. Compare segment boundaries and timestamps against the existing pipeline without changing it.

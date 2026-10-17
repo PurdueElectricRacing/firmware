@@ -205,6 +205,7 @@ Platforms supported</h2>
 <h1><a class="anchor" id="autotoc_md121"></a>
 3. Install Platform + Unit Testing Tools</h1>
 <p>Install the tools for your operating system.</p>
+<p>The FIL profile-guided optimization (PGO) build requires Make (<code>make</code>), Clang (<code>clang++</code>), and <code>llvm-profdata</code>. Clang and <code>llvm-profdata</code> must come from the same LLVM release. All three tools must be available on <code>PATH</code>. If using versioned executables, set <code>PGO_CXX</code> and <code>LLVM_PROFDATA</code> to their paths. See PER FIL tests for details.</p>
 <h2><a class="anchor" id="autotoc_md122"></a>
 3A. macOS</h2>
 <h3><a class="anchor" id="autotoc_md123"></a>
@@ -216,7 +217,7 @@ Platforms supported</h2>
 3A.2 Install Apple's Command Line Tools</h3>
 <p>Run:</p>
 <div class="fragment"><div class="line">xcode-select --install</div>
-</div><!-- fragment --><p>These provide the host compiler and other standard development tools used by the project.</p>
+</div><!-- fragment --><p>These provide Make (<code>make</code>), the host compiler, and other standard development tools used by the project.</p>
 <h3><a class="anchor" id="autotoc_md125"></a>
 3A.3 Install Firmware and Test Tools</h3>
 <p>Run:</p>
@@ -245,7 +246,10 @@ Platforms supported</h2>
 <div class="line">python3 --version</div>
 <div class="line">arm-none-eabi-gcc --version</div>
 <div class="line">openocd --version</div>
+<div class="line">make --version</div>
 <div class="line">llvm-cov --version</div>
+<div class="line">clang++ --version</div>
+<div class="line">llvm-profdata --version</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md126"></a>
 3B. Linux</h2>
 <p>If you are using linux, you probably already know what you're doing. However, here is an overview of the setup for Debian/<code>apt</code>-based distributions (Ubuntu, Debian, Pop!_OS, etc.).</p>
@@ -259,8 +263,11 @@ Platforms supported</h2>
 <div class="line">    git \</div>
 <div class="line">    cmake \</div>
 <div class="line">    ninja-build \</div>
+<div class="line">    make \</div>
 <div class="line">    gcc \</div>
 <div class="line">    g++ \</div>
+<div class="line">    clang \</div>
+<div class="line">    llvm \</div>
 <div class="line">    python3 \</div>
 <div class="line">    python3-pip \</div>
 <div class="line">    python3-venv \</div>
@@ -282,6 +289,9 @@ Platforms supported</h2>
 <div class="line">python3 --version</div>
 <div class="line">arm-none-eabi-gcc --version</div>
 <div class="line">openocd --version</div>
+<div class="line">make --version</div>
+<div class="line">clang++ --version</div>
+<div class="line">llvm-profdata --version</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md129"></a>
 3C. Windows - WSL</h2>
 <p>If your primary OS is Windows, it is highly advised to use:</p><ul>
@@ -361,7 +371,7 @@ Platforms supported</h2>
 6. Build the Repository</h1>
 <p>The repository's main build entry point is:</p>
 <div class="fragment"><div class="line">python3 build_all.py</div>
-</div><!-- fragment --><p>This builds the firmware and all DAQ workspace targets, then runs the generator and firmware host-test workflow.</p>
+</div><!-- fragment --><p>This builds the firmware, builds FIL with PGO and runs the PER integration tests, then builds all DAQ workspace targets and runs the generator and firmware host-test workflow.</p>
 <p>If this completes successfully, your development environment is set up correctly.</p>
 <h1><a class="anchor" id="autotoc_md140"></a>
 7. Individual Build Commands</h1>

@@ -72,7 +72,6 @@ void imd_init(void) {
 
     tim->EGR = TIM_EGR_UG;
     tim->SR  = 0U;
-    // URS: only a real overflow sets UIF, not the reset on each rising edge
     tim->CR1 = TIM_CR1_URS | TIM_CR1_CEN;
 }
 

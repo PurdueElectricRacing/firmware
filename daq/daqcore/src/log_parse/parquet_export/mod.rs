@@ -1,7 +1,7 @@
 pub mod manifest;
 pub mod schema;
 
-use std::path::PathBuf;
+use std::path;
 
 // parquet export version
 pub const FORMAT_VERSION: &str = "1.0";
@@ -16,21 +16,21 @@ pub const ROW_GROUP_TARGET_BYTES: usize = 16 * 1024 * 1024;
 pub const SIGNAL_CHUNK_TARGET_BYTES: u64 = 64 * 1024 * 1024;
 
 /// Dataset-relative directory for one continuous DAQ clock region.
-pub fn segment_path(segment: u32) -> PathBuf {
-    PathBuf::from(format!("segment-{segment:03}"))
+pub fn segment_path(segment: u32) -> path::PathBuf {
+    path::PathBuf::from(format!("segment-{segment:03}"))
 }
 
 /// All signals of one message stay together in one signal chunk.
-pub fn signal_chunk_path(segment: u32, chunk: u32) -> PathBuf {
+pub fn signal_chunk_path(segment: u32, chunk: u32) -> path::PathBuf {
     segment_path(segment)
         .join("signals")
         .join(format!("signals-{chunk:03}.parquet"))
 }
 
-pub fn frames_path(segment: u32) -> PathBuf {
+pub fn frames_path(segment: u32) -> path::PathBuf {
     segment_path(segment).join("frames.parquet")
 }
 
-pub fn events_path(segment: u32) -> PathBuf {
+pub fn events_path(segment: u32) -> path::PathBuf {
     segment_path(segment).join("events.parquet")
 }

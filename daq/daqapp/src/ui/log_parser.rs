@@ -58,7 +58,7 @@ impl LogParser {
             let result = daqcore::superdbc::database::Database::load(&path)
                 .map_err(|error| error.to_string())
                 .and_then(|database| {
-                    daqcore::log_parse::parse_logs_to_tables(
+                    daqcore::log_parse::csv_export::parse_logs_to_tables(
                         &logs_dir,
                         &output_dir,
                         &prefix,

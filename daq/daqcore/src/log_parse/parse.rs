@@ -117,32 +117,3 @@ fn parse_log_file(
     }
     Ok(parsed)
 }
-
-pub fn chunk_parsed(parsed: Vec<ParsedMessage>) -> Vec<Vec<ParsedMessage>> {
-    let mut chunks = Vec::new();
-    let mut current_chunk = Vec::new();
-    let mut last_timestamp = None;
-
-    for msg in parsed {
-        if let Some(last_ts) = last_timestamp
-            && (msg.timestamp < last_ts || msg.timestamp - last_ts > log_parse::consts::MAX_JUMP_MS)
-            && !current_chunk.is_empty()
-        {
-            chunks.push(current_chunk);
-            current_chunk = Vec::new();
-        }
-        last_timestamp = Some(msg.timestamp);
-        current_chunk.push(msg);
-    }
-
-    if !current_chunk.is_empty() {
-        chunks.push(current_chunk);
-    }
-
-    // Sort messages within each chunk by timestamp
-    for chunk in &mut chunks {
-        chunk.sort_by_key(|m| m.timestamp);
-    }
-
-    chunks
-}

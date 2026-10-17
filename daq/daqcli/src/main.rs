@@ -27,7 +27,7 @@ fn main() -> process::ExitCode {
         }
     };
 
-    match daqcore::log_parse::parse_logs_to_tables(
+    match daqcore::log_parse::csv_export::parse_logs_to_tables(
         &cli.logs_dir,
         &cli.output_dir,
         &cli.prefix,

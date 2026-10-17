@@ -8,7 +8,6 @@ pub mod formatter;
 pub mod frame;
 pub mod hil;
 pub mod log_parse;
-pub mod parquet_export;
 pub mod session;
 pub mod superdbc;
 pub mod time;

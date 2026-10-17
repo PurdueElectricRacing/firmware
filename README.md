@@ -36,9 +36,7 @@ To compile software for the PER vehicle, make sure your system is set up by foll
 
 `build_all.py` is the repository-level build entry point. It runs the complete
 firmware, FIL PGO build and PER integration tests, DAQ workspace, and host-test
-workflows in order. Initialize submodules first with `git submodule update --init
---recursive`. FIL requires Clang and matching `llvm-profdata`; see
-[`tests/fil/README.md`](tests/fil/README.md) for requirements and standalone commands.
+workflows in order.
 
 From the repository root, build all projects and run tests with:
 ```bash

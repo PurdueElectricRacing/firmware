@@ -127,8 +127,9 @@ and select Install All under the recommended extensions.
 
 Install the tools for your operating system.
 
-The FIL profile-guided optimization (PGO) build requires Clang (`clang++`) and
-`llvm-profdata` from the same LLVM release. Both must be available on `PATH`.
+The FIL profile-guided optimization (PGO) build requires Make (`make`), Clang
+(`clang++`), and `llvm-profdata`. Clang and `llvm-profdata` must come from the
+same LLVM release. All three tools must be available on `PATH`.
 If using versioned executables, set `PGO_CXX` and `LLVM_PROFDATA` to their paths.
 See [PER FIL tests](../tests/fil/README.md) for details.
 
@@ -152,7 +153,8 @@ Run:
 xcode-select --install
 ```
 
-These provide the host compiler and other standard development tools used by the project.
+These provide Make (`make`), the host compiler, and other standard development
+tools used by the project.
 
 #### 3A.3 Install Firmware and Test Tools
 
@@ -196,6 +198,7 @@ ninja --version
 python3 --version
 arm-none-eabi-gcc --version
 openocd --version
+make --version
 llvm-cov --version
 clang++ --version
 llvm-profdata --version
@@ -221,6 +224,7 @@ sudo apt install \
 	git \
 	cmake \
 	ninja-build \
+	make \
 	gcc \
 	g++ \
 	clang \
@@ -250,6 +254,7 @@ ninja --version
 python3 --version
 arm-none-eabi-gcc --version
 openocd --version
+make --version
 clang++ --version
 llvm-profdata --version
 ```

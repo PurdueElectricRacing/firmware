@@ -49,8 +49,8 @@ TEST(ClampTest, ClampsUnsignedInt8) {
     EXPECT_EQ(test_CLAMP_uint8((uint8_t) 4, (uint8_t) 7, (uint8_t) 10), (uint8_t) 7);
     EXPECT_EQ(test_CLAMP_uint8((uint8_t) 14, (uint8_t) 7, (uint8_t) 10), (uint8_t) 10);
     EXPECT_EQ(test_CLAMP_uint8((uint8_t) 8, (uint8_t) 7, (uint8_t) 10), (uint8_t) 8);
-    EXPECT_EQ(test_CLAMP_uint((uint8_t) 1, (uint8_t) 1, (uint8_t) 2), (uint8_t) 1);
-    EXPECT_EQ(test_CLAMP_uint((uint8_t) 2, (uint8_t) 1, (uint8_t) 2), (uint8_t) 2);
+    EXPECT_EQ(test_CLAMP_uint8((uint8_t) 1, (uint8_t) 1, (uint8_t) 2), (uint8_t) 1);
+    EXPECT_EQ(test_CLAMP_uint8((uint8_t) 2, (uint8_t) 1, (uint8_t) 2), (uint8_t) 2);
 }
 
 TEST(ClampTest, ClampsUnsignedInt16) {

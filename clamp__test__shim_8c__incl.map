@@ -1,0 +1,9 @@
+<map id="firmware/common/utils/tests/clamp_test_shim.c" name="firmware/common/utils/tests/clamp_test_shim.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="48,5,216,46"/>
+<area shape="rect" id="Node000002" href="$clamp__test__shim_8h.html" title=" " alt="" coords="5,94,136,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,48,91,83,87,80,115,45"/>
+<area shape="rect" id="Node000004" href="$clamp_8h.html" title="Utility header to clamp a value to a bounded range." alt="" coords="160,94,226,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="149,45,176,80,172,83,145,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="39,168,102,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="73,120,73,152,68,152,68,120"/>
+</map>

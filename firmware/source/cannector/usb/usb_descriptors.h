@@ -9,6 +9,16 @@
 #define CANNECTOR_USB_DESCRIPTORS_H
 
 #include "common/phal_G4/usb/usb.h"
+#include "can_library/generated/can_version.h"
+
+static const char USB_PRODUCT_NAME[] = "CANnector27_" FIRMWARE_GIT_HASH_STRING;
+static constexpr uint8_t USB_PRODUCT_STRING_INDEX = 1U;
+static constexpr uint16_t USB_LANGUAGE_ID = 0x0409U; // English (United States)
+static const uint8_t LANGUAGE_DESCRIPTOR[] = {
+    4U, PHAL_USB_DESCRIPTOR_STRING, 0x09U, 0x04U,
+};
+// Keep the complete UTF-16LE descriptor within the HAL's single-packet limit.
+static_assert(2U + 2U * (sizeof(USB_PRODUCT_NAME) - 1U) <= PHAL_USB_PACKET_SIZE_BYTES);
 
 // IN is named from the host's perspective: board -> laptop, endpoint 1
 static constexpr uint8_t BULK_IN_ADDRESS = PHAL_USB_ENDPOINT_ADDRESS_IN | PHAL_USB_DATA_ENDPOINT;
@@ -20,7 +30,7 @@ static constexpr uint8_t BULK_IN_ADDRESS = PHAL_USB_ENDPOINT_ADDRESS_IN | PHAL_U
  * 3. Control packet size: 64 bytes.
  * 4. Vendor/product IDs: 1209:0003
  * 5. Device version: 0.01.
- * 6. No manufacturer, product, or serial-number strings.
+ * 6. Product string includes the build's Git hash; no manufacturer or serial string.
  * 7. One available configuration.
  */
 static const uint8_t DEVICE_DESCRIPTOR[] = {
@@ -35,7 +45,7 @@ static const uint8_t DEVICE_DESCRIPTOR[] = {
     0x03U, 0x00U,                        // Product ID: 0x0003
     0x01U, 0x00U,                        // bcdDevice: 0.01
     0U,                                  // No manufacturer string
-    0U,                                  // No product string
+    USB_PRODUCT_STRING_INDEX,            // Product string
     0U,                                  // No serial-number string
     1U,                                  // Number of configurations
 };

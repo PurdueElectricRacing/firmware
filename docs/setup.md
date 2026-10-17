@@ -127,6 +127,12 @@ and select Install All under the recommended extensions.
 
 Install the tools for your operating system.
 
+The FIL profile-guided optimization (PGO) build requires Make (`make`), Clang
+(`clang++`), and `llvm-profdata`. Clang and `llvm-profdata` must come from the
+same LLVM release. All three tools must be available on `PATH`.
+If using versioned executables, set `PGO_CXX` and `LLVM_PROFDATA` to their paths.
+See [PER FIL tests](../tests/fil/README.md) for details.
+
 ### 3A. macOS
 
 #### 3A.1 Install Homebrew
@@ -147,7 +153,8 @@ Run:
 xcode-select --install
 ```
 
-These provide the host compiler and other standard development tools used by the project.
+These provide Make (`make`), the host compiler, and other standard development
+tools used by the project.
 
 #### 3A.3 Install Firmware and Test Tools
 
@@ -191,7 +198,10 @@ ninja --version
 python3 --version
 arm-none-eabi-gcc --version
 openocd --version
+make --version
 llvm-cov --version
+clang++ --version
+llvm-profdata --version
 ```
 
 ### 3B. Linux
@@ -214,8 +224,11 @@ sudo apt install \
 	git \
 	cmake \
 	ninja-build \
+	make \
 	gcc \
 	g++ \
+	clang \
+	llvm \
 	python3 \
 	python3-pip \
 	python3-venv \
@@ -241,6 +254,9 @@ ninja --version
 python3 --version
 arm-none-eabi-gcc --version
 openocd --version
+make --version
+clang++ --version
+llvm-profdata --version
 ```
 
 ### 3C. Windows - WSL
@@ -396,8 +412,9 @@ The repository's main build entry point is:
 python3 build_all.py
 ```
 
-This builds the firmware and all DAQ workspace targets, then runs the generator
-and firmware host-test workflow.
+This builds the firmware, builds FIL with PGO and runs the PER integration tests,
+then builds all DAQ workspace targets and runs the generator and firmware
+host-test workflow.
 
 If this completes successfully, your development environment is set up correctly.
 

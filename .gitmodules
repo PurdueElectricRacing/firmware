@@ -10,3 +10,6 @@
 [submodule "firmware/external/CMSIS_6"]
 	path = firmware/external/CMSIS_6
 	url = https://github.com/ARM-software/CMSIS_6.git
+[submodule "tests/external/fil"]
+	path = tests/external/fil
+	url = https://github.com/ronakpjain/fil.git

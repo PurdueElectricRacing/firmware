@@ -1,0 +1,60 @@
+# PER firmware-in-the-loop tests
+
+FIL is pinned at `tests/external/fil` as a Git submodule. Initialize it with:
+
+```sh
+git submodule update --init --recursive tests/external/fil
+```
+
+These tests execute the six real vehicle boards without attached hardware
+(`g4_testing` is deliberately excluded). Board and network configs use paths
+relative to their JSON files, so they work regardless of the current directory.
+The MCU model comes from FIL; ELF files come from `firmware/output`.
+
+## Build and run
+
+Requirements: built PER firmware, Python 3.11+, Make, CMake, a C++20 Clang
+compiler, and matching `llvm-profdata`. FIL's upstream tests also need
+GoogleTest (CMake can fetch it). Release builds use IPO where supported and
+host CPU tuning; the resulting executable targets the build machine.
+
+```sh
+python3 firmware/build_firmware.py
+python3 tests/fil/run_tests.py --build
+```
+
+The build invokes FIL's full `make pgo` workflow: instrumented build, one second
+of six-board network training with strict MMIO and full ADC fidelity, profile
+merge, optimized build, and FIL's own CTest suite. Outputs stay in FIL's ignored
+`build-pgo-generate/` and `build-pgo/` directories, as required by its cleanup
+safety guard. Set `PGO_CXX` and
+`LLVM_PROFDATA` in the environment to select tools from the same LLVM release.
+`CMAKE_BUILD_PARALLEL_LEVEL` controls build concurrency.
+
+Run just the PER scenarios using the existing PGO executable:
+
+```sh
+python3 tests/fil/run_tests.py
+# Or use another FIL build:
+python3 tests/fil/run_tests.py --fil /path/to/fil
+```
+
+The runner fails on simulation errors, early stops, or unmet stimulus
+expectations. It checks:
+
+- All six boards start independently and reach 10 ms with strict MMIO.
+- The shared network reaches 20 ms and carries firmware-originated CAN TX/RX.
+- The vehicle reaches 6 seconds with the ready-to-drive stimulus expectations
+  satisfied (initial zero torque commands, later drive commands, and vehicle state).
+
+`ready_to_drive_stimuli.json` is the PER-owned copy of the scenario initially
+imported from FIL. Keep it aligned with vehicle behavior as firmware evolves.
+
+The `run_tests.yml` GitHub Actions workflow also runs the full PGO build and PER
+scenarios on pull requests targeting `master` and pushes to `master`. Its FIL
+job uses the existing firmware container, installs the PGO tools, and builds
+vehicle firmware before running the tests, independently of host unit tests.
+
+`python3 build_all.py` builds firmware, builds/tests FIL with PGO, then builds
+DAQ and runs the existing host-test workflow. The standalone host-test runner
+remains independent and does not require FIL or prebuilt vehicle firmware.

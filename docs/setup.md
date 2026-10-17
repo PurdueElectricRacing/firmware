@@ -127,6 +127,11 @@ and select Install All under the recommended extensions.
 
 Install the tools for your operating system.
 
+The FIL profile-guided optimization (PGO) build requires Clang (`clang++`) and
+`llvm-profdata` from the same LLVM release. Both must be available on `PATH`.
+If using versioned executables, set `PGO_CXX` and `LLVM_PROFDATA` to their paths.
+See [PER FIL tests](../tests/fil/README.md) for details.
+
 ### 3A. macOS
 
 #### 3A.1 Install Homebrew
@@ -192,6 +197,8 @@ python3 --version
 arm-none-eabi-gcc --version
 openocd --version
 llvm-cov --version
+clang++ --version
+llvm-profdata --version
 ```
 
 ### 3B. Linux
@@ -216,6 +223,8 @@ sudo apt install \
 	ninja-build \
 	gcc \
 	g++ \
+	clang \
+	llvm \
 	python3 \
 	python3-pip \
 	python3-venv \
@@ -241,6 +250,8 @@ ninja --version
 python3 --version
 arm-none-eabi-gcc --version
 openocd --version
+clang++ --version
+llvm-profdata --version
 ```
 
 ### 3C. Windows - WSL
@@ -396,8 +407,9 @@ The repository's main build entry point is:
 python3 build_all.py
 ```
 
-This builds the firmware and all DAQ workspace targets, then runs the generator
-and firmware host-test workflow.
+This builds the firmware, builds FIL with PGO and runs the PER integration tests,
+then builds all DAQ workspace targets and runs the generator and firmware
+host-test workflow.
 
 If this completes successfully, your development environment is set up correctly.
 

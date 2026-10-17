@@ -81,6 +81,15 @@ var can__types_8h =
       [ "FAULT_ID_GPS_WEAK_FIX", "can__types_8h.html#aaeae5c1fa29868d0578987e428ecfb63af7804985bf80515189bc8d8af1aca4a1", null ],
       [ "FAULT_ID_GPS_INVALID_UTC", "can__types_8h.html#aaeae5c1fa29868d0578987e428ecfb63a355737722dc81c11da9e999650875628", null ]
     ] ],
+    [ "imd_state_t", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2", [
+      [ "IMD_STATE_OFF_OR_SHORT_CIRCUIT", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2a22c304dcb68860d69d89b147025e1913", null ],
+      [ "IMD_STATE_NORMAL", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2ab7666c00ffe32463291b69f6b9a97125", null ],
+      [ "IMD_STATE_UNDERVOLTAGE", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2abefac14222f8f5d0cae580b48990ef9c", null ],
+      [ "IMD_STATE_SPEED_START", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2a73d83392ad032d9b28820e46be2eef52", null ],
+      [ "IMD_STATE_DEVICE_ERROR", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2a85fab78469bf93823cfd7c3c0b68f9f0", null ],
+      [ "IMD_STATE_CONNECTION_FAULT", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2ae5a92d337ff15dc9d4b0a449a3f2063e", null ],
+      [ "IMD_STATE_UNKNOWN", "can__types_8h.html#a04233948512e221ae12f0c12994fa8b2afb3acd7f14102e41932a5cba1bffb186", null ]
+    ] ],
     [ "izze_accel_scale_t", "can__types_8h.html#af24ee168f1f45392a7283176708bf46f", [
       [ "IZZE_ACCEL_SCALE_RESERVED", "can__types_8h.html#af24ee168f1f45392a7283176708bf46fa26d8087c5492e300a3d607097fb11220", null ],
       [ "IZZE_ACCEL_SCALE_2G", "can__types_8h.html#af24ee168f1f45392a7283176708bf46fa55957ac257468498d5ec7f9b3c869cd6", null ],

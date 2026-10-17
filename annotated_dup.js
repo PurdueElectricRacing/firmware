@@ -109,6 +109,7 @@ var annotated_dup =
     [ "hertz_t", "structhertz__t.html", "structhertz__t" ],
     [ "hour_t", "structhour__t.html", "structhour__t" ],
     [ "igbt_temps_data_t", "structigbt__temps__data__t.html", "structigbt__temps__data__t" ],
+    [ "imd_state_data_t", "structimd__state__data__t.html", "structimd__state__data__t" ],
     [ "IMU_acceleration_data_t", "structIMU__acceleration__data__t.html", "structIMU__acceleration__data__t" ],
     [ "IMU_angular_rate_data_t", "structIMU__angular__rate__data__t.html", "structIMU__angular__rate__data__t" ],
     [ "imu_data_t", "structimu__data__t.html", "structimu__data__t" ],

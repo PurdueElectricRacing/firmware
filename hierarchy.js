@@ -108,6 +108,7 @@ var hierarchy =
     [ "hertz_t", "structhertz__t.html", null ],
     [ "hour_t", "structhour__t.html", null ],
     [ "igbt_temps_data_t", "structigbt__temps__data__t.html", null ],
+    [ "imd_state_data_t", "structimd__state__data__t.html", null ],
     [ "IMU_acceleration_data_t", "structIMU__acceleration__data__t.html", null ],
     [ "IMU_angular_rate_data_t", "structIMU__angular__rate__data__t.html", null ],
     [ "imu_data_t", "structimu__data__t.html", null ],

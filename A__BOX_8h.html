@@ -125,7 +125,7 @@ Include dependency graph for A_BOX.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h__dep__incl.svg" width="531" height="230"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h__dep__incl.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="A__BOX_8h_source.html">Go to the source code of this file.</a></p>
@@ -215,6 +215,8 @@ Functions</h2></td></tr>
 <tr class="separator:a1bfdb7d9caa9fae0f4447e02142c517c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6927a6d972f54b6c24a46506a1435731" id="r_a6927a6d972f54b6c24a46506a1435731"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6927a6d972f54b6c24a46506a1435731">CAN_SEND_abox_version</a> (uint32_t value_git_hash, uint32_t value_bootloader_git_hash, bool value_bootloadable)</td></tr>
 <tr class="separator:a6927a6d972f54b6c24a46506a1435731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ed16b64b79b7834cffd7113d90386a7" id="r_a6ed16b64b79b7834cffd7113d90386a7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ed16b64b79b7834cffd7113d90386a7">CAN_SEND_imd_state</a> (<a class="el" href="can__types_8h.html#a04233948512e221ae12f0c12994fa8b2">imd_state_t</a> value_imd_state, bool value_imd_status)</td></tr>
+<tr class="separator:a6ed16b64b79b7834cffd7113d90386a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35c361fc698ca3426d164eaad6f7d7f6" id="r_a35c361fc698ca3426d164eaad6f7d7f6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35c361fc698ca3426d164eaad6f7d7f6">CAN_SEND_a_box_fault_event</a> (<a class="el" href="can__types_8h.html#aaeae5c1fa29868d0578987e428ecfb63">fault_id_t</a> value_idx, uint16_t value_val, bool value_state)</td></tr>
 <tr class="separator:a35c361fc698ca3426d164eaad6f7d7f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0f66e577a751b58b5caaa5c07de356f" id="r_ab0f66e577a751b58b5caaa5c07de356f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0f66e577a751b58b5caaa5c07de356f">CAN_SEND_a_box_fault_sync</a> (bool value_PACK_OVERTEMP, bool value_PACK_WARM, bool value_PACK_COLD, bool value_IMD, bool value_BMS_DISCONNECTED, bool value_CELL_UNDERVOLTAGE, bool value_CELL_OVERVOLTAGE, bool value_PACK_FULL, bool value_PACK_EMPTY)</td></tr>
@@ -1022,6 +1024,45 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_a1d2c326ec65a3480aa5e0335969bad73_icgraph.svg" width="502" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6ed16b64b79b7834cffd7113d90386a7" name="a6ed16b64b79b7834cffd7113d90386a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ed16b64b79b7834cffd7113d90386a7">&#9670;&#160;</a></span>CAN_SEND_imd_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void CAN_SEND_imd_state </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="can__types_8h.html#a04233948512e221ae12f0c12994fa8b2">imd_state_t</a></td>          <td class="paramname"><span class="paramname"><em>value_imd_state</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>value_imd_status</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_a6ed16b64b79b7834cffd7113d90386a7_cgraph.svg" width="576" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_a6ed16b64b79b7834cffd7113d90386a7_icgraph.svg" width="407" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

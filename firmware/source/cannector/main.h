@@ -29,9 +29,6 @@
 #define CHARGER_PORT (GPIOB)
 #define CHARGER_PIN  (2)
 
-static constexpr uint32_t ACTIVITY_LED_TIMEOUT_MS = 100U;
-
-
 extern QueueHandle_t can_queue;
 
 #endif // MAIN_H

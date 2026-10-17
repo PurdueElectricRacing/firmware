@@ -46,6 +46,7 @@ PHAL_GPIO_InitConfig_t gpio_config[] = {
 };
 
 RTOS_DEFINE_TASK(usb_tx_periodic, 1, TASK_PRIORITY_HIGH, STACK_1024);
+RTOS_DEFINE_TASK(activity_leds_periodic, 10, TASK_PRIORITY_LOW, STACK_512);
 DEFINE_HEARTBEAT_TASK(nullptr);
 
 RTOS_DEFINE_QUEUE(can_queue, timestamped_frame_t, 256);
@@ -78,6 +79,7 @@ void main() {
 
     START_HEARTBEAT_TASK();
     RTOS_START_TASK(usb_tx_periodic);
+    RTOS_START_TASK(activity_leds_periodic);
 
     vTaskStartScheduler();
 }

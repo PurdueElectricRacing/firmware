@@ -407,7 +407,7 @@
             }
         },
         {
-            "name": "CANnector - Configure boot from flash (once per board)",
+            "name": "CANnector - Configure Option Bytes (do once per board)",
             "type": "node-terminal",
             "request": "launch",
             "cwd": "${workspaceFolder}",

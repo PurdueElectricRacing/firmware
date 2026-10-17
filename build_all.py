@@ -24,6 +24,11 @@ def build() -> None:
         ROOT / "firmware",
     )
     build_project(
+        "FIL (PGO) and PER firmware integration tests",
+        [sys.executable, "tests/fil/run_tests.py", "--build"],
+        ROOT,
+    )
+    build_project(
         "DAQ workspace",
         ["cargo", "build", "--workspace", "--all-targets", "--locked"],
         ROOT / "daq",

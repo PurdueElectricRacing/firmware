@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "name": "torque_vector",
+  "mcu": "../../external/fil/configs/mcus/stm32g474retx.json",
+  "elf": "../../../firmware/output/torque_vector/torque_vector.elf",
+  "vector_base": "0x08008000",
+  "can": {
+    "FDCAN2": {
+      "bus": "0"
+    }
+  }
+}

@@ -75,35 +75,48 @@ void imd_init(void) {
     tim->CR1 = TIM_CR1_URS | TIM_CR1_CEN;
 }
 
-// TIM1 captures the PWM period (CCR1) and high time (CCR2) on every
-// cycle, so the most recent cycle is always sitting in the capture registers. 
-// imd_periodic() samples those latched values once a
-// second.
-void imd_periodic(void) {
+// reads the latched capture and clears overflow. true if the capture is usable
+static bool imd_read_capture(uint32_t *period_ticks, uint32_t *high_ticks) {
     TIM_TypeDef *tim = IMD_PWM_LS_TIM;
 
     uint32_t sr = tim->SR;
     bool captured = (sr & TIM_SR_CC1IF) != 0U; // rising edge capture
-    uint32_t period_ticks = tim->CCR1;         
-    uint32_t high_ticks = tim->CCR2;           
-    bool overflow = (sr & TIM_SR_UIF) != 0U;   
+    *period_ticks = tim->CCR1;
+    *high_ticks = tim->CCR2;
+    bool overflow = (sr & TIM_SR_UIF) != 0U;
     tim->SR &= ~TIM_SR_UIF;
 
     // need a capture, no overflow, and period != 0
-    bool valid = captured && !overflow && (period_ticks != 0U);
-    uint8_t freq_hz = 0;
-    if (valid) {
-        freq_hz = (uint8_t)((IMD_TIMER_TICK_HZ + (period_ticks / 2U)) / period_ticks);
-        g_imd_duty_pct = (uint8_t)(((high_ticks * 100U) + (period_ticks / 2U)) / period_ticks);
-    } else {
-        g_imd_duty_pct = 0;
-    }
+    return captured && !overflow && (*period_ticks != 0U);
+}
 
+static uint8_t imd_ticks_to_hz(uint32_t period_ticks) {
+    return (uint8_t)((IMD_TIMER_TICK_HZ + (period_ticks / 2U)) / period_ticks);
+}
+
+static uint8_t imd_ticks_to_duty_pct(uint32_t high_ticks, uint32_t period_ticks) {
+    return (uint8_t)(((high_ticks * 100U) + (period_ticks / 2U)) / period_ticks);
+}
+
+// push the newest sample and return the median of the last 3
+static uint8_t imd_filter_freq(uint8_t freq_hz) {
     g_imd_freq_history[2] = g_imd_freq_history[1];
     g_imd_freq_history[1] = g_imd_freq_history[0];
-    g_imd_freq_history[0] = valid ? freq_hz : 0U;
-    uint8_t filtered_hz = imd_median3(g_imd_freq_history[0], g_imd_freq_history[1], g_imd_freq_history[2]);
+    g_imd_freq_history[0] = freq_hz;
+    return imd_median3(g_imd_freq_history[0], g_imd_freq_history[1], g_imd_freq_history[2]);
+}
 
+// TIM1 latches the latest PWM period (CCR1) and high time (CCR2) every cycle.
+// called once a second to read them and report the IMD state.
+void imd_periodic(void) {
+    uint32_t period_ticks;
+    uint32_t high_ticks;
+    bool valid = imd_read_capture(&period_ticks, &high_ticks);
+
+    uint8_t freq_hz = valid ? imd_ticks_to_hz(period_ticks) : 0U;
+    g_imd_duty_pct = valid ? imd_ticks_to_duty_pct(high_ticks, period_ticks) : 0U;
+
+    uint8_t filtered_hz = imd_filter_freq(freq_hz);
     imd_state_t state = imd_state_from_measurement(filtered_hz != 0U, filtered_hz);
     bool imd_status = PHAL_GPIO_read(IMD_STATUS_PORT, IMD_STATUS_PIN);
 

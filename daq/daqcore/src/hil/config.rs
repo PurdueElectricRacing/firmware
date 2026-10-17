@@ -26,7 +26,6 @@ pub enum AcceptPolicy {
     Any,
 }
 
-
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 pub struct TxMessage {
     pub timestamp: f64,

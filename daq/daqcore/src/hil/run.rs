@@ -36,7 +36,7 @@ impl SignalFailure {
 pub struct InProgressExpect {
     pub expect: hil::config::Expectation,
     pub result: ExpectResult,
-    
+
     /// None until a matching message arrives; an empty vector means the
     /// last message received was valid.
     pub failures: Option<Vec<SignalFailure>>,
@@ -103,7 +103,9 @@ impl HilRunningTest {
     pub fn update_expect_statuses(&mut self, elapsed: time::Duration) {
         let ts = elapsed.as_millis();
         for expect in &mut self.in_progress_expects {
-            if expect.result.is_finished() { continue };
+            if expect.result.is_finished() {
+                continue;
+            };
 
             // Check if window for HIL test expired, resolve test state accordingly.
             if ts > expect.expect.window[1] as u128 {
@@ -142,14 +144,14 @@ impl HilRunningTest {
                                 failures.push(SignalFailure::OutOfRange {
                                     name: sig_name.clone(),
                                     value,
-                                    range: *sig_range
+                                    range: *sig_range,
                                 });
                             }
                         }
                         None => {
                             failures.push(SignalFailure::MissingSignal {
                                 name: sig_name.clone(),
-                                range: *sig_range
+                                range: *sig_range,
                             });
                         }
                     }
@@ -167,12 +169,12 @@ impl HilRunningTest {
                     }
                     // Will accept any message, but does not automatically fail
                     // if signals are incorrect.
-                    hil::config::AcceptPolicy::Any if failures.is_empty()
-                        => ExpectResult::Passed,
+                    hil::config::AcceptPolicy::Any if failures.is_empty() => ExpectResult::Passed,
                     // In either case, will not confirm test result until the window
                     // has fully expired.
-                    hil::config::AcceptPolicy::Any | hil::config::AcceptPolicy::Last
-                        => ExpectResult::InProgress,
+                    hil::config::AcceptPolicy::Any | hil::config::AcceptPolicy::Last => {
+                        ExpectResult::InProgress
+                    }
                 };
                 expect.failures = Some(failures);
             }

@@ -284,7 +284,7 @@ See the [ordered implementation roadmap](daq-parquet-implementation.md) for the 
 3. The bulk Parquet writer is implemented with optional raw-frame capture, bounded writer batches, signal chunks, segment-level frames/empty events, and manifest-last finalization.
 4. In a later PR, replace bulk reading with streaming and bounded first-pass analysis. Preserve existing source selection, segmentation, decoding, and timestamp policies; validate that optimization separately.
 5. In a follow-up PR, add the shared event lifecycle and connect it to the Parquet event writer. The design in section 5 remains desired; this PR keeps event files empty. Production detector rules remain deferred.
-6. Expose explicit format selection in CLI/app while preserving CSV defaults.
+6. CLI format selection and a separate desktop Parquet Export widget are implemented; CSV defaults and the existing CSV widget are preserved.
 7. Verify bounded memory and output finalization, and document usage.
 
 For the reorganization, compare moved implementation bodies. For the optional raw-capture addition, compare CSV files and decoded results before/after and inspect the resulting Parquet tables. Later streaming work needs focused validation of ordering, identity handling, raw provenance, partial tails, and 300-second boundaries. Do not redesign CSV formatting or expand into unrelated logging changes.
@@ -297,3 +297,13 @@ Tests remain deferred at the user's request. Build, formatting, and clippy check
 - Define SDC transition semantics, watchdog evidence, and lap geometry before implementing those detectors.
 
 The initial format uses chunked flat signal files, one frames file and one events file per segment, and one dataset manifest, with referenced external definitions and ordinary Rust detector logic.
+
+### Export usage
+
+```sh
+daqcli --logs-dir ./logs --output-dir ./dataset --superdbc ./superdbc.json --format parquet
+```
+
+Omit `--format` for the existing CSV export. `--prefix` controls CSV filenames only. For Parquet, `--output-dir` is the dataset directory. SuperDBC remains external; retain it for future raw re-decoding.
+
+In the desktop app, use **Add Parquet Export** in the sidebar or **Spawn Parquet Export** in the command palette. Choose the logs folder, output parent, and dataset name. Use the sidebar SuperDBC or choose an override, then click **Export Parquet**. The dataset is written under the selected parent; status and errors appear in the widget. The existing Log Parser widget continues to export CSV.

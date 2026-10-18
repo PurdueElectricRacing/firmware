@@ -4,21 +4,23 @@ use std::path;
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Manifest {
     pub format_version: String,
-    pub parser_version: String,
     pub superdbc: SuperDbcReference,
     pub source_files: Vec<path::PathBuf>,
     pub segments: Vec<Segment>,
 }
 
 impl Manifest {
-    pub fn new(parser_version: String, superdbc: SuperDbcReference) -> Self {
+    pub fn new(superdbc: SuperDbcReference, source_files: Vec<path::PathBuf>) -> Self {
         Self {
             format_version: log_parse::parquet_export::FORMAT_VERSION.into(),
-            parser_version,
             superdbc,
-            source_files: Vec::new(),
+            source_files,
             segments: Vec::new(),
         }
+    }
+
+    pub fn add_segment(&mut self, segment: Segment) {
+        self.segments.push(segment);
     }
 }
 

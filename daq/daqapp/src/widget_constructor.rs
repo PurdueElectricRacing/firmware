@@ -8,6 +8,7 @@ pub enum WidgetKind {
     Bootloader,
     Scope,
     LogParser,
+    ParquetExport,
     SendUi,
     BusLoad,
     BatteryVoltage,
@@ -39,7 +40,8 @@ pub enum WidgetConstructor {
         signal_name: String,
     },
     ScopeEmpty,
-    LogParser,
+    CsvExport,
+    ParquetExport,
     SendUi,
     BusLoad,
     BatteryVoltage,
@@ -59,7 +61,8 @@ impl WidgetConstructor {
             WidgetConstructor::ViewerList => WidgetKind::ViewerList,
             WidgetConstructor::Bootloader => WidgetKind::Bootloader,
             WidgetConstructor::Scope { .. } | WidgetConstructor::ScopeEmpty => WidgetKind::Scope,
-            WidgetConstructor::LogParser => WidgetKind::LogParser,
+            WidgetConstructor::CsvExport => WidgetKind::LogParser,
+            WidgetConstructor::ParquetExport => WidgetKind::ParquetExport,
             WidgetConstructor::SendUi => WidgetKind::SendUi,
             WidgetConstructor::BusLoad => WidgetKind::BusLoad,
             WidgetConstructor::BatteryVoltage => WidgetKind::BatteryVoltage,
@@ -102,8 +105,11 @@ impl WidgetConstructor {
             WidgetConstructor::ScopeEmpty => {
                 widgets::Widget::Scope(ui::scope::Scope::new_empty(id))
             }
-            WidgetConstructor::LogParser => {
+            WidgetConstructor::CsvExport => {
                 widgets::Widget::LogParser(ui::log_parser::LogParser::new(id))
+            }
+            WidgetConstructor::ParquetExport => {
+                widgets::Widget::ParquetExport(ui::parquet_export::ParquetExport::new(id))
             }
             WidgetConstructor::SendUi => {
                 widgets::Widget::SendUi(ui::send::SendUi::new(id, ui_to_can_tx))

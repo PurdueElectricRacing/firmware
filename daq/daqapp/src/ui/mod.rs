@@ -9,6 +9,7 @@ pub mod hil;
 pub mod jitter;
 pub mod log_parser;
 pub mod message_picker;
+pub mod parquet_export;
 pub mod scope;
 pub mod send;
 pub mod sidebar;

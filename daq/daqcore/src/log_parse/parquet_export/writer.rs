@@ -109,13 +109,21 @@ pub fn write_segment(
     write_frames(root, index, frames, sources)?;
     let signal_chunks = write_signals(root, index, chunk, database)?;
 
-    // Event detection is a later step. Closing an empty writer preserves the schema.
+    // TODO: actually put things in event.parquet
     TableWriter::new(
         root,
         &log_parse::parquet_export::events_path(index),
         log_parse::parquet_export::schema::events_schema(),
     )?
     .finish()?;
+
+    log::info!(
+        "Finished Parquet segment {}: {} frames, {} signal chunks",
+        root.join(log_parse::parquet_export::segment_path(index))
+            .display(),
+        frames.len(),
+        signal_chunks.len()
+    );
 
     Ok(log_parse::parquet_export::manifest::Segment {
         directory: log_parse::parquet_export::segment_path(index),
@@ -289,6 +297,8 @@ impl SignalOutput {
     ) -> Result<log_parse::parquet_export::manifest::SignalChunk, log_parse::parquet_export::Error>
     {
         self.writer.finish()?;
+
+        log::info!("Wrote Parquet signal chunk {}", self.path.display());
 
         Ok(log_parse::parquet_export::manifest::SignalChunk {
             path: self.path,

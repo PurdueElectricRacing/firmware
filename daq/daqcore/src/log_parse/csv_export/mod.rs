@@ -11,7 +11,7 @@ pub fn parse_logs_to_tables(
     output_prefix: &str,
     database: &superdbc::database::Database,
 ) -> Result<(), csv::Error> {
-    let parsed = log_parse::parse::parse_log_files(logs_dir, database)?;
+    let parsed = log_parse::parse::parse_log_files_only_msgs(logs_dir, database)?;
     let chunked = log_parse::segment::chunk_parsed(parsed);
     let correlated = log_parse::correlate::time_correlate_chunks(chunked);
 

@@ -1,0 +1,123 @@
+digraph CAN_topology {
+    rankdir=LR;
+    graph [fontname="Helvetica", labelloc="t", bgcolor="transparent", fontcolor="#222222", label="MCAN — 500 kbit/s"];
+    node [fontname="Helvetica", shape=box, style=filled, fillcolor="#D5D5D5", color="#777777", fontcolor="#111111"];
+    edge [fontname="Helvetica", color="#2F70AD", fontcolor="#333333"];
+
+    "node:MCAN:INVERTER_A" [label="INVERTER_A", style="filled,dashed"];
+    "node:MCAN:INVERTER_B" [label="INVERTER_B", style="filled,dashed"];
+    "node:MCAN:INVERTER_C" [label="INVERTER_C", style="filled,dashed"];
+    "node:MCAN:INVERTER_D" [label="INVERTER_D", style="filled,dashed"];
+    "node:MCAN:MAIN_MODULE" [label="MAIN_MODULE"];
+
+    "message:MCAN:INVA_SET" [label="INVA_SET\nID 0x111 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:MAIN_MODULE" -> "message:MCAN:INVA_SET" [label="TX"];
+    "message:MCAN:INVA_SET" -> "node:MCAN:INVERTER_A" [label="RX", style=dashed];
+
+    "message:MCAN:INVB_SET" [label="INVB_SET\nID 0x112 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:MAIN_MODULE" -> "message:MCAN:INVB_SET" [label="TX"];
+    "message:MCAN:INVB_SET" -> "node:MCAN:INVERTER_B" [label="RX", style=dashed];
+
+    "message:MCAN:INVC_SET" [label="INVC_SET\nID 0x113 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:MAIN_MODULE" -> "message:MCAN:INVC_SET" [label="TX"];
+    "message:MCAN:INVC_SET" -> "node:MCAN:INVERTER_C" [label="RX", style=dashed];
+
+    "message:MCAN:INVD_SET" [label="INVD_SET\nID 0x114 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:MAIN_MODULE" -> "message:MCAN:INVD_SET" [label="TX"];
+    "message:MCAN:INVD_SET" -> "node:MCAN:INVERTER_D" [label="RX", style=dashed];
+
+    "message:MCAN:INVA_CRIT" [label="INVA_CRIT\nID 0x121 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_A" -> "message:MCAN:INVA_CRIT" [label="TX"];
+    "message:MCAN:INVA_CRIT" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVB_CRIT" [label="INVB_CRIT\nID 0x122 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_B" -> "message:MCAN:INVB_CRIT" [label="TX"];
+    "message:MCAN:INVB_CRIT" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVC_CRIT" [label="INVC_CRIT\nID 0x123 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_C" -> "message:MCAN:INVC_CRIT" [label="TX"];
+    "message:MCAN:INVC_CRIT" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVD_CRIT" [label="INVD_CRIT\nID 0x124 (standard)\n15 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_D" -> "message:MCAN:INVD_CRIT" [label="TX"];
+    "message:MCAN:INVD_CRIT" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVA_INFO" [label="INVA_INFO\nID 0x231 (standard)\n500 ms · 4 bytes · priority 2", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_A" -> "message:MCAN:INVA_INFO" [label="TX"];
+    "message:MCAN:INVA_INFO" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVB_INFO" [label="INVB_INFO\nID 0x232 (standard)\n500 ms · 4 bytes · priority 2", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_B" -> "message:MCAN:INVB_INFO" [label="TX"];
+    "message:MCAN:INVB_INFO" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVC_INFO" [label="INVC_INFO\nID 0x233 (standard)\n500 ms · 4 bytes · priority 2", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_C" -> "message:MCAN:INVC_INFO" [label="TX"];
+    "message:MCAN:INVC_INFO" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVD_INFO" [label="INVD_INFO\nID 0x234 (standard)\n500 ms · 4 bytes · priority 2", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_D" -> "message:MCAN:INVD_INFO" [label="TX"];
+    "message:MCAN:INVD_INFO" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:main_hb_amk" [label="main_hb_amk\nID 0x235 (standard)\n500 ms · 2 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:MAIN_MODULE" -> "message:MCAN:main_hb_amk" [label="TX"];
+
+    "message:MCAN:INVA_ERR_1" [label="INVA_ERR_1\nID 0x441 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_A" -> "message:MCAN:INVA_ERR_1" [label="TX"];
+    "message:MCAN:INVA_ERR_1" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVB_ERR_1" [label="INVB_ERR_1\nID 0x442 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_B" -> "message:MCAN:INVB_ERR_1" [label="TX"];
+    "message:MCAN:INVB_ERR_1" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVC_ERR_1" [label="INVC_ERR_1\nID 0x443 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_C" -> "message:MCAN:INVC_ERR_1" [label="TX"];
+    "message:MCAN:INVC_ERR_1" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVD_ERR_1" [label="INVD_ERR_1\nID 0x444 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_D" -> "message:MCAN:INVD_ERR_1" [label="TX"];
+    "message:MCAN:INVD_ERR_1" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVA_ERR_2" [label="INVA_ERR_2\nID 0x451 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_A" -> "message:MCAN:INVA_ERR_2" [label="TX"];
+    "message:MCAN:INVA_ERR_2" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVB_ERR_2" [label="INVB_ERR_2\nID 0x452 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_B" -> "message:MCAN:INVB_ERR_2" [label="TX"];
+    "message:MCAN:INVB_ERR_2" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVC_ERR_2" [label="INVC_ERR_2\nID 0x453 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_C" -> "message:MCAN:INVC_ERR_2" [label="TX"];
+    "message:MCAN:INVC_ERR_2" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVD_ERR_2" [label="INVD_ERR_2\nID 0x454 (standard)\n2000 ms · 8 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_D" -> "message:MCAN:INVD_ERR_2" [label="TX"];
+    "message:MCAN:INVD_ERR_2" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVA_TEMPS" [label="INVA_TEMPS\nID 0x461 (standard)\n500 ms · 6 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_A" -> "message:MCAN:INVA_TEMPS" [label="TX"];
+    "message:MCAN:INVA_TEMPS" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVB_TEMPS" [label="INVB_TEMPS\nID 0x462 (standard)\n500 ms · 6 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_B" -> "message:MCAN:INVB_TEMPS" [label="TX"];
+    "message:MCAN:INVB_TEMPS" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVC_TEMPS" [label="INVC_TEMPS\nID 0x463 (standard)\n500 ms · 6 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_C" -> "message:MCAN:INVC_TEMPS" [label="TX"];
+    "message:MCAN:INVC_TEMPS" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVD_TEMPS" [label="INVD_TEMPS\nID 0x464 (standard)\n500 ms · 6 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_D" -> "message:MCAN:INVD_TEMPS" [label="TX"];
+    "message:MCAN:INVD_TEMPS" -> "node:MCAN:MAIN_MODULE" [label="RX", style=dashed];
+
+    "message:MCAN:INVA_PHASE_I" [label="INVA_PHASE_I\nID 0x571 (standard)\n250 ms · 4 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_A" -> "message:MCAN:INVA_PHASE_I" [label="TX"];
+
+    "message:MCAN:INVB_PHASE_I" [label="INVB_PHASE_I\nID 0x572 (standard)\n250 ms · 4 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_B" -> "message:MCAN:INVB_PHASE_I" [label="TX"];
+
+    "message:MCAN:INVC_PHASE_I" [label="INVC_PHASE_I\nID 0x573 (standard)\n250 ms · 4 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_C" -> "message:MCAN:INVC_PHASE_I" [label="TX"];
+
+    "message:MCAN:INVD_PHASE_I" [label="INVD_PHASE_I\nID 0x574 (standard)\n250 ms · 4 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:MCAN:INVERTER_D" -> "message:MCAN:INVD_PHASE_I" [label="TX"];
+}

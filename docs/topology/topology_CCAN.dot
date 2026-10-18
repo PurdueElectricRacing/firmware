@@ -1,0 +1,55 @@
+digraph CAN_topology {
+    rankdir=LR;
+    graph [fontname="Helvetica", labelloc="t", bgcolor="transparent", fontcolor="#222222", label="CCAN — 250 kbit/s"];
+    node [fontname="Helvetica", shape=box, style=filled, fillcolor="#D5D5D5", color="#777777", fontcolor="#111111"];
+    edge [fontname="Helvetica", color="#2F70AD", fontcolor="#333333"];
+
+    "node:CCAN:A_BOX" [label="A_BOX"];
+    "node:CCAN:DAQ_APP" [label="DAQ_APP", style="filled,dashed"];
+    "node:CCAN:ELCON_CHARGER" [label="ELCON_CHARGER", style="filled,dashed"];
+    "node:CCAN:ONBOARDING" [label="ONBOARDING"];
+
+    "message:CCAN:bms_pecs_ccan" [label="bms_pecs_ccan\nID 0x1 (extended)\n200 ms · 2 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:bms_pecs_ccan" [label="TX"];
+    "message:CCAN:bms_pecs_ccan" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+
+    "message:CCAN:pack_bms_ccan" [label="pack_bms_ccan\nID 0x2 (extended)\n200 ms · 8 bytes · priority 1", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:pack_bms_ccan" [label="TX"];
+    "message:CCAN:pack_bms_ccan" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+
+    "message:CCAN:charge_request" [label="charge_request\nID 0x3 (extended)\n500 ms · 5 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:DAQ_APP" -> "message:CCAN:charge_request" [label="TX"];
+    "message:CCAN:charge_request" -> "node:CCAN:A_BOX" [label="RX", style=dashed];
+
+    "message:CCAN:onboarding_command" [label="onboarding_command\nID 0x4 (extended)\naperiodic · 2 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:DAQ_APP" -> "message:CCAN:onboarding_command" [label="TX"];
+    "message:CCAN:onboarding_command" -> "node:CCAN:ONBOARDING" [label="RX", style=dashed];
+
+    "message:CCAN:elcon_command" [label="elcon_command\nID 0x1806E5F4 (extended)\n1000 ms · 8 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:elcon_command" [label="TX"];
+    "message:CCAN:elcon_command" -> "node:CCAN:ELCON_CHARGER" [label="RX", style=dashed];
+
+    "message:CCAN:elcon_status" [label="elcon_status\nID 0x18FF50E5 (extended)\n1000 ms · 5 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:ELCON_CHARGER" -> "message:CCAN:elcon_status" [label="TX"];
+    "message:CCAN:elcon_status" -> "node:CCAN:A_BOX" [label="RX", style=dashed];
+    "message:CCAN:elcon_status" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+
+    "message:CCAN:charging_fsm_internals" [label="charging_fsm_internals\nID 0x18FF50E6 (extended)\n1000 ms · 6 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:charging_fsm_internals" [label="TX"];
+
+    "message:CCAN:heartbeat_onboarding" [label="heartbeat_onboarding\nID 0x18FF50E7 (extended)\n200 ms · 4 bytes · priority 4", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:ONBOARDING" -> "message:CCAN:heartbeat_onboarding" [label="TX"];
+    "message:CCAN:heartbeat_onboarding" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+
+    "message:CCAN:cell_telemetry_ccan" [label="cell_telemetry_ccan\nID 0x18FF50E8 (extended)\n10 ms · 5 bytes · priority 5", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:cell_telemetry_ccan" [label="TX"];
+    "message:CCAN:cell_telemetry_ccan" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+
+    "message:CCAN:pack_analog_ccan" [label="pack_analog_ccan\nID 0x18FF50E9 (extended)\n10 ms · 4 bytes · priority 5", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:pack_analog_ccan" [label="TX"];
+    "message:CCAN:pack_analog_ccan" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+
+    "message:CCAN:thermistor_telemetry_ccan" [label="thermistor_telemetry_ccan\nID 0x18FF50EA (extended)\n125 ms · 4 bytes · priority 5", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:CCAN:A_BOX" -> "message:CCAN:thermistor_telemetry_ccan" [label="TX"];
+    "message:CCAN:thermistor_telemetry_ccan" -> "node:CCAN:DAQ_APP" [label="RX", style=dashed];
+}

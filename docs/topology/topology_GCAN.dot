@@ -1,0 +1,14 @@
+digraph CAN_topology {
+    rankdir=LR;
+    graph [fontname="Helvetica", labelloc="t", bgcolor="transparent", fontcolor="#222222", label="GCAN — 1000 kbit/s"];
+    node [fontname="Helvetica", shape=box, style=filled, fillcolor="#D5D5D5", color="#777777", fontcolor="#111111"];
+    edge [fontname="Helvetica", color="#2F70AD", fontcolor="#333333"];
+
+    "node:GCAN:G4_TESTING" [label="G4_TESTING"];
+
+    "message:GCAN:canpiler_test" [label="canpiler_test\nID 0x1 (standard)\n100 ms · 7 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:GCAN:G4_TESTING" -> "message:GCAN:canpiler_test" [label="TX"];
+
+    "message:GCAN:IZZE_IMU_config" [label="IZZE_IMU_config\nID 0x4EC (standard)\n1000 ms · 8 bytes · priority 3", style="rounded,filled", fillcolor="#E0E0E0"];
+    "node:GCAN:G4_TESTING" -> "message:GCAN:IZZE_IMU_config" [label="TX"];
+}

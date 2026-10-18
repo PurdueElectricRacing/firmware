@@ -51,20 +51,16 @@ pub struct TestInfo {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ExecutionMode {
-    #[serde(rename = "parallel")]
     Parallel,
-
-    #[serde(rename = "sequential_0")]
     SequentialAlways,
-
-    #[serde(rename = "sequential_1")]
     SequentialStopFail,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PresetDefinition {
-    #[serde(rename = "Config")]
+    #[serde(rename = "ordering")]
     pub mode: ExecutionMode,
     pub tests: Vec<String>,
 }

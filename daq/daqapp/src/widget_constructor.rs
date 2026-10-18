@@ -7,7 +7,7 @@ pub enum WidgetKind {
     ViewerList,
     Bootloader,
     Scope,
-    LogParser,
+    CsvExport,
     ParquetExport,
     SendUi,
     BusLoad,
@@ -61,7 +61,7 @@ impl WidgetConstructor {
             WidgetConstructor::ViewerList => WidgetKind::ViewerList,
             WidgetConstructor::Bootloader => WidgetKind::Bootloader,
             WidgetConstructor::Scope { .. } | WidgetConstructor::ScopeEmpty => WidgetKind::Scope,
-            WidgetConstructor::CsvExport => WidgetKind::LogParser,
+            WidgetConstructor::CsvExport => WidgetKind::CsvExport,
             WidgetConstructor::ParquetExport => WidgetKind::ParquetExport,
             WidgetConstructor::SendUi => WidgetKind::SendUi,
             WidgetConstructor::BusLoad => WidgetKind::BusLoad,
@@ -106,7 +106,7 @@ impl WidgetConstructor {
                 widgets::Widget::Scope(ui::scope::Scope::new_empty(id))
             }
             WidgetConstructor::CsvExport => {
-                widgets::Widget::LogParser(ui::log_parser::LogParser::new(id))
+                widgets::Widget::CsvExport(ui::csv_export::CsvExport::new(id))
             }
             WidgetConstructor::ParquetExport => {
                 widgets::Widget::ParquetExport(ui::parquet_export::ParquetExport::new(id))

@@ -1,6 +1,6 @@
 # DAQ Log Processing and Parquet Export: Ordered Implementation Roadmap
 
-**Status:** Output types, shared layout, and bulk Parquet export implemented. Event detection and CLI/app selection remain planned. Streaming remains a later PR; permanent fixtures remain deferred.
+**Status:** Output types, shared layout, and bulk Parquet export implemented. CLI/app selection is next. The desired event lifecycle, serialization, and detection are deferred to a follow-up PR; this PR keeps typed empty event files. Streaming remains a later PR; permanent fixtures remain deferred.
 **Design:** [Simplified Parquet design](daq-parquet-design.md)
 
 ## Scope
@@ -18,9 +18,9 @@ Complete the remaining stages in order. Use small, reviewable changes rather tha
 | 1 | Define output types and schemas | Implemented. |
 | 2 | Consolidate shared log modules and exporters | Implemented under `log_parse`. |
 | 3 | Build Parquet export using the existing bulk parser | Implemented; raw-frame capture is optional and uses the same decoding path. |
-| 4 | Add shared event lifecycle | Next: emit events into the existing segment-level event files. |
-| 5 | Expose CLI and app selection | Explicit Parquet selection; CSV remains the default. |
-| 6 | Verify resource limits and document usage | Tune writer buffers; full-recording memory remains bulk until streaming work. |
+| 4 | Expose CLI and app selection | Next: explicit Parquet selection; CSV remains the default. |
+| 5 | Verify resource limits and document usage | Tune writer buffers; full-recording memory remains bulk until streaming work. |
+| 6 | Add shared event lifecycle | Follow-up PR: retain the desired design; this PR writes typed empty event files. |
 | 7 | Introduce shared streaming reading | Later PR, with focused parser/CSV validation. |
 | 8 | Add bounded two-pass clock analysis | Later PR after streaming; not a prerequisite for the bulk exporter. |
 
@@ -79,7 +79,26 @@ daqcore/src/log_parse/
 
 **Milestone:** Offline Parquet export works through the daqcore API without a streaming parser, CLI/app selection, or consumer integration.
 
-## 4. Add the Shared Event Lifecycle
+## 4. Expose CLI and App Selection
+
+- Add explicit CSV/Parquet selection while preserving CSV defaults and current CLI invocations.
+- Call `log_parse::csv_export` or `log_parse::parquet_export` from the existing application worker.
+- Use the new entry points directly; do not introduce old-path aliases or forwarding exports.
+- Document output location and external SuperDBC requirements for raw re-decoding.
+
+**Completion check:** Both selections reach their own writers through common log processing. Preserve existing CSV outputs and report useful errors without changing logger or consumer applications.
+
+## 5. Verify Resource Limits and Finish Documentation
+
+- Measure writer buffer use and batch reading with representative recordings. Do not claim whole-recording bounded memory while the bulk parser remains in use.
+- Measure all writer buffers, segment summaries, and footer metadata; tune the size constants if needed.
+- Confirm signal rotation does not alter segment frame/event output or decoded values.
+- Run relevant Rust build, format, and clippy checks. Fixture tests remain deferred until requested; focused parser/CSV parity validation belongs to the later streaming work.
+- Document usage and remaining limitations.
+
+## 6. Shared Event Lifecycle: Follow-up PR
+
+The event system below remains desired, but none of its lifecycle, detector plumbing, or populated-event serialization is required for this PR. Keep the existing event schema and typed empty `events.parquet` per segment.
 
 - Introduce `log_parse::events` for ordinary Rust event values and detector state.
 - Keep event detection independent of storage and reusable for future live messages.
@@ -89,23 +108,6 @@ daqcore/src/log_parse/
 - Defer production SDC, watchdog, and lap rules.
 
 **Completion check:** Detector code has no Arrow/Parquet dependency. Validate instant events, cross-chunk intervals, empty event files, unfinished intervals, and event time basis when tests resume.
-
-## 5. Expose CLI and App Selection
-
-- Add explicit CSV/Parquet selection while preserving CSV defaults and current CLI invocations.
-- Call `log_parse::csv_export` or `log_parse::parquet_export` from the existing application worker.
-- Use the new entry points directly; do not introduce old-path aliases or forwarding exports.
-- Document output location and external SuperDBC requirements for raw re-decoding.
-
-**Completion check:** Both selections reach their own writers through common log processing. Preserve existing CSV outputs and report useful errors without changing logger or consumer applications.
-
-## 6. Verify Resource Limits and Finish Documentation
-
-- Measure writer buffer use and batch reading with representative recordings. Do not claim whole-recording bounded memory while the bulk parser remains in use.
-- Measure all writer buffers, segment summaries, event state, and footer metadata; tune the size constants if needed.
-- Confirm signal rotation does not alter segment frame/event output or decoded values.
-- Run relevant Rust build, format, and clippy checks. Fixture tests remain deferred until requested; focused parser/CSV parity validation belongs to the later streaming work.
-- Document usage and remaining limitations.
 
 ## 7. Shared Streaming Reading: Later PR
 
@@ -117,6 +119,6 @@ Use shared reading/decoding in two passes to finalize correction models before w
 
 ## Deferred Follow-ups
 
-- Production SDC/fault, watchdog, and lap detectors.
+- Shared event lifecycle and populated-event serialization, followed by production SDC/fault, watchdog, and lap detectors.
 - Plot Factory integration and daqcloud ingestion/upload protocols.
 - Changes to GPS validation, the 300-second segmentation policy, desktop logging behavior, or CSV output semantics.

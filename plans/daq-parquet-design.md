@@ -65,7 +65,7 @@ daqcore/src/
       writer.rs
 ```
 
-This shows the current shared/exporter organization plus future modules. `read.rs` is deferred to the later streaming PR; bulk file reading remains in `parse.rs`, with optional raw capture for Parquet. The Parquet writer is implemented; `events.rs` is introduced in a later stage. Start with files for shared stages; turn a module into a directory only if its size warrants it.
+This shows the current shared/exporter organization plus future modules. `read.rs` is deferred to the later streaming PR; bulk file reading remains in `parse.rs`, with optional raw capture for Parquet. The Parquet writer is implemented; `events.rs` is deferred to the event-system follow-up PR. Start with files for shared stages; turn a module into a directory only if its size warrants it.
 
 | Shared module | Responsibility |
 |---|---|
@@ -180,6 +180,8 @@ Use original source paths as labels so files sharing a basename remain distingui
 
 ## 5. Events per Segment
 
+**Follow-up PR:** This event design remains desired, but event values, detector lifecycle, detection, and populated-event serialization are outside this PR. This PR retains the schema and writes a typed empty `events.parquet` for each segment.
+
 Each segment has one flat event table:
 
 | Column | Type | Meaning |
@@ -281,7 +283,7 @@ See the [ordered implementation roadmap](daq-parquet-implementation.md) for the 
 2. Retain the implemented `log_parse` layout and shared bulk parser/correction code.
 3. The bulk Parquet writer is implemented with optional raw-frame capture, bounded writer batches, signal chunks, segment-level frames/empty events, and manifest-last finalization.
 4. In a later PR, replace bulk reading with streaming and bounded first-pass analysis. Preserve existing source selection, segmentation, decoding, and timestamp policies; validate that optimization separately.
-5. Add the shared event lifecycle and connect it to the Parquet event writer; production detector rules remain deferred.
+5. In a follow-up PR, add the shared event lifecycle and connect it to the Parquet event writer. The design in section 5 remains desired; this PR keeps event files empty. Production detector rules remain deferred.
 6. Expose explicit format selection in CLI/app while preserving CSV defaults.
 7. Verify bounded memory and output finalization, and document usage.
 

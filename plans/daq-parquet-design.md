@@ -1,6 +1,6 @@
 # DAQ Parquet Intermediate Format: Simplified Design Plan
 
-**Status:** Shared `log_parse` module reorganization implemented. The existing bulk parser remains unchanged; streaming reading and bounded analysis are deferred to a later PR.
+**Status:** Shared module layout and bulk-parser Parquet export implemented. Optional raw-frame retention is shared with the existing parser; streaming and bounded whole-recording analysis remain deferred.
 **Date:** 2026-10-16  
 **Requirements:** [DAQ Parquet Format — Design Goals](parquet.md)
 
@@ -21,8 +21,8 @@ A small `manifest.json` describes the source files, segments, chunks, timestamp 
 - Leave the desktop logger, its rotation behavior, and the raw logging format unchanged.
 - Preserve the existing fixed segmentation rule: backwards ticks or a forward jump strictly greater than `300_000 ms` (300 seconds). Do not add a configurable threshold or a 5-second rule.
 - Preserve CSV behavior, including file ordering, segmentation, timestamp correction, headers, binning, filenames, and enum handling. CSV and Parquet use shared log-processing modules with separate output writers.
-- Organize common functionality under `daqcore::log_parse` as a clean refactor. Update all callers directly; do not retain old module aliases or compatibility exports. This PR only moves code and updates module references; preserve parser, correlation, segmentation, and CSV writer bodies.
-- Do not rewrite or replace the `.log` parser in this PR. Keep bulk reads, current decoding/filtering, padding handling, and sorting as implemented. Streaming reading and two-pass analysis belong to a later PR.
+- Organize common functionality under `daqcore::log_parse` as a clean refactor. Update all callers directly; do not retain old module aliases or compatibility exports. The reorganization preserves processing behavior. The exporter adds optional raw-frame retention through the same bulk parser and a correction-coefficient accessor; segmentation, fitting, and CSV formatting remain unchanged.
+- Keep bulk reads, current decoding/filtering, padding handling, and segment ordering. Small refactors needed for Parquet are allowed: decoded messages carry capture ordinals, and exporters may opt into raw-frame retention. Do not introduce a streaming parser or duplicate decoding. Streaming reading and two-pass analysis belong to a later PR.
 - Exclude Plot Factory integration, plotting/derived-signal changes, daqcloud ingestion, database migrations, upload protocols, and retry/checkpoint design.
 
 These constraints supersede the broader proposals in the original requirements where they conflict. The flat schemas and segment-level frame/event layout remain the intended Parquet design.
@@ -32,7 +32,7 @@ These constraints supersede the broader proposals in the original requirements w
 | Area | Current behavior | Planned change |
 |---|---|---|
 | [Pipeline](../daq/daqcore/src/log_parse/csv_export/mod.rs) | Parse logs, split chunks, correlate time, export CSV. | Reorganized under `log_parse`; CSV entry point retains the same calls and writer behavior. |
-| [Binary parser](../daq/daqcore/src/log_parse/parse.rs) | Reads complete files and accumulates decoded messages; drops undecodable frames. | Relocated without changing its implementation. Streaming and raw-record retention are future work. |
+| [Binary parser](../daq/daqcore/src/log_parse/parse.rs) | Reads complete files and accumulates decoded messages; drops undecodable frames. | Uses the same bulk-reading/decoding algorithm, with optional raw-frame retention for Parquet. Streaming is future work. |
 | [Raw frame](../firmware/common/timestamped_frame/timestamped_frame.h) | 16 bytes: ticks, packed identity, eight payload bytes. | Preserve those original values in the frames table. |
 | [Desktop logger](../daq/daqcore/src/can/logger.rs) | Rotates `.log` files approximately every 60 seconds. | No changes. Consume its existing output. |
 | [Segmentation](../daq/daqcore/src/log_parse/parse.rs) | Splits on backwards ticks or forward jumps greater than 300 seconds. | Preserve the same fixed rule and boundary decisions; split only Parquet signal storage further into size-bounded chunks. |
@@ -65,12 +65,12 @@ daqcore/src/
       writer.rs
 ```
 
-This shows the current shared/exporter organization plus future modules. `read.rs` is deferred to the later streaming PR; bulk file reading remains in the unchanged `parse.rs`. `events.rs` and the Parquet writer are introduced in their later implementation stages. Start with files for shared stages; turn a module into a directory only if its size warrants it.
+This shows the current shared/exporter organization plus future modules. `read.rs` is deferred to the later streaming PR; bulk file reading remains in `parse.rs`, with optional raw capture for Parquet. The Parquet writer is implemented; `events.rs` is introduced in a later stage. Start with files for shared stages; turn a module into a directory only if its size warrants it.
 
 | Shared module | Responsibility |
 |---|---|
 | `log_parse::read` (later PR) | Future streaming reading, source positions, and capture ordinals. Not introduced or wired in this PR. |
-| `log_parse::parse` | Current bulk reading, raw frame/parsed-message types, identity interpretation, and SuperDBC decoding, relocated without algorithm changes. Raw-only record preservation is deferred. |
+| `log_parse::parse` | Shared bulk reading and SuperDBC decoding. CSV requests decoded messages only; Parquet also receives source paths, capture ordinals, all complete raw frames, and decode statuses. |
 | `log_parse::segment` | The existing decoded-message discontinuity rule and mapping boundaries back to source records. This is separate from Parquet file chunking. |
 | `log_parse::correlate` | GPS extraction/validation, affine fitting, and correction application shared by both exports. |
 | `log_parse::events` | Storage-independent event values and detector lifecycle, added later. |
@@ -86,9 +86,9 @@ The current reorganization moves the existing parser into `log_parse::parse`, th
 
 The shared module is named `log_parse` to avoid a collision with the external `log` crate. There is no `log` module, top-level `parquet_export` alias, or `parse::chunk_parsed` forwarding export. CLI and app CSV calls use `log_parse::csv_export::parse_logs_to_tables`. The desktop logger and CAN driver import the same raw-frame type and constants directly from `log_parse`; their behavior is unchanged.
 
-The earlier untracked streaming-reader draft is excluded from this PR. Do not add `log_parse::read`, change `fs::read` to a buffered iterator, replace decoding/error handling, or route CSV through a new parser. A later PR will introduce streaming and raw-record provenance in the shared pipeline. The present change establishes shared ownership of the current parser and correction code; it does not implement Parquet writing.
+The earlier untracked streaming-reader draft is excluded from this PR. Do not add `log_parse::read`, change `fs::read` to a buffered iterator, replace decoding/error handling, or route CSV through a new parser. A later PR will make the shared reading/provenance path incremental. The bulk exporter now uses this shared parser and correction code without introducing streaming. It retains raw records only when the Parquet path requests them.
 
-Mechanical comparison of moved function bodies plus compile/lint/format checks verifies this reorganization without reopening parser validation. If a later change alters parser behavior, validate it in that separate PR. Tests remain deferred at the user's request.
+The reorganization was checked by comparing moved function bodies. The subsequent optional raw-capture refactor is checked with a focused before/after CSV comparison and temporary generated-recording Parquet round-trips. No permanent tests have been added at the user's request.
 
 ### 2.3 Import Style for This PR
 
@@ -174,7 +174,7 @@ The companion table keeps debugging information out of the main analysis table w
 
 Every complete input record receives a frame row. Unknown or invalid messages produce no signal rows. A decoded message with no signals still has a frame row.
 
-The raw source format does not contain actual DLC, RTR status, or CAN FD payloads. Do not invent those values. The planned Parquet reader will warn and skip a trailing partial record. The current parser's existing padding-and-skip implementation remains unchanged in this PR. Keep original logs for inspection; the manifest does not store partial bytes.
+The raw source format does not contain actual DLC, RTR status, or CAN FD payloads. Do not invent those values. The planned Parquet reader will warn and skip a trailing partial record. The shared bulk parser retains its existing padding-and-skip implementation. Keep original logs for inspection; the manifest does not store partial bytes.
 
 Use original source paths as labels so files sharing a basename remain distinguishable. List those paths in the manifest for traceability. Byte offsets are `source_record * 16` for the current format.
 
@@ -245,7 +245,7 @@ Keep the existing affine correction model:
 UTC milliseconds ~= slope * DAQ ticks milliseconds + intercept
 ```
 
-Future Parquet orchestration will use the shared stages in two passes; this PR retains the existing whole-file/whole-segment processing unchanged. Pass 1 reads and decodes records to identify segment boundaries and accumulate the GPS information needed for each segment's correction. Pass 2 rereads records, applies finalized corrections, detects events, and writes chunks. This allows later GPS anchors to correct earlier chunks without retaining all messages in RAM. CSV can continue collecting decoded messages and passing correlated segments to its existing table writer, using the same common decoding, segmentation, and correction helpers.
+Future Parquet orchestration will use the shared stages in two passes; the current exporter uses whole-file/whole-segment processing. Pass 1 reads and decodes records to identify segment boundaries and accumulate the GPS information needed for each segment's correction. Pass 2 rereads records, applies finalized corrections, detects events, and writes chunks. This allows later GPS anchors to correct earlier chunks without retaining all messages in RAM. CSV can continue collecting decoded messages and passing correlated segments to its existing table writer, using the same common decoding, segmentation, and correction helpers.
 
 Keep regression fitting in the shared correlation module. Support bounded accumulation for Parquet without introducing a second fitting policy or silently changing the CSV calculation; verify agreement with the existing fit within a documented floating-point tolerance. Preserve the existing GPS extraction, date validation, single-anchor slope of 1.0, and failed-fit behavior. For an unavailable correction, write null UTC. Use the segment's correction to choose its event time basis. Do not add a new fit acceptance policy in this work.
 
@@ -263,25 +263,29 @@ Keep one current signal chunk, the segment's frame/event writers, bounded buffer
 
 Write files under temporary names and close their Parquet footers before renaming. Publish the final manifest last. An interrupted export must not appear complete. Local restart can rerun the export; resumable parsing is not part of v1.
 
-## 8. Export Entry Points: daqcli and daqapp
+## 8. Export Entry Points
 
-Expose `log_parse::csv_export` and `log_parse::parquet_export` entry points and add explicit format selection in daqcli and the app's existing background parsing worker. Preserve current CSV defaults. All CSV callers use `log_parse::csv_export::parse_logs_to_tables` directly.
+The bulk Parquet API is `daqcore::log_parse::parquet_export::parse_logs_to_parquet(logs_dir, output_dir, database)`. It returns the completed manifest. An existing directory with a manifest that deserializes as `Manifest` is rejected to preserve completed exports. If the manifest is missing or malformed, the exporter clears the directory and retries. Manifest read errors are propagated, and cleanup is rejected if the output directory contains the input logs. Failures may leave an incomplete directory for the next attempt to clear.
 
-Both entry points use the shared `log_parse` stages; neither exporter calls the other. Moving `table.rs` into `csv_export` must preserve its current headers, binning, filenames, and values. Backend and Plot Factory integrations remain out of scope.
+The exporter captures raw records and decoded messages in one bulk parse, uses the existing segment/correlation functions, writes the tables, and publishes the manifest last. It does not reread sources for a second pass. Empty inputs produce a manifest without segments; inputs with only undecodable complete records produce one uncorrelated segment with frames and an empty signals directory/events file.
+
+Parquet writer buffers are bounded by the size targets, but overall parsing memory still grows with recording size. Streaming is a later PR. Signal chunk size is an approximate target based on written bytes plus the buffered encoded row group; a complete message is never split. Empty event files retain the event schema; actual detection remains unimplemented.
+
+CLI/app format selection is a later step. Current CSV calls and defaults stay unchanged. Both exporters use shared processing and neither calls the other's writer.
 
 ## 9. Implementation Steps and Validation
 
 See the [ordered implementation roadmap](daq-parquet-implementation.md) for the updated sequence and completion checks.
 
 1. Retain the flat schemas and minimal manifest under `log_parse::parquet_export`.
-2. Reorganize existing parser, segmentation, correlation, and CSV modules under `log_parse`, updating all import paths and preserving function bodies. This is the scope of the current PR.
-3. In a later PR, introduce shared streaming reading/raw provenance and bounded first-pass analysis. Preserve existing source selection, segmentation, decoding, and timestamp policies; validate parser changes in that PR.
-4. Build the Parquet writer with signal chunks and segment-level frames/events files, using the shared pipeline.
+2. Retain the implemented `log_parse` layout and shared bulk parser/correction code.
+3. The bulk Parquet writer is implemented with optional raw-frame capture, bounded writer batches, signal chunks, segment-level frames/empty events, and manifest-last finalization.
+4. In a later PR, replace bulk reading with streaming and bounded first-pass analysis. Preserve existing source selection, segmentation, decoding, and timestamp policies; validate that optimization separately.
 5. Add the shared event lifecycle and connect it to the Parquet event writer; production detector rules remain deferred.
 6. Expose explicit format selection in CLI/app while preserving CSV defaults.
 7. Verify bounded memory and output finalization, and document usage.
 
-For this PR, verify that moved parser, segmentation, correlation, and CSV bodies are unchanged apart from module references, and compile all callers against the new module paths. Later streaming work needs focused validation of ordering, identity handling, raw provenance, partial tails, and 300-second boundaries. Do not redesign CSV formatting or expand into unrelated logging changes.
+For the reorganization, compare moved implementation bodies. For the optional raw-capture addition, compare CSV files and decoded results before/after and inspect the resulting Parquet tables. Later streaming work needs focused validation of ordering, identity handling, raw provenance, partial tails, and 300-second boundaries. Do not redesign CSV formatting or expand into unrelated logging changes.
 
 Tests remain deferred at the user's request. Build, formatting, and clippy checks remain appropriate for each implementation stage. The desktop logger and CAN driver only need module-reference updates. Plot Factory and daqcloud need no changes.
 

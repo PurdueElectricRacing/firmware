@@ -1,6 +1,6 @@
+use crate::hil::config::ExecutionMode;
 use crate::{frame, hil};
 use std::{path, time};
-use crate::hil::config::ExecutionMode;
 
 pub enum HilCommand {
     StartTest(hil::config::TestInfo),
@@ -76,12 +76,10 @@ impl HilEngine {
                 tests,
                 stopped_early,
                 ..
-            } => {
-                *stopped_early || tests.iter().all(|t| t.is_finished())
-            }
+            } => *stopped_early || tests.iter().all(|t| t.is_finished()),
             HilState::Idle { .. } => false,
         }
-    }   
+    }
 
     pub fn handle_command(&mut self, command: HilCommand, now: time::Instant) {
         match command {
@@ -137,15 +135,11 @@ impl HilEngine {
             match mode {
                 ExecutionMode::Parallel => {
                     for test in tests.iter_mut() {
-                        test.process_can(
-                            decoded,
-                            now.saturating_duration_since(*start_time),
-                        );
+                        test.process_can(decoded, now.saturating_duration_since(*start_time));
                     }
                 }
 
-                ExecutionMode::SequentialAlways
-                | ExecutionMode::SequentialStopFail => {
+                ExecutionMode::SequentialAlways | ExecutionMode::SequentialStopFail => {
                     if let Some(test) = tests.get_mut(*active_test) {
                         test.process_can(
                             decoded,
@@ -157,7 +151,7 @@ impl HilEngine {
         }
     }
 
-   pub fn tick(&mut self, now: time::Instant) {
+    pub fn tick(&mut self, now: time::Instant) {
         if let HilState::Running {
             start_time,
             preset,
@@ -166,7 +160,6 @@ impl HilEngine {
             active_start_time,
             stopped_early,
         } = &mut self.state
-        
         {
             if *stopped_early {
                 return;
@@ -180,42 +173,35 @@ impl HilEngine {
             match mode {
                 ExecutionMode::Parallel => {
                     for test in tests.iter_mut() {
-                        test.update_expect_statuses(
-                            now.saturating_duration_since(*start_time),
-                        );
+                        test.update_expect_statuses(now.saturating_duration_since(*start_time));
                     }
                 }
 
-                ExecutionMode::SequentialAlways
-                    | ExecutionMode::SequentialStopFail => {
-                        if let Some(test) = tests.get_mut(*active_test) {
-                            test.update_expect_statuses(
-                                now.saturating_duration_since(*active_start_time),
-                            );
+                ExecutionMode::SequentialAlways | ExecutionMode::SequentialStopFail => {
+                    if let Some(test) = tests.get_mut(*active_test) {
+                        test.update_expect_statuses(
+                            now.saturating_duration_since(*active_start_time),
+                        );
 
-                            if test.is_finished() {
-                                let stop_on_failure = matches!(
-                                    mode,
-                                    ExecutionMode::SequentialStopFail
-                                );
+                        if test.is_finished() {
+                            let stop_on_failure = matches!(mode, ExecutionMode::SequentialStopFail);
 
-                                if stop_on_failure && test.has_failed() {
-                                    *stopped_early = true;
-                                } else {
-                                    *active_test += 1;
-                                    *active_start_time = now;
-                                }
+                            if stop_on_failure && test.has_failed() {
+                                *stopped_early = true;
+                            } else {
+                                *active_test += 1;
+                                *active_start_time = now;
                             }
                         }
                     }
+                }
             }
         }
     }
 
     pub fn snapshot(&self, now: time::Instant) -> HilSnapshot {
         match &self.state {
-            HilState::Idle { start_error 
-            } => HilSnapshot {
+            HilState::Idle { start_error } => HilSnapshot {
                 status: HilStatus::Idle,
                 elapsed_ms: 0,
                 preset: None,

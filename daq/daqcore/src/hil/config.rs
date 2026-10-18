@@ -1,5 +1,5 @@
-use std::{fs, path};
 use serde::{Deserialize, Serialize};
+use std::{fs, path};
 // Read HIL config files (preset and tests)
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -64,7 +64,6 @@ pub struct PresetDefinition {
     pub mode: ExecutionMode,
     pub tests: Vec<String>,
 }
-
 
 pub fn list_available_tests(base: &path::Path) -> (Vec<PresetInfo>, Vec<TestInfo>, Vec<String>) {
     let mut errors = Vec::new();

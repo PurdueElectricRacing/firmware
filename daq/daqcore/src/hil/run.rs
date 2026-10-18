@@ -102,9 +102,7 @@ impl HilRunningTest {
 
         for expect in &mut self.in_progress_expects {
             match expect.result {
-                ExpectResult::NotInWindow
-                    if ts >= expect.expect.window[0] as u128 =>
-                {
+                ExpectResult::NotInWindow if ts >= expect.expect.window[0] as u128 => {
                     expect.result = if ts > expect.expect.window[1] as u128 {
                         ExpectResult::FailedNoMessage
                     } else {
@@ -112,9 +110,7 @@ impl HilRunningTest {
                     };
                 }
 
-                ExpectResult::InProgress
-                    if ts > expect.expect.window[1] as u128 =>
-                {
+                ExpectResult::InProgress if ts > expect.expect.window[1] as u128 => {
                     expect.result = ExpectResult::FailedNoMessage;
                 }
 
@@ -195,8 +191,7 @@ impl HilRunningTest {
         self.in_progress_expects.iter().any(|e| {
             matches!(
                 e.result,
-                ExpectResult::FailedNoMessage
-                | ExpectResult::FailedValueOutOfRange
+                ExpectResult::FailedNoMessage | ExpectResult::FailedValueOutOfRange
             )
         })
     }

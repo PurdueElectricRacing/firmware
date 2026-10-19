@@ -5,6 +5,8 @@
  * @file nav_pvt.h
  * @brief UBX NAV-PVT message definition and decoder function.
  *
+ * ! docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.13
+ *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
@@ -60,6 +62,25 @@ typedef enum : uint8_t {
     GPS_FLAGS2_CONFIRMED_TIME      = 0x80  // UTC time is confirmed
 } gps_flags2_t;
 
+typedef enum : uint16_t {
+    GPS_FLAGS3_INVALID_LLH = 0x1,
+
+    GPS_FLAGS3_LAST_CORRECTION_AGE_MASK   = 0x1E,
+    GPS_FLAGS3_CORRECTION_AGE_UNAVAILABLE = 0x0,
+    GPS_FLAGS3_CORRECTION_AGE_0_TO_1_S    = 0x2,
+    GPS_FLAGS3_CORRECTION_AGE_1_TO_2_S    = 0x4,
+    GPS_FLAGS3_CORRECTION_AGE_2_TO_5_S    = 0x6,
+    GPS_FLAGS3_CORRECTION_AGE_5_TO_10_S   = 0x8,
+    GPS_FLAGS3_CORRECTION_AGE_10_TO_15_S  = 0xA,
+    GPS_FLAGS3_CORRECTION_AGE_15_TO_20_S  = 0xC,
+    GPS_FLAGS3_CORRECTION_AGE_20_TO_30_S  = 0xE,
+    GPS_FLAGS3_CORRECTION_AGE_30_TO_45_S  = 0x10,
+    GPS_FLAGS3_CORRECTION_AGE_45_TO_60_S  = 0x12,
+    GPS_FLAGS3_CORRECTION_AGE_60_TO_90_S  = 0x14,
+    GPS_FLAGS3_CORRECTION_AGE_90_TO_120_S = 0x16,
+    GPS_FLAGS3_CORRECTION_AGE_GE_120_S   = 0x18,
+} gps_flags3_t;
+
 typedef struct {
     uint32_t iTOW;
     uint16_t year;
@@ -95,7 +116,8 @@ typedef struct {
     uint32_t headingAccuracy; // Heading accuracy estimate in 1e-5 degrees
 
     uint16_t positionDOP; // Position Dilution of Precision (0.01 scale)
-    uint8_t reserved[6];
+    gps_flags3_t flags3;  // Additional flags
+    uint8_t reserved[4];
 
     int32_t headingVehicle; // Heading of vehicle in 1e-5 degrees
 

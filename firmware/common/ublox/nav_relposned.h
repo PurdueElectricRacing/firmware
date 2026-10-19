@@ -4,6 +4,8 @@
 /**
  * @file nav_relposned.h
  * @brief UBX NAV-RELPOSNED message definition and decoder function.
+ * 
+ * ! docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.14
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
@@ -11,7 +13,6 @@
 #include <stdint.h>
 #include <stddef.h>
 
-// docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.14
 static constexpr size_t NAV_RELPOSNED_HEADER_LENGTH = 6;
 static constexpr size_t NAV_RELPOSNED_PAYLOAD_LENGTH = 64;
 static constexpr size_t NAV_RELPOSNED_CHECKSUM_LENGTH = 2;

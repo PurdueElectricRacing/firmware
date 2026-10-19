@@ -11,12 +11,17 @@ var nav__relposned_8h =
       [ "NAV_RELPOSNED_FLAGS_CARR_SOLN_FIXED", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5a6b302400864d57225d1b3d16cea7c748", null ],
       [ "NAV_RELPOSNED_FLAGS_IS_MOVING", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5a6eb45d0c2247b96973e22bfc8edf860e", null ],
       [ "NAV_RELPOSNED_FLAGS_REF_POS_MISS", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3", null ],
-      [ "NAV_RELPOSNED_FLAGS_REF_OBS_MISS", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305", null ]
+      [ "NAV_RELPOSNED_FLAGS_REF_OBS_MISS", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305", null ],
+      [ "NAV_RELPOSNED_FLAGS_HEADING_VALID", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5af96df30c40849c2f9a9f643c20fe6619", null ],
+      [ "NAV_RELPOSNED_FLAGS_NORMALIZED", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5af6ccdff3342bf47c78f0e16c708a4a9c", null ]
     ] ],
     [ "NAV_RELPOSNED_decode", "nav__relposned_8h.html#ac1beca0752f374e987c7ab5552eafe9c", null ],
+    [ "NAV_RELPOSNED_CHECKSUM_LENGTH", "nav__relposned_8h.html#a36dd24cf14cb15cf8ee4429d98306dcc", null ],
     [ "NAV_RELPOSNED_CLASS", "nav__relposned_8h.html#aa7260c780f418e6d3987ffe9703ec6e9", null ],
     [ "NAV_RELPOSNED_HEADER_B0", "nav__relposned_8h.html#a79c2857f59c5dea67d012a912b37000d", null ],
     [ "NAV_RELPOSNED_HEADER_B1", "nav__relposned_8h.html#a7b6c636104f5f9aba3048f49030e4389", null ],
+    [ "NAV_RELPOSNED_HEADER_LENGTH", "nav__relposned_8h.html#ab2f17dbdff1bc2f46967cf56b4c7cc35", null ],
     [ "NAV_RELPOSNED_MSG_ID", "nav__relposned_8h.html#ac84bcc2ef10f3660ac77ee25757c8145", null ],
+    [ "NAV_RELPOSNED_PAYLOAD_LENGTH", "nav__relposned_8h.html#ac49885e4469e4a4232eac57de615c06c", null ],
     [ "NAV_RELPOSNED_TOTAL_LENGTH", "nav__relposned_8h.html#a8343ef3aaa0932ccc23c634d3cf5fb4c", null ]
 ];

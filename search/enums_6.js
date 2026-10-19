@@ -7,5 +7,6 @@ var searchData=
   ['gps_5ffix_5ftype_5ft_4',['gps_fix_type_t',['../nav__pvt_8h.html#a8e45bb6ff548b954f48b758d6ec2c49d',1,'nav_pvt.h']]],
   ['gps_5fflags1_5ft_5',['gps_flags1_t',['../nav__pvt_8h.html#aab0b940e0c2b2f588ef823a759194126',1,'nav_pvt.h']]],
   ['gps_5fflags2_5ft_6',['gps_flags2_t',['../nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9f',1,'nav_pvt.h']]],
-  ['gps_5fvalid_5fflags_5ft_7',['gps_valid_flags_t',['../nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526a',1,'nav_pvt.h']]]
+  ['gps_5fflags3_5ft_7',['gps_flags3_t',['../nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2',1,'nav_pvt.h']]],
+  ['gps_5fvalid_5fflags_5ft_8',['gps_valid_flags_t',['../nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526a',1,'nav_pvt.h']]]
 ];

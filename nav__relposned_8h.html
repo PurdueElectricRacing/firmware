@@ -143,6 +143,8 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3">NAV_RELPOSNED_FLAGS_REF_POS_MISS</a> = 0x40
 , <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305">NAV_RELPOSNED_FLAGS_REF_OBS_MISS</a> = 0x80
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5af96df30c40849c2f9a9f643c20fe6619">NAV_RELPOSNED_FLAGS_HEADING_VALID</a> = 0x100
+, <a class="el" href="#aeba8f34c9ae90ea0404882b5f54d3bf5af6ccdff3342bf47c78f0e16c708a4a9c">NAV_RELPOSNED_FLAGS_NORMALIZED</a> = 0x200
 <br />
  }</td></tr>
 <tr class="separator:aeba8f34c9ae90ea0404882b5f54d3bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +156,14 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:ab2f17dbdff1bc2f46967cf56b4c7cc35" id="r_ab2f17dbdff1bc2f46967cf56b4c7cc35"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2f17dbdff1bc2f46967cf56b4c7cc35">NAV_RELPOSNED_HEADER_LENGTH</a> = 6</td></tr>
+<tr class="separator:ab2f17dbdff1bc2f46967cf56b4c7cc35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac49885e4469e4a4232eac57de615c06c" id="r_ac49885e4469e4a4232eac57de615c06c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac49885e4469e4a4232eac57de615c06c">NAV_RELPOSNED_PAYLOAD_LENGTH</a> = 64</td></tr>
+<tr class="separator:ac49885e4469e4a4232eac57de615c06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36dd24cf14cb15cf8ee4429d98306dcc" id="r_a36dd24cf14cb15cf8ee4429d98306dcc"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36dd24cf14cb15cf8ee4429d98306dcc">NAV_RELPOSNED_CHECKSUM_LENGTH</a> = 2</td></tr>
+<tr class="separator:a36dd24cf14cb15cf8ee4429d98306dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8343ef3aaa0932ccc23c634d3cf5fb4c" id="r_a8343ef3aaa0932ccc23c634d3cf5fb4c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8343ef3aaa0932ccc23c634d3cf5fb4c">NAV_RELPOSNED_TOTAL_LENGTH</a></td></tr>
+<tr class="separator:a8343ef3aaa0932ccc23c634d3cf5fb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79c2857f59c5dea67d012a912b37000d" id="r_a79c2857f59c5dea67d012a912b37000d"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79c2857f59c5dea67d012a912b37000d">NAV_RELPOSNED_HEADER_B0</a> = 0xB5</td></tr>
 <tr class="separator:a79c2857f59c5dea67d012a912b37000d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b6c636104f5f9aba3048f49030e4389" id="r_a7b6c636104f5f9aba3048f49030e4389"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b6c636104f5f9aba3048f49030e4389">NAV_RELPOSNED_HEADER_B1</a> = 0x62</td></tr>
@@ -162,11 +172,10 @@ Variables</h2></td></tr>
 <tr class="separator:aa7260c780f418e6d3987ffe9703ec6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac84bcc2ef10f3660ac77ee25757c8145" id="r_ac84bcc2ef10f3660ac77ee25757c8145"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac84bcc2ef10f3660ac77ee25757c8145">NAV_RELPOSNED_MSG_ID</a> = 0x3C</td></tr>
 <tr class="separator:ac84bcc2ef10f3660ac77ee25757c8145"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8343ef3aaa0932ccc23c634d3cf5fb4c" id="r_a8343ef3aaa0932ccc23c634d3cf5fb4c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8343ef3aaa0932ccc23c634d3cf5fb4c">NAV_RELPOSNED_TOTAL_LENGTH</a> = 48</td></tr>
-<tr class="separator:a8343ef3aaa0932ccc23c634d3cf5fb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>UBX NAV-RELPOSNED message definition and decoder function. </p>
+<p>! docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.14</p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aeba8f34c9ae90ea0404882b5f54d3bf5" name="aeba8f34c9ae90ea0404882b5f54d3bf5"></a>
@@ -191,6 +200,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a6eb45d0c2247b96973e22bfc8edf860e" name="aeba8f34c9ae90ea0404882b5f54d3bf5a6eb45d0c2247b96973e22bfc8edf860e"></a>NAV_RELPOSNED_FLAGS_IS_MOVING&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3" name="aeba8f34c9ae90ea0404882b5f54d3bf5a9d0032187d57ecb942ed21ec04ff86a3"></a>NAV_RELPOSNED_FLAGS_REF_POS_MISS&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305" name="aeba8f34c9ae90ea0404882b5f54d3bf5aa2e42f95571811314a99ed4b48090305"></a>NAV_RELPOSNED_FLAGS_REF_OBS_MISS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5af96df30c40849c2f9a9f643c20fe6619" name="aeba8f34c9ae90ea0404882b5f54d3bf5af96df30c40849c2f9a9f643c20fe6619"></a>NAV_RELPOSNED_FLAGS_HEADING_VALID&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aeba8f34c9ae90ea0404882b5f54d3bf5af6ccdff3342bf47c78f0e16c708a4a9c" name="aeba8f34c9ae90ea0404882b5f54d3bf5af6ccdff3342bf47c78f0e16c708a4a9c"></a>NAV_RELPOSNED_FLAGS_NORMALIZED&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -223,6 +234,28 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a36dd24cf14cb15cf8ee4429d98306dcc" name="a36dd24cf14cb15cf8ee4429d98306dcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36dd24cf14cb15cf8ee4429d98306dcc">&#9670;&#160;</a></span>NAV_RELPOSNED_CHECKSUM_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_RELPOSNED_CHECKSUM_LENGTH = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa7260c780f418e6d3987ffe9703ec6e9" name="aa7260c780f418e6d3987ffe9703ec6e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa7260c780f418e6d3987ffe9703ec6e9">&#9670;&#160;</a></span>NAV_RELPOSNED_CLASS</h2>
 
@@ -289,6 +322,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ab2f17dbdff1bc2f46967cf56b4c7cc35" name="ab2f17dbdff1bc2f46967cf56b4c7cc35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2f17dbdff1bc2f46967cf56b4c7cc35">&#9670;&#160;</a></span>NAV_RELPOSNED_HEADER_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_RELPOSNED_HEADER_LENGTH = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac84bcc2ef10f3660ac77ee25757c8145" name="ac84bcc2ef10f3660ac77ee25757c8145"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac84bcc2ef10f3660ac77ee25757c8145">&#9670;&#160;</a></span>NAV_RELPOSNED_MSG_ID</h2>
 
@@ -311,6 +366,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ac49885e4469e4a4232eac57de615c06c" name="ac49885e4469e4a4232eac57de615c06c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac49885e4469e4a4232eac57de615c06c">&#9670;&#160;</a></span>NAV_RELPOSNED_PAYLOAD_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_RELPOSNED_PAYLOAD_LENGTH = 64</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8343ef3aaa0932ccc23c634d3cf5fb4c" name="a8343ef3aaa0932ccc23c634d3cf5fb4c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8343ef3aaa0932ccc23c634d3cf5fb4c">&#9670;&#160;</a></span>NAV_RELPOSNED_TOTAL_LENGTH</h2>
 
@@ -321,7 +398,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t NAV_RELPOSNED_TOTAL_LENGTH = 48</td>
+          <td class="memname">size_t NAV_RELPOSNED_TOTAL_LENGTH</td>
         </tr>
       </table>
   </td>
@@ -330,7 +407,12 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">    <a class="code hl_variable" href="#ab2f17dbdff1bc2f46967cf56b4c7cc35">NAV_RELPOSNED_HEADER_LENGTH</a> + <a class="code hl_variable" href="#ac49885e4469e4a4232eac57de615c06c">NAV_RELPOSNED_PAYLOAD_LENGTH</a> + <a class="code hl_variable" href="#a36dd24cf14cb15cf8ee4429d98306dcc">NAV_RELPOSNED_CHECKSUM_LENGTH</a></div>
+<div class="ttc" id="anav__relposned_8h_html_a36dd24cf14cb15cf8ee4429d98306dcc"><div class="ttname"><a href="#a36dd24cf14cb15cf8ee4429d98306dcc">NAV_RELPOSNED_CHECKSUM_LENGTH</a></div><div class="ttdeci">static constexpr size_t NAV_RELPOSNED_CHECKSUM_LENGTH</div><div class="ttdef"><b>Definition</b> nav_relposned.h:19</div></div>
+<div class="ttc" id="anav__relposned_8h_html_ab2f17dbdff1bc2f46967cf56b4c7cc35"><div class="ttname"><a href="#ab2f17dbdff1bc2f46967cf56b4c7cc35">NAV_RELPOSNED_HEADER_LENGTH</a></div><div class="ttdeci">static constexpr size_t NAV_RELPOSNED_HEADER_LENGTH</div><div class="ttdef"><b>Definition</b> nav_relposned.h:17</div></div>
+<div class="ttc" id="anav__relposned_8h_html_ac49885e4469e4a4232eac57de615c06c"><div class="ttname"><a href="#ac49885e4469e4a4232eac57de615c06c">NAV_RELPOSNED_PAYLOAD_LENGTH</a></div><div class="ttdeci">static constexpr size_t NAV_RELPOSNED_PAYLOAD_LENGTH</div><div class="ttdef"><b>Definition</b> nav_relposned.h:18</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

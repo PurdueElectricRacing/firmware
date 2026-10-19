@@ -30,6 +30,23 @@ var nav__pvt_8h =
       [ "GPS_FLAGS2_CONFIRMED_DATE", "nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9fa2e33972c1a7dc61a01a89027e6125b06", null ],
       [ "GPS_FLAGS2_CONFIRMED_TIME", "nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9fa8a75113ae000e05c8d582011a849cf52", null ]
     ] ],
+    [ "gps_flags3_t", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2", [
+      [ "GPS_FLAGS3_INVALID_LLH", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a00a0c111f66b4c75866551d20363f338", null ],
+      [ "GPS_FLAGS3_LAST_CORRECTION_AGE_MASK", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2ac061e370296235c99023f7a7afe34f5a", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_UNAVAILABLE", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a29274db095f037c109e7546434003faa", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_0_TO_1_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a2473dfb7de51b60747297c28c5761c8a", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_1_TO_2_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a13db1199fea1189907be31509b038b8b", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_2_TO_5_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2aa4e6fb70fad82060b91701a04cc8e597", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_5_TO_10_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a9de1eaaa285a43040384f6685e0a448f", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_10_TO_15_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2ab802506a3d818b8ccdd19dc3b91e4636", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_15_TO_20_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a624073bdae695baf498cef3290b1d1a7", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_20_TO_30_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2af9c560ea3ed117b7899254e9df7ddf98", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_30_TO_45_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a309229be817704aafe9374f26d116216", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_45_TO_60_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2a15a33e5ec4b93dad999e0d25c35ad795", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_60_TO_90_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2adb9bb4415ca92c25cca6186ef3c97b1d", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_90_TO_120_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2ac37dfdc753762f9c1e845ba636930417", null ],
+      [ "GPS_FLAGS3_CORRECTION_AGE_GE_120_S", "nav__pvt_8h.html#a035fd54033c70bb1e1ab838973b2efd2ad8ba56d2e98e9ff43bf3341e66a3dd49", null ]
+    ] ],
     [ "gps_valid_flags_t", "nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526a", [
       [ "GPS_VALID_DATE", "nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526aa2e770966a29e35bbfba6d348db084fe4", null ],
       [ "GPS_VALID_TIME", "nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526aa619d889f09b1a14703692d6eb47d9ad8", null ],
@@ -38,8 +55,11 @@ var nav__pvt_8h =
     ] ],
     [ "NAV_PVT_decode", "nav__pvt_8h.html#aef5d1090ad401e55919975e0c7717e74", null ],
     [ "NAV_PVT_CLASS", "nav__pvt_8h.html#a295c0f2aceb2533041b8fe93269a48c1", null ],
+    [ "NAV_PVT_CRC_LENGTH", "nav__pvt_8h.html#a05e231eb513608d60779cd0c052c4b66", null ],
     [ "NAV_PVT_HEADER_B0", "nav__pvt_8h.html#a2fda54323262c0cef5590e36aa108d98", null ],
     [ "NAV_PVT_HEADER_B1", "nav__pvt_8h.html#aa9569f5fca02ce1276de7d7a934bcf43", null ],
+    [ "NAV_PVT_HEADER_LENGTH", "nav__pvt_8h.html#a291b590a2374cc4092b7f943f277f2e5", null ],
     [ "NAV_PVT_MSG_ID", "nav__pvt_8h.html#af7063faf314c8ebdae47ee13f8591cc8", null ],
+    [ "NAV_PVT_PAYLOAD_LENGTH", "nav__pvt_8h.html#a5740ce2fb6b21907da7ceac0b6330dbf", null ],
     [ "NAV_PVT_TOTAL_LENGTH", "nav__pvt_8h.html#a71100d7e7e16e9fe669799a9a3021c1d", null ]
 ];

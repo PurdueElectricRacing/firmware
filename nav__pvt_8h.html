@@ -173,6 +173,28 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa5a3cd3229fca20ad474c18623498c9fa8a75113ae000e05c8d582011a849cf52">GPS_FLAGS2_CONFIRMED_TIME</a> = 0x80
  }</td></tr>
 <tr class="separator:aa5a3cd3229fca20ad474c18623498c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a035fd54033c70bb1e1ab838973b2efd2" id="r_a035fd54033c70bb1e1ab838973b2efd2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2">gps_flags3_t</a> : uint16_t { <br />
+&#160;&#160;<a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a00a0c111f66b4c75866551d20363f338">GPS_FLAGS3_INVALID_LLH</a> = 0x1
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2ac061e370296235c99023f7a7afe34f5a">GPS_FLAGS3_LAST_CORRECTION_AGE_MASK</a> = 0x1E
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a29274db095f037c109e7546434003faa">GPS_FLAGS3_CORRECTION_AGE_UNAVAILABLE</a> = 0x0
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a2473dfb7de51b60747297c28c5761c8a">GPS_FLAGS3_CORRECTION_AGE_0_TO_1_S</a> = 0x2
+, <br />
+&#160;&#160;<a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a13db1199fea1189907be31509b038b8b">GPS_FLAGS3_CORRECTION_AGE_1_TO_2_S</a> = 0x4
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2aa4e6fb70fad82060b91701a04cc8e597">GPS_FLAGS3_CORRECTION_AGE_2_TO_5_S</a> = 0x6
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a9de1eaaa285a43040384f6685e0a448f">GPS_FLAGS3_CORRECTION_AGE_5_TO_10_S</a> = 0x8
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2ab802506a3d818b8ccdd19dc3b91e4636">GPS_FLAGS3_CORRECTION_AGE_10_TO_15_S</a> = 0xA
+, <br />
+&#160;&#160;<a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a624073bdae695baf498cef3290b1d1a7">GPS_FLAGS3_CORRECTION_AGE_15_TO_20_S</a> = 0xC
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2af9c560ea3ed117b7899254e9df7ddf98">GPS_FLAGS3_CORRECTION_AGE_20_TO_30_S</a> = 0xE
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a309229be817704aafe9374f26d116216">GPS_FLAGS3_CORRECTION_AGE_30_TO_45_S</a> = 0x10
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2a15a33e5ec4b93dad999e0d25c35ad795">GPS_FLAGS3_CORRECTION_AGE_45_TO_60_S</a> = 0x12
+, <br />
+&#160;&#160;<a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2adb9bb4415ca92c25cca6186ef3c97b1d">GPS_FLAGS3_CORRECTION_AGE_60_TO_90_S</a> = 0x14
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2ac37dfdc753762f9c1e845ba636930417">GPS_FLAGS3_CORRECTION_AGE_90_TO_120_S</a> = 0x16
+, <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2ad8ba56d2e98e9ff43bf3341e66a3dd49">GPS_FLAGS3_CORRECTION_AGE_GE_120_S</a> = 0x18
+<br />
+ }</td></tr>
+<tr class="separator:a035fd54033c70bb1e1ab838973b2efd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -181,6 +203,14 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a291b590a2374cc4092b7f943f277f2e5" id="r_a291b590a2374cc4092b7f943f277f2e5"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a291b590a2374cc4092b7f943f277f2e5">NAV_PVT_HEADER_LENGTH</a> = 6</td></tr>
+<tr class="separator:a291b590a2374cc4092b7f943f277f2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5740ce2fb6b21907da7ceac0b6330dbf" id="r_a5740ce2fb6b21907da7ceac0b6330dbf"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5740ce2fb6b21907da7ceac0b6330dbf">NAV_PVT_PAYLOAD_LENGTH</a> = 92</td></tr>
+<tr class="separator:a5740ce2fb6b21907da7ceac0b6330dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e231eb513608d60779cd0c052c4b66" id="r_a05e231eb513608d60779cd0c052c4b66"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05e231eb513608d60779cd0c052c4b66">NAV_PVT_CRC_LENGTH</a> = 2</td></tr>
+<tr class="separator:a05e231eb513608d60779cd0c052c4b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71100d7e7e16e9fe669799a9a3021c1d" id="r_a71100d7e7e16e9fe669799a9a3021c1d"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71100d7e7e16e9fe669799a9a3021c1d">NAV_PVT_TOTAL_LENGTH</a></td></tr>
+<tr class="separator:a71100d7e7e16e9fe669799a9a3021c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fda54323262c0cef5590e36aa108d98" id="r_a2fda54323262c0cef5590e36aa108d98"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fda54323262c0cef5590e36aa108d98">NAV_PVT_HEADER_B0</a> = 0xB5</td></tr>
 <tr class="separator:a2fda54323262c0cef5590e36aa108d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9569f5fca02ce1276de7d7a934bcf43" id="r_aa9569f5fca02ce1276de7d7a934bcf43"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9569f5fca02ce1276de7d7a934bcf43">NAV_PVT_HEADER_B1</a> = 0x62</td></tr>
@@ -189,11 +219,10 @@ Variables</h2></td></tr>
 <tr class="separator:a295c0f2aceb2533041b8fe93269a48c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7063faf314c8ebdae47ee13f8591cc8" id="r_af7063faf314c8ebdae47ee13f8591cc8"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7063faf314c8ebdae47ee13f8591cc8">NAV_PVT_MSG_ID</a> = 0x07</td></tr>
 <tr class="separator:af7063faf314c8ebdae47ee13f8591cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71100d7e7e16e9fe669799a9a3021c1d" id="r_a71100d7e7e16e9fe669799a9a3021c1d"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71100d7e7e16e9fe669799a9a3021c1d">NAV_PVT_TOTAL_LENGTH</a> = 100</td></tr>
-<tr class="separator:a71100d7e7e16e9fe669799a9a3021c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>UBX NAV-PVT message definition and decoder function. </p>
+<p>! docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.13</p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a8e45bb6ff548b954f48b758d6ec2c49d" name="a8e45bb6ff548b954f48b758d6ec2c49d"></a>
@@ -263,6 +292,37 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa5a3cd3229fca20ad474c18623498c9faf1aa1c197b96b22598672c8a17c774f9" name="aa5a3cd3229fca20ad474c18623498c9faf1aa1c197b96b22598672c8a17c774f9"></a>GPS_FLAGS2_CONFIRMED_AVAILABLE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa5a3cd3229fca20ad474c18623498c9fa2e33972c1a7dc61a01a89027e6125b06" name="aa5a3cd3229fca20ad474c18623498c9fa2e33972c1a7dc61a01a89027e6125b06"></a>GPS_FLAGS2_CONFIRMED_DATE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa5a3cd3229fca20ad474c18623498c9fa8a75113ae000e05c8d582011a849cf52" name="aa5a3cd3229fca20ad474c18623498c9fa8a75113ae000e05c8d582011a849cf52"></a>GPS_FLAGS2_CONFIRMED_TIME&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a035fd54033c70bb1e1ab838973b2efd2" name="a035fd54033c70bb1e1ab838973b2efd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a035fd54033c70bb1e1ab838973b2efd2">&#9670;&#160;</a></span>gps_flags3_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a035fd54033c70bb1e1ab838973b2efd2">gps_flags3_t</a> : uint16_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a00a0c111f66b4c75866551d20363f338" name="a035fd54033c70bb1e1ab838973b2efd2a00a0c111f66b4c75866551d20363f338"></a>GPS_FLAGS3_INVALID_LLH&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2ac061e370296235c99023f7a7afe34f5a" name="a035fd54033c70bb1e1ab838973b2efd2ac061e370296235c99023f7a7afe34f5a"></a>GPS_FLAGS3_LAST_CORRECTION_AGE_MASK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a29274db095f037c109e7546434003faa" name="a035fd54033c70bb1e1ab838973b2efd2a29274db095f037c109e7546434003faa"></a>GPS_FLAGS3_CORRECTION_AGE_UNAVAILABLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a2473dfb7de51b60747297c28c5761c8a" name="a035fd54033c70bb1e1ab838973b2efd2a2473dfb7de51b60747297c28c5761c8a"></a>GPS_FLAGS3_CORRECTION_AGE_0_TO_1_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a13db1199fea1189907be31509b038b8b" name="a035fd54033c70bb1e1ab838973b2efd2a13db1199fea1189907be31509b038b8b"></a>GPS_FLAGS3_CORRECTION_AGE_1_TO_2_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2aa4e6fb70fad82060b91701a04cc8e597" name="a035fd54033c70bb1e1ab838973b2efd2aa4e6fb70fad82060b91701a04cc8e597"></a>GPS_FLAGS3_CORRECTION_AGE_2_TO_5_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a9de1eaaa285a43040384f6685e0a448f" name="a035fd54033c70bb1e1ab838973b2efd2a9de1eaaa285a43040384f6685e0a448f"></a>GPS_FLAGS3_CORRECTION_AGE_5_TO_10_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2ab802506a3d818b8ccdd19dc3b91e4636" name="a035fd54033c70bb1e1ab838973b2efd2ab802506a3d818b8ccdd19dc3b91e4636"></a>GPS_FLAGS3_CORRECTION_AGE_10_TO_15_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a624073bdae695baf498cef3290b1d1a7" name="a035fd54033c70bb1e1ab838973b2efd2a624073bdae695baf498cef3290b1d1a7"></a>GPS_FLAGS3_CORRECTION_AGE_15_TO_20_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2af9c560ea3ed117b7899254e9df7ddf98" name="a035fd54033c70bb1e1ab838973b2efd2af9c560ea3ed117b7899254e9df7ddf98"></a>GPS_FLAGS3_CORRECTION_AGE_20_TO_30_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a309229be817704aafe9374f26d116216" name="a035fd54033c70bb1e1ab838973b2efd2a309229be817704aafe9374f26d116216"></a>GPS_FLAGS3_CORRECTION_AGE_30_TO_45_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2a15a33e5ec4b93dad999e0d25c35ad795" name="a035fd54033c70bb1e1ab838973b2efd2a15a33e5ec4b93dad999e0d25c35ad795"></a>GPS_FLAGS3_CORRECTION_AGE_45_TO_60_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2adb9bb4415ca92c25cca6186ef3c97b1d" name="a035fd54033c70bb1e1ab838973b2efd2adb9bb4415ca92c25cca6186ef3c97b1d"></a>GPS_FLAGS3_CORRECTION_AGE_60_TO_90_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2ac37dfdc753762f9c1e845ba636930417" name="a035fd54033c70bb1e1ab838973b2efd2ac37dfdc753762f9c1e845ba636930417"></a>GPS_FLAGS3_CORRECTION_AGE_90_TO_120_S&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a035fd54033c70bb1e1ab838973b2efd2ad8ba56d2e98e9ff43bf3341e66a3dd49" name="a035fd54033c70bb1e1ab838973b2efd2ad8ba56d2e98e9ff43bf3341e66a3dd49"></a>GPS_FLAGS3_CORRECTION_AGE_GE_120_S&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -337,6 +397,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a05e231eb513608d60779cd0c052c4b66" name="a05e231eb513608d60779cd0c052c4b66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e231eb513608d60779cd0c052c4b66">&#9670;&#160;</a></span>NAV_PVT_CRC_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_PVT_CRC_LENGTH = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2fda54323262c0cef5590e36aa108d98" name="a2fda54323262c0cef5590e36aa108d98"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2fda54323262c0cef5590e36aa108d98">&#9670;&#160;</a></span>NAV_PVT_HEADER_B0</h2>
 
@@ -381,6 +463,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a291b590a2374cc4092b7f943f277f2e5" name="a291b590a2374cc4092b7f943f277f2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291b590a2374cc4092b7f943f277f2e5">&#9670;&#160;</a></span>NAV_PVT_HEADER_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_PVT_HEADER_LENGTH = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af7063faf314c8ebdae47ee13f8591cc8" name="af7063faf314c8ebdae47ee13f8591cc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7063faf314c8ebdae47ee13f8591cc8">&#9670;&#160;</a></span>NAV_PVT_MSG_ID</h2>
 
@@ -403,6 +507,28 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a5740ce2fb6b21907da7ceac0b6330dbf" name="a5740ce2fb6b21907da7ceac0b6330dbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5740ce2fb6b21907da7ceac0b6330dbf">&#9670;&#160;</a></span>NAV_PVT_PAYLOAD_LENGTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t NAV_PVT_PAYLOAD_LENGTH = 92</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a71100d7e7e16e9fe669799a9a3021c1d" name="a71100d7e7e16e9fe669799a9a3021c1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71100d7e7e16e9fe669799a9a3021c1d">&#9670;&#160;</a></span>NAV_PVT_TOTAL_LENGTH</h2>
 
@@ -413,7 +539,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t NAV_PVT_TOTAL_LENGTH = 100</td>
+          <td class="memname">size_t NAV_PVT_TOTAL_LENGTH</td>
         </tr>
       </table>
   </td>
@@ -422,7 +548,12 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">    <a class="code hl_variable" href="#a291b590a2374cc4092b7f943f277f2e5">NAV_PVT_HEADER_LENGTH</a> + <a class="code hl_variable" href="#a5740ce2fb6b21907da7ceac0b6330dbf">NAV_PVT_PAYLOAD_LENGTH</a> + <a class="code hl_variable" href="#a05e231eb513608d60779cd0c052c4b66">NAV_PVT_CRC_LENGTH</a></div>
+<div class="ttc" id="anav__pvt_8h_html_a05e231eb513608d60779cd0c052c4b66"><div class="ttname"><a href="#a05e231eb513608d60779cd0c052c4b66">NAV_PVT_CRC_LENGTH</a></div><div class="ttdeci">static constexpr size_t NAV_PVT_CRC_LENGTH</div><div class="ttdef"><b>Definition</b> nav_pvt.h:19</div></div>
+<div class="ttc" id="anav__pvt_8h_html_a291b590a2374cc4092b7f943f277f2e5"><div class="ttname"><a href="#a291b590a2374cc4092b7f943f277f2e5">NAV_PVT_HEADER_LENGTH</a></div><div class="ttdeci">static constexpr size_t NAV_PVT_HEADER_LENGTH</div><div class="ttdef"><b>Definition</b> nav_pvt.h:17</div></div>
+<div class="ttc" id="anav__pvt_8h_html_a5740ce2fb6b21907da7ceac0b6330dbf"><div class="ttname"><a href="#a5740ce2fb6b21907da7ceac0b6330dbf">NAV_PVT_PAYLOAD_LENGTH</a></div><div class="ttdeci">static constexpr size_t NAV_PVT_PAYLOAD_LENGTH</div><div class="ttdef"><b>Definition</b> nav_pvt.h:18</div></div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

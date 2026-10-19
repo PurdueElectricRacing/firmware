@@ -30,6 +30,18 @@ float test_MAXOF2_float(float a, float b) {
     return MAXOF2(a, b);
 }
 
+int8_t test_MAXOF2_int8(int8_t a, int8_t b) {
+    static_assert(_Generic((typeof(MAXOF2(a, b)))0, int8_t: 1, default: 0),
+                  "MAXOF2(int8_t, int8_t) must retain int8_t type");
+    return MAXOF2(a, b);
+}
+
+uint16_t test_MAXOF2_uint16(uint16_t a, uint16_t b) {
+    static_assert(_Generic((typeof(MAXOF2(a, b)))0, uint16_t: 1, default: 0),
+                  "MAXOF2(uint16_t, uint16_t) must retain uint16_t type");
+    return MAXOF2(a, b);
+}
+
 int test_MAXOF3_int(int a, int b, int c) {
     return MAXOF3(a, b, c);
 }

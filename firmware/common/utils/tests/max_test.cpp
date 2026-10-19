@@ -7,6 +7,8 @@
 
 #include <gtest/gtest.h>
 #include <cstdint>
+#include <cmath>
+#include <type_traits>
 
 extern "C" {
 #include "max_test_shim.h"
@@ -29,34 +31,38 @@ TEST(MaxTest, UnsignedInt) {
 TEST(MaxTest, Float) {
     EXPECT_FLOAT_EQ(test_max2_float(1.5f, 2.7f), 2.7f);
     EXPECT_FLOAT_EQ(test_max2_float(-1.5f, -0.5f), -0.5f);
-    EXPECT_FLOAT_EQ(test_max2_float(0.0f, -0.0f), 0.0f);
+
+    // (0.0f > -0.0f) evaluates to false, returning -0.0f
+    float zero_result = test_max2_float(0.0f, -0.0f);
+    EXPECT_TRUE(std::signbit(zero_result));
 }
 
 // MAXOF2 & promotion tests
 TEST(MaxTest, MaxOf2Types) {
     int a = -5, b = 15;
     EXPECT_EQ(test_MAXOF2_int(a, b), 15);
+    static_assert(std::is_same_v<decltype(test_MAXOF2_int(a, b)), int>, "Must return int");
 
     unsigned int c = 50u, d = 25u;
     EXPECT_EQ(test_MAXOF2_uint(c, d), 50u);
+    static_assert(std::is_same_v<decltype(test_MAXOF2_uint(c, d)), unsigned int>, "Must return unsigned int");
 
     float e = 10.5f, f = 20.5f;
     EXPECT_FLOAT_EQ(test_MAXOF2_float(e, f), 20.5f);
+    static_assert(std::is_same_v<decltype(test_MAXOF2_float(e, f)), float>, "Must return float");
 }
 
 TEST(MaxTest, PromotionBehavior) {
-
     int8_t x = -10, y = 5;
-    auto result_signed = test_MAXOF2_int(x, y);
+    auto result_signed = test_MAXOF2_int8(x, y);
     EXPECT_EQ(result_signed, 5);
-    static_assert(std::is_same_v<decltype(result_signed), signed int>, "Typecast (typeof(a)) preserves target type");
+    static_assert(std::is_same_v<decltype(result_signed), int8_t>, "Must preserve int8_t type");
 
     uint16_t u1 = 100, u2 = 500;
-    auto result_unsigned = test_MAXOF2_uint(u1, u2);
+    auto result_unsigned = test_MAXOF2_uint16(u1, u2);
     EXPECT_EQ(result_unsigned, 500);
-    static_assert(std::is_same_v<decltype(result_unsigned), unsigned int>, "Typecast (typeof(a)) preserves target type");
+    static_assert(std::is_same_v<decltype(result_unsigned), uint16_t>, "Must preserve uint16_t type");
 }
-
 
 // MAXOF3 and MAXOF4 tests
 TEST(MaxTest, MaxOf3Arguments) {

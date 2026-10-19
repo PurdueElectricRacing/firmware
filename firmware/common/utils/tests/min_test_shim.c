@@ -30,6 +30,18 @@ float test_MINOF2_float(float a, float b) {
     return MINOF2(a, b);
 }
 
+int8_t test_MINOF2_int8(int8_t a, int8_t b) {
+    static_assert(_Generic((typeof(MINOF2(a, b)))0, int8_t: 1, default: 0),
+                  "MINOF2(int8_t, int8_t) must retain int8_t type");
+    return MINOF2(a, b);
+}
+
+uint16_t test_MINOF2_uint16(uint16_t a, uint16_t b) {
+    static_assert(_Generic((typeof(MINOF2(a, b)))0, uint16_t: 1, default: 0),
+                  "MINOF2(uint16_t, uint16_t) must retain uint16_t type");
+    return MINOF2(a, b);
+}
+
 int test_MINOF3_int(int a, int b, int c) {
     return MINOF3(a, b, c);
 }

@@ -5,13 +5,16 @@
  * @author Kerem Eyce (keyce@purdue.edu)
  */
 
- #include <gtest/gtest.h>
-extern "C" {
-    #include "min_test_shim.h"
-}
+#include <gtest/gtest.h>
 #include <cstdint>
+#include <cmath>
+#include <type_traits>
 
-// direct inline function tests
+extern "C" {
+#include "min_test_shim.h"
+}
+
+// Direct inline function tests
 TEST(MinTest, SignedInt) {
     EXPECT_EQ(test_min2_signed(10, 20), 10);
     EXPECT_EQ(test_min2_signed(-10, -5), -10);
@@ -28,7 +31,10 @@ TEST(MinTest, UnsignedInt) {
 TEST(MinTest, Float) {
     EXPECT_FLOAT_EQ(test_min2_float(1.5f, 2.7f), 1.5f);
     EXPECT_FLOAT_EQ(test_min2_float(-1.5f, -0.5f), -1.5f);
-    EXPECT_FLOAT_EQ(test_min2_float(0.0f, -0.0f), 0.0f);
+
+    // min(0.0f, -0.0f) yields -0.0f
+    float zero_result = test_min2_float(0.0f, -0.0f);
+    EXPECT_TRUE(std::signbit(zero_result));
 }
 
 // MINOF2 & type promotion tests
@@ -47,18 +53,16 @@ TEST(MinTest, MinOf2Types) {
 }
 
 TEST(MinTest, PromotionBehavior) {
-
     int8_t x = -10, y = 5;
-    auto result_signed = test_MINOF2_int(x, y);
+    auto result_signed = test_MINOF2_int8(x, y); 
     EXPECT_EQ(result_signed, -10);
-    static_assert(std::is_same_v<decltype(result_signed), signed int>, "Typecast (typeof(a)) preserves target type");
+    static_assert(std::is_same_v<decltype(result_signed), int8_t>, "Must preserve int8_t type");
 
     uint16_t u1 = 100, u2 = 500;
-    auto result_unsigned = test_MINOF2_uint(u1, u2);
+    auto result_unsigned = test_MINOF2_uint16(u1, u2);
     EXPECT_EQ(result_unsigned, 100);
-    static_assert(std::is_same_v<decltype(result_unsigned), unsigned int>, "Typecast (typeof(a)) preserves target type");
+    static_assert(std::is_same_v<decltype(result_unsigned), uint16_t>, "Must preserve uint16_t type");
 }
-
 
 // MINOF3 and MINOF4 tests
 TEST(MinTest, MinOf3Arguments) {

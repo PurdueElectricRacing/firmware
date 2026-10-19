@@ -13,13 +13,18 @@
 #include <stdint.h>
 #include <stddef.h>
 
+// lengths
+static constexpr size_t NAV_PVT_HEADER_LENGTH  = 6;
+static constexpr size_t NAV_PVT_PAYLOAD_LENGTH = 92;
+static constexpr size_t NAV_PVT_CRC_LENGTH     = 2;
+static constexpr size_t NAV_PVT_TOTAL_LENGTH =
+    NAV_PVT_HEADER_LENGTH + NAV_PVT_PAYLOAD_LENGTH + NAV_PVT_CRC_LENGTH;
+
 // UBX NAV-PVT message header
 static constexpr uint8_t NAV_PVT_HEADER_B0 = 0xB5; // UBX message header sync byte 0
 static constexpr uint8_t NAV_PVT_HEADER_B1 = 0x62; // UBX message header sync byte 1
 static constexpr uint8_t NAV_PVT_CLASS     = 0x01; // UBX message class for NAV-PVT
 static constexpr uint8_t NAV_PVT_MSG_ID    = 0x07; // UBX message ID for NAV-PVT
-
-static constexpr size_t NAV_PVT_TOTAL_LENGTH = 100;
 
 typedef enum : uint8_t {
     GPS_VALID_DATE           = 0x01, // Valid UTC Date
@@ -125,14 +130,44 @@ typedef struct {
     uint16_t magneticAcc; // Magnetic declination accuracy in 1e-2 degrees
 } NAV_PVT_data_t;
 
-static_assert(sizeof(NAV_PVT_data_t) == 92, "NAV_PVT_data_t size must be 92 bytes");
+static_assert(sizeof(NAV_PVT_data_t) == NAV_PVT_PAYLOAD_LENGTH, "NAV_PVT_data_t size must be 92 bytes");
+
 static_assert(offsetof(NAV_PVT_data_t, iTOW) == 0);
 static_assert(offsetof(NAV_PVT_data_t, year) == 4);
 static_assert(offsetof(NAV_PVT_data_t, month) == 6);
+static_assert(offsetof(NAV_PVT_data_t, day) == 7);
+static_assert(offsetof(NAV_PVT_data_t, hour) == 8);
+static_assert(offsetof(NAV_PVT_data_t, minute) == 9);
+static_assert(offsetof(NAV_PVT_data_t, second) == 10);
 static_assert(offsetof(NAV_PVT_data_t, valid) == 11);
 static_assert(offsetof(NAV_PVT_data_t, timeAccuracy) == 12);
+static_assert(offsetof(NAV_PVT_data_t, nano) == 16);
+
+static_assert(offsetof(NAV_PVT_data_t, fixType) == 20);
+static_assert(offsetof(NAV_PVT_data_t, flags1) == 21);
+static_assert(offsetof(NAV_PVT_data_t, flags2) == 22);
+static_assert(offsetof(NAV_PVT_data_t, numSatellites) == 23);
+
 static_assert(offsetof(NAV_PVT_data_t, longitude) == 24);
+static_assert(offsetof(NAV_PVT_data_t, latitude) == 28);
+static_assert(offsetof(NAV_PVT_data_t, height) == 32);
+static_assert(offsetof(NAV_PVT_data_t, heightMSL) == 36);
+static_assert(offsetof(NAV_PVT_data_t, horizontalAccuracy) == 40);
+static_assert(offsetof(NAV_PVT_data_t, verticalAccuracy) == 44);
+
+static_assert(offsetof(NAV_PVT_data_t, velNorth) == 48);
+static_assert(offsetof(NAV_PVT_data_t, velEast) == 52);
+static_assert(offsetof(NAV_PVT_data_t, velDown) == 56);
+static_assert(offsetof(NAV_PVT_data_t, groundSpeed) == 60);
+static_assert(offsetof(NAV_PVT_data_t, headingMotion) == 64);
+static_assert(offsetof(NAV_PVT_data_t, speedAccuracy) == 68);
+static_assert(offsetof(NAV_PVT_data_t, headingAccuracy) == 72);
+
+static_assert(offsetof(NAV_PVT_data_t, positionDOP) == 76);
+static_assert(offsetof(NAV_PVT_data_t, flags3) == 78);
+static_assert(offsetof(NAV_PVT_data_t, reserved) == 80);
 static_assert(offsetof(NAV_PVT_data_t, headingVehicle) == 84);
+static_assert(offsetof(NAV_PVT_data_t, magneticDec) == 88);
 static_assert(offsetof(NAV_PVT_data_t, magneticAcc) == 90);
 
 void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const volatile uint8_t *rx_buffer);

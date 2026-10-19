@@ -13,8 +13,9 @@
 #include <stdint.h>
 #include <stddef.h>
 
-static constexpr size_t NAV_RELPOSNED_HEADER_LENGTH = 6;
-static constexpr size_t NAV_RELPOSNED_PAYLOAD_LENGTH = 64;
+// lengths
+static constexpr size_t NAV_RELPOSNED_HEADER_LENGTH   = 6;
+static constexpr size_t NAV_RELPOSNED_PAYLOAD_LENGTH  = 64;
 static constexpr size_t NAV_RELPOSNED_CHECKSUM_LENGTH = 2;
 static constexpr size_t NAV_RELPOSNED_TOTAL_LENGTH =
     NAV_RELPOSNED_HEADER_LENGTH + NAV_RELPOSNED_PAYLOAD_LENGTH + NAV_RELPOSNED_CHECKSUM_LENGTH;

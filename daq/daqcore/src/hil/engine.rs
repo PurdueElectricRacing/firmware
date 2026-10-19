@@ -1,3 +1,4 @@
+use crate::hil::config::ExecutionMode;
 use crate::{frame, hil};
 use std::{path, time};
 
@@ -20,6 +21,8 @@ pub struct HilSnapshot {
     pub preset: Option<hil::config::PresetInfo>,
     pub tests: Vec<hil::run::HilRunningTest>,
     pub start_error: Option<String>,
+    pub finished: bool,
+    pub skipped_from: Option<usize>,
 }
 
 impl HilSnapshot {
@@ -30,6 +33,8 @@ impl HilSnapshot {
             preset: None,
             tests: Vec::new(),
             start_error: None,
+            finished: false,
+            skipped_from: None,
         }
     }
 }
@@ -42,6 +47,9 @@ enum HilState {
         start_time: time::Instant,
         preset: Option<hil::config::PresetInfo>,
         tests: Vec<hil::run::HilRunningTest>,
+        active_test: usize,
+        active_start_time: std::time::Instant,
+        stopped_early: bool,
     },
 }
 
@@ -64,7 +72,11 @@ impl HilEngine {
 
     pub fn all_finished(&self) -> bool {
         match &self.state {
-            HilState::Running { tests, .. } => tests.iter().all(|t| t.is_finished()),
+            HilState::Running {
+                tests,
+                stopped_early,
+                ..
+            } => *stopped_early || tests.iter().all(|t| t.is_finished()),
             HilState::Idle { .. } => false,
         }
     }
@@ -99,12 +111,41 @@ impl HilEngine {
 
     pub fn process_parsed(&mut self, parsed: &frame::ParsedFrame, now: time::Instant) {
         if let HilState::Running {
-            start_time, tests, ..
+            start_time,
+            preset,
+            tests,
+            active_test,
+            active_start_time,
+            stopped_early,
         } = &mut self.state
         {
-            for test in tests.iter_mut() {
-                if let Some(decoded) = &parsed.decoded {
-                    test.process_can(decoded, now.saturating_duration_since(*start_time));
+            if *stopped_early {
+                return;
+            }
+
+            let Some(decoded) = &parsed.decoded else {
+                return;
+            };
+
+            let mode = match preset.as_ref() {
+                Some(preset_info) => &preset_info.mode,
+                None => &ExecutionMode::Parallel,
+            };
+
+            match mode {
+                ExecutionMode::Parallel => {
+                    for test in tests.iter_mut() {
+                        test.process_can(decoded, now.saturating_duration_since(*start_time));
+                    }
+                }
+
+                ExecutionMode::SequentialAlways | ExecutionMode::SequentialStopFail => {
+                    if let Some(test) = tests.get_mut(*active_test) {
+                        test.process_can(
+                            decoded,
+                            now.saturating_duration_since(*active_start_time),
+                        );
+                    }
                 }
             }
         }
@@ -112,11 +153,48 @@ impl HilEngine {
 
     pub fn tick(&mut self, now: time::Instant) {
         if let HilState::Running {
-            start_time, tests, ..
+            start_time,
+            preset,
+            tests,
+            active_test,
+            active_start_time,
+            stopped_early,
         } = &mut self.state
         {
-            for test in tests.iter_mut() {
-                test.update_expect_statuses(now.saturating_duration_since(*start_time));
+            if *stopped_early {
+                return;
+            }
+
+            let mode = match preset.as_ref() {
+                Some(preset_info) => &preset_info.mode,
+                None => &ExecutionMode::Parallel,
+            };
+
+            match mode {
+                ExecutionMode::Parallel => {
+                    for test in tests.iter_mut() {
+                        test.update_expect_statuses(now.saturating_duration_since(*start_time));
+                    }
+                }
+
+                ExecutionMode::SequentialAlways | ExecutionMode::SequentialStopFail => {
+                    if let Some(test) = tests.get_mut(*active_test) {
+                        test.update_expect_statuses(
+                            now.saturating_duration_since(*active_start_time),
+                        );
+
+                        if test.is_finished() {
+                            let stop_on_failure = matches!(mode, ExecutionMode::SequentialStopFail);
+
+                            if stop_on_failure && test.has_failed() {
+                                *stopped_early = true;
+                            } else {
+                                *active_test += 1;
+                                *active_start_time = now;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -129,17 +207,29 @@ impl HilEngine {
                 preset: None,
                 tests: Vec::new(),
                 start_error: start_error.clone(),
+                finished: false,
+                skipped_from: None,
             },
             HilState::Running {
                 start_time,
                 preset,
                 tests,
+                active_test,
+                stopped_early,
+                ..
             } => HilSnapshot {
                 status: HilStatus::Running,
                 elapsed_ms: now.saturating_duration_since(*start_time).as_millis(),
                 preset: preset.clone(),
                 tests: tests.clone(),
                 start_error: None,
+
+                finished: self.all_finished(),
+                skipped_from: if *stopped_early {
+                    Some(*active_test + 1)
+                } else {
+                    None
+                },
             },
         }
     }
@@ -154,6 +244,9 @@ impl HilEngine {
             start_time: now,
             preset,
             tests,
+            active_test: 0,
+            active_start_time: now,
+            stopped_early: false,
         };
     }
 

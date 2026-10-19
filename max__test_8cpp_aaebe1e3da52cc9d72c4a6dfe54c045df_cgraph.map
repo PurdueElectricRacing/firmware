@@ -1,0 +1,7 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,60,31"/>
+<area shape="rect" id="Node000002" href="$max__test__shim_8c.html#addc7f06404ca53a55d2edf16a756da0f" title=" " alt="" coords="108,5,234,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,16,92,16,92,21,60,21"/>
+<area shape="rect" id="Node000003" href="$max_8h.html#a19d1e3e0d81879c835d60f24d5f4895e" title=" " alt="" coords="282,5,379,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="234,16,267,16,267,21,234,21"/>
+</map>

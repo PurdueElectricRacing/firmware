@@ -1,0 +1,9 @@
+<map id="TEST" name="TEST">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,60,80"/>
+<area shape="rect" id="Node000002" href="$min__test__shim_8c.html#a809fb4a1242e277bcaada76990e18522" title=" " alt="" coords="108,5,233,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,55,117,34,119,39,61,60"/>
+<area shape="rect" id="Node000003" href="$min__test__shim_8c.html#a0271d7d06e9378e1cb58367d778b6a6b" title=" " alt="" coords="108,55,233,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,65,92,65,92,70,60,70"/>
+<area shape="rect" id="Node000004" href="$min__test__shim_8c.html#a38697a7b7738d2645ed99a8fe036ac98" title=" " alt="" coords="108,104,233,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="61,75,119,96,117,101,59,80"/>
+</map>

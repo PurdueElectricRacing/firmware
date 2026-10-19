@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
- #define RACE_STRING "race"
+#define RACE_STRING "race"
 
 // Nextion object names
 #define THROT_BAR    "throt"

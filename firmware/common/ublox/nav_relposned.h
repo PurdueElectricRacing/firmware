@@ -1,6 +1,3 @@
-#ifndef NAV_RELPOSNED_H
-#define NAV_RELPOSNED_H
-
 /**
  * @file nav_relposned.h
  * @brief UBX NAV-RELPOSNED message definition and decoder function.
@@ -10,7 +7,11 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#ifndef NAV_RELPOSNED_H
+#define NAV_RELPOSNED_H
+
 #include "ubx_common.h"
+#include <string.h>
 
 static constexpr ubx_header_t NAV_RELPOSNED_HEADER = {
     .sync_word      = {UBX_SYNC_B0, UBX_SYNC_B1},
@@ -89,8 +90,23 @@ static_assert(offsetof(NAV_RELPOSNED_payload_t, accHeading) == 52);
 static_assert(offsetof(NAV_RELPOSNED_payload_t, reserved2) == 56);
 static_assert(offsetof(NAV_RELPOSNED_payload_t, flags) == 60);
 
-static bool NAV_RELPOSNED_decode(NAV_RELPOSNED_payload_t *relposned, const volatile uint8_t *rx_buffer) {
-    // todo
+static bool NAV_RELPOSNED_decode(
+    const volatile uint8_t *rx_buffer,
+    NAV_RELPOSNED_payload_t *nav_relposned
+) {
+    ubx_header_t header; // create copy to avoid alignment issues
+    memcpy(&header, (const void *)rx_buffer, sizeof(ubx_header_t));
+
+    if (!UBX_is_matching_header(&header, &NAV_RELPOSNED_HEADER)) {
+        return false;
+    }
+
+    if (!UBX_is_valid_checksum((const uint8_t *)rx_buffer, NAV_RELPOSNED_HEADER.payload_length)) {
+        return false;
+    }
+
+    memcpy(nav_relposned, (const void *)(rx_buffer + UBX_HEADER_LENGTH), sizeof(NAV_RELPOSNED_payload_t));
+
     return true;
 }
 

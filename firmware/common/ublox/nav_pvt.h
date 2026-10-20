@@ -11,6 +11,7 @@
 #define NAV_PVT_H
 
 #include "ubx_common.h"
+#include <string.h>
 
 static constexpr ubx_header_t NAV_PVT_HEADER = {
     .sync_word      = {UBX_SYNC_B0, UBX_SYNC_B1},
@@ -165,18 +166,23 @@ static_assert(offsetof(NAV_PVT_payload_t, headingVehicle) == 84);
 static_assert(offsetof(NAV_PVT_payload_t, magneticDec) == 88);
 static_assert(offsetof(NAV_PVT_payload_t, magneticAcc) == 90);
 
-static bool NAV_PVT_decode(NAV_PVT_payload_t *nav_pvt, const volatile uint8_t *rx_buffer) {
-    if (!UBX_is_matching_header((const ubx_header_t *)rx_buffer, &NAV_PVT_HEADER)) {
+static bool NAV_PVT_decode(
+    const volatile uint8_t *rx_buffer,
+    NAV_PVT_payload_t *nav_pvt
+) {
+    ubx_header_t header; // create copy to avoid alignment issues
+    memcpy(&header, (const void *)rx_buffer, sizeof(ubx_header_t));
+
+    if (!UBX_is_matching_header(&header, &NAV_PVT_HEADER)) {
         return false;
     }
 
-    // todo decode payload
+    if (!UBX_is_valid_checksum((const uint8_t *)rx_buffer, NAV_PVT_HEADER.payload_length)) {
+        return false;
+    }
 
-    
+    memcpy(nav_pvt, (const void *)(rx_buffer + UBX_HEADER_LENGTH), sizeof(NAV_PVT_payload_t));
 
-
-
-    // todo
     return true;
 }
 

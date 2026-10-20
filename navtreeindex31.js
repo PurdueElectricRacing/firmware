@@ -1,5 +1,15 @@
 var NAVTREEINDEX31 =
 {
+"usb__priv_8c.html#a1e2497f838cccd3d4b46eca09fd0b98c":[33,0,1,1,9,12,2,29],
+"usb__priv_8c.html#a24d7e42058ea841bacf7f122f1433161":[33,0,1,1,9,12,2,8],
+"usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb":[33,0,1,1,9,12,2,11],
+"usb__priv_8c.html#a3b7fce8b1f0de310ffffbe258ad7c6d7":[33,0,1,1,9,12,2,12],
+"usb__priv_8c.html#a3b7fdac0fb67607273cf7aabc6f8494f":[33,0,1,1,9,12,2,18],
+"usb__priv_8c.html#a42c22576a1f6dd626e947d9a95ff6433":[33,0,1,1,9,12,2,6],
+"usb__priv_8c.html#a5d4db77e61b126198a743fb5f9f52ffa":[33,0,1,1,9,12,2,31],
+"usb__priv_8c.html#a60613d1b017746f55ada4a2d5411f49e":[33,0,1,1,9,12,2,37],
+"usb__priv_8c.html#a6a84dcb07b21e54a2b506cec9165693b":[33,0,1,1,9,12,2,16],
+"usb__priv_8c.html#a7312b4dfb274b8c4e34c683499ad5e76":[33,0,1,1,9,12,2,1],
 "usb__priv_8c.html#a7a65179705ed513c172183fd44417b8a":[33,0,1,1,9,12,2,3],
 "usb__priv_8c.html#a80afa30e860ee2cbe11c0b317bd72e0e":[33,0,1,1,9,12,2,27],
 "usb__priv_8c.html#a839a5f0d51c881737e25e5b22b5aa3b3":[33,0,1,1,9,12,2,46],

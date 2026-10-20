@@ -269,6 +269,7 @@ var annotated_dup =
     [ "StrbufTest", "classStrbufTest.html", "classStrbufTest" ],
     [ "thermistor_telemetry_ccan_data_t", "structthermistor__telemetry__ccan__data__t.html", "structthermistor__telemetry__ccan__data__t" ],
     [ "thermistor_telemetry_data_t", "structthermistor__telemetry__data__t.html", "structthermistor__telemetry__data__t" ],
+    [ "time_display_t", "structtime__display__t.html", "structtime__display__t" ],
     [ "timestamped_frame_t", "structtimestamped__frame__t.html", "structtimestamped__frame__t" ],
     [ "torque_request_t", "structtorque__request__t.html", "structtorque__request__t" ],
     [ "torque_vector_fault_event_data_t", "structtorque__vector__fault__event__data__t.html", "structtorque__vector__fault__event__data__t" ],

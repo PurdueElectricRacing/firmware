@@ -1,5 +1,6 @@
 var race_8h =
 [
+    [ "time_display_t", "structtime__display__t.html", "structtime__display__t" ],
     [ "BATT_CURR", "race_8h.html#a6065ce9bb9687eab5ae85362b21d6f63", null ],
     [ "BATT_TEMP", "race_8h.html#a2707af80bfc659ff14aba14a516a07a6", null ],
     [ "BATT_VOLT", "race_8h.html#a474fd5ac3b123247b0482397fa599cdf", null ],

@@ -1,0 +1,10 @@
+<map id="format_time_ms" name="format_time_ms">
+<area shape="rect" id="Node000001" title=" " alt="" coords="594,31,710,56"/>
+<area shape="rect" id="Node000002" href="$race_8c.html#a3a0fcfdf8d3253d1e06e04c8806579fd" title=" " alt="" coords="430,5,546,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="578,35,546,30,547,25,579,30"/>
+<area shape="rect" id="Node000003" href="$race_8c.html#a7182ba90987b93b4746a0e22051ed289" title=" " alt="" coords="206,31,382,56"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="579,46,383,46,383,41,579,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="415,30,383,35,382,29,414,25"/>
+<area shape="rect" id="Node000004" href="$race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092" title="Updates telemetry data on the race dashboard LCD display." alt="" coords="5,31,158,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="190,46,158,46,158,41,190,41"/>
+</map>

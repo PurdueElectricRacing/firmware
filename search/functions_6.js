@@ -53,5 +53,6 @@ var searchData=
   ['flush_5finvd_50',['flush_invd',['../powertrain_8c.html#a46968c6a8662915c4f3f34dd7086aece',1,'powertrain.c']]],
   ['foot_5ffrom_5fmeter_51',['foot_from_meter',['../dearunits_8h.html#a3c76450fb588c3fb28c8c0dc1321c2d7',1,'dearunits.h']]],
   ['force_5ffrom_52',['force_from',['../dearunits_8h.html#aacb1d16c3fa51761baf115486fcc5ea2',1,'dearunits.h']]],
-  ['frequency_5ffrom_53',['frequency_from',['../dearunits_8h.html#a74dfd3e6ea8b0acef95cee97ee5ca06c',1,'dearunits.h']]]
+  ['format_5ftime_5fms_53',['format_time_ms',['../race_8c.html#aaf2d1816e9925ab2fbf217eaf6e4de0e',1,'race.c']]],
+  ['frequency_5ffrom_54',['frequency_from',['../dearunits_8h.html#a74dfd3e6ea8b0acef95cee97ee5ca06c',1,'dearunits.h']]]
 ];

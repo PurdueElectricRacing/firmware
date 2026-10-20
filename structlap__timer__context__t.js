@@ -1,5 +1,6 @@
 var structlap__timer__context__t =
 [
+    [ "best_lap_time_ms", "structlap__timer__context__t.html#a229c2ba64fd6c9aaff63598a6252fb25", null ],
     [ "elapsed_time_ms", "structlap__timer__context__t.html#a8170f02cbc3fc89f489f3746ba3122ea", null ],
     [ "l1_end_point", "structlap__timer__context__t.html#a76b16b51a119fcee5dea8674bd1109d2", null ],
     [ "last_point", "structlap__timer__context__t.html#accda530a00c517690deecd26c0bda92e", null ],

@@ -1,7 +1,9 @@
 var race_8c =
 [
+    [ "format_time_ms", "race_8c.html#aaf2d1816e9925ab2fbf217eaf6e4de0e", null ],
     [ "race_telemetry_update", "race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092", null ],
     [ "update_car_state_telemetry", "race_8c.html#af94dd7e3b6512b662e2e44124a1a660c", null ],
+    [ "update_diff_time", "race_8c.html#a3a0fcfdf8d3253d1e06e04c8806579fd", null ],
     [ "update_igbt_telemetry", "race_8c.html#ac86b7955f40539589f8904e0213c368e", null ],
     [ "update_lap_time_telemetry", "race_8c.html#a7182ba90987b93b4746a0e22051ed289", null ],
     [ "update_motor_telemetry", "race_8c.html#a236fe508f9d82e9178cdb22b363116b7", null ],

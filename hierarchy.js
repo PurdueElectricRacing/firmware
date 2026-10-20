@@ -271,6 +271,7 @@ var hierarchy =
     ] ],
     [ "thermistor_telemetry_ccan_data_t", "structthermistor__telemetry__ccan__data__t.html", null ],
     [ "thermistor_telemetry_data_t", "structthermistor__telemetry__data__t.html", null ],
+    [ "time_display_t", "structtime__display__t.html", null ],
     [ "timestamped_frame_t", "structtimestamped__frame__t.html", null ],
     [ "torque_request_t", "structtorque__request__t.html", null ],
     [ "torque_vector_fault_event_data_t", "structtorque__vector__fault__event__data__t.html", null ],

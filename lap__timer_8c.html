@@ -124,12 +124,16 @@ Functions</h2></td></tr>
 <tr class="separator:a922bb1fc5c4fe5ec8f82bc735890ee69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac15d5d84d2d64875ce0d0c0352af35e3" id="r_ac15d5d84d2d64875ce0d0c0352af35e3"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac15d5d84d2d64875ce0d0c0352af35e3">lap_timer_l2_crossed</a> (const <a class="el" href="structvector2__t.html">vector2_t</a> previous_point, const <a class="el" href="structvector2__t.html">vector2_t</a> current_point)</td></tr>
 <tr class="separator:ac15d5d84d2d64875ce0d0c0352af35e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a6703cd5c082b4d8c98a91ee8cc457" id="r_ad7a6703cd5c082b4d8c98a91ee8cc457"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7a6703cd5c082b4d8c98a91ee8cc457">lap_timer_finish_lap</a> (const <a class="el" href="structvector2__t.html">vector2_t</a> current_point)</td></tr>
+<tr class="separator:ad7a6703cd5c082b4d8c98a91ee8cc457"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7220f3edbfb4c8e5b3956ab663092676" id="r_a7220f3edbfb4c8e5b3956ab663092676"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7220f3edbfb4c8e5b3956ab663092676">lap_timer_onpress</a> (void)</td></tr>
 <tr class="separator:a7220f3edbfb4c8e5b3956ab663092676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a382636387f4db3d2b08c71b5e7c03f2b" id="r_a382636387f4db3d2b08c71b5e7c03f2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a382636387f4db3d2b08c71b5e7c03f2b">lap_timer_periodic</a> (void)</td></tr>
 <tr class="separator:a382636387f4db3d2b08c71b5e7c03f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d23b35ef5885a379cace15e9861478f" id="r_a8d23b35ef5885a379cace15e9861478f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d23b35ef5885a379cace15e9861478f">lap_timer_elapsed_ms</a> (void)</td></tr>
 <tr class="separator:a8d23b35ef5885a379cace15e9861478f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafe0175f912d425adac2bb7d450643a3" id="r_aafe0175f912d425adac2bb7d450643a3"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafe0175f912d425adac2bb7d450643a3">lap_timer_best_time_ms</a> (void)</td></tr>
+<tr class="separator:aafe0175f912d425adac2bb7d450643a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -142,6 +146,28 @@ Variables</h2></td></tr>
 <dd>
 Aditya Saini (<a href="#" onclick="location.href='mai'+'lto:'+'sai'+'ni'+'91@'+'pu'+'rdu'+'e.'+'edu'; return false;">saini<span class="obfuscator">.nosp@m.</span>91@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aafe0175f912d425adac2bb7d450643a3" name="aafe0175f912d425adac2bb7d450643a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafe0175f912d425adac2bb7d450643a3">&#9670;&#160;</a></span>lap_timer_best_time_ms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t lap_timer_best_time_ms </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lap__timer_8c_aafe0175f912d425adac2bb7d450643a3_icgraph.svg" width="599" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a8d23b35ef5885a379cace15e9861478f" name="a8d23b35ef5885a379cace15e9861478f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d23b35ef5885a379cace15e9861478f">&#9670;&#160;</a></span>lap_timer_elapsed_ms()</h2>
 
@@ -160,6 +186,36 @@ Aditya Saini (<a href="#" onclick="location.href='mai'+'lto:'+'sai'+'ni'+'91@'+'
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="lap__timer_8c_a8d23b35ef5885a379cace15e9861478f_icgraph.svg" width="587" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad7a6703cd5c082b4d8c98a91ee8cc457" name="ad7a6703cd5c082b4d8c98a91ee8cc457"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a6703cd5c082b4d8c98a91ee8cc457">&#9670;&#160;</a></span>lap_timer_finish_lap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void lap_timer_finish_lap </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structvector2__t.html">vector2_t</a></td>          <td class="paramname"><span class="paramname"><em>current_point</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="lap__timer_8c_ad7a6703cd5c082b4d8c98a91ee8cc457_icgraph.svg" width="418" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

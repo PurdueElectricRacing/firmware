@@ -1,11 +1,27 @@
 <map id="update_lap_time_telemetry" name="update_lap_time_telemetry">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,182,56"/>
-<area shape="rect" id="Node000002" href="$lap__timer_8c.html#a8d23b35ef5885a379cace15e9861478f" title=" " alt="" coords="233,5,384,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,30,217,26,217,32,182,36"/>
-<area shape="rect" id="Node000003" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="230,55,387,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="182,51,214,54,214,60,181,56"/>
-<area shape="rect" id="Node000004" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="435,29,538,55"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="387,54,419,49,420,54,388,59"/>
-<area shape="rect" id="Node000005" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="442,79,532,104"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="388,75,426,81,425,86,387,81"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,141,182,167"/>
+<area shape="rect" id="Node000002" href="$race_8c.html#aaf2d1816e9925ab2fbf217eaf6e4de0e" title=" " alt="" coords="462,5,577,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,139,164,107,229,76,285,57,342,43,446,24,447,29,343,48,286,63,231,81,166,112,115,143"/>
+<area shape="rect" id="Node000003" href="$lap__timer_8c.html#aafe0175f912d425adac2bb7d450643a3" title=" " alt="" coords="230,192,393,218"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,165,239,185,238,191,151,170"/>
+<area shape="rect" id="Node000004" href="$lap__timer_8c.html#a8d23b35ef5885a379cace15e9861478f" title=" " alt="" coords="236,241,387,267"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="116,165,167,196,231,228,245,233,244,238,229,233,165,201,114,170"/>
+<area shape="rect" id="Node000005" href="$nextion_8c.html#a8af8629d8160abf996231ff267e43564" title="Sets the text of a Nextion display object using printf&#45;style formatting." alt="" coords="441,153,598,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="182,154,426,161,425,166,182,159"/>
+<area shape="rect" id="Node000008" href="$race_8c.html#a3a0fcfdf8d3253d1e06e04c8806579fd" title=" " alt="" coords="253,91,370,116"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="151,138,238,118,239,123,153,143"/>
+<area shape="rect" id="Node000006" href="$strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5" title="Appends raw data to the buffer. If the data exceeds the buffer size, no data is appended." alt="" coords="646,80,750,106"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="568,150,597,140,645,114,654,110,656,115,648,119,599,145,570,155"/>
+<area shape="rect" id="Node000007" href="$strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf" title="Appends formatted data to the buffer using printf&#45;style formatting. !" alt="" coords="653,129,743,155"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="598,153,637,148,637,153,599,158"/>
+<area shape="poly" id="edge8_Node000008_Node000002" title=" " alt="" coords="337,88,440,40,456,34,458,39,442,45,339,93"/>
+<area shape="poly" id="edge15_Node000008_Node000005" title=" " alt="" coords="358,114,461,146,459,151,356,119"/>
+<area shape="rect" id="Node000009" href="$nextion_8c.html#af603b7d431ae4f94d55bf04b2034a8cc" title="Sets the font color of a specified object on the Nextion display." alt="" coords="455,55,584,80"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="369,91,439,79,440,84,370,96"/>
+<area shape="rect" id="Node000010" href="$nextion_8c.html#ab2a89fd8e292338a6e570a41a698ad3a" title="Sets the text of a Nextion display object." alt="" coords="470,104,569,130"/>
+<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="370,105,455,110,455,115,370,110"/>
+<area shape="poly" id="edge10_Node000009_Node000006" title=" " alt="" coords="585,74,631,81,630,86,585,79"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="571,78,599,89,648,116,655,120,653,125,645,121,597,94,569,83"/>
+<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="569,108,630,99,631,104,570,113"/>
+<area shape="poly" id="edge14_Node000010_Node000007" title=" " alt="" coords="570,121,638,131,637,136,569,126"/>
 </map>

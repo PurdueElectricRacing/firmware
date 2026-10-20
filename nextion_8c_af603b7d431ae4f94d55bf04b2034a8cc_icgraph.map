@@ -1,29 +1,34 @@
 <map id="NXT_setFontColor" name="NXT_setFontColor">
-<area shape="rect" id="Node000001" title="Sets the font color of a specified object on the Nextion display." alt="" coords="656,197,786,222"/>
+<area shape="rect" id="Node000001" title="Sets the font color of a specified object on the Nextion display." alt="" coords="656,221,786,246"/>
 <area shape="rect" id="Node000002" href="$calibration_8c.html#ada13ef83abd18bb0bca101454a62ab22" title="Updates the LCD display with current pedal telemetry data when on CALIBRATION page." alt="" coords="452,5,592,46"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="704,184,665,122,638,89,607,60,589,49,592,44,610,56,642,85,670,119,709,182"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="707,208,669,135,641,95,607,60,590,49,593,44,610,56,645,91,674,132,712,206"/>
 <area shape="rect" id="Node000003" href="$dashboard_2driver__interface_2pages_2faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" title=" " alt="" coords="442,70,601,96"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="695,188,655,152,607,117,567,99,569,94,610,113,659,148,698,184"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="700,210,660,163,635,139,607,117,569,99,572,94,610,113,638,135,664,160,704,207"/>
 <area shape="rect" id="Node000004" href="$race_8c.html#af94dd7e3b6512b662e2e44124a1a660c" title=" " alt="" coords="206,122,387,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="682,192,647,175,608,162,551,150,494,142,387,136,388,131,494,137,552,145,609,156,649,170,684,187"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="692,213,654,185,607,161,552,147,495,138,387,133,388,127,495,132,553,141,609,157,657,180,696,209"/>
 <area shape="rect" id="Node000006" href="$source_2dashboard_2driver__interface_2pages_2amk_8c.html#a5f6b536f6321e775c008ec56b941c1cb" title=" " alt="" coords="435,172,608,197"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="640,202,608,198,609,193,641,197"/>
-<area shape="rect" id="Node000008" href="$race_8c.html#ac86b7955f40539589f8904e0213c368e" title=" " alt="" coords="222,222,370,248"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="641,217,371,233,371,228,641,212"/>
-<area shape="rect" id="Node000009" href="$race_8c.html#a236fe508f9d82e9178cdb22b363116b7" title=" " alt="" coords="216,272,376,297"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="642,228,609,234,377,274,376,269,608,228,641,222"/>
-<area shape="rect" id="Node000010" href="$race_8c.html#a218ea7152d92e1c6574e594de6c5f0be" title=" " alt="" coords="444,324,599,349"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="698,235,659,271,610,307,569,325,567,320,607,302,655,267,695,232"/>
-<area shape="rect" id="Node000011" href="$race_8c.html#ae54e1380740da10a82a20f9599c83c47" title=" " alt="" coords="470,373,573,398"/>
-<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="709,238,671,301,643,335,610,364,575,380,573,375,607,359,639,331,667,298,705,235"/>
-<area shape="rect" id="Node000005" href="$race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092" title="Updates telemetry data on the race dashboard LCD display." alt="" coords="5,272,158,297"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="216,157,207,161,171,188,139,218,94,273,90,269,135,215,167,183,204,157,214,152"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="650,219,576,200,577,195,652,214"/>
+<area shape="rect" id="Node000008" href="$race_8c.html#a3a0fcfdf8d3253d1e06e04c8806579fd" title=" " alt="" coords="464,221,580,246"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="641,236,580,236,580,231,641,231"/>
+<area shape="rect" id="Node000010" href="$race_8c.html#ac86b7955f40539589f8904e0213c368e" title=" " alt="" coords="222,272,370,297"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="653,253,609,262,483,276,371,284,371,279,483,271,608,256,652,248"/>
+<area shape="rect" id="Node000011" href="$race_8c.html#a236fe508f9d82e9178cdb22b363116b7" title=" " alt="" coords="216,321,376,346"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="682,256,609,286,488,313,377,329,376,324,487,308,608,280,680,251"/>
+<area shape="rect" id="Node000012" href="$race_8c.html#a218ea7152d92e1c6574e594de6c5f0be" title=" " alt="" coords="444,373,599,398"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="704,261,664,309,638,334,610,356,572,375,569,370,607,351,635,330,660,305,700,258"/>
+<area shape="rect" id="Node000013" href="$race_8c.html#ae54e1380740da10a82a20f9599c83c47" title=" " alt="" coords="470,422,573,448"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="712,262,697,297,675,338,646,378,610,413,575,430,573,425,607,409,642,375,671,335,692,295,707,260"/>
+<area shape="rect" id="Node000005" href="$race_8c.html#a07291ac7d61fe81b6a92f48d9b55b092" title="Updates telemetry data on the race dashboard LCD display." alt="" coords="5,297,158,322"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="215,157,207,161,168,194,135,232,92,298,88,295,130,229,164,190,204,157,212,152"/>
 <area shape="rect" id="Node000007" href="$source_2dashboard_2driver__interface_2pages_2amk_8c.html#a062432901dfe910f61a8fdfa5b2a71ba" title=" " alt="" coords="220,172,372,197"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="420,187,373,187,373,182,420,182"/>
-<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="223,255,141,273,140,268,222,249"/>
-<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="201,287,158,287,158,282,201,282"/>
-<area shape="poly" id="edge12_Node000010_Node000005" title=" " alt="" coords="428,334,321,326,205,312,140,300,141,295,206,307,322,320,429,329"/>
-<area shape="rect" id="Node000012" href="$race_8c.html#a23d373791f5cc32fa773c0be7796cd1d" title=" " alt="" coords="227,373,366,398"/>
-<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="455,388,366,388,366,383,455,383"/>
-<area shape="poly" id="edge15_Node000012_Node000005" title=" " alt="" coords="238,370,205,356,149,327,103,300,105,295,151,323,207,351,240,365"/>
+<area shape="rect" id="Node000009" href="$race_8c.html#a7182ba90987b93b4746a0e22051ed289" title=" " alt="" coords="208,221,384,246"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="448,236,385,236,385,231,448,231"/>
+<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="230,254,207,262,114,299,112,294,205,256,229,249"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="208,297,158,303,158,298,207,292"/>
+<area shape="poly" id="edge13_Node000011_Node000005" title=" " alt="" coords="201,326,158,321,158,316,201,320"/>
+<area shape="poly" id="edge15_Node000012_Node000005" title=" " alt="" coords="428,388,321,380,262,373,205,362,153,345,108,325,110,321,155,340,206,356,263,368,321,375,429,382"/>
+<area shape="rect" id="Node000014" href="$race_8c.html#a23d373791f5cc32fa773c0be7796cd1d" title=" " alt="" coords="227,422,366,448"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="455,438,366,438,366,432,455,432"/>
+<area shape="poly" id="edge18_Node000014_Node000005" title=" " alt="" coords="234,419,204,405,142,364,96,325,99,321,145,360,207,401,236,414"/>
 </map>

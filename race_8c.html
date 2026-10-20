@@ -137,6 +137,10 @@ Functions</h2></td></tr>
 <tr class="separator:ae54e1380740da10a82a20f9599c83c47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23d373791f5cc32fa773c0be7796cd1d" id="r_a23d373791f5cc32fa773c0be7796cd1d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23d373791f5cc32fa773c0be7796cd1d">update_tv_telemetry</a> ()</td></tr>
 <tr class="separator:a23d373791f5cc32fa773c0be7796cd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf2d1816e9925ab2fbf217eaf6e4de0e" id="r_aaf2d1816e9925ab2fbf217eaf6e4de0e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structtime__display__t.html">time_display_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf2d1816e9925ab2fbf217eaf6e4de0e">format_time_ms</a> (uint32_t raw_time_ms)</td></tr>
+<tr class="separator:aaf2d1816e9925ab2fbf217eaf6e4de0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0fcfdf8d3253d1e06e04c8806579fd" id="r_a3a0fcfdf8d3253d1e06e04c8806579fd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a0fcfdf8d3253d1e06e04c8806579fd">update_diff_time</a> (uint32_t curr_elapsed_ms, uint32_t best_lap_ms)</td></tr>
+<tr class="separator:a3a0fcfdf8d3253d1e06e04c8806579fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7182ba90987b93b4746a0e22051ed289" id="r_a7182ba90987b93b4746a0e22051ed289"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7182ba90987b93b4746a0e22051ed289">update_lap_time_telemetry</a> ()</td></tr>
 <tr class="separator:a7182ba90987b93b4746a0e22051ed289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07291ac7d61fe81b6a92f48d9b55b092" id="r_a07291ac7d61fe81b6a92f48d9b55b092"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07291ac7d61fe81b6a92f48d9b55b092">race_telemetry_update</a> ()</td></tr>
@@ -147,6 +151,36 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Race page implementation. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aaf2d1816e9925ab2fbf217eaf6e4de0e" name="aaf2d1816e9925ab2fbf217eaf6e4de0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf2d1816e9925ab2fbf217eaf6e4de0e">&#9670;&#160;</a></span>format_time_ms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="structtime__display__t.html">time_display_t</a> format_time_ms </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>raw_time_ms</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="race_8c_aaf2d1816e9925ab2fbf217eaf6e4de0e_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
 <a id="a07291ac7d61fe81b6a92f48d9b55b092" name="a07291ac7d61fe81b6a92f48d9b55b092"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07291ac7d61fe81b6a92f48d9b55b092">&#9670;&#160;</a></span>race_telemetry_update()</h2>
 
@@ -203,6 +237,45 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="race_8c_af94dd7e3b6512b662e2e44124a1a660c_icgraph.svg" width="392" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3a0fcfdf8d3253d1e06e04c8806579fd" name="a3a0fcfdf8d3253d1e06e04c8806579fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a0fcfdf8d3253d1e06e04c8806579fd">&#9670;&#160;</a></span>update_diff_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void update_diff_time </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>curr_elapsed_ms</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>best_lap_ms</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="race_8c_a3a0fcfdf8d3253d1e06e04c8806579fd_cgraph.svg" width="484" height="184"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="race_8c_a3a0fcfdf8d3253d1e06e04c8806579fd_icgraph.svg" width="552" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -267,7 +340,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="race_8c_a7182ba90987b93b4746a0e22051ed289_cgraph.svg" width="544" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="race_8c_a7182ba90987b93b4746a0e22051ed289_cgraph.svg" width="100%" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>

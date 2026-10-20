@@ -7,6 +7,7 @@ var lap__timer_8h =
       [ "LAP_TIMER_STATE_TIMING", "lap__timer_8h.html#ad0e5b8d194606e9a1ffa2af4b2e0251ca1fb9168d080ce5c31431c01128eff23a", null ],
       [ "LAP_TIMER_STATE_COMPLETE", "lap__timer_8h.html#ad0e5b8d194606e9a1ffa2af4b2e0251caed91c5f4e068fe7614b67d98d6d80bfb", null ]
     ] ],
+    [ "lap_timer_best_time_ms", "lap__timer_8h.html#aafe0175f912d425adac2bb7d450643a3", null ],
     [ "lap_timer_elapsed_ms", "lap__timer_8h.html#a8d23b35ef5885a379cace15e9861478f", null ],
     [ "lap_timer_onpress", "lap__timer_8h.html#a7220f3edbfb4c8e5b3956ab663092676", null ],
     [ "lap_timer_periodic", "lap__timer_8h.html#a382636387f4db3d2b08c71b5e7c03f2b", null ],

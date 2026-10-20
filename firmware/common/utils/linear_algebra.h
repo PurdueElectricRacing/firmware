@@ -175,6 +175,28 @@ static inline vector3_t vector3_normalize(const vector3_t vec) {
 }
 
 /**
+ * @brief Add two 3D vectors.
+ *
+ * @param a The first input vector
+ * @param b The second input vector
+ * @return The sum a + b.
+ */
+static inline vector3_t vector3_add(const vector3_t a, const vector3_t b) {
+    return (vector3_t){a.x + b.x, a.y + b.y, a.z + b.z};
+}
+
+/**
+ * @brief Scale a 3D vector by a scalar.
+ *
+ * @param vec The input vector
+ * @param scalar The value to scale by
+ * @return The scaled vector.
+ */
+static inline vector3_t vector3_scale(const vector3_t vec, const float scalar) {
+    return (vector3_t){vec.x * scalar, vec.y * scalar, vec.z * scalar};
+}
+
+/**
  * @brief Multiply a 3x3 matrix with a 3D vector.
  *
  * @param mat The input matrix

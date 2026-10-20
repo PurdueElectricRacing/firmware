@@ -24,8 +24,8 @@ typedef struct {
 } ubx_header_t;
 static_assert(sizeof(ubx_header_t) == UBX_HEADER_LENGTH, "ubx_header_t size must be 6 bytes");
 
-static constexpr size_t UBX_CRC_LENGTH = 2;
-static constexpr size_t UBX_OVERHEAD   = UBX_HEADER_LENGTH + UBX_CRC_LENGTH;
+static constexpr size_t UBX_CHECKSUM_LENGTH = 2;
+static constexpr size_t UBX_OVERHEAD        = UBX_HEADER_LENGTH + UBX_CHECKSUM_LENGTH;
 
 static inline bool UBX_is_matching_header(
     const ubx_header_t *header,
@@ -36,7 +36,6 @@ static inline bool UBX_is_matching_header(
         && (header->message_class == expected->message_class)
         && (header->message_id == expected->message_id)
         && (header->payload_length == expected->payload_length);
-    return true;
 }
 
 static inline bool UBX_is_valid_checksum(

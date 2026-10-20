@@ -1,30 +1,26 @@
-#ifndef NAV_PVT_H
-#define NAV_PVT_H
-
 /**
  * @file nav_pvt.h
  * @brief UBX NAV-PVT message definition and decoder function.
  *
- * ! docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.13
+ * ! ZED-F9P-Protocols-1.32.pdf @ 3.15.13
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include <stdint.h>
-#include <stddef.h>
+#ifndef NAV_PVT_H
+#define NAV_PVT_H
 
-// lengths
-static constexpr size_t NAV_PVT_HEADER_LENGTH  = 6;
-static constexpr size_t NAV_PVT_PAYLOAD_LENGTH = 92;
-static constexpr size_t NAV_PVT_CRC_LENGTH     = 2;
-static constexpr size_t NAV_PVT_TOTAL_LENGTH =
-    NAV_PVT_HEADER_LENGTH + NAV_PVT_PAYLOAD_LENGTH + NAV_PVT_CRC_LENGTH;
+#include "ubx_common.h"
+#include <string.h>
 
-// UBX NAV-PVT message header
-static constexpr uint8_t NAV_PVT_HEADER_B0 = 0xB5; // UBX message header sync byte 0
-static constexpr uint8_t NAV_PVT_HEADER_B1 = 0x62; // UBX message header sync byte 1
-static constexpr uint8_t NAV_PVT_CLASS     = 0x01; // UBX message class for NAV-PVT
-static constexpr uint8_t NAV_PVT_MSG_ID    = 0x07; // UBX message ID for NAV-PVT
+static constexpr ubx_header_t NAV_PVT_HEADER = {
+    .sync_word      = {UBX_SYNC_B0, UBX_SYNC_B1},
+    .message_class  = 0x01,
+    .message_id     = 0x07,
+    .payload_length = 92
+};
+
+static constexpr size_t NAV_PVT_BUFFER_SIZE = UBX_OVERHEAD + NAV_PVT_HEADER.payload_length;
 
 typedef enum : uint8_t {
     GPS_VALID_DATE           = 0x01, // Valid UTC Date
@@ -128,48 +124,66 @@ typedef struct {
 
     int16_t magneticDec;  // Magnetic declination in 1e-2 degrees
     uint16_t magneticAcc; // Magnetic declination accuracy in 1e-2 degrees
-} NAV_PVT_data_t;
+} NAV_PVT_payload_t;
 
-static_assert(sizeof(NAV_PVT_data_t) == NAV_PVT_PAYLOAD_LENGTH, "NAV_PVT_data_t size must be 92 bytes");
+static_assert(sizeof(NAV_PVT_payload_t) == NAV_PVT_HEADER.payload_length, "NAV_PVT_data_t size must be 92 bytes");
 
-static_assert(offsetof(NAV_PVT_data_t, iTOW) == 0);
-static_assert(offsetof(NAV_PVT_data_t, year) == 4);
-static_assert(offsetof(NAV_PVT_data_t, month) == 6);
-static_assert(offsetof(NAV_PVT_data_t, day) == 7);
-static_assert(offsetof(NAV_PVT_data_t, hour) == 8);
-static_assert(offsetof(NAV_PVT_data_t, minute) == 9);
-static_assert(offsetof(NAV_PVT_data_t, second) == 10);
-static_assert(offsetof(NAV_PVT_data_t, valid) == 11);
-static_assert(offsetof(NAV_PVT_data_t, timeAccuracy) == 12);
-static_assert(offsetof(NAV_PVT_data_t, nano) == 16);
+static_assert(offsetof(NAV_PVT_payload_t, iTOW) == 0);
+static_assert(offsetof(NAV_PVT_payload_t, year) == 4);
+static_assert(offsetof(NAV_PVT_payload_t, month) == 6);
+static_assert(offsetof(NAV_PVT_payload_t, day) == 7);
+static_assert(offsetof(NAV_PVT_payload_t, hour) == 8);
+static_assert(offsetof(NAV_PVT_payload_t, minute) == 9);
+static_assert(offsetof(NAV_PVT_payload_t, second) == 10);
+static_assert(offsetof(NAV_PVT_payload_t, valid) == 11);
+static_assert(offsetof(NAV_PVT_payload_t, timeAccuracy) == 12);
+static_assert(offsetof(NAV_PVT_payload_t, nano) == 16);
 
-static_assert(offsetof(NAV_PVT_data_t, fixType) == 20);
-static_assert(offsetof(NAV_PVT_data_t, flags1) == 21);
-static_assert(offsetof(NAV_PVT_data_t, flags2) == 22);
-static_assert(offsetof(NAV_PVT_data_t, numSatellites) == 23);
+static_assert(offsetof(NAV_PVT_payload_t, fixType) == 20);
+static_assert(offsetof(NAV_PVT_payload_t, flags1) == 21);
+static_assert(offsetof(NAV_PVT_payload_t, flags2) == 22);
+static_assert(offsetof(NAV_PVT_payload_t, numSatellites) == 23);
 
-static_assert(offsetof(NAV_PVT_data_t, longitude) == 24);
-static_assert(offsetof(NAV_PVT_data_t, latitude) == 28);
-static_assert(offsetof(NAV_PVT_data_t, height) == 32);
-static_assert(offsetof(NAV_PVT_data_t, heightMSL) == 36);
-static_assert(offsetof(NAV_PVT_data_t, horizontalAccuracy) == 40);
-static_assert(offsetof(NAV_PVT_data_t, verticalAccuracy) == 44);
+static_assert(offsetof(NAV_PVT_payload_t, longitude) == 24);
+static_assert(offsetof(NAV_PVT_payload_t, latitude) == 28);
+static_assert(offsetof(NAV_PVT_payload_t, height) == 32);
+static_assert(offsetof(NAV_PVT_payload_t, heightMSL) == 36);
+static_assert(offsetof(NAV_PVT_payload_t, horizontalAccuracy) == 40);
+static_assert(offsetof(NAV_PVT_payload_t, verticalAccuracy) == 44);
 
-static_assert(offsetof(NAV_PVT_data_t, velNorth) == 48);
-static_assert(offsetof(NAV_PVT_data_t, velEast) == 52);
-static_assert(offsetof(NAV_PVT_data_t, velDown) == 56);
-static_assert(offsetof(NAV_PVT_data_t, groundSpeed) == 60);
-static_assert(offsetof(NAV_PVT_data_t, headingMotion) == 64);
-static_assert(offsetof(NAV_PVT_data_t, speedAccuracy) == 68);
-static_assert(offsetof(NAV_PVT_data_t, headingAccuracy) == 72);
+static_assert(offsetof(NAV_PVT_payload_t, velNorth) == 48);
+static_assert(offsetof(NAV_PVT_payload_t, velEast) == 52);
+static_assert(offsetof(NAV_PVT_payload_t, velDown) == 56);
+static_assert(offsetof(NAV_PVT_payload_t, groundSpeed) == 60);
+static_assert(offsetof(NAV_PVT_payload_t, headingMotion) == 64);
+static_assert(offsetof(NAV_PVT_payload_t, speedAccuracy) == 68);
+static_assert(offsetof(NAV_PVT_payload_t, headingAccuracy) == 72);
 
-static_assert(offsetof(NAV_PVT_data_t, positionDOP) == 76);
-static_assert(offsetof(NAV_PVT_data_t, flags3) == 78);
-static_assert(offsetof(NAV_PVT_data_t, reserved) == 80);
-static_assert(offsetof(NAV_PVT_data_t, headingVehicle) == 84);
-static_assert(offsetof(NAV_PVT_data_t, magneticDec) == 88);
-static_assert(offsetof(NAV_PVT_data_t, magneticAcc) == 90);
+static_assert(offsetof(NAV_PVT_payload_t, positionDOP) == 76);
+static_assert(offsetof(NAV_PVT_payload_t, flags3) == 78);
+static_assert(offsetof(NAV_PVT_payload_t, reserved) == 80);
+static_assert(offsetof(NAV_PVT_payload_t, headingVehicle) == 84);
+static_assert(offsetof(NAV_PVT_payload_t, magneticDec) == 88);
+static_assert(offsetof(NAV_PVT_payload_t, magneticAcc) == 90);
 
-void NAV_PVT_decode(NAV_PVT_data_t *nav_pvt, const volatile uint8_t *rx_buffer);
+static inline bool NAV_PVT_decode(
+    const volatile uint8_t *rx_buffer,
+    NAV_PVT_payload_t *nav_pvt
+) {
+    ubx_header_t header; // create copy to avoid alignment issues
+    memcpy(&header, (const void *)rx_buffer, sizeof(ubx_header_t));
+
+    if (!UBX_is_matching_header(&header, &NAV_PVT_HEADER)) {
+        return false;
+    }
+
+    if (!UBX_is_valid_checksum((const uint8_t *)rx_buffer, NAV_PVT_HEADER.payload_length)) {
+        return false;
+    }
+
+    memcpy(nav_pvt, (const void *)(rx_buffer + UBX_HEADER_LENGTH), sizeof(NAV_PVT_payload_t));
+
+    return true;
+}
 
 #endif // NAV_PVT_H

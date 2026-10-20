@@ -1,30 +1,26 @@
-#ifndef NAV_RELPOSNED_H
-#define NAV_RELPOSNED_H
-
 /**
  * @file nav_relposned.h
  * @brief UBX NAV-RELPOSNED message definition and decoder function.
  * 
- * ! docs/datasheets/ZED-F9P-Protocols-1.32.pdf @ 3.15.14
+ * ! ZED-F9P-Protocols-1.32.pdf @ 3.15.14
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
-#include <stdint.h>
-#include <stddef.h>
+#ifndef NAV_RELPOSNED_H
+#define NAV_RELPOSNED_H
 
-// lengths
-static constexpr size_t NAV_RELPOSNED_HEADER_LENGTH   = 6;
-static constexpr size_t NAV_RELPOSNED_PAYLOAD_LENGTH  = 64;
-static constexpr size_t NAV_RELPOSNED_CHECKSUM_LENGTH = 2;
-static constexpr size_t NAV_RELPOSNED_TOTAL_LENGTH =
-    NAV_RELPOSNED_HEADER_LENGTH + NAV_RELPOSNED_PAYLOAD_LENGTH + NAV_RELPOSNED_CHECKSUM_LENGTH;
+#include "ubx_common.h"
+#include <string.h>
 
-// UBX NAV-RELPOSNED message header
-static constexpr uint8_t NAV_RELPOSNED_HEADER_B0 = 0xB5; // UBX message header sync byte 0
-static constexpr uint8_t NAV_RELPOSNED_HEADER_B1 = 0x62; // UBX message header sync byte 1
-static constexpr uint8_t NAV_RELPOSNED_CLASS     = 0x01; // UBX message class for NAV-RELPOSNED
-static constexpr uint8_t NAV_RELPOSNED_MSG_ID    = 0x3C; // UBX message ID for NAV-RELPOSNED
+static constexpr ubx_header_t NAV_RELPOSNED_HEADER = {
+    .sync_word      = {UBX_SYNC_B0, UBX_SYNC_B1},
+    .message_class  = 0x01,
+    .message_id     = 0x3C,
+    .payload_length = 64
+};
+
+static constexpr size_t NAV_RELPOSNED_BUFFER_SIZE = UBX_OVERHEAD + NAV_RELPOSNED_HEADER.payload_length;
 
 typedef enum : uint32_t {
     NAV_RELPOSNED_FLAGS_GNSS_FIX_OK   = 0x1, // GNSS fix OK
@@ -69,31 +65,49 @@ typedef struct {
     uint8_t reserved2[4];
 
     NAV_RELPOSNED_flags_t flags;
-} NAV_RELPOSNED_data_t;
+} NAV_RELPOSNED_payload_t;
 
-static_assert(sizeof(NAV_RELPOSNED_data_t) == NAV_RELPOSNED_PAYLOAD_LENGTH, "NAV_RELPOSNED_data_t size must be 64 bytes");
-static_assert(offsetof(NAV_RELPOSNED_data_t, version) == 0);
-static_assert(offsetof(NAV_RELPOSNED_data_t, reserved0) == 1);
-static_assert(offsetof(NAV_RELPOSNED_data_t, refStationId) == 2);
-static_assert(offsetof(NAV_RELPOSNED_data_t, iTOW) == 4);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosN) == 8);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosE) == 12);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosD) == 16);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosLength) == 20);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosHeading) == 24);
-static_assert(offsetof(NAV_RELPOSNED_data_t, reserved1) == 28);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosHPN) == 32);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosHPE) == 33);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosHPD) == 34);
-static_assert(offsetof(NAV_RELPOSNED_data_t, relPosHPLength) == 35);
-static_assert(offsetof(NAV_RELPOSNED_data_t, accN) == 36);
-static_assert(offsetof(NAV_RELPOSNED_data_t, accE) == 40);
-static_assert(offsetof(NAV_RELPOSNED_data_t, accD) == 44);
-static_assert(offsetof(NAV_RELPOSNED_data_t, accLength) == 48);
-static_assert(offsetof(NAV_RELPOSNED_data_t, accHeading) == 52);
-static_assert(offsetof(NAV_RELPOSNED_data_t, reserved2) == 56);
-static_assert(offsetof(NAV_RELPOSNED_data_t, flags) == 60);
+static_assert(sizeof(NAV_RELPOSNED_payload_t) == NAV_RELPOSNED_HEADER.payload_length, "NAV_RELPOSNED_payload_t size must be 64 bytes");
+static_assert(offsetof(NAV_RELPOSNED_payload_t, version) == 0);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, reserved0) == 1);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, refStationId) == 2);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, iTOW) == 4);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosN) == 8);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosE) == 12);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosD) == 16);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosLength) == 20);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosHeading) == 24);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, reserved1) == 28);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosHPN) == 32);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosHPE) == 33);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosHPD) == 34);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, relPosHPLength) == 35);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, accN) == 36);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, accE) == 40);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, accD) == 44);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, accLength) == 48);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, accHeading) == 52);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, reserved2) == 56);
+static_assert(offsetof(NAV_RELPOSNED_payload_t, flags) == 60);
 
-void NAV_RELPOSNED_decode(NAV_RELPOSNED_data_t *relposned, const volatile uint8_t *rx_buffer);
+static inline bool NAV_RELPOSNED_decode(
+    const volatile uint8_t *rx_buffer,
+    NAV_RELPOSNED_payload_t *nav_relposned
+) {
+    ubx_header_t header; // create copy to avoid alignment issues
+    memcpy(&header, (const void *)rx_buffer, sizeof(ubx_header_t));
+
+    if (!UBX_is_matching_header(&header, &NAV_RELPOSNED_HEADER)) {
+        return false;
+    }
+
+    if (!UBX_is_valid_checksum((const uint8_t *)rx_buffer, NAV_RELPOSNED_HEADER.payload_length)) {
+        return false;
+    }
+
+    memcpy(nav_relposned, (const void *)(rx_buffer + UBX_HEADER_LENGTH), sizeof(NAV_RELPOSNED_payload_t));
+
+    return true;
+}
 
 #endif // NAV_RELPOSNED_H

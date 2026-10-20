@@ -10,8 +10,8 @@
 #include "sensors.h"
 
 volatile uint8_t rover_rx_buffer[ROVER_TX_SIZE] = {0}; // updated by DMA stream
-NAV_PVT_data_t nav_pvt = {0};
-NAV_RELPOSNED_data_t nav_relposned = {0};
+NAV_PVT_payload_t nav_pvt = {0};
+NAV_RELPOSNED_payload_t nav_relposned = {0};
 
 volatile uint32_t last_gps_message_time_ms = 0;
 void gps_periodic(void) {
@@ -21,7 +21,7 @@ void gps_periodic(void) {
 
     // decode raw data stream
     NAV_PVT_decode(&nav_pvt, rover_rx_buffer);
-    NAV_RELPOSNED_decode(&nav_relposned, (rover_rx_buffer + NAV_PVT_TOTAL_LENGTH));
+    NAV_RELPOSNED_decode(&nav_relposned, (rover_rx_buffer + NAV_PVT_BUFFER_SIZE));
 
     // parse fix flags
     bool is_fix_ok = nav_pvt.flags1 & GPS_FLAG1_GNSS_FIX_OK;

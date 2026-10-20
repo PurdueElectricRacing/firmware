@@ -166,7 +166,7 @@ static_assert(offsetof(NAV_PVT_payload_t, headingVehicle) == 84);
 static_assert(offsetof(NAV_PVT_payload_t, magneticDec) == 88);
 static_assert(offsetof(NAV_PVT_payload_t, magneticAcc) == 90);
 
-static bool NAV_PVT_decode(
+static inline bool NAV_PVT_decode(
     const volatile uint8_t *rx_buffer,
     NAV_PVT_payload_t *nav_pvt
 ) {

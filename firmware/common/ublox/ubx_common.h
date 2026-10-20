@@ -27,7 +27,7 @@ static_assert(sizeof(ubx_header_t) == UBX_HEADER_LENGTH, "ubx_header_t size must
 static constexpr size_t UBX_CRC_LENGTH = 2;
 static constexpr size_t UBX_OVERHEAD   = UBX_HEADER_LENGTH + UBX_CRC_LENGTH;
 
-static bool UBX_is_matching_header(
+static inline bool UBX_is_matching_header(
     const ubx_header_t *header,
     const ubx_header_t *expected
 ) {
@@ -39,7 +39,7 @@ static bool UBX_is_matching_header(
     return true;
 }
 
-static bool UBX_is_valid_checksum(
+static inline bool UBX_is_valid_checksum(
     const uint8_t *rx_buffer,
     const size_t payload_length
 ) {

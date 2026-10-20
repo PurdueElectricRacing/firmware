@@ -22,8 +22,8 @@ typedef struct {
     float accel_z;
 } imu_data_t;
 
-static constexpr size_t ROVER_TX_SIZE = NAV_PVT_BUFFER_SIZE + NAV_RELPOSNED_BUFFER_SIZE;
-extern volatile uint8_t rover_rx_buffer[ROVER_TX_SIZE]; // DMA target
+static constexpr size_t ROVER_RX_BUFFER_SIZE = NAV_PVT_BUFFER_SIZE + NAV_RELPOSNED_BUFFER_SIZE;
+extern volatile uint8_t rover_rx_buffer[ROVER_RX_BUFFER_SIZE]; // DMA target
 extern NAV_PVT_payload_t nav_pvt;
 extern NAV_RELPOSNED_payload_t nav_relposned;
 extern imu_data_t imu_data;

@@ -90,7 +90,7 @@ static_assert(offsetof(NAV_RELPOSNED_payload_t, accHeading) == 52);
 static_assert(offsetof(NAV_RELPOSNED_payload_t, reserved2) == 56);
 static_assert(offsetof(NAV_RELPOSNED_payload_t, flags) == 60);
 
-static bool NAV_RELPOSNED_decode(
+static inline bool NAV_RELPOSNED_decode(
     const volatile uint8_t *rx_buffer,
     NAV_RELPOSNED_payload_t *nav_relposned
 ) {

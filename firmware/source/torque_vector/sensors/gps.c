@@ -9,7 +9,7 @@
 #include "common/rtos/rtos.h"
 #include "sensors.h"
 
-volatile uint8_t rover_rx_buffer[ROVER_TX_SIZE] = {0}; // updated by DMA stream
+volatile uint8_t rover_rx_buffer[ROVER_RX_BUFFER_SIZE] = {0}; // updated by DMA stream
 NAV_PVT_payload_t nav_pvt = {0};
 NAV_RELPOSNED_payload_t nav_relposned = {0};
 
@@ -19,11 +19,13 @@ void gps_periodic(void) {
 
     last_gps_message_time_ms = xTaskGetTickCount();
 
-    // decode raw data stream
-    NAV_PVT_decode(&nav_pvt, rover_rx_buffer);
-    NAV_RELPOSNED_decode(&nav_relposned, (rover_rx_buffer + NAV_PVT_BUFFER_SIZE));
+    // todo check decode return values
+    (void) NAV_PVT_decode(rover_rx_buffer, &nav_pvt);
 
-    // parse fix flags
+    volatile uint8_t *relposned_buffer = rover_rx_buffer + NAV_PVT_BUFFER_SIZE;
+    (void) NAV_RELPOSNED_decode(relposned_buffer, &nav_relposned);
+
+    // update faults
     bool is_fix_ok = nav_pvt.flags1 & GPS_FLAG1_GNSS_FIX_OK;
     update_fault(FAULT_ID_GPS_INVALID_FIX, !is_fix_ok);
 

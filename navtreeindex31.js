@@ -1,7 +1,5 @@
 var NAVTREEINDEX31 =
 {
-"usb__priv_8c.html#a1e2497f838cccd3d4b46eca09fd0b98c":[33,0,1,1,9,12,2,29],
-"usb__priv_8c.html#a24d7e42058ea841bacf7f122f1433161":[33,0,1,1,9,12,2,8],
 "usb__priv_8c.html#a34ead234195e6e26e97662c2db3b9dbb":[33,0,1,1,9,12,2,11],
 "usb__priv_8c.html#a3b7fce8b1f0de310ffffbe258ad7c6d7":[33,0,1,1,9,12,2,12],
 "usb__priv_8c.html#a3b7fdac0fb67607273cf7aabc6f8494f":[33,0,1,1,9,12,2,18],

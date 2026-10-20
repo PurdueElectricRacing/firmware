@@ -1,14 +1,18 @@
 <map id="firmware/source/torque_vector/sensors/sensors.h" name="firmware/source/torque_vector/sensors/sensors.h">
-<area shape="rect" id="Node000001" title="TV Managed sensor header." alt="" coords="37,5,211,46"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="92,168,156,193"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,49,42,63,20,79,9,98,9,108,13,118,26,134,42,147,79,165,76,170,39,151,22,138,8,121,3,109,4,97,16,76,39,58,66,44"/>
-<area shape="rect" id="Node000003" href="$nav__pvt_8h.html" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="249,94,415,120"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,44,287,86,285,91,175,49"/>
-<area shape="rect" id="Node000005" href="$nav__relposned_8h.html" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="22,94,226,120"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="127,46,127,78,121,78,121,46"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="297,123,171,166,169,161,296,118"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="238,168,306,193"/>
-<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="324,122,294,157,290,154,320,118"/>
-<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="127,120,127,152,121,152,121,120"/>
-<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="150,118,234,158,232,163,148,123"/>
+<area shape="rect" id="Node000001" title="TV Managed sensor header." alt="" coords="40,5,215,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="37,241,101,267"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,49,41,68,16,95,10,112,8,129,15,166,32,200,51,228,47,231,27,202,10,167,3,130,5,111,12,93,37,64,69,44"/>
+<area shape="rect" id="Node000003" href="$nav__pvt_8h.html" title="UBX NAV&#45;PVT message definition and decoder function." alt="" coords="253,94,418,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,44,290,86,289,91,179,49"/>
+<area shape="rect" id="Node000007" href="$nav__relposned_8h.html" title="UBX NAV&#45;RELPOSNED message definition and decoder function." alt="" coords="26,94,229,120"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="130,46,130,78,125,78,125,46"/>
+<area shape="rect" id="Node000004" href="$ubx__common_8h.html" title="UBX common definitions and utility functions." alt="" coords="183,168,291,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="320,122,267,161,264,156,317,118"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="96,168,159,193"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="301,123,175,166,173,161,299,118"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="209,196,113,237,110,232,207,191"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="203,241,271,267"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="240,194,240,226,234,226,234,194"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="148,118,207,157,204,161,145,122"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="130,120,130,152,125,152,125,120"/>
 </map>

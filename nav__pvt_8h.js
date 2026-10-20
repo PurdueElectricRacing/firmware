@@ -1,6 +1,6 @@
 var nav__pvt_8h =
 [
-    [ "NAV_PVT_data_t", "structNAV__PVT__data__t.html", "structNAV__PVT__data__t" ],
+    [ "NAV_PVT_payload_t", "structNAV__PVT__payload__t.html", "structNAV__PVT__payload__t" ],
     [ "gps_fix_type_t", "nav__pvt_8h.html#a8e45bb6ff548b954f48b758d6ec2c49d", [
       [ "GPS_FIX_TYPE_NONE", "nav__pvt_8h.html#a8e45bb6ff548b954f48b758d6ec2c49da1b8d420dfded39b87e5031b7244130c8", null ],
       [ "GPS_FIX_TYPE_DEAD_RECKONING", "nav__pvt_8h.html#a8e45bb6ff548b954f48b758d6ec2c49daea129be35c28bc8be78e7874595fae48", null ],
@@ -53,13 +53,7 @@ var nav__pvt_8h =
       [ "GPS_VALID_FULLY_RESOLVED", "nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526aadd66079ca14fd78af7525b3c454ed527", null ],
       [ "GPS_VALID_MAG", "nav__pvt_8h.html#ad3b87a87e458b94817dc8ede6072526aa22ff44c4e0ebf73c3321894d4a07b4f7", null ]
     ] ],
-    [ "NAV_PVT_decode", "nav__pvt_8h.html#aef5d1090ad401e55919975e0c7717e74", null ],
-    [ "NAV_PVT_CLASS", "nav__pvt_8h.html#a295c0f2aceb2533041b8fe93269a48c1", null ],
-    [ "NAV_PVT_CRC_LENGTH", "nav__pvt_8h.html#a05e231eb513608d60779cd0c052c4b66", null ],
-    [ "NAV_PVT_HEADER_B0", "nav__pvt_8h.html#a2fda54323262c0cef5590e36aa108d98", null ],
-    [ "NAV_PVT_HEADER_B1", "nav__pvt_8h.html#aa9569f5fca02ce1276de7d7a934bcf43", null ],
-    [ "NAV_PVT_HEADER_LENGTH", "nav__pvt_8h.html#a291b590a2374cc4092b7f943f277f2e5", null ],
-    [ "NAV_PVT_MSG_ID", "nav__pvt_8h.html#af7063faf314c8ebdae47ee13f8591cc8", null ],
-    [ "NAV_PVT_PAYLOAD_LENGTH", "nav__pvt_8h.html#a5740ce2fb6b21907da7ceac0b6330dbf", null ],
-    [ "NAV_PVT_TOTAL_LENGTH", "nav__pvt_8h.html#a71100d7e7e16e9fe669799a9a3021c1d", null ]
+    [ "NAV_PVT_decode", "nav__pvt_8h.html#a898972617c95cbc1ab74547e97d47ab8", null ],
+    [ "NAV_PVT_BUFFER_SIZE", "nav__pvt_8h.html#abff42fda324f937c444103a9584a3948", null ],
+    [ "NAV_PVT_HEADER", "nav__pvt_8h.html#ad39ad3d3a7de44f928a6ec66eda64945", null ]
 ];

@@ -1,6 +1,6 @@
 var nav__relposned_8h =
 [
-    [ "NAV_RELPOSNED_data_t", "structNAV__RELPOSNED__data__t.html", "structNAV__RELPOSNED__data__t" ],
+    [ "NAV_RELPOSNED_payload_t", "structNAV__RELPOSNED__payload__t.html", "structNAV__RELPOSNED__payload__t" ],
     [ "NAV_RELPOSNED_flags_t", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5", [
       [ "NAV_RELPOSNED_FLAGS_GNSS_FIX_OK", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5a74fe85468319d5c3c91447ab83fe7463", null ],
       [ "NAV_RELPOSNED_FLAGS_DIFF_SOLN", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5a77543c00f7f2aad18593a89bce98a15b", null ],
@@ -15,13 +15,7 @@ var nav__relposned_8h =
       [ "NAV_RELPOSNED_FLAGS_HEADING_VALID", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5af96df30c40849c2f9a9f643c20fe6619", null ],
       [ "NAV_RELPOSNED_FLAGS_NORMALIZED", "nav__relposned_8h.html#aeba8f34c9ae90ea0404882b5f54d3bf5af6ccdff3342bf47c78f0e16c708a4a9c", null ]
     ] ],
-    [ "NAV_RELPOSNED_decode", "nav__relposned_8h.html#ac1beca0752f374e987c7ab5552eafe9c", null ],
-    [ "NAV_RELPOSNED_CHECKSUM_LENGTH", "nav__relposned_8h.html#a36dd24cf14cb15cf8ee4429d98306dcc", null ],
-    [ "NAV_RELPOSNED_CLASS", "nav__relposned_8h.html#aa7260c780f418e6d3987ffe9703ec6e9", null ],
-    [ "NAV_RELPOSNED_HEADER_B0", "nav__relposned_8h.html#a79c2857f59c5dea67d012a912b37000d", null ],
-    [ "NAV_RELPOSNED_HEADER_B1", "nav__relposned_8h.html#a7b6c636104f5f9aba3048f49030e4389", null ],
-    [ "NAV_RELPOSNED_HEADER_LENGTH", "nav__relposned_8h.html#ab2f17dbdff1bc2f46967cf56b4c7cc35", null ],
-    [ "NAV_RELPOSNED_MSG_ID", "nav__relposned_8h.html#ac84bcc2ef10f3660ac77ee25757c8145", null ],
-    [ "NAV_RELPOSNED_PAYLOAD_LENGTH", "nav__relposned_8h.html#ac49885e4469e4a4232eac57de615c06c", null ],
-    [ "NAV_RELPOSNED_TOTAL_LENGTH", "nav__relposned_8h.html#a8343ef3aaa0932ccc23c634d3cf5fb4c", null ]
+    [ "NAV_RELPOSNED_decode", "nav__relposned_8h.html#a46598281dcf04dd1fe7fa9e87c49aac4", null ],
+    [ "NAV_RELPOSNED_BUFFER_SIZE", "nav__relposned_8h.html#a4f651530014970227eb67d10cf0ae4e2", null ],
+    [ "NAV_RELPOSNED_HEADER", "nav__relposned_8h.html#a40e66d93869c2d09557b8e1e30a668e6", null ]
 ];

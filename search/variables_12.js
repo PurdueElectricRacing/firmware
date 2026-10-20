@@ -37,7 +37,7 @@ var searchData=
   ['sdio_5frx_5fconfig_34',['sdio_rx_config',['../sdio_8c.html#a19ff1726533d01d3340cbbe93a034867',1,'sdio.c']]],
   ['sdio_5ftx_5fconfig_35',['sdio_tx_config',['../sdio_8c.html#a277ac25c6a1f8b507fc73417dc397234',1,'sdio.c']]],
   ['sdstatus_5ftab_36',['SDSTATUS_Tab',['../sdio_8c.html#a9889bc1be9c128f5bba64fca4bfd73bf',1,'sdio.c']]],
-  ['second_37',['second',['../structNAV__PVT__data__t.html#a10b6c668dd99874cc7975d1c3097e337',1,'NAV_PVT_data_t::second'],['../structgps__time__data__t.html#aca49fab4e2e86bde9d28307e64c08f55',1,'gps_time_data_t::second']]],
+  ['second_37',['second',['../structNAV__PVT__payload__t.html#a66a0bd5b0c4590b3c5a7aa20854b5b15',1,'NAV_PVT_payload_t::second'],['../structgps__time__data__t.html#aca49fab4e2e86bde9d28307e64c08f55',1,'gps_time_data_t::second']]],
   ['seconds_38',['seconds',['../structtime__display__t.html#af33603f244676655eca7b6eabdf60dae',1,'time_display_t']]],
   ['seconds_5fbcd_39',['seconds_bcd',['../structRTC__time__t.html#a83e10bb4c3a6cf3d0eb33dbcfc746f84',1,'RTC_time_t']]],
   ['select_40',['select',['../structpage__handler__t.html#a0f1ab0097d5d47b7fdc51880cf103ce2',1,'page_handler_t']]],
@@ -65,7 +65,7 @@ var searchData=
   ['snap_62',['SNAP',['../commands_8c.html#ac2ea620141d0e4996eefcdbf7e006c34',1,'SNAP:&#160;commands.c'],['../commands_8h.html#ac2ea620141d0e4996eefcdbf7e006c34',1,'SNAP:&#160;commands.c']]],
   ['snapshot_63',['snapshot',['../structdiagnostics__context__t.html#a8d93fb2fff4de631ee9ff2b391b6da53',1,'diagnostics_context_t']]],
   ['speed_5fout_64',['SPEED_OUT',['../structyVCU__struct.html#a270bd847884a32927b160dadd5ede2cc',1,'yVCU_struct']]],
-  ['speedaccuracy_65',['speedAccuracy',['../structNAV__PVT__data__t.html#a535eebf8906a85016a70dcd0c1501dd3',1,'NAV_PVT_data_t']]],
+  ['speedaccuracy_65',['speedAccuracy',['../structNAV__PVT__payload__t.html#aca2c732ec93991adc5c9b69fec60d678',1,'NAV_PVT_payload_t']]],
   ['spi_66',['spi',['../structadbms__bms__t.html#a9a19d01495a286d680a300f33173e5e5',1,'adbms_bms_t']]],
   ['spi1_5flock_67',['spi1_lock',['../daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377',1,'main.h']]],
   ['spi1_5frx_5fdma_68',['spi1_rx_dma',['../a__box_2main_8c.html#a74b59d963c2e2e12058d027a4392f3e8',1,'main.c']]],
@@ -117,6 +117,7 @@ var searchData=
   ['sum_5fvoltage_114',['sum_voltage',['../structadbms__module__t.html#a1f7128fa303300dc17d7ac4c58bc8eb0',1,'adbms_module_t::sum_voltage'],['../structadbms__bms__t.html#a9ae7b72a5ac37a212c39ce2c0b69f6af',1,'adbms_bms_t::sum_voltage']]],
   ['switch_5fcurrent_5fma_115',['switch_current_ma',['../structpdu__state__t.html#a2b7ff36d57eaa1695e12d3fcf9c17ab4',1,'pdu_state_t']]],
   ['switch_5fid_116',['switch_id',['../structpdu__switch__output__t.html#aa878b20ace495d228a91dbdb44209036',1,'pdu_switch_output_t']]],
-  ['sysspecversion_117',['SysSpecVersion',['../structSD__CSD.html#aab56e6f7b3656603520250d072ca806c',1,'SD_CSD']]],
-  ['system_5fclock_5ftarget_5fhz_118',['system_clock_target_hz',['../structClockRateConfig__t.html#a4bcd01af800a1ff65cf10ee4c699dcf9',1,'ClockRateConfig_t']]]
+  ['sync_5fword_117',['sync_word',['../structubx__header__t.html#a669ff7b3507dff29ec84676a09fb7988',1,'ubx_header_t']]],
+  ['sysspecversion_118',['SysSpecVersion',['../structSD__CSD.html#aab56e6f7b3656603520250d072ca806c',1,'SD_CSD']]],
+  ['system_5fclock_5ftarget_5fhz_119',['system_clock_target_hz',['../structClockRateConfig__t.html#a4bcd01af800a1ff65cf10ee4c699dcf9',1,'ClockRateConfig_t']]]
 ];

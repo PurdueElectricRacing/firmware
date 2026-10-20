@@ -1,0 +1,7 @@
+<map id="NAV_RELPOSNED_decode" name="NAV_RELPOSNED_decode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,191,56"/>
+<area shape="rect" id="Node000002" href="$ubx__common_8h.html#a7e80e5ae2126c19ceec212cc4285839a" title=" " alt="" coords="239,5,411,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,30,223,27,224,32,191,36"/>
+<area shape="rect" id="Node000003" href="$ubx__common_8h.html#aec9a33c2f03e88ac6ef8ad251baabcd0" title=" " alt="" coords="241,55,408,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,51,226,54,226,60,191,56"/>
+</map>

@@ -56,7 +56,7 @@ var searchData=
   ['ticks_5fms_53',['ticks_ms',['../structtimestamped__frame__t.html#a25dcb68918bb5005bc62f3c143220bb9',1,'timestamped_frame_t']]],
   ['time_54',['time',['../structRTC__timestamp__t.html#a02769562ef56d7afc087ec869ef9df62',1,'RTC_timestamp_t']]],
   ['time_5fformat_55',['time_format',['../structRTC__time__t.html#a9e98540c8057580c8e558925dca0f9d3',1,'RTC_time_t']]],
-  ['timeaccuracy_56',['timeAccuracy',['../structNAV__PVT__data__t.html#a6b13786c709a39b68ad78bf37831e093',1,'NAV_PVT_data_t']]],
+  ['timeaccuracy_56',['timeAccuracy',['../structNAV__PVT__payload__t.html#af0a526ab1d50433d164ee6b569af76e8',1,'NAV_PVT_payload_t']]],
   ['timer_5fclock_5fhz_57',['timer_clock_hz',['../structPWM__PRIV__TimerInfo__t.html#a36dccd6fae8c8c1864a8b24e0395710b',1,'PWM_PRIV_TimerInfo_t']]],
   ['timestamp_5fms_58',['timestamp_ms',['../structdiagnostics__snapshot__t.html#af19c1bcb1eaab3f2b09779c2ce5ac5d6',1,'diagnostics_snapshot_t']]],
   ['to_59',['TO',['../structyVCU__struct.html#a54fd28030fa5691ee99f9c2c2c59ac27',1,'yVCU_struct']]],

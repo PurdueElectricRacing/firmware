@@ -66,7 +66,7 @@ var searchData=
   ['data_5fvalid_63',['data_valid',['../structsteering__angle__data__t.html#a522a375768959ef158ddd31ff4916b14',1,'steering_angle_data_t']]],
   ['database_20tools_64',['5.3 DaqCloud Database Tools',['../md_docs_2setup.html#autotoc_md138',1,'']]],
   ['date_65',['date',['../structRTC__timestamp__t.html#ae2c9fb1daa1c680d92ad4c4292b5f4d6',1,'RTC_timestamp_t']]],
-  ['day_66',['day',['../structNAV__PVT__data__t.html#a7d5dcabce88e13873e3b19130cc17df6',1,'NAV_PVT_data_t::day'],['../structgps__time__data__t.html#ab0cd74e374f2ab30f9032042c07b62e1',1,'gps_time_data_t::day']]],
+  ['day_66',['day',['../structNAV__PVT__payload__t.html#abbe7db185acc8ce3dfb4ef13ab8dfd95',1,'NAV_PVT_payload_t::day'],['../structgps__time__data__t.html#ab0cd74e374f2ab30f9032042c07b62e1',1,'gps_time_data_t::day']]],
   ['day_5fbcd_67',['day_bcd',['../structRTC__date__t.html#a66e27d635d9a07cda3da059d6742f146',1,'RTC_date_t']]],
   ['day_5ffrom_5fsecond_68',['day_from_second',['../dearunits_8h.html#acb25757da80f5ebbac10552283dd5376',1,'dearunits.h']]],
   ['day_5ft_69',['day_t',['../structday__t.html',1,'']]],

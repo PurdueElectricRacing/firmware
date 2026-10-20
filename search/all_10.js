@@ -181,7 +181,7 @@ var searchData=
   ['graphs_178',['CAN graphs',['../md_docs_2can__graphs.html',1,'']]],
   ['great_179',['GREAT',['../daq_2main_8h.html#af0894540bc29ba5d31c3ed83f0809af4',1,'main.h']]],
   ['green_180',['GREEN',['../colors_8h.html#a0e60d91d28eb400c0c99c4d6be3edd65',1,'colors.h']]],
-  ['groundspeed_181',['groundSpeed',['../structNAV__PVT__data__t.html#ad28de7f9e3398035b089e9f08a4ab620',1,'NAV_PVT_data_t']]],
+  ['groundspeed_181',['groundSpeed',['../structNAV__PVT__payload__t.html#aecd0969a468e39fececd42ab38fe762c',1,'NAV_PVT_payload_t']]],
   ['gs_182',['GS',['../structyVCU__struct.html#ad7b034192db25c4b8606ccc6653641f0',1,'yVCU_struct']]],
   ['gs_5fraw_183',['GS_RAW',['../structxVCU__struct.html#a37baeef44404a6b4711805ce6ccfd121',1,'xVCU_struct']]],
   ['gs_5frg_5fderating_5ffull_184',['GS_RG_derating_full',['../structpVCU__struct.html#af1c90f23434645f0fdac01e58d96a196',1,'pVCU_struct']]],

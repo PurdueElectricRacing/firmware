@@ -67,7 +67,7 @@ var searchData=
   ['gps_5fweak_5ffix_64',['GPS_WEAK_FIX',['../structtorque__vector__fault__sync__data__t.html#a36457cbf0b7a37d7ed19327fa8ab46c2',1,'torque_vector_fault_sync_data_t']]],
   ['gr_65',['gr',['../structpVCU__struct.html#abc3fd73bc315d5b459b2940f52a333b3',1,'pVCU_struct']]],
   ['green_66',['GREEN',['../colors_8h.html#a0e60d91d28eb400c0c99c4d6be3edd65',1,'colors.h']]],
-  ['groundspeed_67',['groundSpeed',['../structNAV__PVT__data__t.html#ad28de7f9e3398035b089e9f08a4ab620',1,'NAV_PVT_data_t']]],
+  ['groundspeed_67',['groundSpeed',['../structNAV__PVT__payload__t.html#aecd0969a468e39fececd42ab38fe762c',1,'NAV_PVT_payload_t']]],
   ['gs_68',['GS',['../structyVCU__struct.html#ad7b034192db25c4b8606ccc6653641f0',1,'yVCU_struct']]],
   ['gs_5fraw_69',['GS_RAW',['../structxVCU__struct.html#a37baeef44404a6b4711805ce6ccfd121',1,'xVCU_struct']]],
   ['gs_5frg_5fderating_5ffull_70',['GS_RG_derating_full',['../structpVCU__struct.html#af1c90f23434645f0fdac01e58d96a196',1,'pVCU_struct']]],

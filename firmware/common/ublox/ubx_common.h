@@ -14,8 +14,8 @@
 #include <stddef.h>
 
 static constexpr size_t UBX_HEADER_LENGTH = 6;
-static constexpr uint8_t UBX_SYNC_B0 = 0xB5;
-static constexpr uint8_t UBX_SYNC_B1 = 0x62;
+static constexpr uint8_t UBX_SYNC_B0      = 0xB5;
+static constexpr uint8_t UBX_SYNC_B1      = 0x62;
 typedef struct {
     uint8_t sync_word[2];
     uint8_t message_class;
@@ -25,7 +25,7 @@ typedef struct {
 static_assert(sizeof(ubx_header_t) == UBX_HEADER_LENGTH, "ubx_header_t size must be 6 bytes");
 
 static constexpr size_t UBX_CRC_LENGTH = 2;
-static constexpr size_t UBX_OVERHEAD = UBX_HEADER_LENGTH + UBX_CRC_LENGTH;
+static constexpr size_t UBX_OVERHEAD   = UBX_HEADER_LENGTH + UBX_CRC_LENGTH;
 
 static bool UBX_is_matching_header(
     const ubx_header_t *header,
@@ -40,17 +40,24 @@ static bool UBX_is_matching_header(
 }
 
 static bool UBX_is_valid_checksum(
-    const uint8_t *buffer,
-    const size_t length,
-    const uint8_t *checksum
+    const uint8_t *rx_buffer,
+    const size_t payload_length
 ) {
+    const size_t checksum_offset = UBX_HEADER_LENGTH + payload_length;
+
+    // the checksum does not include the sync word
     // algorithm defined in ZED-F9P-Protocols-1.32.pdf @ 3.4
     uint8_t ck_a = 0;
     uint8_t ck_b = 0;
-    for (size_t i = 0; i < length; i++) {
-        ck_a = ck_a + buffer[i];
+    for (size_t i = 2; i < checksum_offset; i++) {
+        ck_a = ck_a + rx_buffer[i];
         ck_b = ck_b + ck_a;
     }
+
+    uint8_t checksum[2] = {
+        rx_buffer[checksum_offset + 0],
+        rx_buffer[checksum_offset + 1]
+    };
 
     return (ck_a == checksum[0]) && (ck_b == checksum[1]);
 }

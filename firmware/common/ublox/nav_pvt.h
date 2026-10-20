@@ -166,6 +166,16 @@ static_assert(offsetof(NAV_PVT_payload_t, magneticDec) == 88);
 static_assert(offsetof(NAV_PVT_payload_t, magneticAcc) == 90);
 
 static bool NAV_PVT_decode(NAV_PVT_payload_t *nav_pvt, const volatile uint8_t *rx_buffer) {
+    if (!UBX_is_matching_header((const ubx_header_t *)rx_buffer, &NAV_PVT_HEADER)) {
+        return false;
+    }
+
+    // todo decode payload
+
+    
+
+
+
     // todo
     return true;
 }

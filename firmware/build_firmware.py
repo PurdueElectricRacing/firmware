@@ -269,7 +269,7 @@ def build() -> None:
     subprocess.run(["ninja", "-C", str(BUILD_DIR), "all"], cwd=ROOT, check=True)
     for board in BOARD_TARGETS:
         verify_vector_address(OUTPUT_DIR / board / f"{board}.elf", 0x08000000)
-        resident = f"bootloader_{board.upper()}"
+        resident = f"bootloader_{board}"
         verify_vector_address(OUTPUT_DIR / resident / f"{resident}.elf", 0x08000000)
     create_tarball(build_manifest())
 

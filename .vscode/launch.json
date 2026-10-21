@@ -265,7 +265,7 @@
         {
             "name": "Bootloader - Main Module",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/firmware/output/bootloader_MAIN_MODULE/bootloader_MAIN_MODULE.elf",
+            "executable": "${workspaceRoot}/firmware/output/bootloader_main_module/bootloader_main_module.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -289,7 +289,7 @@
         {
             "name": "Bootloader - Dashboard",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/firmware/output/bootloader_DASHBOARD/bootloader_DASHBOARD.elf",
+            "executable": "${workspaceRoot}/firmware/output/bootloader_dashboard/bootloader_dashboard.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -313,7 +313,7 @@
         {
             "name": "Bootloader - Front Driveline",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/firmware/output/bootloader_FRONT_DRIVELINE/bootloader_FRONT_DRIVELINE.elf",
+            "executable": "${workspaceRoot}/firmware/output/bootloader_front_driveline/bootloader_front_driveline.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -337,7 +337,7 @@
         {
             "name": "Bootloader - Rear Driveline",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/firmware/output/bootloader_REAR_DRIVELINE/bootloader_REAR_DRIVELINE.elf",
+            "executable": "${workspaceRoot}/firmware/output/bootloader_rear_driveline/bootloader_rear_driveline.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -361,7 +361,7 @@
         {
             "name": "Bootloader - Torque Vectoring",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/firmware/output/bootloader_TORQUE_VECTOR/bootloader_TORQUE_VECTOR.elf",
+            "executable": "${workspaceRoot}/firmware/output/bootloader_torque_vector/bootloader_torque_vector.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
@@ -385,7 +385,7 @@
         {
             "name": "Bootloader - A_Box",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/firmware/output/bootloader_A_BOX/bootloader_A_BOX.elf",
+            "executable": "${workspaceRoot}/firmware/output/bootloader_a_box/bootloader_a_box.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",

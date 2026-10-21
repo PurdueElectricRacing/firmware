@@ -18,8 +18,8 @@ python3 firmware/build_firmware.py
 
 The command writes `firmware/output/manifest.json`,
 `firmware/output/firmware_<git-ref>.tar.gz`, and resident images under
-`firmware/output/bootloader_<NODE>/`. Flash the matching
-`bootloader_<NODE>.bin` before the first application update. The archive contains
+`firmware/output/bootloader_<node>/`. Flash the matching
+`bootloader_<node>.bin` before the first application update. The archive contains
 application payloads; it does not replace resident bootloaders.
 
 ## Update an application

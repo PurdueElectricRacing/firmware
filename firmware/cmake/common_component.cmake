@@ -10,9 +10,9 @@
 # )
 #
 # Bootloader:
-# - By default: builds a standalone image by default
-# - BUILD_BOOTLOADABLE: also builds bootloadable_<name>
-# - IS_BOOTLOADER: builds a resident bootloader
+# - By default (no arg): build a standalone image
+# - BUILD_BOOTLOADABLE: also build bootloadable_<name> (still build the standalone)
+# - IS_BOOTLOADER: builds only the resident bootloader
 function(add_firmware_component)
     set(options IS_BOOTLOADER BUILD_BOOTLOADABLE)
     set(oneValueArgs NAME LINKER_SCRIPT OUTPUT_DIR)

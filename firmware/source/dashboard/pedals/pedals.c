@@ -54,7 +54,7 @@ volatile pedals_data_t pedal_values = {
 };
 
 
-
+// srgksndg
 void process_and_send_brake_psi(float raw_brake_adc) {
 
     float clamped_adc = CLAMP(raw_brake_adc, BRAKE_PRESSURE_ADC_MIN, BRAKE_PRESSURE_ADC_MAX);

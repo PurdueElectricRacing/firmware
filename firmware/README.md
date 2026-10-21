@@ -46,7 +46,6 @@ python3 firmware/build_firmware.py
 The firmware helper creates these local build products:
 
 - `build/` — CMake/Ninja build tree and `compile_commands.json`.
-- `build/bootloadable/` — separate build tree for relocated applications.
 - `output/` — target `.elf` and `.hex` files.
 - `output/firmware_<git-ref>.tar.gz` — packaged firmware.
 - `can_library/generated/` — generated headers for CAN message packing, unpacking, stale detection, and more.

@@ -41,5 +41,6 @@ var searchData=
   ['bl_5ftorque_5fvector_5fstart_5fdata_5ft_38',['bl_torque_vector_start_data_t',['../structbl__torque__vector__start__data__t.html',1,'']]],
   ['bltransportconfig_5ft_39',['BLTransportConfig_t',['../structBLTransportConfig__t.html',1,'']]],
   ['bms_5fpecs_5fccan_5fdata_5ft_40',['bms_pecs_ccan_data_t',['../structbms__pecs__ccan__data__t.html',1,'']]],
-  ['bms_5fpecs_5fdata_5ft_41',['bms_pecs_data_t',['../structbms__pecs__data__t.html',1,'']]]
+  ['bms_5fpecs_5fdata_5ft_41',['bms_pecs_data_t',['../structbms__pecs__data__t.html',1,'']]],
+  ['brake_5fpressure_5fdata_5ft_42',['brake_pressure_data_t',['../structbrake__pressure__data__t.html',1,'']]]
 ];

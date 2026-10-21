@@ -56,6 +56,7 @@ var hierarchy =
     [ "BLTransportConfig_t", "structBLTransportConfig__t.html", null ],
     [ "bms_pecs_ccan_data_t", "structbms__pecs__ccan__data__t.html", null ],
     [ "bms_pecs_data_t", "structbms__pecs__data__t.html", null ],
+    [ "brake_pressure_data_t", "structbrake__pressure__data__t.html", null ],
     [ "can_data_t", "structcan__data__t.html", null ],
     [ "can_stats_t", "structcan__stats__t.html", null ],
     [ "CanMsgTypeDef_t", "structCanMsgTypeDef__t.html", null ],

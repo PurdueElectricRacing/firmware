@@ -57,6 +57,7 @@ var annotated_dup =
     [ "BLTransportConfig_t", "structBLTransportConfig__t.html", "structBLTransportConfig__t" ],
     [ "bms_pecs_ccan_data_t", "structbms__pecs__ccan__data__t.html", "structbms__pecs__ccan__data__t" ],
     [ "bms_pecs_data_t", "structbms__pecs__data__t.html", "structbms__pecs__data__t" ],
+    [ "brake_pressure_data_t", "structbrake__pressure__data__t.html", "structbrake__pressure__data__t" ],
     [ "can_data_t", "structcan__data__t.html", "structcan__data__t" ],
     [ "can_stats_t", "structcan__stats__t.html", "structcan__stats__t" ],
     [ "CanMsgTypeDef_t", "structCanMsgTypeDef__t.html", "structCanMsgTypeDef__t" ],

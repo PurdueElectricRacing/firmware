@@ -7,6 +7,7 @@
 
 #include "can_irq.h"
 
+#include "can_library/generated/MCAN.h"
 #include "can_library/generated/VCAN.h"
 #include "common/rtos/rtos.h"
 #include "spmc.h"
@@ -31,8 +32,8 @@ static inline void can_rx_irq_handler(CAN_TypeDef *peripheral) {
     rx.ticks_ms            = xTaskGetTickCountFromISR();
     last_can_rx_time_ms    = rx.ticks_ms;
 
-    // CAN1 = VCAN = bus 0
-    set_bus_id(&rx, (peripheral == CAN1) ? 0 : 1);
+    // CAN1 = VCAN, CAN2 = MCAN
+    set_bus_id(&rx, (peripheral == CAN1) ? VCAN_BUS_ID : MCAN_BUS_ID);
 
     const CAN_FIFOMailBox_TypeDef *mailbox = &peripheral->sFIFOMailBox[0];
     bool is_xid = (mailbox->RIR & CAN_RI0R_IDE) != 0;

@@ -39,11 +39,13 @@ function(add_firmware_component)
     endforeach()
 
     # Select resident, bootloader-aware application, or standalone layout.
+    set(ARTIFACT_NAME ${ARG_NAME})
     if(ARG_IS_BOOTLOADER)
         set(LS_SUFFIX "_BL.ld")
         target_compile_definitions(${TARGET_NAME} PRIVATE BOOTLOADER_FIRMWARE=1)
     elseif(BOOTLOADER_BUILD AND ARG_NAME IN_LIST BOOTLOADER_APPLICATION_TARGETS)
         set(LS_SUFFIX "_APP.ld")
+        set(ARTIFACT_NAME bootloadable_${ARG_NAME})
         target_compile_definitions(${TARGET_NAME} PRIVATE BOOTLOADER_ENABLED=1)
     else()
         set(LS_SUFFIX ".ld")
@@ -58,7 +60,7 @@ function(add_firmware_component)
     # Post-build actions
     postbuild_target(
         ${TARGET_NAME}
-        ${ARG_NAME}
+        ${ARTIFACT_NAME}
         "${ARG_OUTPUT_DIR}"
         ${MAP_FILE}
     )

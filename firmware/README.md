@@ -25,8 +25,8 @@ binaries. `f4_testing` and `g4_testing` are bench-testing targets.
 
 The [bootloader guide](source/bootloader/README.md) documents architecture,
 wire protocol, flash layout, and recovery. Use the command in [Building](#building)
-to build the firmware and resident bootloader targets; the script then writes
-relocated application binaries, CRCs, `output/manifest.json`, and
+to build all of: standalone firmware, resident bootloaders, and bootloadable applications.
+The script then packages only bootloadable application binaries, CRCs, `output/manifest.json`, and
 `firmware_<git-ref>.tar.gz`. Package copies under `output/images/` pad a final
 partial word with erased `0xFF` before recording its size and CRC. Flash the
 matching `bootloader_<NODE>` image first; DaqApp and the target share the
@@ -46,6 +46,7 @@ python3 firmware/build_firmware.py
 The firmware helper creates these local build products:
 
 - `build/` — CMake/Ninja build tree and `compile_commands.json`.
+- `build/bootloadable/` — separate build tree for relocated applications.
 - `output/` — target `.elf` and `.hex` files.
 - `output/firmware_<git-ref>.tar.gz` — packaged firmware.
 - `can_library/generated/` — generated headers for CAN message packing, unpacking, stale detection, and more.
@@ -53,6 +54,20 @@ The firmware helper creates these local build products:
 
 > [!WARNING]
 > Every invocation performs a clean build.
+
+
+### Build Outputs
+
+For non-bootloader targets, the build produces a single standalone image. For
+bootloader targets, the build produces three image variants: standalone, resident bootloader, and bootloadable application. 
+
+Each image has `.elf`, `.hex`, `.bin`, and `.elf.map` artifacts.
+
+| Variant | Example ELF |
+| --- | --- |
+| Standalone | `output/torque_vector/torque_vector.elf` |
+| Resident bootloader | `output/bootloader_TORQUE_VECTOR/bootloader_TORQUE_VECTOR.elf` |
+| Bootloadable application | `output/bootloadable_torque_vector/bootloadable_torque_vector.elf` |
 
 ## Static Analysis
 

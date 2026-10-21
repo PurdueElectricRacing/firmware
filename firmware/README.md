@@ -64,9 +64,9 @@ Each image has `.elf`, `.hex`, `.bin`, and `.elf.map` artifacts.
 
 | Variant | Example ELF |
 | --- | --- |
-| Standalone | `output/torque_vector/torque_vector.elf` |
-| Resident bootloader | `output/bootloader_TORQUE_VECTOR/bootloader_TORQUE_VECTOR.elf` |
-| Bootloadable application | `output/bootloadable_torque_vector/bootloadable_torque_vector.elf` |
+| Standalone | `output/a_box/a_box.elf` |
+| Resident bootloader | `output/bootloader_A_BOX/bootloader_A_BOX.elf` |
+| Bootloadable application | `output/bootloadable_a_box/bootloadable_a_box.elf` |
 
 ## Static Analysis
 

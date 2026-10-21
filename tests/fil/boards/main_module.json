@@ -3,7 +3,7 @@
   "name": "main_module",
   "mcu": "../../external/fil/configs/mcus/stm32g474retx.json",
   "elf": "../../../firmware/output/main_module/main_module.elf",
-  "vector_base": "0x08008000",
+  "vector_base": "0x08000000",
   "can": {
     "FDCAN2": {
       "bus": "0"

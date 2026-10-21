@@ -58,10 +58,10 @@ volatile pedals_data_t pedal_values = {
 void process_and_send_brake_psi(float raw_brake_adc) {
 
     float clamped_adc = CLAMP(raw_brake_adc, BRAKE_PRESSURE_ADC_MIN, BRAKE_PRESSURE_ADC_MAX);
-    float brake_psi = RESCALE(clamped_adc, BRAKE_PRESSURE_ADC_MIN, BRAKE_PRESSURE_ADC_MAX,
+    float brake_psi = (uint16_t)RESCALE(clamped_adc, BRAKE_PRESSURE_ADC_MIN, BRAKE_PRESSURE_ADC_MAX,
                                   BRAKE_PRESSURE_PSI_MIN, BRAKE_PRESSURE_PSI_MAX);
 
-    CAN_SEND_brake_pressure(brake_psi);
+    CAN_SEND_brake_pressure((uint16_t)(brake_psi * PACK_COEFF_BRAKE_PRESSURE_BRAKE_PRESSURE));
 
 }
 

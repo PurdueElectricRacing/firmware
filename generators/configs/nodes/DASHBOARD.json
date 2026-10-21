@@ -156,9 +156,11 @@
                     "signals": [
                         {
                             "signal_name": "brake_pressure",
-                            "data_type": "float",
+                            "data_type": "uint16_t",
                             "description": "brake line hydraulic pressure in PSI",
-                            "unit": "psi"
+                            "unit": "psi",
+                            "scale": 0.01
+
                         }
                     ],
                     "priority": 5,

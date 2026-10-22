@@ -1,6 +1,5 @@
 var hierarchy =
 [
-    [ "__attribute__", "struct____attribute____.html", null ],
     [ "a_box_fault_event_data_t", "structa__box__fault__event__data__t.html", null ],
     [ "a_box_fault_sync_data_t", "structa__box__fault__sync__data__t.html", null ],
     [ "abox_init_data_t", "structabox__init__data__t.html", null ],
@@ -202,10 +201,6 @@ var hierarchy =
     [ "pdu_fault_event_data_t", "structpdu__fault__event__data__t.html", null ],
     [ "pdu_fault_sync_data_t", "structpdu__fault__sync__data__t.html", null ],
     [ "pdu_init_data_t", "structpdu__init__data__t.html", null ],
-    [ "pdu_rail_fault_map_t", "structpdu__rail__fault__map__t.html", null ],
-    [ "pdu_rail_voltage_mv_t", "structpdu__rail__voltage__mv__t.html", null ],
-    [ "pdu_state_t", "structpdu__state__t.html", null ],
-    [ "pdu_switch_output_t", "structpdu__switch__output__t.html", null ],
     [ "pdu_temps_data_t", "structpdu__temps__data__t.html", null ],
     [ "pdu_version_data_t", "structpdu__version__data__t.html", null ],
     [ "pedals_data_t", "structpedals__data__t.html", null ],

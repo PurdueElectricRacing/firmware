@@ -15,9 +15,6 @@ var searchData=
   ['cooling_5fstate_5fdebug_12',['COOLING_STATE_DEBUG',['../cooling__fsm_8c.html#ab8dff0eb5455ecaa806c3de5e295912fa1ea7ee620fc5f116029c2bd407ca41b7',1,'cooling_fsm.c']]],
   ['cooling_5fstate_5finit_13',['COOLING_STATE_INIT',['../cooling__fsm_8c.html#ab8dff0eb5455ecaa806c3de5e295912fa43abde2a2d00e0f1c0b3945984a90c29',1,'cooling_fsm.c']]],
   ['cooling_5fstate_5fmanual_14',['COOLING_STATE_MANUAL',['../cooling__fsm_8c.html#ab8dff0eb5455ecaa806c3de5e295912faf273be1841e37a72b4d7851044dd5e7b',1,'cooling_fsm.c']]],
-  ['cs_5f24v_15',['CS_24V',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908ab5b4046bdc5d93263b8d3c19ad499854',1,'switches.h']]],
-  ['cs_5f5v_16',['CS_5V',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a356c97a954aeb970d489c92243d3e24e',1,'switches.h']]],
-  ['cs_5fswitch_5fcount_17',['CS_SWITCH_COUNT',['../switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a65288571c443d6b008a416108b2aa47d',1,'switches.h']]],
-  ['cts_18',['CTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521',1,'usart.h']]],
-  ['cts_5frts_19',['CTS_RTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b',1,'usart.h']]]
+  ['cts_15',['CTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a97dc7d7bbe8a217f4bc934b4a868c521',1,'usart.h']]],
+  ['cts_5frts_16',['CTS_RTS',['../phal__F4_2usart_2usart_8h.html#a764ee627968d428e2ca107a995cdf7c2a4e65306446c6c91076975dffc310218b',1,'usart.h']]]
 ];

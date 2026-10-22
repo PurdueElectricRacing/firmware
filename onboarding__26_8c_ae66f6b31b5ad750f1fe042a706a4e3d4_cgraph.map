@@ -1,0 +1,25 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,129,55,155"/>
+<area shape="rect" id="Node000002" href="$onboarding__26_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e" title=" " alt="" coords="129,55,260,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="45,127,71,107,101,89,115,83,117,88,104,94,74,112,48,131"/>
+<area shape="rect" id="Node000003" href="$onboarding__26_8c.html#af9e0b6686fbdc3979c3ff5372cd7d1b2" title=" " alt="" coords="158,104,230,130"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="55,136,142,122,143,127,56,141"/>
+<area shape="rect" id="Node000004" href="$phal__F4_2rcc_2rcc_8c.html#a7e9d115c0ba7b71bc58eafed17751479" title="Configure all AHB/APB/System clocks from the provided configuration." alt="" coords="103,153,286,179"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="56,143,88,148,87,153,55,148"/>
+<area shape="rect" id="Node000012" href="$phal__F4_2gpio_2gpio_8c.html#a9f473c8a74e27d069fa4de69fcbb4d60" title="Initilize the GPIO perpheral given a list of configuration fields for all of the GPIO pins...." alt="" coords="137,203,252,228"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="48,153,74,172,104,189,123,197,121,202,102,194,71,176,45,157"/>
+<area shape="rect" id="Node000005" href="$phal__F4_2rcc_2rcc_8c.html#a1509d2e2c10b134bcc26f1465881db33" title="Configure AHB Clock rate by modifying the AHB prescaler value." alt="" coords="356,5,533,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="268,151,284,140,295,129,302,117,307,91,313,65,320,52,332,40,341,34,344,39,336,44,325,56,318,67,312,92,307,119,300,132,288,144,270,155"/>
+<area shape="rect" id="Node000006" href="$phal__F4_2rcc_2rcc_8c.html#a0bbab857de2d2d1e08975dc977b68342" title="Configure APB1 Clock rate by modifying the APB1 prescaler value." alt="" coords="352,55,536,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="262,150,285,140,299,128,308,115,317,102,333,89,342,84,345,89,335,94,321,105,312,118,303,132,287,144,264,155"/>
+<area shape="rect" id="Node000007" href="$phal__F4_2rcc_2rcc_8c.html#acb32cd6570e5e56268df32a141c188f0" title="Configure APB1 Clock rate by modifying the APB2 prescaler value." alt="" coords="352,104,536,130"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="263,150,360,131,361,136,264,155"/>
+<area shape="rect" id="Node000008" href="$phal__F4_2rcc_2rcc_8c.html#ac2cfc3641ee4abbb3480dc5f401a7235" title="Configure HSE CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED..." alt="" coords="334,153,554,179"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="287,164,318,164,318,169,287,169"/>
+<area shape="rect" id="Node000009" href="$phal__F4_2rcc_2rcc_8c.html#a29b119d6f21bf411f02442d651ac4ff9" title="Configure HSI CLK as the System Clock. SHOULD BE DONE BEFORE ANY OF THE AHB OR APB CLOCKS ARE CHANGED..." alt="" coords="336,203,552,228"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="264,177,361,196,360,202,263,182"/>
+<area shape="rect" id="Node000010" href="$phal__F4_2rcc_2rcc_8c.html#abd0ea1bcc85ce9ff20dc37966d0286d0" title="Configure PLL CLK as the System Clock at the desired target frequency. SHOULD BE DONE BEFORE ANY OF T..." alt="" coords="335,252,553,278"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="264,177,287,188,303,201,312,214,321,227,335,239,345,243,342,248,333,243,317,231,308,217,299,204,285,192,262,182"/>
+<area shape="rect" id="Node000011" href="$phal__F4_2rcc_2rcc_8c.html#ae8e3a1b142cf74b1b38984c805673cf5" title="Configure PLL VCO Clock rate The VCO clock is the input clock for the different PLL outputs...." alt="" coords="360,301,529,327"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="270,177,288,188,300,201,307,214,312,240,318,265,325,277,336,288,347,295,344,300,332,292,320,280,313,267,307,241,302,216,295,204,284,192,268,182"/>
+</map>

@@ -98,7 +98,6 @@ $(function(){initNavTree('cooling__fsm_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -108,7 +107,6 @@ $(function(){initNavTree('cooling__fsm_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &quot;<a class="el" href="cooling__fsm_8h_source.html">cooling_fsm.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PDU_8h_source.html">can_library/generated/PDU.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="bangbang_8h_source.html">common/bangbang/bangbang.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="phal__F4_2pwm_2pwm_8h_source.html">common/phal_F4/pwm/pwm.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="max_8h_source.html">common/utils/max.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cooling__callbacks_8h_source.html">cooling_callbacks.h</a>&quot;</code><br />
 <code>#include &quot;main.h&quot;</code><br />
@@ -118,11 +116,6 @@ Include dependency graph for cooling_fsm.c:</div>
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="cooling__fsm_8c__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a444757d41caffbc1833a9c4f95b76098" id="r_a444757d41caffbc1833a9c4f95b76098"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a444757d41caffbc1833a9c4f95b76098">FAN_PWM_TIM</a>&#160;&#160;&#160;(TIM1)</td></tr>
-<tr class="separator:a444757d41caffbc1833a9c4f95b76098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ab8dff0eb5455ecaa806c3de5e295912f" id="r_ab8dff0eb5455ecaa806c3de5e295912f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8dff0eb5455ecaa806c3de5e295912f">cooling_state_t</a> { <a class="el" href="#ab8dff0eb5455ecaa806c3de5e295912fa43abde2a2d00e0f1c0b3945984a90c29">COOLING_STATE_INIT</a> = 0
@@ -151,12 +144,6 @@ Variables</h2></td></tr>
 <tr class="separator:a0052cf7afdcfce036519abd07ff6c0de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7001fcdd1f29dce79351f2e0b10b5576" id="r_a7001fcdd1f29dce79351f2e0b10b5576"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="#ab8dff0eb5455ecaa806c3de5e295912f">cooling_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7001fcdd1f29dce79351f2e0b10b5576">next_cooling_state</a> = <a class="el" href="#ab8dff0eb5455ecaa806c3de5e295912fa43abde2a2d00e0f1c0b3945984a90c29">COOLING_STATE_INIT</a></td></tr>
 <tr class="separator:a7001fcdd1f29dce79351f2e0b10b5576"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb3ae749eb4b6f32ebb133b502d7ac69" id="r_acb3ae749eb4b6f32ebb133b502d7ac69"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb3ae749eb4b6f32ebb133b502d7ac69">PWM_FREQUENCY_HZ</a> = 25'000</td></tr>
-<tr class="separator:acb3ae749eb4b6f32ebb133b502d7ac69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af75fd921b34bb732e81d4905a9e410ce" id="r_af75fd921b34bb732e81d4905a9e410ce"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af75fd921b34bb732e81d4905a9e410ce">NUM_BATTERY_FANS</a> = 4</td></tr>
-<tr class="separator:af75fd921b34bb732e81d4905a9e410ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5edf3dd9764f4bd6fdf053bc9989ab14" id="r_a5edf3dd9764f4bd6fdf053bc9989ab14"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5edf3dd9764f4bd6fdf053bc9989ab14">FANS_PWM_DUTY</a> = 50</td></tr>
-<tr class="separator:a5edf3dd9764f4bd6fdf053bc9989ab14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9185c87e8d88814031a4ba2062587db5" id="r_a9185c87e8d88814031a4ba2062587db5"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9185c87e8d88814031a4ba2062587db5">POWERTRAIN_PUMPS_UPPER_LIMIT</a> = 40.0f</td></tr>
 <tr class="separator:a9185c87e8d88814031a4ba2062587db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d35d5f8446c08cd4423c78dae950f1f" id="r_a9d35d5f8446c08cd4423c78dae950f1f"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d35d5f8446c08cd4423c78dae950f1f">POWERTRAIN_PUMPS_LOWER_LIMIT</a> = 35.0f</td></tr>
@@ -176,21 +163,6 @@ Variables</h2></td></tr>
 <tr class="memitem:a926f53d1732a7cebcec36d7557159a46" id="r_a926f53d1732a7cebcec36d7557159a46"><td class="memItemLeft" align="right" valign="top">static constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a926f53d1732a7cebcec36d7557159a46">BATTERY_FAN_INTERVAL</a> = 1000</td></tr>
 <tr class="separator:a926f53d1732a7cebcec36d7557159a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a444757d41caffbc1833a9c4f95b76098" name="a444757d41caffbc1833a9c4f95b76098"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a444757d41caffbc1833a9c4f95b76098">&#9670;&#160;</a></span>FAN_PWM_TIM</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN_PWM_TIM&#160;&#160;&#160;(TIM1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ab8dff0eb5455ecaa806c3de5e295912f" name="ab8dff0eb5455ecaa806c3de5e295912f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8dff0eb5455ecaa806c3de5e295912f">&#9670;&#160;</a></span>cooling_state_t</h2>
@@ -230,7 +202,7 @@ Variables</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="cooling__fsm_8c_a7451962d8f0e593a9d72b536d858e9bf_cgraph.svg" width="100%" height="569"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="cooling__fsm_8c_a7451962d8f0e593a9d72b536d858e9bf_cgraph.svg" width="100%" height="475"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -487,28 +459,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a5edf3dd9764f4bd6fdf053bc9989ab14" name="a5edf3dd9764f4bd6fdf053bc9989ab14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5edf3dd9764f4bd6fdf053bc9989ab14">&#9670;&#160;</a></span>FANS_PWM_DUTY</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t FANS_PWM_DUTY = 50</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a95035ce7342017cd4cb9356848d04731" name="a95035ce7342017cd4cb9356848d04731"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95035ce7342017cd4cb9356848d04731">&#9670;&#160;</a></span>HX_FAN_INTERVAL</h2>
 
@@ -597,28 +547,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="af75fd921b34bb732e81d4905a9e410ce" name="af75fd921b34bb732e81d4905a9e410ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af75fd921b34bb732e81d4905a9e410ce">&#9670;&#160;</a></span>NUM_BATTERY_FANS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t NUM_BATTERY_FANS = 4</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a00989516163be3c5312509791773f88f" name="a00989516163be3c5312509791773f88f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00989516163be3c5312509791773f88f">&#9670;&#160;</a></span>POWERTRAIN_PUMPS_INTERVAL</h2>
 
@@ -674,28 +602,6 @@ Here is the caller graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname">float POWERTRAIN_PUMPS_UPPER_LIMIT = 40.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acb3ae749eb4b6f32ebb133b502d7ac69" name="acb3ae749eb4b6f32ebb133b502d7ac69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb3ae749eb4b6f32ebb133b502d7ac69">&#9670;&#160;</a></span>PWM_FREQUENCY_HZ</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t PWM_FREQUENCY_HZ = 25'000</td>
         </tr>
       </table>
   </td>

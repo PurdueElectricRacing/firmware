@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Sets the font color of a specified object on the Nextion display." alt="" coords="656,221,786,246"/>
 <area shape="rect" id="Node000002" href="$calibration_8c.html#ada13ef83abd18bb0bca101454a62ab22" title="Updates the LCD display with current pedal telemetry data when on CALIBRATION page." alt="" coords="452,5,592,46"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="707,208,669,135,641,95,607,60,590,49,593,44,610,56,645,91,674,132,712,206"/>
-<area shape="rect" id="Node000003" href="$dashboard_2driver__interface_2pages_2faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" title=" " alt="" coords="442,70,601,96"/>
+<area shape="rect" id="Node000003" href="$faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" title=" " alt="" coords="442,70,601,96"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="700,210,660,163,635,139,607,117,569,99,572,94,610,113,638,135,664,160,704,207"/>
 <area shape="rect" id="Node000004" href="$race_8c.html#af94dd7e3b6512b662e2e44124a1a660c" title=" " alt="" coords="206,122,387,148"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="692,213,654,185,607,161,552,147,495,138,387,133,388,127,495,132,553,141,609,157,657,180,696,209"/>

@@ -279,7 +279,7 @@ var sectionId = 'dynsection-1';
 <!-- Node8 -->
 <g id="Node000008" class="node">
 <title>Node8</title>
-<g id="a_Node000008"><a xlink:href="dashboard_2driver__interface_2pages_2faults_8c.html" target="_top" xlink:title="Faults page implementation.">
+<g id="a_Node000008"><a xlink:href="faults_8c.html" target="_top" xlink:title="Faults page implementation.">
 <polygon fill="white" stroke="#666666" points="284,-174.75 151,-174.75 151,-133 284,-133 284,-174.75"/>
 <text text-anchor="start" x="159" y="-161.25" font-family="Helvetica,sans-Serif" font-size="10.00">firmware/source/dashboard</text>
 <text text-anchor="start" x="159" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">/driver_interface/pages</text>

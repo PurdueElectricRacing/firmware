@@ -293,9 +293,9 @@
 <!-- Node12 -->
 <g id="Node000012" class="node">
 <title>Node12</title>
-<g id="a_Node000012"><a xlink:href="PDU_8h.html#ad6fc0e82bd1bc573fe2c05b15f26bfeb" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="424.12,-74.25 300.88,-74.25 300.88,-55 424.12,-55 424.12,-74.25"/>
-<text text-anchor="middle" x="362.5" y="-60.75" font-family="Helvetica,sans-Serif" font-size="10.00">CAN_enqueue_tx_CAN1</text>
+<g id="a_Node000012"><a xlink:href="PDU_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="430.5,-74.25 294.5,-74.25 294.5,-55 430.5,-55 430.5,-74.25"/>
+<text text-anchor="middle" x="362.5" y="-60.75" font-family="Helvetica,sans-Serif" font-size="10.00">CAN_enqueue_tx_FDCAN1</text>
 </a>
 </g>
 </g>

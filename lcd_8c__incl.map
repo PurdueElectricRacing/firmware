@@ -14,7 +14,7 @@
 <area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="413,42,315,62,263,78,213,96,151,131,101,168,97,163,148,126,211,92,261,73,314,57,412,36"/>
 <area shape="rect" id="Node000010" href="$calibration_8h.html" title="Calibration page implementation." alt="" coords="653,94,782,120"/>
 <area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="556,44,671,86,669,91,554,49"/>
-<area shape="rect" id="Node000011" href="$dashboard_2driver__interface_2pages_2faults_8h.html" title="Faults page implementation." alt="" coords="806,94,909,120"/>
+<area shape="rect" id="Node000011" href="$faults_8h.html" title="Faults page implementation." alt="" coords="806,94,909,120"/>
 <area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="591,44,792,88,790,93,590,49"/>
 <area shape="rect" id="Node000012" href="$source_2dashboard_2driver__interface_2pages_2amk_8h.html" title="AMK page implementation." alt="" coords="932,94,1028,120"/>
 <area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="591,38,918,91,917,96,590,43"/>

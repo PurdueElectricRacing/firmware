@@ -1,13 +1,11 @@
 var PDU_8h =
 [
     [ "can_data_t", "structcan__data__t.html", "structcan__data__t" ],
-    [ "USE_CAN1", "PDU_8h.html#af8beb484666a76b2f982b323b11da416", null ],
-    [ "CAN_bus_t", "PDU_8h.html#a824eac4d08ac6bbfc496ef3965a2e326", null ],
+    [ "USE_FDCAN1", "PDU_8h.html#aa6f2e9810d43532cf45597c1d5d527cb", null ],
     [ "a_box_fault_event_CALLBACK", "PDU_8h.html#aa873c4950ddbb6ff735af725068dec4f", null ],
     [ "a_box_fault_sync_CALLBACK", "PDU_8h.html#ac6ea10a098cfdf4504d664bee642ad9f", null ],
-    [ "bxcan_set_filters", "PDU_8h.html#af8ca77a2289959991a2b9f2e1a935761", null ],
     [ "CAN_data_init", "PDU_8h.html#a7648a5b3e6b1d5a97d23a27cfdecde87", null ],
-    [ "CAN_enqueue_tx_CAN1", "PDU_8h.html#ad6fc0e82bd1bc573fe2c05b15f26bfeb", null ],
+    [ "CAN_enqueue_tx_FDCAN1", "PDU_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01", null ],
     [ "CAN_rx_dispatcher", "PDU_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b", null ],
     [ "CAN_SEND_coolant_out", "PDU_8h.html#af237495897276dabfb25440f4d41d374", null ],
     [ "CAN_SEND_fan_current2", "PDU_8h.html#a65b842c622566fe304a1aa869a935870", null ],
@@ -23,6 +21,7 @@ var PDU_8h =
     [ "CAN_SEND_v_rails", "PDU_8h.html#a2924926fc7af507cce870dadeda178d4", null ],
     [ "dashboard_fault_event_CALLBACK", "PDU_8h.html#a8bcfce9b94d677f6570b38112209ce37", null ],
     [ "dashboard_fault_sync_CALLBACK", "PDU_8h.html#aba3b7f2fe675ac8c4a9a479d4072d785", null ],
+    [ "FDCAN1_set_filters", "PDU_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0", null ],
     [ "is_a_box_fault_sync_stale", "PDU_8h.html#a5f70eb297014e827043ecdb554cb9135", null ],
     [ "is_dashboard_fault_sync_stale", "PDU_8h.html#ab96c9ea78ab9ad6f8a0f7dd1daf363e4", null ],
     [ "is_igbt_temps_stale", "PDU_8h.html#a5e74cd8edf1f5fced8432f378a59bc6a", null ],

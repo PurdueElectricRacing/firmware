@@ -734,7 +734,7 @@ var sectionId = 'dynsection-4';
 <!-- Node26 -->
 <g id="Node000026" class="node">
 <title>Node26</title>
-<g id="a_Node000026"><a xlink:href="dashboard_2driver__interface_2pages_2faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" target="_top" xlink:title=" ">
+<g id="a_Node000026"><a xlink:href="faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="453.75,-663.25 334.25,-663.25 334.25,-644 453.75,-644 453.75,-663.25"/>
 <text text-anchor="middle" x="394" y="-649.75" font-family="Helvetica,sans-Serif" font-size="10.00">faults_telemetry_update</text>
 </a>

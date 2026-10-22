@@ -1,31 +1,10 @@
 var pdu_2main_8c =
 [
-    [ "TargetCoreClockrateHz", "pdu_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008", null ],
     [ "DEFINE_CAN_TASKS", "pdu_2main_8c.html#a577e29103ef4d1e1121dc63cfb074498", null ],
-    [ "DEFINE_HEARTBEAT_TASK", "pdu_2main_8c.html#a1b30d509eaf12fde072dd9517cf65a70", null ],
     [ "DEFINE_WATCHDOG_TASK", "pdu_2main_8c.html#a11a067a3a0541dc1ed61e5c9bb7591b5", null ],
     [ "HardFault_Handler", "pdu_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
-    [ "heartbeat_led_sweep", "pdu_2main_8c.html#a49fd1c4ee0c92a2b3ae7fb88303f4f70", null ],
     [ "main", "pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
     [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a316f501a48573fc6e77ee26cef81871c", null ],
     [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a1072641c5374921f4f988a1a797b0b71", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a8008d32b0d04d76ec4659da803625091", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a1837a5bd246693b3af61b7f2d1ccfbe7", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#acf52bd7f23c07fe04b95993f892d2f56", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#aaf9a10b9a763bcac0b6c9bd713bfac4c", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a8ae13000cf15cf5943bd195c7af85d4b", null ],
-    [ "tsal_delayed_start", "pdu_2main_8c.html#acc99dc7f38a9be9a6692bd341629325f", null ],
-    [ "adc_channel_config", "pdu_2main_8c.html#a900ff7ac22bd3d9e8566f23458355b34", null ],
-    [ "adc_config", "pdu_2main_8c.html#a6af434e991280036f038f6db015e26f9", null ],
-    [ "adc_dma_config", "pdu_2main_8c.html#aed595ebe33fb020bde82d6a1bcca6052", null ],
-    [ "adc_readings", "pdu_2main_8c.html#a27666df6fadbd9638916906797be5ebe", null ],
-    [ "AHBClockRateHz", "pdu_2main_8c.html#a2c40deeaa6aeb002bafb0bc892484e0c", null ],
-    [ "APB1ClockRateHz", "pdu_2main_8c.html#ae3f547c0ac514dd12e5bab27a6b60bec", null ],
-    [ "APB2ClockRateHz", "pdu_2main_8c.html#afdc1120bbc54485ac4c735d8f9756743", null ],
-    [ "clock_config", "pdu_2main_8c.html#a2e372d6fcb26e99141502c56d908f788", null ],
-    [ "gpio_config", "pdu_2main_8c.html#a60563c6df24a123ae18e090bca85f555", null ],
-    [ "PLLClockRateHz", "pdu_2main_8c.html#aac132aa42c20a1d3744db9df04f31c54", null ],
-    [ "spi_config", "pdu_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf", null ],
-    [ "spi_rx_dma_config", "pdu_2main_8c.html#a048ceaccc44b006a77f0c988ae1877ce", null ],
-    [ "spi_tx_dma_config", "pdu_2main_8c.html#ac9d88a12a20b964301d43f839eee3f94", null ]
+    [ "gpio_config", "pdu_2main_8c.html#a0445edd8b78aacc940a1a3848a9b9166", null ]
 ];

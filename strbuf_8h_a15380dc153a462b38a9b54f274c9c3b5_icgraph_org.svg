@@ -897,7 +897,7 @@
 <!-- Node41 -->
 <g id="Node000041" class="node">
 <title>Node41</title>
-<g id="a_Node000041"><a xlink:href="dashboard_2driver__interface_2pages_2faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" target="_top" xlink:title=" ">
+<g id="a_Node000041"><a xlink:href="faults_8c.html#a9b3a3d15a61836bc8747994b6fd90be1" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="273.12,-888.25 153.62,-888.25 153.62,-869 273.12,-869 273.12,-888.25"/>
 <text text-anchor="middle" x="213.38" y="-874.75" font-family="Helvetica,sans-Serif" font-size="10.00">faults_telemetry_update</text>
 </a>

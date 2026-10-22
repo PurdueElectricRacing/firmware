@@ -1,6 +1,5 @@
 var annotated_dup =
 [
-    [ "__attribute__", "struct____attribute____.html", "struct____attribute____" ],
     [ "a_box_fault_event_data_t", "structa__box__fault__event__data__t.html", "structa__box__fault__event__data__t" ],
     [ "a_box_fault_sync_data_t", "structa__box__fault__sync__data__t.html", "structa__box__fault__sync__data__t" ],
     [ "abox_init_data_t", "structabox__init__data__t.html", "structabox__init__data__t" ],
@@ -203,10 +202,6 @@ var annotated_dup =
     [ "pdu_fault_event_data_t", "structpdu__fault__event__data__t.html", "structpdu__fault__event__data__t" ],
     [ "pdu_fault_sync_data_t", "structpdu__fault__sync__data__t.html", "structpdu__fault__sync__data__t" ],
     [ "pdu_init_data_t", "structpdu__init__data__t.html", "structpdu__init__data__t" ],
-    [ "pdu_rail_fault_map_t", "structpdu__rail__fault__map__t.html", "structpdu__rail__fault__map__t" ],
-    [ "pdu_rail_voltage_mv_t", "structpdu__rail__voltage__mv__t.html", "structpdu__rail__voltage__mv__t" ],
-    [ "pdu_state_t", "structpdu__state__t.html", "structpdu__state__t" ],
-    [ "pdu_switch_output_t", "structpdu__switch__output__t.html", "structpdu__switch__output__t" ],
     [ "pdu_temps_data_t", "structpdu__temps__data__t.html", "structpdu__temps__data__t" ],
     [ "pdu_version_data_t", "structpdu__version__data__t.html", "structpdu__version__data__t" ],
     [ "pedals_data_t", "structpedals__data__t.html", "structpedals__data__t" ],

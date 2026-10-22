@@ -100,7 +100,6 @@ $(function(){initNavTree('PDU_8h.html',''); initResizable(true); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">PDU.h File Reference</div></div>
@@ -124,7 +123,7 @@ Include dependency graph for PDU.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h__dep__incl.svg" width="646" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h__dep__incl.svg" width="323" height="140"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="PDU_8h_source.html">Go to the source code of this file.</a></p>
@@ -136,18 +135,13 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af8beb484666a76b2f982b323b11da416" id="r_af8beb484666a76b2f982b323b11da416"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8beb484666a76b2f982b323b11da416">USE_CAN1</a></td></tr>
-<tr class="separator:af8beb484666a76b2f982b323b11da416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a824eac4d08ac6bbfc496ef3965a2e326" id="r_a824eac4d08ac6bbfc496ef3965a2e326"><td class="memItemLeft" align="right" valign="top">typedef CAN_TypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a824eac4d08ac6bbfc496ef3965a2e326">CAN_bus_t</a></td></tr>
-<tr class="separator:a824eac4d08ac6bbfc496ef3965a2e326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6f2e9810d43532cf45597c1d5d527cb" id="r_aa6f2e9810d43532cf45597c1d5d527cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa6f2e9810d43532cf45597c1d5d527cb">USE_FDCAN1</a></td></tr>
+<tr class="separator:aa6f2e9810d43532cf45597c1d5d527cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad6fc0e82bd1bc573fe2c05b15f26bfeb" id="r_ad6fc0e82bd1bc573fe2c05b15f26bfeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6fc0e82bd1bc573fe2c05b15f26bfeb">CAN_enqueue_tx_CAN1</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
-<tr class="separator:ad6fc0e82bd1bc573fe2c05b15f26bfeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90647dbc98bbf7bc6c1e9ef85f4d2f01" id="r_a90647dbc98bbf7bc6c1e9ef85f4d2f01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="separator:a90647dbc98bbf7bc6c1e9ef85f4d2f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa873c4950ddbb6ff735af725068dec4f" id="r_aa873c4950ddbb6ff735af725068dec4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa873c4950ddbb6ff735af725068dec4f">a_box_fault_event_CALLBACK</a> ()</td></tr>
 <tr class="separator:aa873c4950ddbb6ff735af725068dec4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bcfce9b94d677f6570b38112209ce37" id="r_a8bcfce9b94d677f6570b38112209ce37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bcfce9b94d677f6570b38112209ce37">dashboard_fault_event_CALLBACK</a> ()</td></tr>
@@ -208,8 +202,8 @@ Functions</h2></td></tr>
 <tr class="separator:a80badc80d1121e8d450502c72b46f28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6546661f6fba0e7b4dc471c8b6862def" id="r_a6546661f6fba0e7b4dc471c8b6862def"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6546661f6fba0e7b4dc471c8b6862def">CAN_SEND_pdu_fault_sync</a> (bool value_dash_rail, bool value_abox_rail, bool value_main_rail, bool value_v_crit, bool value_v_noncrit, bool value_front_driveline_rail, bool value_rear_driveline_rail, bool value_bullet_rail, bool value_lv_critical_low, bool value_lv_getting_low, bool value_lv_batt_fifty)</td></tr>
 <tr class="separator:a6546661f6fba0e7b4dc471c8b6862def"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8ca77a2289959991a2b9f2e1a935761" id="r_af8ca77a2289959991a2b9f2e1a935761"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8ca77a2289959991a2b9f2e1a935761">bxcan_set_filters</a> ()</td></tr>
-<tr class="separator:af8ca77a2289959991a2b9f2e1a935761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba0a04c386ae2ff86a7d67c0a0a9ad0" id="r_afba0a04c386ae2ff86a7d67c0a0a9ad0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afba0a04c386ae2ff86a7d67c0a0a9ad0">FDCAN1_set_filters</a> ()</td></tr>
+<tr class="separator:afba0a04c386ae2ff86a7d67c0a0a9ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -243,29 +237,14 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>This file is auto-generated; do not modify manually. </dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="af8beb484666a76b2f982b323b11da416" name="af8beb484666a76b2f982b323b11da416"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8beb484666a76b2f982b323b11da416">&#9670;&#160;</a></span>USE_CAN1</h2>
+<a id="aa6f2e9810d43532cf45597c1d5d527cb" name="aa6f2e9810d43532cf45597c1d5d527cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6f2e9810d43532cf45597c1d5d527cb">&#9670;&#160;</a></span>USE_FDCAN1</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define USE_CAN1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a824eac4d08ac6bbfc496ef3965a2e326" name="a824eac4d08ac6bbfc496ef3965a2e326"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a824eac4d08ac6bbfc496ef3965a2e326">&#9670;&#160;</a></span>CAN_bus_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef CAN_TypeDef <a class="el" href="A__BOX_8h.html#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a></td>
+          <td class="memname">#define USE_FDCAN1</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -333,31 +312,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="af8ca77a2289959991a2b9f2e1a935761" name="af8ca77a2289959991a2b9f2e1a935761"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8ca77a2289959991a2b9f2e1a935761">&#9670;&#160;</a></span>bxcan_set_filters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void bxcan_set_filters </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a7648a5b3e6b1d5a97d23a27cfdecde87" name="a7648a5b3e6b1d5a97d23a27cfdecde87"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7648a5b3e6b1d5a97d23a27cfdecde87">&#9670;&#160;</a></span>CAN_data_init()</h2>
 
@@ -388,14 +342,14 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ad6fc0e82bd1bc573fe2c05b15f26bfeb" name="ad6fc0e82bd1bc573fe2c05b15f26bfeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6fc0e82bd1bc573fe2c05b15f26bfeb">&#9670;&#160;</a></span>CAN_enqueue_tx_CAN1()</h2>
+<a id="a90647dbc98bbf7bc6c1e9ef85f4d2f01" name="a90647dbc98bbf7bc6c1e9ef85f4d2f01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90647dbc98bbf7bc6c1e9ef85f4d2f01">&#9670;&#160;</a></span>CAN_enqueue_tx_FDCAN1()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CAN_enqueue_tx_CAN1 </td>
+          <td class="memname">void CAN_enqueue_tx_FDCAN1 </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
           <td></td>
@@ -405,7 +359,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="PDU_8h_ad6fc0e82bd1bc573fe2c05b15f26bfeb_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="PDU_8h_a90647dbc98bbf7bc6c1e9ef85f4d2f01_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -488,7 +442,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_af237495897276dabfb25440f4d41d374_cgraph.svg" width="570" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_af237495897276dabfb25440f4d41d374_cgraph.svg" width="586" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -527,12 +481,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a65b842c622566fe304a1aa869a935870_cgraph.svg" width="574" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a65b842c622566fe304a1aa869a935870_icgraph.svg" width="436" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a65b842c622566fe304a1aa869a935870_cgraph.svg" width="591" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -581,12 +530,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a83dabcf3a1e20cc274e4d3f4ac241308_cgraph.svg" width="586" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a83dabcf3a1e20cc274e4d3f4ac241308_icgraph.svg" width="447" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a83dabcf3a1e20cc274e4d3f4ac241308_cgraph.svg" width="602" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -630,7 +574,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a9e388ec8a89c7c5c3faaf2eef85cedbc_cgraph.svg" width="587" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a9e388ec8a89c7c5c3faaf2eef85cedbc_cgraph.svg" width="604" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -669,7 +613,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a80badc80d1121e8d450502c72b46f28a_cgraph.svg" width="555" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a80badc80d1121e8d450502c72b46f28a_cgraph.svg" width="572" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -753,7 +697,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a6546661f6fba0e7b4dc471c8b6862def_cgraph.svg" width="590" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a6546661f6fba0e7b4dc471c8b6862def_cgraph.svg" width="606" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -788,7 +732,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a984d4c08c875de80bf03a51eca2fb6ce_cgraph.svg" width="547" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a984d4c08c875de80bf03a51eca2fb6ce_cgraph.svg" width="564" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -823,12 +767,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a4cebb9d5563ce870858712e7149c37dd_cgraph.svg" width="566" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a4cebb9d5563ce870858712e7149c37dd_icgraph.svg" width="428" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a4cebb9d5563ce870858712e7149c37dd_cgraph.svg" width="583" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -858,12 +797,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a16832d8cf99185c8ae2c7a30c7bbb205_cgraph.svg" width="572" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a16832d8cf99185c8ae2c7a30c7bbb205_icgraph.svg" width="427" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a16832d8cf99185c8ae2c7a30c7bbb205_cgraph.svg" width="590" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -907,12 +841,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a12a68685179297286a3b4d0d6af0bf06_cgraph.svg" width="587" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a12a68685179297286a3b4d0d6af0bf06_icgraph.svg" width="450" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a12a68685179297286a3b4d0d6af0bf06_cgraph.svg" width="604" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -946,12 +875,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a6855364f54024c5a801ee4654996b8e6_cgraph.svg" width="574" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a6855364f54024c5a801ee4654996b8e6_icgraph.svg" width="435" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a6855364f54024c5a801ee4654996b8e6_cgraph.svg" width="590" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -995,12 +919,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a2924926fc7af507cce870dadeda178d4_cgraph.svg" width="540" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a2924926fc7af507cce870dadeda178d4_icgraph.svg" width="402" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_a2924926fc7af507cce870dadeda178d4_cgraph.svg" width="558" height="135"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1061,6 +980,36 @@ Here is the caller graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="PDU_8h_aba3b7f2fe675ac8c4a9a479d4072d785_icgraph.svg" width="340" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afba0a04c386ae2ff86a7d67c0a0a9ad0" name="afba0a04c386ae2ff86a7d67c0a0a9ad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afba0a04c386ae2ff86a7d67c0a0a9ad0">&#9670;&#160;</a></span>FDCAN1_set_filters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void FDCAN1_set_filters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="PDU_8h_afba0a04c386ae2ff86a7d67c0a0a9ad0_cgraph.svg" width="100%" height="511"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"a__box_2main_8h.html#a407e835f0bf84d6b20450ec50407a309":[33,0,1,2,0,7,18],
 "a__box_2main_8h.html#a4373fa65d27b56ce6c56af3b2755aa67":[33,0,1,2,0,7,13],
 "a__box_2main_8h.html#a49b5271295c0b89fbc6d9f7f0c3bf8e0":[33,0,1,2,0,7,29],
 "a__box_2main_8h.html#a4f567293e7d15d3bbcc1f0ac6642b0ed":[33,0,1,2,0,7,19],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "blinky_8c.html#ae965016321c6928065b5ea1cb61edc8e":[33,0,1,2,7,1,6],
 "blinky_8c.html#af1732b68a532fd4dbaa6e34152c49585":[33,0,1,2,7,1,2],
 "bootloader_2main_8c.html":[33,0,1,2,1,4],
-"bootloader_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[33,0,1,2,1,4,0]
+"bootloader_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe":[33,0,1,2,1,4,0],
+"bootloader_8c.html":[33,0,1,2,1,0,0]
 };

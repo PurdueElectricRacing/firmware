@@ -22,7 +22,7 @@
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="1022,123,1209,146,1422,180,1455,187,1454,192,1422,185,1208,151,1022,129"/>
 <area shape="rect" id="Node000007" href="$calibration_8c.html" title="Calibration page implementation." alt="" coords="5,183,183,238"/>
 <area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="822,122,539,142,366,160,194,185,184,187,183,182,194,180,366,154,538,136,822,117"/>
-<area shape="rect" id="Node000008" href="$dashboard_2driver__interface_2pages_2faults_8c.html" title="Faults page implementation." alt="" coords="207,183,384,238"/>
+<area shape="rect" id="Node000008" href="$faults_8c.html" title="Faults page implementation." alt="" coords="207,183,384,238"/>
 <area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="822,127,625,149,397,185,385,188,384,183,396,180,624,144,821,122"/>
 <area shape="rect" id="Node000009" href="$race_8c.html" title="Race page implementation." alt="" coords="408,190,601,231"/>
 <area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="823,139,613,185,584,192,583,187,612,180,822,134"/>

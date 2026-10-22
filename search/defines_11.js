@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['targetcoreclockratehz_0',['TargetCoreClockrateHz',['../daq_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008',1,'TargetCoreClockrateHz:&#160;main.c'],['../canpiler_8c.html#a041cbdf351ae1da6f864d0d249c93008',1,'TargetCoreClockrateHz:&#160;canpiler.c'],['../pdu_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008',1,'TargetCoreClockrateHz:&#160;main.c']]],
+  ['targetcoreclockratehz_0',['TargetCoreClockrateHz',['../daq_2main_8c.html#a041cbdf351ae1da6f864d0d249c93008',1,'TargetCoreClockrateHz:&#160;main.c'],['../onboarding__26_8c.html#a041cbdf351ae1da6f864d0d249c93008',1,'TargetCoreClockrateHz:&#160;onboarding_26.c']]],
   ['test_5fadc_1',['TEST_ADC',['../g4__testing_8h.html#aaa101e52d770ddd28cf31c5cb5fc7691',1,'g4_testing.h']]],
   ['test_5fblinky_2',['TEST_BLINKY',['../g4__testing_8h.html#a2455bf6a6eb220dc21d497c9354997af',1,'g4_testing.h']]],
-  ['test_5fcanpiler_3',['TEST_CANPILER',['../f4__testing_8h.html#a001aa042dc8fa24b816cbf13d20a0779',1,'TEST_CANPILER:&#160;f4_testing.h'],['../g4__testing_8h.html#a001aa042dc8fa24b816cbf13d20a0779',1,'TEST_CANPILER:&#160;g4_testing.h']]],
+  ['test_5fcanpiler_3',['TEST_CANPILER',['../g4__testing_8h.html#a001aa042dc8fa24b816cbf13d20a0779',1,'g4_testing.h']]],
   ['test_5fcrc_4',['TEST_CRC',['../g4__testing_8h.html#a035e6e3a1384beb252cc3372f1b764ba',1,'g4_testing.h']]],
   ['test_5fdiagnostics_5',['TEST_DIAGNOSTICS',['../g4__testing_8h.html#a5915628b95360fda28aac5570f1d95ba',1,'g4_testing.h']]],
   ['test_5ffdcan_6',['TEST_FDCAN',['../g4__testing_8h.html#adf39fdc7d1f3b76e7c361abdc7144e86',1,'g4_testing.h']]],
@@ -36,8 +36,6 @@ var searchData=
   ['tv1_5fminus_5fpin_33',['TV1_MINUS_PIN',['../dashboard_2main_8h.html#a066756c6be4dea791982891445aa58ad',1,'main.h']]],
   ['tv1_5fminus_5fport_34',['TV1_MINUS_PORT',['../dashboard_2main_8h.html#a7c58c4c4eab42860bb3ba131bdb36d8c',1,'main.h']]],
   ['tv_5fbutton_35',['TV_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a26bda9f3f6a5e78cc76c04562d37096d',1,'vcu.h']]],
-  ['tv_5fctrl_5fgpio_5fport_36',['TV_CTRL_GPIO_Port',['../pdu_2main_8h.html#a4d36dfffbdc99145390b7b098d6cada2',1,'main.h']]],
-  ['tv_5fctrl_5fpin_37',['TV_CTRL_Pin',['../pdu_2main_8h.html#abebd218d97f85573e398be66dfe6c7f1',1,'main.h']]],
-  ['tv_5fnflt_5fgpio_5fport_38',['TV_NFLT_GPIO_Port',['../pdu_2main_8h.html#a82d44aadc6fc1c5b1fb86e294fe84c44',1,'main.h']]],
-  ['tv_5fnflt_5fpin_39',['TV_NFLT_Pin',['../pdu_2main_8h.html#a55b6261fb3f492357e7142d06eb436aa',1,'main.h']]]
+  ['tv_5fctrl_5fpin_36',['TV_CTRL_PIN',['../pdu_2main_8h.html#aaf914ef4d6d6318b9dc437c17a38bd05',1,'main.h']]],
+  ['tv_5fctrl_5fport_37',['TV_CTRL_PORT',['../pdu_2main_8h.html#ac36b18466861a504a327d1480e7b9a8a',1,'main.h']]]
 ];

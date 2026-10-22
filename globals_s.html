@@ -318,9 +318,10 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>SD_WP_ERASE_SKIP&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca07b0cc4f75330bdc7efb59f3b3492a3f">sdio.h</a></li>
 <li>SD_WRITE_PROT_VIOLATION&#160;:&#160;<a class="el" href="sdio_8h.html#acff91fa68daa1d1ee967b5b3fb3dbd8ca4e295d82b6481694f927367f35aa182d">sdio.h</a></li>
 <li>SD_WriteMultiBlocks()&#160;:&#160;<a class="el" href="sdio_8c.html#a64baac72a75a2c522e837935009cbe93">sdio.c</a>, <a class="el" href="sdio_8h.html#a64baac72a75a2c522e837935009cbe93">sdio.h</a></li>
-<li>SDC_IMON_ADC_CHNL&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a79bbf37e54451ee85736c1da5bc7b301">main.h</a></li>
-<li>SDC_IMON_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a34c5d7b26bd133c79e352bae73cfadb7">main.h</a></li>
-<li>SDC_IMON_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a8a243f0f4008216a55df3c05570c45e4">main.h</a></li>
+<li>SDC_CTRL_PIN&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a5a188495c7c26449f2c795291a0d0330">main.h</a></li>
+<li>SDC_CTRL_PORT&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a9868a7ea5044ed55e966c70afafac558">main.h</a></li>
+<li>SDC_LOOP_CTRL_PIN&#160;:&#160;<a class="el" href="pdu_2main_8h.html#af3d68cfd876e09bd10bcd8550b8cacf4">main.h</a></li>
+<li>SDC_LOOP_CTRL_PORT&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a7fe1e4b16724523b6047fabd7aea2537">main.h</a></li>
 <li>SDC_MUX_PIN&#160;:&#160;<a class="el" href="main__module_2main_8h.html#a65f979a00e84c8672ad78513ce027c57">main.h</a></li>
 <li>SDC_MUX_PORT&#160;:&#160;<a class="el" href="main__module_2main_8h.html#ae89c6f9448b5ebf484d754ff0bffe57b">main.h</a></li>
 <li>SDC_MUX_S0_PIN&#160;:&#160;<a class="el" href="main__module_2main_8h.html#a6ab8b80492bebccca7389d81362f425e">main.h</a></li>
@@ -373,10 +374,9 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>SELECT_BUTTON&#160;:&#160;<a class="el" href="driver__interface_8h.html#a229e398c86c302f6e87d5be9a8570f89acbbf4b5e94047f1709cf9c9f902129be">driver_interface.h</a></li>
 <li>SELECT_BUTTON_PIN&#160;:&#160;<a class="el" href="dashboard_2main_8h.html#a22d6bc3e2e246b1d9f7e7fdfcbf586d9">main.h</a></li>
 <li>SELECT_BUTTON_PORT&#160;:&#160;<a class="el" href="dashboard_2main_8h.html#a636a8047167ffb246bc6e7af2ea67094">main.h</a></li>
-<li>selected&#160;:&#160;<a class="el" href="dashboard_2driver__interface_2pages_2faults_8c.html#a04aba38221005387b6e6c05f0c20d933">faults.c</a></li>
-<li>selected_count&#160;:&#160;<a class="el" href="dashboard_2driver__interface_2pages_2faults_8c.html#a6b6ef146e66284208ee799b768636ce6">faults.c</a></li>
+<li>selected&#160;:&#160;<a class="el" href="faults_8c.html#a04aba38221005387b6e6c05f0c20d933">faults.c</a></li>
+<li>selected_count&#160;:&#160;<a class="el" href="faults_8c.html#a6b6ef146e66284208ee799b768636ce6">faults.c</a></li>
 <li>selectItem()&#160;:&#160;<a class="el" href="lcd_8c.html#ac609e22e16c9e8ab1b73acd57e5b7664">lcd.c</a>, <a class="el" href="lcd_8h.html#a8834a26aed8ec5f812aa1e55512047c6">lcd.h</a></li>
-<li>send_periodic()&#160;:&#160;<a class="el" href="canpiler_8c.html#acaa1e25c4d31d8a87cbecf968c4d6c57">canpiler.c</a></li>
 <li>send_vcu_driver_request()&#160;:&#160;<a class="el" href="vcu_8c.html#a6caabd0f1b9de183fbb9454dd432bbc7">vcu.c</a>, <a class="el" href="dashboard_2driver__interface_2pages_2vcu_8h.html#a6caabd0f1b9de183fbb9454dd432bbc7">vcu.h</a></li>
 <li>service_start_button()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#a18c3e1428bba19774305c0d3b3b97942">main.c</a></li>
 <li>set_bus_id()&#160;:&#160;<a class="el" href="timestamped__frame_8h.html#ac28171e9120619fc3fac4b2ce4052f6b">timestamped_frame.h</a></li>
@@ -398,16 +398,12 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>spi1_lock&#160;:&#160;<a class="el" href="daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377">main.h</a></li>
 <li>SPI1_MISO_PIN&#160;:&#160;<a class="el" href="a__box_2main_8h.html#ad78661760fc1a7e2851c49d3cead2519">main.h</a></li>
 <li>SPI1_MISO_PORT&#160;:&#160;<a class="el" href="a__box_2main_8h.html#ab5b19097bd266c7ae535367e8ad26b9d">main.h</a></li>
-<li>SPI1_MOSI_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a66d81b5cb6fbf068d7a6eb9d16b9af97">main.h</a></li>
 <li>SPI1_MOSI_PIN&#160;:&#160;<a class="el" href="a__box_2main_8h.html#a0eef22ccdc4fd88572ba8543445522c6">main.h</a></li>
-<li>SPI1_MOSI_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a2adcc6277c16a129f1346aeb6693d12d">main.h</a></li>
 <li>SPI1_MOSI_PORT&#160;:&#160;<a class="el" href="a__box_2main_8h.html#abd943e6739a8907e4114a1438de0101e">main.h</a></li>
 <li>spi1_rx_dma&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a74b59d963c2e2e12058d027a4392f3e8">main.c</a></li>
 <li>SPI1_RX_DMA_WIRING&#160;:&#160;<a class="el" href="dma__wiring_8h.html#a9974ab25651fd7bf6d63803c9e26781d">dma_wiring.h</a></li>
 <li>SPI1_RXDMA_CONT_CONFIG&#160;:&#160;<a class="el" href="phal__F4_2spi_2spi_8h.html#a138f02a7cbb378847fbf648524342247">spi.h</a></li>
-<li>SPI1_SCK_GPIO_Port&#160;:&#160;<a class="el" href="pdu_2main_8h.html#aab3c54e5a01694dbec8caf22db8a4cc0">main.h</a></li>
 <li>SPI1_SCK_PIN&#160;:&#160;<a class="el" href="a__box_2main_8h.html#aafbcfb01e19fc70a09a6b130e1e7154a">main.h</a></li>
-<li>SPI1_SCK_Pin&#160;:&#160;<a class="el" href="pdu_2main_8h.html#a4282a56cacbdee5eee2349b34e349e6b">main.h</a></li>
 <li>SPI1_SCK_PORT&#160;:&#160;<a class="el" href="a__box_2main_8h.html#a16c59789b6e89795dedda18d344950b3">main.h</a></li>
 <li>spi1_tx_dma&#160;:&#160;<a class="el" href="a__box_2main_8c.html#a40a59859bbadb9d8ab250430b7793916">main.c</a></li>
 <li>SPI1_TX_DMA_WIRING&#160;:&#160;<a class="el" href="dma__wiring_8h.html#a063b8c0e555a110a470ad767e9a6dc4c">dma_wiring.h</a></li>
@@ -418,7 +414,6 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>SPI2_TXDMA_CONT_CONFIG&#160;:&#160;<a class="el" href="phal__F4_2spi_2spi_8h.html#a06e18d5b51b4646a94248ccb2ad3d083">spi.h</a></li>
 <li>SPI3_RX_DMA_WIRING&#160;:&#160;<a class="el" href="dma__wiring_8h.html#a8ba928528d0e982ec47c593b606e3a0a">dma_wiring.h</a></li>
 <li>SPI3_TX_DMA_WIRING&#160;:&#160;<a class="el" href="dma__wiring_8h.html#aa40f61768e09843a7ee22ad899f8cfa9">dma_wiring.h</a></li>
-<li>spi_config&#160;:&#160;<a class="el" href="led_8c.html#ada0a7177585eb88526a6239618b3bfdf">led.c</a>, <a class="el" href="pdu_2main_8c.html#ada0a7177585eb88526a6239618b3bfdf">main.c</a></li>
 <li>SPI_CPHA&#160;:&#160;<a class="el" href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4">spi.h</a></li>
 <li>SPI_CPHA_FIRST_EDGE&#160;:&#160;<a class="el" href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4a938aa9bf0d6f5c65656fbc49b478b55f">spi.h</a></li>
 <li>SPI_CPHA_SECOND_EDGE&#160;:&#160;<a class="el" href="phal__G4_2spi_2spi_8h.html#a26da2bbd284e1fb8d8517cac6bd79bf4aa2aeb931791a2d3a0718081ebbf54cee">spi.h</a></li>
@@ -471,7 +466,6 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>START_HEARTBEAT_TASK&#160;:&#160;<a class="el" href="heartbeat_8h.html#af26a1445fde81a0129f7cbc8df05234b">heartbeat.h</a></li>
 <li>START_WATCHDOG_TASK&#160;:&#160;<a class="el" href="watchdog_8h.html#a3aaba072bf5e5337aef793ceccdcf462">watchdog.h</a></li>
 <li>STATE_HOVER&#160;:&#160;<a class="el" href="menu__system_8h.html#a68ed64a710b08a6168e943eb64184ac1a64f5d9ccdb80c60e5e93ad7a87d7ae18">menu_system.h</a></li>
-<li>state_init_defaults()&#160;:&#160;<a class="el" href="state_8c.html#ac80b1fdffd2b213f1acca79ae8e08daf">state.c</a>, <a class="el" href="state_8h.html#ac80b1fdffd2b213f1acca79ae8e08daf">state.h</a></li>
 <li>STATE_NORMAL&#160;:&#160;<a class="el" href="menu__system_8h.html#a68ed64a710b08a6168e943eb64184ac1ae583c55c9f9a3aa9888e4ed771d6a9b6">menu_system.h</a></li>
 <li>STATE_SELECTED&#160;:&#160;<a class="el" href="menu__system_8h.html#a68ed64a710b08a6168e943eb64184ac1afd733622cc37edb40dc28d4d5a64468d">menu_system.h</a></li>
 <li>status_leds&#160;:&#160;<a class="el" href="driver__interface_8c.html#ab358b4de0d227c3352c7bad61fd1dc9c">driver_interface.c</a></li>
@@ -485,42 +479,7 @@ $(function(){initNavTree('globals_s.html',''); initResizable(true); });
 <li>strbuf_append()&#160;:&#160;<a class="el" href="strbuf_8c.html#a15380dc153a462b38a9b54f274c9c3b5">strbuf.c</a>, <a class="el" href="strbuf_8h.html#a15380dc153a462b38a9b54f274c9c3b5">strbuf.h</a></li>
 <li>strbuf_clear()&#160;:&#160;<a class="el" href="strbuf_8c.html#a64d216f0276598d2d7f68c8a0c453fb7">strbuf.c</a>, <a class="el" href="strbuf_8h.html#a64d216f0276598d2d7f68c8a0c453fb7">strbuf.h</a></li>
 <li>strbuf_printf()&#160;:&#160;<a class="el" href="strbuf_8c.html#a52ce36e86451c208f1846411e1f67dcf">strbuf.c</a>, <a class="el" href="strbuf_8h.html#a52ce36e86451c208f1846411e1f67dcf">strbuf.h</a></li>
-<li>SW_ABOX&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a34784e0c870ad4e3ff24cf0a49467522">switches.h</a></li>
-<li>SW_AMK1&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908aa81a14807496f1d0a61a11c7df86d9a1">switches.h</a></li>
-<li>SW_AMK2&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908ae13b05a5a0f5cb38bcbafa7c3893b186">switches.h</a></li>
-<li>SW_BLT&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a76de9f5d47a3c407855236c918001a22">switches.h</a></li>
-<li>SW_CRIT_5V&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908aeac04cd28779c8ff18d76de1d8465969">switches.h</a></li>
-<li>SW_DAQ&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a0e3b76cbde1363f092166e703b5d183f">switches.h</a></li>
-<li>SW_DASH&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908ab55f52edacb688361673c960365b73c6">switches.h</a></li>
-<li>SW_DLBK&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a5fbc87f44b15245bd4588936a5863f6b">switches.h</a></li>
-<li>SW_DLFR&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a8d0c2ae3c90f4a3976fe6c62497998e8">switches.h</a></li>
-<li>SW_FAN_1&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a9562311c83616798106796c8bc2aa78d">switches.h</a></li>
-<li>SW_FAN_2&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a02145ca97cef32b6d34468172aac2c68">switches.h</a></li>
-<li>SW_FAN_3&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908abc841c3246f6ef64c4d2f86cbb5fd648">switches.h</a></li>
-<li>SW_FAN_4&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a133f093f20237a9d6bd62101904be39d">switches.h</a></li>
-<li>SW_FAN_5V&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a8c31a195778d040f66f1ea4d57a8c0ea">switches.h</a></li>
-<li>SW_HXFAN&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a30f5dc2e8396d7a495fdb7f1dadf0299">switches.h</a></li>
-<li>SW_MAIN&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a3624ce7c67672c683bab4fc454c90ac6">switches.h</a></li>
-<li>SW_PUMP_1&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a6726b6535a6601856e8d2d78ae306681">switches.h</a></li>
-<li>SW_PUMP_2&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908ac7c851a273702b18fb02eb0e63bf566c">switches.h</a></li>
-<li>SW_SDC&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a5e8e716a88499c0a90bfd44d3e853a53">switches.h</a></li>
-<li>SW_TV&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908a1681ce183da93db2b98629553a31a4aa">switches.h</a></li>
 <li>sweep_external_leds()&#160;:&#160;<a class="el" href="dashboard_2main_8c.html#afde7bfa6b37748d965fb66a4803f2ced">main.c</a></li>
-<li>switches_convert_high_power_current_ma()&#160;:&#160;<a class="el" href="switches_8c.html#a8aebaf3a15e8d571a5a9539f51c60f16">switches.c</a></li>
-<li>switches_convert_low_power_current_ma()&#160;:&#160;<a class="el" href="switches_8c.html#a52cb8201953eab3826bc803cd87effdf">switches.c</a></li>
-<li>switches_convert_voltage_mv()&#160;:&#160;<a class="el" href="switches_8c.html#ae148a5913ea002eae4477aa4ef931add">switches.c</a></li>
-<li>switches_enable_default_rails()&#160;:&#160;<a class="el" href="switches_8c.html#a648e7e2302d8087adb8524263eec4904">switches.c</a>, <a class="el" href="switches_8h.html#a648e7e2302d8087adb8524263eec4904">switches.h</a></li>
-<li>switches_get_mux_adc_counts()&#160;:&#160;<a class="el" href="switches_8c.html#acc4561d15b7443975c53953d7f857df8">switches.c</a>, <a class="el" href="switches_8h.html#acc4561d15b7443975c53953d7f857df8">switches.h</a></li>
-<li>switches_get_output()&#160;:&#160;<a class="el" href="switches_8c.html#acea7adf6b3c7467cbfdc370909323858">switches.c</a></li>
-<li>switches_init()&#160;:&#160;<a class="el" href="switches_8c.html#a1e5ebcb346c25e1755e3ccb1e9f3c9f9">switches.c</a>, <a class="el" href="switches_8h.html#a1e5ebcb346c25e1755e3ccb1e9f3c9f9">switches.h</a></li>
-<li>switches_is_enabled()&#160;:&#160;<a class="el" href="switches_8c.html#a2d9f39c10e6dfcb8da78ca2be37e2727">switches.c</a>, <a class="el" href="switches_8h.html#a2d9f39c10e6dfcb8da78ca2be37e2727">switches.h</a></li>
-<li>switches_periodic()&#160;:&#160;<a class="el" href="switches_8c.html#a03794eeb58f3e98710c5deb68f56274e">switches.c</a>, <a class="el" href="switches_8h.html#a03794eeb58f3e98710c5deb68f56274e">switches.h</a></li>
-<li>switches_select_mux_channel()&#160;:&#160;<a class="el" href="switches_8c.html#aac5168113c659fcbaaefec68b5cdacd5">switches.c</a></li>
-<li>switches_set_state()&#160;:&#160;<a class="el" href="switches_8c.html#ab353c152a3e71488b0fbdc922abbae0a">switches.c</a>, <a class="el" href="switches_8h.html#ab353c152a3e71488b0fbdc922abbae0a">switches.h</a></li>
-<li>switches_t&#160;:&#160;<a class="el" href="switches_8h.html#afd674820118f9c76a33b0b8a9b0ff908">switches.h</a></li>
-<li>switches_update_currents()&#160;:&#160;<a class="el" href="switches_8c.html#a164a3649d88bae002e0fb378939d8ffa">switches.c</a></li>
-<li>switches_update_mux_measurements()&#160;:&#160;<a class="el" href="switches_8c.html#a356def06d7d75314665779877ee925ac">switches.c</a></li>
-<li>switches_update_voltages()&#160;:&#160;<a class="el" href="switches_8c.html#ad6c5524937861c805489f5f6ad5b2b3d">switches.c</a></li>
 <li>SysTick_Handler()&#160;:&#160;<a class="el" href="bootloader_8c.html#ab5e09814056d617c521549e542639b7e">bootloader.c</a></li>
 </ul>
 </div><!-- contents -->

@@ -1,15 +1,13 @@
 <map id="PHAL_DMA_startTxfer" name="PHAL_DMA_startTxfer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="443,80,598,106"/>
-<area shape="rect" id="Node000002" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="272,5,321,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="475,76,394,45,321,26,322,20,396,40,477,71"/>
-<area shape="rect" id="Node000003" href="$phal__F4_2usart_2usart_8c.html#abbaa51dfa3243c22b4015aaff9eba9da" title="Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete." alt="" coords="229,55,364,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="427,85,364,78,364,72,428,80"/>
-<area shape="rect" id="Node000004" href="$sdio_8c.html#ad6c4df3070c195bbc2067e19a702f495" title="Configures the DMA2 Channel4 for SDIO Rx request." alt="" coords="198,104,395,130"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="428,105,396,109,395,104,427,100"/>
-<area shape="rect" id="Node000006" href="$sdio_8c.html#ac9ea7d624e0f216c27188ecadd1a3cbe" title="Configures the DMA 2 Channel 6 for SDIO Tx request." alt="" coords="198,153,394,179"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="476,115,396,145,358,155,357,150,394,140,474,110"/>
-<area shape="rect" id="Node000005" href="$sdio_8c.html#a56b7336165f2631d9142a513ea2d0d17" title="Allows to read blocks from a specified address in a card. The Data transfer can be managed by DMA mod..." alt="" coords="5,104,150,130"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="182,120,150,120,150,114,182,114"/>
-<area shape="rect" id="Node000007" href="$sdio_8c.html#a64baac72a75a2c522e837935009cbe93" title="Allows to write blocks starting from a specified address in a card. The Data transfer can be managed ..." alt="" coords="5,153,150,179"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="182,169,150,169,150,164,182,164"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="443,55,598,80"/>
+<area shape="rect" id="Node000002" href="$phal__F4_2usart_2usart_8c.html#abbaa51dfa3243c22b4015aaff9eba9da" title="Starts a tx using dma, use PHAL_usartTxDmaComplete to ensure the previous transmission is complete." alt="" coords="229,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="443,53,358,34,359,29,445,48"/>
+<area shape="rect" id="Node000003" href="$sdio_8c.html#ad6c4df3070c195bbc2067e19a702f495" title="Configures the DMA2 Channel4 for SDIO Rx request." alt="" coords="198,55,395,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="427,70,396,70,396,65,427,65"/>
+<area shape="rect" id="Node000005" href="$sdio_8c.html#ac9ea7d624e0f216c27188ecadd1a3cbe" title="Configures the DMA 2 Channel 6 for SDIO Tx request." alt="" coords="198,104,394,130"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="445,87,359,106,358,101,443,82"/>
+<area shape="rect" id="Node000004" href="$sdio_8c.html#a56b7336165f2631d9142a513ea2d0d17" title="Allows to read blocks from a specified address in a card. The Data transfer can be managed by DMA mod..." alt="" coords="5,55,150,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="182,70,150,70,150,65,182,65"/>
+<area shape="rect" id="Node000006" href="$sdio_8c.html#a64baac72a75a2c522e837935009cbe93" title="Allows to write blocks starting from a specified address in a card. The Data transfer can be managed ..." alt="" coords="5,104,150,130"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="182,120,150,120,150,114,182,114"/>
 </map>

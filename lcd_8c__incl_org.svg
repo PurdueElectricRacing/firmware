@@ -148,7 +148,7 @@
 <!-- Node11 -->
 <g id="Node000011" class="node">
 <title>Node11</title>
-<g id="a_Node000011"><a xlink:href="dashboard_2driver__interface_2pages_2faults_8h.html" target="_top" xlink:title="Faults page implementation.">
+<g id="a_Node000011"><a xlink:href="faults_8h.html" target="_top" xlink:title="Faults page implementation.">
 <polygon fill="white" stroke="#666666" points="677.43,-141 600.68,-141 600.68,-121.75 677.43,-121.75 677.43,-141"/>
 <text text-anchor="middle" x="639.05" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">pages/faults.h</text>
 </a>

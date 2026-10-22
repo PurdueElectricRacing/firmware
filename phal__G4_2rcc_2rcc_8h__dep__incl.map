@@ -1,33 +1,35 @@
 <map id="firmware/common/phal_G4/rcc/rcc.h" name="firmware/common/phal_G4/rcc/rcc.h">
-<area shape="rect" id="Node000001" title="G4 RCC public API implementation." alt="" coords="1048,5,1200,46"/>
+<area shape="rect" id="Node000001" title="G4 RCC public API implementation." alt="" coords="1149,5,1302,46"/>
 <area shape="rect" id="Node000002" href="$pwm__priv_8c.html" title="Private STM32G4 PWM register implementation." alt="" coords="5,94,158,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1032,32,658,51,418,70,177,97,158,99,157,94,176,91,418,64,658,45,1032,27"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1134,31,957,37,719,48,449,68,177,97,158,99,157,94,176,91,448,62,718,43,957,32,1134,26"/>
 <area shape="rect" id="Node000003" href="$phal__G4_2rcc_2rcc_8c.html" title="G4 RCC public API implementation." alt="" coords="119,183,271,223"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1033,30,822,35,568,45,447,54,343,65,264,79,238,87,222,96,207,115,199,138,196,182,190,182,194,136,203,112,218,92,236,82,263,74,342,59,446,48,567,40,822,29,1033,25"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1134,30,902,32,615,42,478,50,359,62,270,77,240,86,222,96,207,115,199,138,196,182,190,182,194,136,203,112,218,92,238,81,269,72,359,56,477,45,614,36,901,27,1134,24"/>
 <area shape="rect" id="Node000004" href="$rcc__priv_8h.html" title="G4 RCC private/register level implementation." alt="" coords="232,94,384,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1033,35,748,56,573,73,397,97,385,99,384,93,396,91,572,68,748,50,1033,29"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1134,33,808,53,602,71,397,97,385,98,384,93,396,91,602,66,807,47,1134,28"/>
 <area shape="rect" id="Node000006" href="$spi__priv_8c.html" title="G4 SPI Peripheral private/register level implementation." alt="" coords="408,94,560,135"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="1033,38,822,61,573,97,561,99,560,93,572,91,821,56,1032,33"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="1134,36,880,58,726,75,573,97,561,99,560,93,572,91,726,70,880,53,1133,31"/>
 <area shape="rect" id="Node000007" href="$imd_8c.html" title="ABOX IMD PWM measurement and state reporting." alt="" coords="584,94,736,135"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="1033,45,749,97,737,99,736,94,748,91,1032,40"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="1134,40,955,64,749,97,737,99,736,94,748,91,955,59,1133,35"/>
 <area shape="rect" id="Node000008" href="$a__box_2main_8c.html" title="&quot;Abox&quot; node source code" alt="" coords="760,94,912,135"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="1045,53,902,96,901,91,1043,48"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="1135,50,913,99,912,94,1134,45"/>
 <area shape="rect" id="Node000009" href="$bootloader_8c.html" title=" " alt="" coords="936,94,1113,135"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="1092,58,1049,96,1045,92,1088,54"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="1167,55,1071,96,1069,91,1165,50"/>
 <area shape="rect" id="Node000010" href="$bootloader_2main_8c.html" title=" " alt="" coords="1137,94,1314,135"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="1160,54,1204,92,1201,96,1157,58"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="1228,62,1228,94,1223,94,1223,62"/>
 <area shape="rect" id="Node000011" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="1338,94,1513,135"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="1208,48,1358,91,1356,96,1206,53"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="1286,50,1381,91,1379,96,1284,55"/>
 <area shape="rect" id="Node000012" href="$dashboard_2main_8c.html" title="&quot;Dashboard&quot; node source code" alt="" coords="1537,94,1714,135"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="1216,39,1525,91,1537,94,1536,99,1524,97,1215,44"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="1318,44,1537,91,1536,96,1317,49"/>
 <area shape="rect" id="Node000013" href="$driveline_2main_8c.html" title="&quot;Driveline&quot; node source code" alt="" coords="1739,94,1904,135"/>
-<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="1216,32,1448,55,1727,91,1739,93,1738,99,1726,97,1448,60,1215,37"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="1317,35,1507,59,1727,91,1739,93,1738,99,1726,97,1506,64,1317,40"/>
 <area shape="rect" id="Node000014" href="$blinky_8c.html" title=" " alt="" coords="1928,94,2059,135"/>
-<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="1216,27,1527,46,1722,65,1917,91,1928,93,1927,99,1916,97,1721,70,1527,51,1216,33"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="1318,29,1587,49,1752,67,1917,91,1928,93,1927,99,1916,97,1751,73,1587,55,1317,34"/>
 <area shape="rect" id="Node000015" href="$main__module_2main_8c.html" title="&quot;Main Module&quot; node source code" alt="" coords="2084,94,2229,135"/>
-<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="1216,26,1377,32,1590,44,1830,63,2071,91,2084,93,2083,99,2070,97,1829,68,1590,49,1377,37,1216,32"/>
-<area shape="rect" id="Node000016" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="2253,94,2406,135"/>
-<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="1216,25,1404,29,1659,40,1949,59,2097,74,2242,91,2253,93,2252,98,2241,97,2096,79,1948,65,1658,45,1403,35,1216,30"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="1317,27,1651,46,1860,65,2071,91,2084,93,2083,99,2070,97,1860,70,1650,52,1317,33"/>
+<area shape="rect" id="Node000016" href="$pdu_2main_8c.html" title="&quot;PDU&quot; node source code" alt="" coords="2252,94,2391,135"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="1317,25,1489,30,1719,40,1980,60,2242,91,2252,93,2251,98,2241,97,1979,65,1719,46,1489,35,1317,31"/>
+<area shape="rect" id="Node000017" href="$torque__vector_2main_8c.html" title="&quot;Torque Vector&quot; node source code" alt="" coords="2414,94,2568,135"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="1317,25,1514,28,1784,38,2092,58,2249,73,2403,91,2414,93,2413,98,2402,97,2249,78,2091,64,1783,44,1514,34,1317,30"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="272,146,222,184,219,180,269,142"/>
 <area shape="rect" id="Node000005" href="$rcc__priv_8c.html" title="G4 RCC private/register level implementation." alt="" coords="295,183,447,223"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="333,146,359,181,355,184,329,149"/>

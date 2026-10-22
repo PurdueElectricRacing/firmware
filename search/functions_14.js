@@ -16,7 +16,7 @@ var searchData=
   ['update_5fmotor_5ftelemetry_13',['update_motor_telemetry',['../race_8c.html#a236fe508f9d82e9178cdb22b363116b7',1,'race.c']]],
   ['update_5fpack_5ftelemetry_14',['update_pack_telemetry',['../race_8c.html#a218ea7152d92e1c6574e594de6c5f0be',1,'race.c']]],
   ['update_5fpedal_5ftelemetry_15',['update_pedal_telemetry',['../race_8c.html#a5bfcd06a5fd74df355d94d048067ea44',1,'race.c']]],
-  ['update_5fselected_5ffaults_16',['update_selected_faults',['../dashboard_2driver__interface_2pages_2faults_8c.html#ac6828552ff14e82b0f203515b1bf4e13',1,'faults.c']]],
+  ['update_5fselected_5ffaults_16',['update_selected_faults',['../faults_8c.html#ac6828552ff14e82b0f203515b1bf4e13',1,'faults.c']]],
   ['update_5fspeed_5ftelemetry_17',['update_speed_telemetry',['../race_8c.html#aa6c8ec640e3dabc849e52c5a84863461',1,'race.c']]],
   ['update_5ftsal_18',['update_tsal',['../vehicle__fsm_8c.html#a18fe5546cd7ae011c084d5507646ea83',1,'vehicle_fsm.c']]],
   ['update_5ftv_5fbar_19',['update_tv_bar',['../race_8c.html#ae54e1380740da10a82a20f9599c83c47',1,'race.c']]],

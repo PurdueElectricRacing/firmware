@@ -1,10 +1,12 @@
 /**
- * @file can_irq.c
- * @brief Timestamped frame producers from CAN RX IRQ
+ * @file can_callback.c
+ * @brief Timestamped frame producer from the CAN RX callback
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  * @author Millan Kumar (kumar798@purdue.edu)
  */
+
+#include <string.h>
 
 #include "can_library/generated/VCAN.h"
 #include "common/phal_F4/can/can.h"
@@ -27,9 +29,7 @@ void PHAL_CAN_rxCallback(CanMsgTypeDef_t *msg) {
     set_xid(&rx, msg->IDE);
     set_can_id(&rx, msg->IDE ? msg->ExtId : msg->StdId);
 
-    for (uint8_t i = 0; i < msg->DLC; ++i) {
-        rx.payload |= (uint64_t)msg->Data[i] << (8 * i);
-    }
+    memcpy(&rx.payload, msg->Data, msg->DLC);
 
     (void)SPMC_enqueue_from_ISR(&g_spmc, &rx);
 

@@ -20,11 +20,11 @@ typedef struct {
     uint32_t timing;
 } PHAL_CAN_bit_timing_t;
 
-static bool PHAL_CAN_isValidBus(const CAN_TypeDef *bus) {
+static bool is_valid_bus(const CAN_TypeDef *bus) {
     return bus == CAN1 || bus == CAN2;
 }
 
-static bool PHAL_CAN_getBitTiming(PHAL_FDCAN_BaudRate_t bit_rate, uint32_t *timing) {
+static bool get_bit_timing(PHAL_FDCAN_BaudRate_t bit_rate, uint32_t *timing) {
     static constexpr PHAL_CAN_bit_timing_t timings[] = {
         {16'000'000, FDCAN_BAUD_250K, PHAL_CAN_16MHZ_250K},
         {24'000'000, FDCAN_BAUD_250K, PHAL_CAN_24MHZ_250K},
@@ -52,7 +52,7 @@ static bool PHAL_CAN_getBitTiming(PHAL_FDCAN_BaudRate_t bit_rate, uint32_t *timi
     return false;
 }
 
-static void PHAL_CAN_configureFilters(CAN_TypeDef *bus,
+static void configure_filters(CAN_TypeDef *bus,
                                       const uint32_t *sid_list,
                                       uint32_t num_sid,
                                       const uint32_t *xid_list,
@@ -95,7 +95,7 @@ static void PHAL_CAN_configureFilters(CAN_TypeDef *bus,
 
 bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate) {
     uint32_t timing = 0;
-    if (!PHAL_CAN_isValidBus(bus) || !PHAL_CAN_getBitTiming(bit_rate, &timing)) {
+    if (!is_valid_bus(bus) || !get_bit_timing(bit_rate, &timing)) {
         return false;
     }
 
@@ -112,7 +112,7 @@ bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate) {
 
     bus->BTR = timing;
     bus->MCR |= CAN_MCR_ABOM;
-    PHAL_CAN_configureFilters(bus, nullptr, 0, nullptr, 0);
+    configure_filters(bus, nullptr, 0, nullptr, 0);
     bus->IER &= ~CAN_IER_FMPIE1;
     bus->IER |= CAN_IER_FMPIE0 | CAN_IER_TMEIE;
 
@@ -128,7 +128,7 @@ bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
                          uint32_t num_sid,
                          const uint32_t *xid_list,
                          uint32_t num_xid) {
-    if (!PHAL_CAN_isValidBus(bus) || num_sid > PHAL_CAN_MAX_NUM_SID_FILTER
+    if (!is_valid_bus(bus) || num_sid > PHAL_CAN_MAX_NUM_SID_FILTER
         || num_xid > PHAL_CAN_MAX_NUM_XID_FILTER || num_sid + num_xid > PHAL_CAN_MAX_FILTER_IDS
         || (num_sid > 0 && sid_list == nullptr) || (num_xid > 0 && xid_list == nullptr)) {
         return false;
@@ -144,12 +144,12 @@ bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
         }
     }
 
-    PHAL_CAN_configureFilters(bus, sid_list, num_sid, xid_list, num_xid);
+    configure_filters(bus, sid_list, num_sid, xid_list, num_xid);
     return true;
 }
 
 bool PHAL_CAN_send(CanMsgTypeDef_t *msg) {
-    if (msg == nullptr || !PHAL_CAN_isValidBus(msg->Bus) || msg->DLC > sizeof(msg->Data)
+    if (msg == nullptr || !is_valid_bus(msg->Bus) || msg->DLC > sizeof(msg->Data)
         || (msg->IDE ? msg->ExtId > PHAL_CAN_MAX_EXT_ID : msg->StdId > PHAL_CAN_MAX_STD_ID)) {
         return false;
     }
@@ -183,10 +183,10 @@ bool PHAL_CAN_send(CanMsgTypeDef_t *msg) {
 }
 
 bool PHAL_CAN_txFifoFree(const CAN_TypeDef *bus) {
-    return PHAL_CAN_isValidBus(bus) && (bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2));
+    return is_valid_bus(bus) && (bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2));
 }
 
-static void PHAL_CAN_rxIRQHandler(CAN_TypeDef *bus) {
+static void rx_irq_handler(CAN_TypeDef *bus) {
     while (bus->RF0R & CAN_RF0R_FMP0) {
         CanMsgTypeDef_t msg = {.Bus = bus};
         uint32_t identifier = bus->sFIFOMailBox[0].RIR;
@@ -212,7 +212,7 @@ static void PHAL_CAN_rxIRQHandler(CAN_TypeDef *bus) {
     }
 }
 
-static void PHAL_CAN_txIRQHandler(CAN_TypeDef *bus) {
+static void tx_irq_handler(CAN_TypeDef *bus) {
     bus->IER &= ~CAN_IER_TMEIE;
     uint32_t transmit_status = bus->TSR;
     bus->TSR                 = transmit_status & (CAN_TSR_RQCP0 | CAN_TSR_RQCP1 | CAN_TSR_RQCP2);
@@ -224,19 +224,19 @@ static void PHAL_CAN_txIRQHandler(CAN_TypeDef *bus) {
 }
 
 void CAN1_RX0_IRQHandler(void) {
-    PHAL_CAN_rxIRQHandler(CAN1);
+    rx_irq_handler(CAN1);
 }
 
 void CAN1_TX_IRQHandler(void) {
-    PHAL_CAN_txIRQHandler(CAN1);
+    tx_irq_handler(CAN1);
 }
 
 void CAN2_RX0_IRQHandler(void) {
-    PHAL_CAN_rxIRQHandler(CAN2);
+    rx_irq_handler(CAN2);
 }
 
 void CAN2_TX_IRQHandler(void) {
-    PHAL_CAN_txIRQHandler(CAN2);
+    tx_irq_handler(CAN2);
 }
 
 [[gnu::weak]]

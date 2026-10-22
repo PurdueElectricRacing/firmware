@@ -63,14 +63,14 @@
 #define CTRL21_PIN  (14)
 
 // Analog inputs
-#define RAIL_24V_VS_PORT (GPIOA)
-#define RAIL_24V_VS_PIN  (3)
-#define RAIL_24V_CS_PORT (GPIOB)
-#define RAIL_24V_CS_PIN  (0)
-#define MUX1_OUT_PORT    (GPIOC)
-#define MUX1_OUT_PIN     (4)
-#define MUX2_OUT_PORT    (GPIOA)
-#define MUX2_OUT_PIN     (4)
+#define LVBATT_VS_PORT (GPIOA)
+#define LVBATT_VS_PIN  (3)
+#define LVBATT_CS_PORT (GPIOB)
+#define LVBATT_CS_PIN  (0)
+#define MUX1_OUT_PORT  (GPIOC)
+#define MUX1_OUT_PIN   (4)
+#define MUX2_OUT_PORT  (GPIOA)
+#define MUX2_OUT_PIN   (4)
 
 // Analog multiplexer controls
 #define MUX1_CTRL_A_PORT (GPIOA)

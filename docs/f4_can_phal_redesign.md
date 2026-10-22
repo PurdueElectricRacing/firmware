@@ -49,9 +49,9 @@ Add:
 
 - bxCAN has 28 filter banks: banks 0–13 owned by CAN1, banks 14–27 by CAN2 (CAN2SB=14).
 - In 32-bit scale each bank holds TWO 32-bit filter words (FR1 and FR2), so 14 banks = 28 IDs per peripheral.
-- Layout for a peripheral: base = (bus == CAN2) ? 14 : 0. std IDs fill banks first (FR1 = even index, FR2 = odd index), ext IDs continue in the next bank after the std IDs.
+- Layout for a peripheral: base = (bus == CAN2) ? 14 : 0. std IDs fill banks first (FR1 = even index, FR2 = odd index), ext IDs continue in the next free word after the std IDs, sharing the last std bank when the std count is odd. Duplicate the final ID for an odd combined count.
 - Std ID value: `id << 21`. Ext ID value: `(id << 3) | 4`.
-- Used banks: FM1R cleared (id/mask match mode), FS1R set (32-bit scale), FA1R set (active).
+- Used ID-list banks: FM1R set (ID-list mode), FS1R set (32-bit scale), FA1R set (active). Accept-all banks use mask mode (FM1R cleared).
 - Validation: `num_sid <= 28`, `num_xid <= 8`, and `num_sid + num_xid <= 28` combined (the bxCAN per-peripheral limit); return false otherwise.
 - Re-entry safety: enter init mode on CAN1 (INRQ, wait INAK); de-activate only the banks the target peripheral owns (FA1R bits for that half), write the new config, re-activate, exit init mode. INRQ/FINT enter/exit lives inside the PHAL — `can_init.c` no longer does it.
 
@@ -86,8 +86,7 @@ Add:
 
 ## 5. Other F4 call sites
 
-- `firmware/source/pdu/main.c:289`: `if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE))` → `if (!PHAL_CAN_init(CAN1, VCAN_BAUD_RATE))`.
-- `firmware/source/f4_testing/canpiler.c:54`: same one-line change.
+No migration needed after rebasing onto `origin/master`: PDU now uses G4, and upstream deleted `firmware/source/f4_testing/canpiler.c`.
 
 ## 6. canpiler changes (`generators/canpiler/`)
 
@@ -102,13 +101,23 @@ Add:
 2. TMEIE re-arm policy: bxCAN TME is level-triggered; handler masks on entry, re-enables only if a frame is still in flight. Verify on bench with loopback.
 3. Filter split idempotency: `PHAL_CAN_init` on either bus rewrites CAN1 FMR CAN2SB and its own half's bank state — keep FMR writes canonical so interleaved init/setFilters on the other bus cannot clobber active-bank bits.
 4. bxCAN 28-combined-ID cap is tighter than G4's 28 std + 8 ext when mixing; validate at codegen time.
-5. `pdu/main.c` + `f4_testing/canpiler.c` are the third/fourth init call sites (both `test_mode=false`).
 
 ## 8. Order of implementation
 
 1. F4 PHAL: new `can.h`/`can.c`.
 2. daq migration (`main.c`, `can_irq.c`, `can_irq.h`).
-3. `pdu/main.c` + `f4_testing/canpiler.c` init call-site updates.
+3. Other F4 init call-site updates (obsolete after the upstream G4 migration).
 4. `can_library`: unify `can_tx.c`, simplify `can_init.c` (NVIC RX1 drop, per-peripheral filter calls), drop `can_rx.c` TODO.
 5. canpiler: unify `hardware.py`, converge filter templates, regenerate.
 6. Full build of all targets; fix residuals.
+
+## 9. Completion and validation
+
+Implementation is complete. `python firmware/build_firmware.py` passed a clean configure,
+generation, compilation, link, and packaging run for all firmware targets, including DAQ,
+PDU, standalone images, resident bootloaders, and bootloadable applications. The packaging
+workflow also passed vector-address and application-image validation. No residual build
+fixes were required.
+
+Hardware validation remains outstanding: RX FIFO draining, TX interrupt re-arming, and
+CAN1/CAN2 filter isolation still need bench verification.

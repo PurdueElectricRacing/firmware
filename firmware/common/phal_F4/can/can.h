@@ -48,7 +48,8 @@ typedef enum : uint32_t {
  * used for both TX and RX.
  */
 typedef struct {
-    CAN_TypeDef *Bus; /*!< RX source or TX destination peripheral. */
+    CAN_TypeDef *Bus; /*!< When RX - Bus = which peripheral the frame arrived on
+                           When TX - Bus = which peripheral should transmits it */
     bool IDE;
 
     union {

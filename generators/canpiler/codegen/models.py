@@ -13,7 +13,7 @@ from ..pipeline.models import (
     CompiledNode,
     CompiledSignal,
 )
-from .hardware import BxcanFilters, FdcanFilters
+from .hardware import PeripheralFilters
 
 
 @dataclass(frozen=True)
@@ -68,5 +68,4 @@ class NodeHeaderRenderContext:
     scaling_messages: tuple[SignalConstantsRenderView, ...]
     offset_messages: tuple[SignalConstantsRenderView, ...]
     stale_rx_entries: tuple[RxMessageRenderView, ...]
-    fdcan_filters: Mapping[str, FdcanFilters]
-    bxcan_filters: Mapping[str, BxcanFilters]
+    filters: Mapping[str, PeripheralFilters]

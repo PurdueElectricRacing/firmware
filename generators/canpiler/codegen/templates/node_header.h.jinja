@@ -94,12 +94,9 @@ static inline void CAN_data_init() {
 {% include "node/tx_functions.h.jinja" %}
 
 // Filter configuration
-{% for periph, fdcan_ctx in ctx.fdcan_filters.items() %}
-{% include "filter/fdcan.c.jinja" %}
+{% for periph, filters in ctx.filters.items() %}
+{% set phal_prefix = "PHAL_FDCAN" if periph.startswith("FDCAN") else "PHAL_CAN" %}
+{% include "filter/peripheral.c.jinja" %}
 {% endfor %}
-
-{% if ctx.bxcan_filters %}
-{% include "filter/bxcan.c.jinja" %}
-{% endif %}
 
 #endif // {{ ctx.node.name|upper }}_H

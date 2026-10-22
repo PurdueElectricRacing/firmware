@@ -1,34 +1,34 @@
-// FDCAN filter setup for {{ periph }}
+// CAN filter setup for {{ periph }}
 static inline void {{ periph }}_set_filters() {
-    {% if fdcan_ctx.accept_all %}
-    // Accept all messages - filters configured in PHAL_FDCAN_init() by default
+    {% if filters.accept_all %}
+    // Accept all messages - filters configured in {{ phal_prefix }}_init() by default
     (void)0;
-    {% elif fdcan_ctx.std_ids or fdcan_ctx.ext_ids %}
-    {% if fdcan_ctx.std_ids %}
+    {% elif filters.std_ids or filters.ext_ids %}
+    {% if filters.std_ids %}
     static const uint32_t sid_list[] = {
-        {% for msg in fdcan_ctx.std_ids %}
+        {% for msg in filters.std_ids %}
         {{ msg.macro_name }}_MSG_ID{{ "," if not loop.last }}
         {% endfor %}
     };
     {% endif %}
 
-    {% if fdcan_ctx.ext_ids %}
+    {% if filters.ext_ids %}
     static const uint32_t xid_list[] = {
-        {% for msg in fdcan_ctx.ext_ids %}
+        {% for msg in filters.ext_ids %}
         {{ msg.macro_name }}_MSG_ID{{ "," if not loop.last }}
         {% endfor %}
     };
     {% endif %}
 
-    PHAL_FDCAN_setFilters(
+    {{ phal_prefix }}_setFilters(
         {{ periph }},
-        {% if fdcan_ctx.std_ids %}
-        sid_list, {{ fdcan_ctx.std_ids|length }},
+        {% if filters.std_ids %}
+        sid_list, {{ filters.std_ids|length }},
         {% else %}
         NULL, 0,
         {% endif %}
-        {% if fdcan_ctx.ext_ids %}xid_list,
-        {{ fdcan_ctx.ext_ids|length }}
+        {% if filters.ext_ids %}xid_list,
+        {{ filters.ext_ids|length }}
         {% else %}
         NULL, 0
         {% endif %}

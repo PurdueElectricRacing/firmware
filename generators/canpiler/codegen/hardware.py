@@ -11,33 +11,17 @@ from typing import Mapping
 from ..pipeline.models import CompiledNode, LinkedCan, LinkedMessage, frozen_mapping
 from core.utils import print_as_warning
 
-# Maximum FDCAN filter counts (STM32G4)
-MAX_FDCAN_SID_FILTERS = 28
-MAX_FDCAN_XID_FILTERS = 8
+# Both PHAL APIs expose these per-ID-type limits; bxCAN also has a combined cap.
+MAX_SID_FILTERS = 28
+MAX_XID_FILTERS = 8
+MAX_BXCAN_FILTERS = 28
 
 
 @dataclass(frozen=True)
-class FilterBank:
-    bank_idx: int
-    msg1: LinkedMessage
-    msg2: LinkedMessage | None = None
-
-
-@dataclass(frozen=True)
-class FdcanFilters:
+class PeripheralFilters:
     accept_all: bool
     std_ids: tuple[LinkedMessage, ...] = ()
     ext_ids: tuple[LinkedMessage, ...] = ()
-
-
-@dataclass(frozen=True)
-class BxcanFilters:
-    accept_all: bool
-    accept_bank_idx: int
-    banks: tuple[FilterBank, ...] = ()
-
-
-PeripheralFilters = FdcanFilters | BxcanFilters
 
 
 @dataclass(frozen=True)
@@ -51,7 +35,7 @@ HardwareMap = Mapping[str, NodeHardwareMap]
 def map_hardware(linked: LinkedCan) -> HardwareMap:
     """
     Hardware Mapper stage.
-    Assigns physical resources (like bxCAN filter banks or FDCAN filter lists) to nodes.
+    Builds per-peripheral PHAL filter lists for nodes.
     """
     hardware_map = {}
 
@@ -110,87 +94,36 @@ def map_node_hardware(
             if bus.peripheral == periph
         )
 
-        if is_fdcan_peripheral(periph):
-            filters[periph] = map_fdcan_filters(
-                node.name,
-                periph,
-                msgs,
-                accept_all,
-            )
-        else:
-            filters[periph] = map_bxcan_filters(
-                node.name,
-                periph,
-                msgs,
-                accept_all,
-            )
+        filters[periph] = map_peripheral_filters(node.name, periph, msgs, accept_all)
 
     return NodeHardwareMap(filters=frozen_mapping(filters))
 
 
-def map_fdcan_filters(
+def map_peripheral_filters(
     node_name: str,
     periph: str,
     msgs: list[LinkedMessage],
     accept_all: bool,
-) -> FdcanFilters:
-    """Map messages to FDCAN standard and extended ID filter lists"""
+) -> PeripheralFilters:
+    """Build PHAL ID lists; bank packing belongs to the peripheral HAL."""
     std_ids = tuple(msg for msg in msgs if not msg.is_extended)
     ext_ids = tuple(msg for msg in msgs if msg.is_extended)
+    arch = "FDCAN" if is_fdcan_peripheral(periph) else "bxCAN"
 
-    # Check filter limits
-    if len(std_ids) > MAX_FDCAN_SID_FILTERS:
+    if len(std_ids) > MAX_SID_FILTERS:
         raise ValueError(
-            f"Node '{node_name}' exceeds FDCAN standard ID filter limit for {periph} "
-            f"({len(std_ids)} > {MAX_FDCAN_SID_FILTERS})"
+            f"Node '{node_name}' exceeds {arch} standard ID filter limit for {periph} "
+            f"({len(std_ids)} > {MAX_SID_FILTERS})"
         )
-    if len(ext_ids) > MAX_FDCAN_XID_FILTERS:
+    if len(ext_ids) > MAX_XID_FILTERS:
         raise ValueError(
-            f"Node '{node_name}' exceeds FDCAN extended ID filter limit for {periph} "
-            f"({len(ext_ids)} > {MAX_FDCAN_XID_FILTERS})"
+            f"Node '{node_name}' exceeds {arch} extended ID filter limit for {periph} "
+            f"({len(ext_ids)} > {MAX_XID_FILTERS})"
+        )
+    if not is_fdcan_peripheral(periph) and len(msgs) > MAX_BXCAN_FILTERS:
+        raise ValueError(
+            f"Node '{node_name}' exceeds bxCAN combined ID filter limit for {periph} "
+            f"({len(msgs)} > {MAX_BXCAN_FILTERS})"
         )
 
-    return FdcanFilters(
-        accept_all=accept_all,
-        std_ids=std_ids,
-        ext_ids=ext_ids,
-    )
-
-
-def map_bxcan_filters(
-    node_name: str,
-    periph: str,
-    msgs: list[LinkedMessage],
-    accept_all: bool,
-) -> BxcanFilters:
-    """Map messages to bxCAN filter banks"""
-    banks = []
-
-    # bxCAN filter bank assignment
-    # CAN1: 0-13, CAN2: 14-27
-    bank_offset = 0 if periph == "CAN1" else 14
-    max_bank = 13 if periph == "CAN1" else 27
-
-    for i in range(0, len(msgs), 2):
-        bank_idx = bank_offset + (i // 2)
-
-        if bank_idx > max_bank:
-            raise ValueError(
-                f"Node '{node_name}' exceeds available bxCAN filter banks for {periph} (limit 14 filters)."
-            )
-
-        msg1 = msgs[i]
-        msg2 = msgs[i + 1] if i + 1 < len(msgs) else None
-
-        fb = FilterBank(
-            bank_idx=bank_idx,
-            msg1=msg1,
-            msg2=msg2,
-        )
-        banks.append(fb)
-
-    return BxcanFilters(
-        accept_all=accept_all,
-        accept_bank_idx=bank_offset,
-        banks=tuple(banks),
-    )
+    return PeripheralFilters(accept_all=accept_all, std_ids=std_ids, ext_ids=ext_ids)

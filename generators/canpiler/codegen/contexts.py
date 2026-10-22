@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from collections import defaultdict
 
 from ..pipeline.models import CompiledNode, CompiledSignal, LinkedCan, frozen_mapping
-from .hardware import FdcanFilters, NodeHardwareMap
+from .hardware import NodeHardwareMap
 from .models import (
     NodeHeaderRenderContext,
     PeripheralRenderView,
@@ -143,15 +143,6 @@ def build_node_header_context(
     )
     offset_views = tuple(value for _, value in sorted(offsets.items()))
 
-    fdcan_filters = {}
-    bxcan_filters = {}
-    if mapping is not None:
-        for peripheral, filters in mapping.filters.items():
-            if isinstance(filters, FdcanFilters):
-                fdcan_filters[peripheral] = filters
-            else:
-                bxcan_filters[peripheral] = filters
-
     return NodeHeaderRenderContext(
         node=node,
         version=version,
@@ -163,6 +154,5 @@ def build_node_header_context(
         scaling_messages=scaling,
         offset_messages=offset_views,
         stale_rx_entries=tuple(entry for entry in rx_entries if entry.msg.period_ms > 0),
-        fdcan_filters=frozen_mapping(fdcan_filters),
-        bxcan_filters=frozen_mapping(bxcan_filters),
+        filters=mapping.filters if mapping is not None else frozen_mapping({}),
     )

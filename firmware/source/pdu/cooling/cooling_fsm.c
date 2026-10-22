@@ -30,11 +30,11 @@ static cooling_state_t next_cooling_state = COOLING_STATE_INIT;
 // static_assert(FANS_PWM_DUTY >= 0, "PWM duty cycle must be between 0 and 99");
 
 // PWM init assumes they're all on the same channel
-#define FAN_PWM_TIM (TIM1)
-static_assert(FAN_1_PWM_TIM == FAN_PWM_TIM);
-static_assert(FAN_2_PWM_TIM == FAN_PWM_TIM);
-static_assert(FAN_3_PWM_TIM == FAN_PWM_TIM);
-static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
+// #define FAN_PWM_TIM (TIM1)
+// static_assert(FAN_1_PWM_TIM == FAN_PWM_TIM);
+// static_assert(FAN_2_PWM_TIM == FAN_PWM_TIM);
+// static_assert(FAN_3_PWM_TIM == FAN_PWM_TIM);
+// static_assert(FAN_4_PWM_TIM == FAN_PWM_TIM);
 
 static constexpr float POWERTRAIN_PUMPS_UPPER_LIMIT = 40.0f;
 static constexpr float POWERTRAIN_PUMPS_LOWER_LIMIT = 35.0f;

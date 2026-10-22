@@ -51,8 +51,6 @@ int main() {
 
     CAN_init();
 
-    PHAL_GPIO_write(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
-
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
     RTOS_START_TASK(cooling_fsm_periodic);

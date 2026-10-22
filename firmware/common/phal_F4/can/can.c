@@ -8,13 +8,7 @@
 extern uint32_t APB1ClockRateHz;
 
 static bool valid_bus(const CAN_TypeDef *bus) {
-    if (bus == CAN1)
-        return true;
-#ifdef CAN2
-    if (bus == CAN2)
-        return true;
-#endif
-    return false;
+    return bus == CAN1 || bus == CAN2;
 }
 
 static bool get_bit_timing(PHAL_FDCAN_BaudRate_t bit_rate, uint32_t *timing) {
@@ -51,11 +45,7 @@ static void configure_filters(CAN_TypeDef *bus,
                               const uint32_t *xid_list,
                               uint32_t num_xid) {
     // Filter configuration uses FINIT; neither CAN bus needs an INRQ transition.
-    uint32_t base = 0;
-#ifdef CAN2
-    if (bus == CAN2)
-        base = 14;
-#endif
+    uint32_t base = (bus == CAN2) ? 14U : 0U;
     uint32_t owned = 0x3FFFU << base;
     CAN1->FMR |= CAN_FMR_FINIT;
     CAN1->FMR = (CAN1->FMR & ~CAN_FMR_CAN2SB) | (14U << CAN_FMR_CAN2SB_Pos);
@@ -94,10 +84,8 @@ bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate) {
 
     // CAN2 depends on CAN1's clock, including for the shared filter registers.
     RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
-#ifdef CAN2
     if (bus == CAN2)
         RCC->APB1ENR |= RCC_APB1ENR_CAN2EN;
-#endif
     bus->MCR &= ~CAN_MCR_SLEEP;
     bus->MCR |= CAN_MCR_INRQ;
     while (!(bus->MSR & CAN_MSR_INAK))
@@ -212,7 +200,6 @@ void CAN1_RX0_IRQHandler(void) {
 void CAN1_TX_IRQHandler(void) {
     tx_irq(CAN1);
 }
-#ifdef CAN2
 void CAN2_RX0_IRQHandler(void) {
     rx_irq(CAN2);
 }
@@ -220,7 +207,6 @@ void CAN2_RX0_IRQHandler(void) {
 void CAN2_TX_IRQHandler(void) {
     tx_irq(CAN2);
 }
-#endif
 
 [[gnu::weak]]
 void PHAL_CAN_txCallback(CAN_TypeDef *can) {

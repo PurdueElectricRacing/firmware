@@ -8,6 +8,7 @@
 #include "switch.h"
 #include "main.h"
 
+// todo remap when schematic is fixed
 switch_t switches[NUM_SWITCHES] = {
     [SWITCH_FAN4]     = {.ctrl_port = CTRL1_PORT, .ctrl_pin = CTRL1_PIN, .mux_id = ANALOG_MUX2, .mux_addr = 8, .current_ma = 0},
     [SWITCH_SDC]      = {.ctrl_port = CTRL2_PORT, .ctrl_pin = CTRL2_PIN, .mux_id = ANALOG_MUX1, .mux_addr = 0, .current_ma = 0},

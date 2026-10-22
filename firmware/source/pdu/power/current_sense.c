@@ -5,11 +5,12 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#include "current_sense.h"
 #include "switch.h"
 #include "main.h"
 #include "common/rtos/rtos.h"
 
-void mux_select(mux_id_t mux_id, uint8_t mux_addr) {
+static void mux_select(mux_id_t mux_id, uint8_t mux_addr) {
     switch(mux_id) {
         case NO_MUX:
             break;
@@ -38,7 +39,7 @@ void current_sense_periodic() {
         }
 
         mux_select(sw->mux_id, sw->mux_addr);
-        RTOS_delay_ms(2); // wait for mux to settle
+        RTOS_delay_ms(MUX_SETTLE_DELAY_MS); // wait for mux to settle
 
         uint16_t adc_value = (sw->mux_id == ANALOG_MUX1) ? raw_adc2_values.mux1_out : raw_adc2_values.mux2_out;
         float current = (adc_value);  // todo resistor divider

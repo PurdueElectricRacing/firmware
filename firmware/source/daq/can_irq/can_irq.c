@@ -3,9 +3,8 @@
  * @brief Timestamped frame producers from CAN RX IRQ
  * 
  * @author Irving Wang (irvingw@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
-
-#include "can_irq.h"
 
 #include "can_library/generated/VCAN.h"
 #include "common/phal_F4/can/can.h"

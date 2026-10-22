@@ -58,6 +58,8 @@ constexpr TickType_t SD_BLOCKING_TIMEOUT_TICKS = pdMS_TO_TICKS(SD_BLOCKING_TIMEO
 extern SemaphoreHandle_t spi1_lock;
 extern volatile TaskHandle_t sd_task_handle; // ! handle to be pointed to by SDIO ISR for notifications
 
+extern volatile uint32_t last_can_rx_time_ms;
+
 void HardFault_Handler();
 
 #endif // MAIN_H

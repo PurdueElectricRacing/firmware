@@ -22,7 +22,7 @@ Accepted divergences (call sites are per-app, not shared):
 
 ### 2.1 `can.h` — new public API (hard cut, no compat shims)
 
-Keep: the baud-rates enum, `CanMsgTypeDef_t`, bit-timing macros (plus the missing `PHAL_CAN_42MHz_250k`), the two weak-callback externs.
+Keep: the baud-rates enum, `CanMsgTypeDef_t`, existing bit-timing macros, the two weak-callback externs.
 
 Remove: `PHAL_initCAN(bus, test_mode, uint32_t)`, `PHAL_deinitCAN`, `PHAL_txCANMessage(mbx)`, `PHAL_txMailboxFree(mbx)`, `PHAL_txCANAbort`, `PHAL_rxCANMessage(bus, fifo, msg)`, `PHAL_anyTxMailboxFree`, `PHAL_getFreeTxMailbox`.
 
@@ -98,7 +98,7 @@ Add:
 
 ## 7. Known gaps / risks
 
-1. Missing `PHAL_CAN_42MHz_250k` bit-timing macro — add it (16/24/36 MHz tables exist for 250k only).
+1. F4 CAN only needs 500 kbit/s; no additional baud-rate timing macros are needed.
 2. TMEIE re-arm policy: bxCAN TME is level-triggered; handler masks on entry, re-enables only if a frame is still in flight. Verify on bench with loopback.
 3. Filter split idempotency: `PHAL_CAN_init` on either bus rewrites CAN1 FMR CAN2SB and its own half's bank state — keep FMR writes canonical so interleaved init/setFilters on the other bus cannot clobber active-bank bits.
 4. bxCAN 28-combined-ID cap is tighter than G4's 28 std + 8 ext when mixing; validate at codegen time.

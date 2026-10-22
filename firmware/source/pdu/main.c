@@ -14,6 +14,7 @@
 #include "common/phal_G4/gpio/gpio.h"
 #include "common/phal_G4/pin_defs/g474ret6.h"
 #include "common/phal_G4/rcc/rcc.h"
+#include "common/phal_G4/adc/adc.h"
 #include "common/utils/countof.h"
 #include "common/watchdog/watchdog.h"
 
@@ -51,8 +52,8 @@ PHAL_GPIO_InitConfig_t gpio_config[] = {
     PHAL_GPIO_INIT_OUTPUT(CTRL21_PORT, CTRL21_PIN, GPIO_OUTPUT_LOW_SPEED),
 
     // Analog inputs
-    PHAL_GPIO_INIT_ANALOG(RAIL_24V_VS_PORT, RAIL_24V_VS_PIN),
-    PHAL_GPIO_INIT_ANALOG(RAIL_24V_CS_PORT, RAIL_24V_CS_PIN),
+    PHAL_GPIO_INIT_ANALOG(LVBATT_VS_PORT, LVBATT_VS_PIN),
+    PHAL_GPIO_INIT_ANALOG(LVBATT_CS_PORT, LVBATT_CS_PIN),
     PHAL_GPIO_INIT_ANALOG(MUX1_OUT_PORT, MUX1_OUT_PIN),
     PHAL_GPIO_INIT_ANALOG(MUX2_OUT_PORT, MUX2_OUT_PIN),
 
@@ -69,6 +70,18 @@ PHAL_GPIO_InitConfig_t gpio_config[] = {
     PHAL_PIN_DEFS_FDCAN1_TX_PA12,
     PHAL_PIN_DEFS_FDCAN1_RX_PA11,
 };
+
+static const PHAL_ADC_ChannelConfig_t adc_channels[] = {
+    {.channel = MUX1_OUT_ADC_CH},
+    {.channel = MUX2_OUT_ADC_CH},
+};
+
+static const PHAL_ADC_Config_t adc_config = {
+    .instance      = ADC1,
+    .channels      = adc_channels,
+    .channel_count = countof(adc_channels),
+};
+
 
 void HardFault_Handler();
 

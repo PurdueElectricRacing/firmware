@@ -32,6 +32,11 @@ void current_sense_periodic() {
     for (switch_id_t id = 0; id < NUM_SWITCHES; id++) {
         switch_t *sw = &switches[id];
 
+        if (sw->mux_id == NO_MUX) {
+            sw->current_ma = 0;
+            continue; // skip switches without an addressable mux
+        }
+
         mux_select(sw->mux_id, sw->mux_addr);
         RTOS_delay_ms(1); // wait for mux to settle
 

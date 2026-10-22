@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-static constexpr uint32_t CURRENT_SENSE_TASK_PERIOD_MS = 4;
+static constexpr uint32_t CURRENT_SENSE_TASK_PERIOD_MS = 50;
 void current_sense_periodic(void);
 
 #endif // CURRENT_SENSE_H

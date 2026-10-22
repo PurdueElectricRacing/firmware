@@ -106,15 +106,18 @@ static const PHAL_ADC_Config_t adc3_config = {
 typedef struct {
     uint16_t lvbatt_vs;
 } raw_adc1_values_t;
+raw_adc1_values_t raw_adc1_values;
 
 typedef struct {
     uint16_t mux1_out;
     uint16_t mux2_out;
 } raw_adc2_values_t;
+raw_adc2_values_t raw_adc2_values;
 
 typedef struct {
     uint16_t lvbatt_cs;
 } raw_adc3_values_t;
+raw_adc3_values_t raw_adc3_values;
 
 static PHAL_ADC_Handle_t adc1_handle;
 static PHAL_ADC_Handle_t adc2_handle;
@@ -139,6 +142,12 @@ int main() {
     PHAL_ADC_init(&adc1_handle, &adc1_config);
     PHAL_ADC_init(&adc2_handle, &adc2_config);
     PHAL_ADC_init(&adc3_handle, &adc3_config);
+    if (!PHAL_ADC_readDMA(&adc1_handle, (uint16_t *)&raw_adc1_values, 1U)
+        || !PHAL_ADC_readDMA(&adc2_handle, (uint16_t *)&raw_adc2_values, 1U)
+        || !PHAL_ADC_readDMA(&adc3_handle, (uint16_t *)&raw_adc3_values, 1U)) {
+        HardFault_Handler();
+    }
+
     PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
 
     CAN_init();

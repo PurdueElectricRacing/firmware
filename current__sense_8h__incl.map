@@ -1,0 +1,14 @@
+<map id="firmware/source/pdu/power/current_sense.h" name="firmware/source/pdu/power/current_sense.h">
+<area shape="rect" id="Node000001" title="current sensing" alt="" coords="5,5,162,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="28,256,91,282"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,47,65,241,60,241,79,46"/>
+<area shape="rect" id="Node000003" href="$switch_8h.html" title="switch mappings and control code" alt="" coords="105,94,174,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="100,45,124,79,120,83,95,48"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2gpio_2gpio_8h.html" title="G4 GPIO public API." alt="" coords="85,168,236,208"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="145,119,154,152,149,153,140,121"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="137,211,89,249,85,244,134,207"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="120,256,188,282"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="162,209,159,241,154,241,157,209"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="212,256,320,282"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="188,207,239,244,236,249,185,211"/>
+</map>

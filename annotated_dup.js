@@ -263,6 +263,7 @@ var annotated_dup =
     [ "steering_angle_data_t", "structsteering__angle__data__t.html", "structsteering__angle__data__t" ],
     [ "strbuf_t", "structstrbuf__t.html", "structstrbuf__t" ],
     [ "StrbufTest", "classStrbufTest.html", "classStrbufTest" ],
+    [ "switch_t", "structswitch__t.html", "structswitch__t" ],
     [ "thermistor_telemetry_ccan_data_t", "structthermistor__telemetry__ccan__data__t.html", "structthermistor__telemetry__ccan__data__t" ],
     [ "thermistor_telemetry_data_t", "structthermistor__telemetry__data__t.html", "structthermistor__telemetry__data__t" ],
     [ "time_display_t", "structtime__display__t.html", "structtime__display__t" ],

@@ -98,7 +98,9 @@ $(function(){initNavTree('pdu_2main_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">main.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -119,6 +121,15 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="pdu_2main_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraw__adc1__values__t.html">raw_adc1_values_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraw__adc2__values__t.html">raw_adc2_values_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a8a762e1254b034eba6b4993ae11cee50" id="r_a8a762e1254b034eba6b4993ae11cee50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a762e1254b034eba6b4993ae11cee50">HEARTBEAT_LED_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
@@ -133,109 +144,117 @@ Macros</h2></td></tr>
 <tr class="separator:aa5bf4e4a187f66b98a273bb051ec3877"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8437cdc43b488d816a5e56f7b6457b86" id="r_a8437cdc43b488d816a5e56f7b6457b86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8437cdc43b488d816a5e56f7b6457b86">CONNECTION_LED_PIN</a>&#160;&#160;&#160;(14)</td></tr>
 <tr class="separator:a8437cdc43b488d816a5e56f7b6457b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4dc63142a4f445ebaa925b389302fb6" id="r_ae4dc63142a4f445ebaa925b389302fb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4dc63142a4f445ebaa925b389302fb6">DAQ_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:ae4dc63142a4f445ebaa925b389302fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb318d03e59b00ea7add6bd309b78bf4" id="r_adb318d03e59b00ea7add6bd309b78bf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb318d03e59b00ea7add6bd309b78bf4">DAQ_CTRL_PIN</a>&#160;&#160;&#160;(0)</td></tr>
-<tr class="separator:adb318d03e59b00ea7add6bd309b78bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9868a7ea5044ed55e966c70afafac558" id="r_a9868a7ea5044ed55e966c70afafac558"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9868a7ea5044ed55e966c70afafac558">SDC_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:a9868a7ea5044ed55e966c70afafac558"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a188495c7c26449f2c795291a0d0330" id="r_a5a188495c7c26449f2c795291a0d0330"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a188495c7c26449f2c795291a0d0330">SDC_CTRL_PIN</a>&#160;&#160;&#160;(1)</td></tr>
-<tr class="separator:a5a188495c7c26449f2c795291a0d0330"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dbbfdb47d6b8e8d1451e2603d735c09" id="r_a3dbbfdb47d6b8e8d1451e2603d735c09"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3dbbfdb47d6b8e8d1451e2603d735c09">FAN1_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:a3dbbfdb47d6b8e8d1451e2603d735c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27602f09ffd9390b0bb97f2510b39c70" id="r_a27602f09ffd9390b0bb97f2510b39c70"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a27602f09ffd9390b0bb97f2510b39c70">FAN1_CTRL_PIN</a>&#160;&#160;&#160;(2)</td></tr>
-<tr class="separator:a27602f09ffd9390b0bb97f2510b39c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c79fe099880e0f98830f687af0e2ef4" id="r_a6c79fe099880e0f98830f687af0e2ef4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c79fe099880e0f98830f687af0e2ef4">MAIN_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:a6c79fe099880e0f98830f687af0e2ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a452a214870e5683f1af03f7dab89e6b9" id="r_a452a214870e5683f1af03f7dab89e6b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a452a214870e5683f1af03f7dab89e6b9">MAIN_CTRL_PIN</a>&#160;&#160;&#160;(3)</td></tr>
-<tr class="separator:a452a214870e5683f1af03f7dab89e6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fe1e4b16724523b6047fabd7aea2537" id="r_a7fe1e4b16724523b6047fabd7aea2537"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7fe1e4b16724523b6047fabd7aea2537">SDC_LOOP_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:a7fe1e4b16724523b6047fabd7aea2537"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3d68cfd876e09bd10bcd8550b8cacf4" id="r_af3d68cfd876e09bd10bcd8550b8cacf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3d68cfd876e09bd10bcd8550b8cacf4">SDC_LOOP_CTRL_PIN</a>&#160;&#160;&#160;(5)</td></tr>
-<tr class="separator:af3d68cfd876e09bd10bcd8550b8cacf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac36b18466861a504a327d1480e7b9a8a" id="r_ac36b18466861a504a327d1480e7b9a8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac36b18466861a504a327d1480e7b9a8a">TV_CTRL_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:ac36b18466861a504a327d1480e7b9a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf914ef4d6d6318b9dc437c17a38bd05" id="r_aaf914ef4d6d6318b9dc437c17a38bd05"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf914ef4d6d6318b9dc437c17a38bd05">TV_CTRL_PIN</a>&#160;&#160;&#160;(10)</td></tr>
-<tr class="separator:aaf914ef4d6d6318b9dc437c17a38bd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f366a69b5e9cf8fb2b172472efd390b" id="r_a9f366a69b5e9cf8fb2b172472efd390b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f366a69b5e9cf8fb2b172472efd390b">ABOX_CTRL_PORT</a>&#160;&#160;&#160;(GPIOD)</td></tr>
-<tr class="separator:a9f366a69b5e9cf8fb2b172472efd390b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99679cd35f4db1cbd8d9f6966b69faf4" id="r_a99679cd35f4db1cbd8d9f6966b69faf4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99679cd35f4db1cbd8d9f6966b69faf4">ABOX_CTRL_PIN</a>&#160;&#160;&#160;(2)</td></tr>
-<tr class="separator:a99679cd35f4db1cbd8d9f6966b69faf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9d75434d05f45f52fceefbba654ccb3" id="r_ab9d75434d05f45f52fceefbba654ccb3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9d75434d05f45f52fceefbba654ccb3">DASH_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:ab9d75434d05f45f52fceefbba654ccb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25cd250502f8914e7899ef386e064ed8" id="r_a25cd250502f8914e7899ef386e064ed8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25cd250502f8914e7899ef386e064ed8">DASH_CTRL_PIN</a>&#160;&#160;&#160;(12)</td></tr>
-<tr class="separator:a25cd250502f8914e7899ef386e064ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9350e2c1491d600a5d3b7e56091a73fb" id="r_a9350e2c1491d600a5d3b7e56091a73fb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9350e2c1491d600a5d3b7e56091a73fb">DL_REAR_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:a9350e2c1491d600a5d3b7e56091a73fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a180c24c00c523825a4932bc4c0e331a3" id="r_a180c24c00c523825a4932bc4c0e331a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a180c24c00c523825a4932bc4c0e331a3">DL_REAR_CTRL_PIN</a>&#160;&#160;&#160;(11)</td></tr>
-<tr class="separator:a180c24c00c523825a4932bc4c0e331a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ecde94ae2c0f627ddbefd251a91a9de" id="r_a4ecde94ae2c0f627ddbefd251a91a9de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ecde94ae2c0f627ddbefd251a91a9de">DL_FRONT_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:a4ecde94ae2c0f627ddbefd251a91a9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1699cace805f07492170059c36a49e26" id="r_a1699cace805f07492170059c36a49e26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1699cace805f07492170059c36a49e26">DL_FRONT_CTRL_PIN</a>&#160;&#160;&#160;(10)</td></tr>
-<tr class="separator:a1699cace805f07492170059c36a49e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ca590fbb5211f395cbb82e382784e74" id="r_a6ca590fbb5211f395cbb82e382784e74"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ca590fbb5211f395cbb82e382784e74">DISCHARGE_CTRL_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a6ca590fbb5211f395cbb82e382784e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae712d04b9fb666f3dbd0208ef6fa79b2" id="r_ae712d04b9fb666f3dbd0208ef6fa79b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae712d04b9fb666f3dbd0208ef6fa79b2">DISCHARGE_CTRL_PIN</a>&#160;&#160;&#160;(15)</td></tr>
-<tr class="separator:ae712d04b9fb666f3dbd0208ef6fa79b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d919fe7a3769e88d24677f153e12e91" id="r_a1d919fe7a3769e88d24677f153e12e91"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d919fe7a3769e88d24677f153e12e91">AMK1_CTRL_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a1d919fe7a3769e88d24677f153e12e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf56f10c87d61396eba7567df14d92fc" id="r_adf56f10c87d61396eba7567df14d92fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf56f10c87d61396eba7567df14d92fc">AMK1_CTRL_PIN</a>&#160;&#160;&#160;(10)</td></tr>
-<tr class="separator:adf56f10c87d61396eba7567df14d92fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74bc0d0a051d0cf5f6d10e87b2fcfb55" id="r_a74bc0d0a051d0cf5f6d10e87b2fcfb55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74bc0d0a051d0cf5f6d10e87b2fcfb55">AMK2_CTRL_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a74bc0d0a051d0cf5f6d10e87b2fcfb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a895f1d14376a4bf541ea882c537d7777" id="r_a895f1d14376a4bf541ea882c537d7777"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a895f1d14376a4bf541ea882c537d7777">AMK2_CTRL_PIN</a>&#160;&#160;&#160;(9)</td></tr>
-<tr class="separator:a895f1d14376a4bf541ea882c537d7777"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b135378beac14d90f8dbdc7e8dac013" id="r_a7b135378beac14d90f8dbdc7e8dac013"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b135378beac14d90f8dbdc7e8dac013">FAN2_CTRL_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:a7b135378beac14d90f8dbdc7e8dac013"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee25ddbcb35b6d9c3ca5ec3af25b899f" id="r_aee25ddbcb35b6d9c3ca5ec3af25b899f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee25ddbcb35b6d9c3ca5ec3af25b899f">FAN2_CTRL_PIN</a>&#160;&#160;&#160;(8)</td></tr>
-<tr class="separator:aee25ddbcb35b6d9c3ca5ec3af25b899f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbfe104ce14136ca4f3ce70b5a8d8518" id="r_acbfe104ce14136ca4f3ce70b5a8d8518"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbfe104ce14136ca4f3ce70b5a8d8518">FAN3_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:acbfe104ce14136ca4f3ce70b5a8d8518"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbc11ffb215267408eb2c1cb7129dd6f" id="r_afbc11ffb215267408eb2c1cb7129dd6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbc11ffb215267408eb2c1cb7129dd6f">FAN3_CTRL_PIN</a>&#160;&#160;&#160;(9)</td></tr>
-<tr class="separator:afbc11ffb215267408eb2c1cb7129dd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad078182246d2fb205b5e3994b106b0fa" id="r_ad078182246d2fb205b5e3994b106b0fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad078182246d2fb205b5e3994b106b0fa">FAN4_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:ad078182246d2fb205b5e3994b106b0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97aabb66f4f0a24ed3ce7961418b5ae0" id="r_a97aabb66f4f0a24ed3ce7961418b5ae0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97aabb66f4f0a24ed3ce7961418b5ae0">FAN4_CTRL_PIN</a>&#160;&#160;&#160;(8)</td></tr>
-<tr class="separator:a97aabb66f4f0a24ed3ce7961418b5ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae01acddab332ff97b9abc8ccaa42f202" id="r_ae01acddab332ff97b9abc8ccaa42f202"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae01acddab332ff97b9abc8ccaa42f202">FAN5_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:ae01acddab332ff97b9abc8ccaa42f202"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a068d2bbbef5ba04d53efa6afbc3df452" id="r_a068d2bbbef5ba04d53efa6afbc3df452"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a068d2bbbef5ba04d53efa6afbc3df452">FAN5_CTRL_PIN</a>&#160;&#160;&#160;(7)</td></tr>
-<tr class="separator:a068d2bbbef5ba04d53efa6afbc3df452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ed7359c6e7e6ba37cc6f8791dc8caa" id="r_ab6ed7359c6e7e6ba37cc6f8791dc8caa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6ed7359c6e7e6ba37cc6f8791dc8caa">HXFAN_CTRL_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
-<tr class="separator:ab6ed7359c6e7e6ba37cc6f8791dc8caa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ed1415f4108bd0da05fe2ae93be10f1" id="r_a0ed1415f4108bd0da05fe2ae93be10f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ed1415f4108bd0da05fe2ae93be10f1">HXFAN_CTRL_PIN</a>&#160;&#160;&#160;(6)</td></tr>
-<tr class="separator:a0ed1415f4108bd0da05fe2ae93be10f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4bf76d894d0972d56bec97b98624fdf" id="r_aa4bf76d894d0972d56bec97b98624fdf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4bf76d894d0972d56bec97b98624fdf">PUMP1_CTRL_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:aa4bf76d894d0972d56bec97b98624fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a822dd5ff0d8ccd04964442791059b80d" id="r_a822dd5ff0d8ccd04964442791059b80d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a822dd5ff0d8ccd04964442791059b80d">PUMP1_CTRL_PIN</a>&#160;&#160;&#160;(15)</td></tr>
-<tr class="separator:a822dd5ff0d8ccd04964442791059b80d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8474ea04aaadedca9fa9651d519c861e" id="r_a8474ea04aaadedca9fa9651d519c861e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8474ea04aaadedca9fa9651d519c861e">PUMP2_CTRL_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:a8474ea04aaadedca9fa9651d519c861e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00f6fabe3a581419a5d6679bb903434d" id="r_a00f6fabe3a581419a5d6679bb903434d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00f6fabe3a581419a5d6679bb903434d">PUMP2_CTRL_PIN</a>&#160;&#160;&#160;(14)</td></tr>
-<tr class="separator:a00f6fabe3a581419a5d6679bb903434d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af82c2b3a0b9ea52e9340e0317834d145" id="r_af82c2b3a0b9ea52e9340e0317834d145"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af82c2b3a0b9ea52e9340e0317834d145">EMETER_CTRL_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:af82c2b3a0b9ea52e9340e0317834d145"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a923cc9dfcf8ed7661b4626a7f283ecee" id="r_a923cc9dfcf8ed7661b4626a7f283ecee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a923cc9dfcf8ed7661b4626a7f283ecee">EMETER_CTRL_PIN</a>&#160;&#160;&#160;(11)</td></tr>
-<tr class="separator:a923cc9dfcf8ed7661b4626a7f283ecee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec30627f1b69bf99438a6fdc526fbfb6" id="r_aec30627f1b69bf99438a6fdc526fbfb6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec30627f1b69bf99438a6fdc526fbfb6">RAIL_24V_VS_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
-<tr class="separator:aec30627f1b69bf99438a6fdc526fbfb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab38942ad2ff80acd3241bd339a232396" id="r_ab38942ad2ff80acd3241bd339a232396"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab38942ad2ff80acd3241bd339a232396">RAIL_24V_VS_PIN</a>&#160;&#160;&#160;(3)</td></tr>
-<tr class="separator:ab38942ad2ff80acd3241bd339a232396"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ed0555697c004dc0b9ab9f3b2f3dffd" id="r_a3ed0555697c004dc0b9ab9f3b2f3dffd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ed0555697c004dc0b9ab9f3b2f3dffd">RAIL_24V_CS_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
-<tr class="separator:a3ed0555697c004dc0b9ab9f3b2f3dffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35989a07ee2be26376ba7f365e76a04c" id="r_a35989a07ee2be26376ba7f365e76a04c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35989a07ee2be26376ba7f365e76a04c">RAIL_24V_CS_PIN</a>&#160;&#160;&#160;(0)</td></tr>
-<tr class="separator:a35989a07ee2be26376ba7f365e76a04c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93548e89ed87e72eae68f6fe6eaa39d6" id="r_a93548e89ed87e72eae68f6fe6eaa39d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93548e89ed87e72eae68f6fe6eaa39d6">MUX1_OUT_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="memitem:aec1b517807c4a5d67de42999b33ae3a9" id="r_aec1b517807c4a5d67de42999b33ae3a9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec1b517807c4a5d67de42999b33ae3a9">CTRL1_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:aec1b517807c4a5d67de42999b33ae3a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a221644410fcf8e47695509cc4acffaee" id="r_a221644410fcf8e47695509cc4acffaee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a221644410fcf8e47695509cc4acffaee">CTRL1_PIN</a>&#160;&#160;&#160;(9)</td></tr>
+<tr class="separator:a221644410fcf8e47695509cc4acffaee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88abbf8927cb3a0c02230fc87c496eac" id="r_a88abbf8927cb3a0c02230fc87c496eac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88abbf8927cb3a0c02230fc87c496eac">CTRL2_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:a88abbf8927cb3a0c02230fc87c496eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07e3ea032bc66f0ac96547041e2faecf" id="r_a07e3ea032bc66f0ac96547041e2faecf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a07e3ea032bc66f0ac96547041e2faecf">CTRL2_PIN</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="separator:a07e3ea032bc66f0ac96547041e2faecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab68cad83ad8202d721f9c5243ab85c63" id="r_ab68cad83ad8202d721f9c5243ab85c63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab68cad83ad8202d721f9c5243ab85c63">CTRL3_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:ab68cad83ad8202d721f9c5243ab85c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a30fe8053bf411d18d9eaec71693706" id="r_a9a30fe8053bf411d18d9eaec71693706"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a30fe8053bf411d18d9eaec71693706">CTRL3_PIN</a>&#160;&#160;&#160;(9)</td></tr>
+<tr class="separator:a9a30fe8053bf411d18d9eaec71693706"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ff580e51ce01dac1904da9d9959d05d" id="r_a2ff580e51ce01dac1904da9d9959d05d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ff580e51ce01dac1904da9d9959d05d">CTRL4_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:a2ff580e51ce01dac1904da9d9959d05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a7fd72cf1a599225f94b0d403c65e1f" id="r_a7a7fd72cf1a599225f94b0d403c65e1f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a7fd72cf1a599225f94b0d403c65e1f">CTRL4_PIN</a>&#160;&#160;&#160;(10)</td></tr>
+<tr class="separator:a7a7fd72cf1a599225f94b0d403c65e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6606c6589252f5289c8b3c0a252d9b2d" id="r_a6606c6589252f5289c8b3c0a252d9b2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6606c6589252f5289c8b3c0a252d9b2d">CTRL5_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a6606c6589252f5289c8b3c0a252d9b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e173a83c564cbae966abf188197753" id="r_a30e173a83c564cbae966abf188197753"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30e173a83c564cbae966abf188197753">CTRL5_PIN</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="separator:a30e173a83c564cbae966abf188197753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58102498b705ae667329e43c1766672" id="r_ae58102498b705ae667329e43c1766672"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae58102498b705ae667329e43c1766672">CTRL6_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ae58102498b705ae667329e43c1766672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5369a464fc5d7c5832653d68616d820f" id="r_a5369a464fc5d7c5832653d68616d820f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5369a464fc5d7c5832653d68616d820f">CTRL6_PIN</a>&#160;&#160;&#160;(15)</td></tr>
+<tr class="separator:a5369a464fc5d7c5832653d68616d820f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfce9364aaacbe5ab3fd41815713c879" id="r_adfce9364aaacbe5ab3fd41815713c879"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfce9364aaacbe5ab3fd41815713c879">CTRL7_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:adfce9364aaacbe5ab3fd41815713c879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa15d09065749c4329501460790f70e84" id="r_aa15d09065749c4329501460790f70e84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa15d09065749c4329501460790f70e84">CTRL7_PIN</a>&#160;&#160;&#160;(6)</td></tr>
+<tr class="separator:aa15d09065749c4329501460790f70e84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358e9d4f431bc6d8cc0a60a572377090" id="r_a358e9d4f431bc6d8cc0a60a572377090"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a358e9d4f431bc6d8cc0a60a572377090">CTRL8_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a358e9d4f431bc6d8cc0a60a572377090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45edf128d80ca7115b7d7ec04d5d01c6" id="r_a45edf128d80ca7115b7d7ec04d5d01c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45edf128d80ca7115b7d7ec04d5d01c6">CTRL8_PIN</a>&#160;&#160;&#160;(7)</td></tr>
+<tr class="separator:a45edf128d80ca7115b7d7ec04d5d01c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1715062cfd167302397a470263f9fd" id="r_aef1715062cfd167302397a470263f9fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef1715062cfd167302397a470263f9fd">CTRL9_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:aef1715062cfd167302397a470263f9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f4ae760c248552cd3c6091b14097ff" id="r_a24f4ae760c248552cd3c6091b14097ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24f4ae760c248552cd3c6091b14097ff">CTRL9_PIN</a>&#160;&#160;&#160;(10)</td></tr>
+<tr class="separator:a24f4ae760c248552cd3c6091b14097ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a62ce520afda52bf3f12ce1b42a18f1" id="r_a7a62ce520afda52bf3f12ce1b42a18f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a62ce520afda52bf3f12ce1b42a18f1">CTRL10_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a7a62ce520afda52bf3f12ce1b42a18f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a0c6a814bb29b4dbab7f2aa5fb63e9f" id="r_a2a0c6a814bb29b4dbab7f2aa5fb63e9f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a0c6a814bb29b4dbab7f2aa5fb63e9f">CTRL10_PIN</a>&#160;&#160;&#160;(11)</td></tr>
+<tr class="separator:a2a0c6a814bb29b4dbab7f2aa5fb63e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9d3a741a1ab16eb989f009286bea6e5" id="r_ae9d3a741a1ab16eb989f009286bea6e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9d3a741a1ab16eb989f009286bea6e5">CTRL11_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ae9d3a741a1ab16eb989f009286bea6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa927c332e6fcef0d8ee34b93e6dd0636" id="r_aa927c332e6fcef0d8ee34b93e6dd0636"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa927c332e6fcef0d8ee34b93e6dd0636">CTRL11_PIN</a>&#160;&#160;&#160;(14)</td></tr>
+<tr class="separator:aa927c332e6fcef0d8ee34b93e6dd0636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31a4692eee0e5b87a9df5daedaa29b04" id="r_a31a4692eee0e5b87a9df5daedaa29b04"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31a4692eee0e5b87a9df5daedaa29b04">CTRL12_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a31a4692eee0e5b87a9df5daedaa29b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c02e6ce8582386ba18e35b5117d3b26" id="r_a6c02e6ce8582386ba18e35b5117d3b26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c02e6ce8582386ba18e35b5117d3b26">CTRL12_PIN</a>&#160;&#160;&#160;(12)</td></tr>
+<tr class="separator:a6c02e6ce8582386ba18e35b5117d3b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe2011e61214ace4d230ce743557e8ea" id="r_afe2011e61214ace4d230ce743557e8ea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe2011e61214ace4d230ce743557e8ea">CTRL13_PORT</a>&#160;&#160;&#160;(GPIOD)</td></tr>
+<tr class="separator:afe2011e61214ace4d230ce743557e8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af031ba7a3b798c7cab800f2539762163" id="r_af031ba7a3b798c7cab800f2539762163"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af031ba7a3b798c7cab800f2539762163">CTRL13_PIN</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="separator:af031ba7a3b798c7cab800f2539762163"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98fcea7ce405e5ba6337379faf8ec445" id="r_a98fcea7ce405e5ba6337379faf8ec445"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98fcea7ce405e5ba6337379faf8ec445">CTRL14_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a98fcea7ce405e5ba6337379faf8ec445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af28fc3bb2bdd07e0daf0549bd6a91435" id="r_af28fc3bb2bdd07e0daf0549bd6a91435"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af28fc3bb2bdd07e0daf0549bd6a91435">CTRL14_PIN</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="separator:af28fc3bb2bdd07e0daf0549bd6a91435"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae941650e84179195b3e9f2d77391bdae" id="r_ae941650e84179195b3e9f2d77391bdae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae941650e84179195b3e9f2d77391bdae">CTRL15_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ae941650e84179195b3e9f2d77391bdae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc45f74185ad8428c1b3fc69e6bd77f" id="r_adbc45f74185ad8428c1b3fc69e6bd77f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbc45f74185ad8428c1b3fc69e6bd77f">CTRL15_PIN</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="separator:adbc45f74185ad8428c1b3fc69e6bd77f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15972131f5d2084161f9a3a0e3254e48" id="r_a15972131f5d2084161f9a3a0e3254e48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15972131f5d2084161f9a3a0e3254e48">CTRL16_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:a15972131f5d2084161f9a3a0e3254e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d4ccc79de793a0f15bb11cf466a186" id="r_a75d4ccc79de793a0f15bb11cf466a186"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75d4ccc79de793a0f15bb11cf466a186">CTRL16_PIN</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="separator:a75d4ccc79de793a0f15bb11cf466a186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6bf6ca787d7df5f7d3b17c08a572344" id="r_ab6bf6ca787d7df5f7d3b17c08a572344"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6bf6ca787d7df5f7d3b17c08a572344">CTRL17_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ab6bf6ca787d7df5f7d3b17c08a572344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace9f87293e1f36afccaf4ac1319bca77" id="r_ace9f87293e1f36afccaf4ac1319bca77"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace9f87293e1f36afccaf4ac1319bca77">CTRL17_PIN</a>&#160;&#160;&#160;(10)</td></tr>
+<tr class="separator:ace9f87293e1f36afccaf4ac1319bca77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac488840edb97e998f0e69c7eec8aaf2f" id="r_ac488840edb97e998f0e69c7eec8aaf2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac488840edb97e998f0e69c7eec8aaf2f">CTRL18_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:ac488840edb97e998f0e69c7eec8aaf2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6c041db64607324901f98b8688380c1" id="r_ab6c041db64607324901f98b8688380c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6c041db64607324901f98b8688380c1">CTRL18_PIN</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="separator:ab6c041db64607324901f98b8688380c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb86ac3be1223e917ef26ecb99b94e0" id="r_a8cb86ac3be1223e917ef26ecb99b94e0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cb86ac3be1223e917ef26ecb99b94e0">CTRL19_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a8cb86ac3be1223e917ef26ecb99b94e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc4650952593354a6b48535cb3f2ec4" id="r_a6bc4650952593354a6b48535cb3f2ec4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6bc4650952593354a6b48535cb3f2ec4">CTRL19_PIN</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="separator:a6bc4650952593354a6b48535cb3f2ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0546cfd5443984b774a242a4e74206fd" id="r_a0546cfd5443984b774a242a4e74206fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0546cfd5443984b774a242a4e74206fd">CTRL20_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
+<tr class="separator:a0546cfd5443984b774a242a4e74206fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48fc8024410d3ea1ac2ca8bddabca45b" id="r_a48fc8024410d3ea1ac2ca8bddabca45b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48fc8024410d3ea1ac2ca8bddabca45b">CTRL20_PIN</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="separator:a48fc8024410d3ea1ac2ca8bddabca45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a768c8f6ebb918890668a2e35d02e7705" id="r_a768c8f6ebb918890668a2e35d02e7705"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a768c8f6ebb918890668a2e35d02e7705">CTRL21_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:a768c8f6ebb918890668a2e35d02e7705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e513aec6d17d4491a579aed12bb150e" id="r_a7e513aec6d17d4491a579aed12bb150e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e513aec6d17d4491a579aed12bb150e">CTRL21_PIN</a>&#160;&#160;&#160;(11)</td></tr>
+<tr class="separator:a7e513aec6d17d4491a579aed12bb150e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44c867b37b10bb2f6ba9c363a013cdba" id="r_a44c867b37b10bb2f6ba9c363a013cdba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44c867b37b10bb2f6ba9c363a013cdba">LVBATT_VS_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="separator:a44c867b37b10bb2f6ba9c363a013cdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b589d55123348492e6d66ab4c7f310a" id="r_a8b589d55123348492e6d66ab4c7f310a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b589d55123348492e6d66ab4c7f310a">LVBATT_VS_PIN</a>&#160;&#160;&#160;(3)</td></tr>
+<tr class="separator:a8b589d55123348492e6d66ab4c7f310a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a392689fc90e9b28dc75fb1a14ae8dc39" id="r_a392689fc90e9b28dc75fb1a14ae8dc39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a392689fc90e9b28dc75fb1a14ae8dc39">LVBATT_VS_ADC_CHANNEL</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="separator:a392689fc90e9b28dc75fb1a14ae8dc39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab33bcd8c91a0fbb55c6fa2ed2b3663ed" id="r_ab33bcd8c91a0fbb55c6fa2ed2b3663ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab33bcd8c91a0fbb55c6fa2ed2b3663ed">LVBATT_CS_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="separator:ab33bcd8c91a0fbb55c6fa2ed2b3663ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dab260bb70a7bafd110401babb098b4" id="r_a9dab260bb70a7bafd110401babb098b4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9dab260bb70a7bafd110401babb098b4">LVBATT_CS_PIN</a>&#160;&#160;&#160;(0)</td></tr>
+<tr class="separator:a9dab260bb70a7bafd110401babb098b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab2eab179be33a20258710d82cf42df3" id="r_aab2eab179be33a20258710d82cf42df3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab2eab179be33a20258710d82cf42df3">LVBATT_CS_ADC_CHANNEL</a>&#160;&#160;&#160;(12)</td></tr>
+<tr class="separator:aab2eab179be33a20258710d82cf42df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93548e89ed87e72eae68f6fe6eaa39d6" id="r_a93548e89ed87e72eae68f6fe6eaa39d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93548e89ed87e72eae68f6fe6eaa39d6">MUX1_OUT_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
 <tr class="separator:a93548e89ed87e72eae68f6fe6eaa39d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18cafc02d9c41fed935d5cab554f93a0" id="r_a18cafc02d9c41fed935d5cab554f93a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18cafc02d9c41fed935d5cab554f93a0">MUX1_OUT_PIN</a>&#160;&#160;&#160;(4)</td></tr>
+<tr class="memitem:a18cafc02d9c41fed935d5cab554f93a0" id="r_a18cafc02d9c41fed935d5cab554f93a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18cafc02d9c41fed935d5cab554f93a0">MUX1_OUT_PIN</a>&#160;&#160;&#160;(5)</td></tr>
 <tr class="separator:a18cafc02d9c41fed935d5cab554f93a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97cb73e2c108fce0282eb4ccebd2736" id="r_ae97cb73e2c108fce0282eb4ccebd2736"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae97cb73e2c108fce0282eb4ccebd2736">MUX1_OUT_ADC_CHANNEL</a>&#160;&#160;&#160;(13)</td></tr>
+<tr class="separator:ae97cb73e2c108fce0282eb4ccebd2736"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af62dfd8d2d6b2762ee912df7801b41fa" id="r_af62dfd8d2d6b2762ee912df7801b41fa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af62dfd8d2d6b2762ee912df7801b41fa">MUX2_OUT_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
 <tr class="separator:af62dfd8d2d6b2762ee912df7801b41fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f2b18df68926bbd46a44e98f70998d3" id="r_a9f2b18df68926bbd46a44e98f70998d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f2b18df68926bbd46a44e98f70998d3">MUX2_OUT_PIN</a>&#160;&#160;&#160;(4)</td></tr>
 <tr class="separator:a9f2b18df68926bbd46a44e98f70998d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56b71ad799cc55d220a6d33cfe354753" id="r_a56b71ad799cc55d220a6d33cfe354753"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56b71ad799cc55d220a6d33cfe354753">MUX1_CTRL_A_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
+<tr class="memitem:ac1530238b4a1ad91e84ec5e69846d63c" id="r_ac1530238b4a1ad91e84ec5e69846d63c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1530238b4a1ad91e84ec5e69846d63c">MUX2_OUT_ADC_CHANNEL</a>&#160;&#160;&#160;(17)</td></tr>
+<tr class="separator:ac1530238b4a1ad91e84ec5e69846d63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56b71ad799cc55d220a6d33cfe354753" id="r_a56b71ad799cc55d220a6d33cfe354753"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56b71ad799cc55d220a6d33cfe354753">MUX1_CTRL_A_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
 <tr class="separator:a56b71ad799cc55d220a6d33cfe354753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0a07b45216552db97e20f3371d1fba" id="r_a1d0a07b45216552db97e20f3371d1fba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d0a07b45216552db97e20f3371d1fba">MUX1_CTRL_A_PIN</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="memitem:a1d0a07b45216552db97e20f3371d1fba" id="r_a1d0a07b45216552db97e20f3371d1fba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d0a07b45216552db97e20f3371d1fba">MUX1_CTRL_A_PIN</a>&#160;&#160;&#160;(4)</td></tr>
 <tr class="separator:a1d0a07b45216552db97e20f3371d1fba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48f52c8bfad4f76d91c382d24400108c" id="r_a48f52c8bfad4f76d91c382d24400108c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48f52c8bfad4f76d91c382d24400108c">MUX1_CTRL_B_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
 <tr class="separator:a48f52c8bfad4f76d91c382d24400108c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,111 +264,36 @@ Macros</h2></td></tr>
 <tr class="separator:a31af1846adc4df40ca6007a5e799b6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55b1dff7e6dbea4f0a4f8d113c999dd6" id="r_a55b1dff7e6dbea4f0a4f8d113c999dd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55b1dff7e6dbea4f0a4f8d113c999dd6">MUX1_CTRL_C_PIN</a>&#160;&#160;&#160;(7)</td></tr>
 <tr class="separator:a55b1dff7e6dbea4f0a4f8d113c999dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185bc6e86767e50a6235f19c8a5eb3ff" id="r_a185bc6e86767e50a6235f19c8a5eb3ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a185bc6e86767e50a6235f19c8a5eb3ff">MUX2_CTRL_A_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="memitem:a185bc6e86767e50a6235f19c8a5eb3ff" id="r_a185bc6e86767e50a6235f19c8a5eb3ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a185bc6e86767e50a6235f19c8a5eb3ff">MUX2_CTRL_A_PORT</a>&#160;&#160;&#160;(GPIOC)</td></tr>
 <tr class="separator:a185bc6e86767e50a6235f19c8a5eb3ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7b08563036db518a009ba01b7c633dc" id="r_ac7b08563036db518a009ba01b7c633dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7b08563036db518a009ba01b7c633dc">MUX2_CTRL_A_PIN</a>&#160;&#160;&#160;(5)</td></tr>
+<tr class="memitem:ac7b08563036db518a009ba01b7c633dc" id="r_ac7b08563036db518a009ba01b7c633dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7b08563036db518a009ba01b7c633dc">MUX2_CTRL_A_PIN</a>&#160;&#160;&#160;(1)</td></tr>
 <tr class="separator:ac7b08563036db518a009ba01b7c633dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a610b601944c2019348aae6ece7f90337" id="r_a610b601944c2019348aae6ece7f90337"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a610b601944c2019348aae6ece7f90337">MUX2_CTRL_B_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
 <tr class="separator:a610b601944c2019348aae6ece7f90337"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f35444e2299dfb1f780eda549d6a0fd" id="r_a7f35444e2299dfb1f780eda549d6a0fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f35444e2299dfb1f780eda549d6a0fd">MUX2_CTRL_B_PIN</a>&#160;&#160;&#160;(4)</td></tr>
 <tr class="separator:a7f35444e2299dfb1f780eda549d6a0fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3a8ac7c813610ef486f042343e50bd2" id="r_ad3a8ac7c813610ef486f042343e50bd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3a8ac7c813610ef486f042343e50bd2">MUX2_CTRL_C_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
+<tr class="memitem:ad3a8ac7c813610ef486f042343e50bd2" id="r_ad3a8ac7c813610ef486f042343e50bd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3a8ac7c813610ef486f042343e50bd2">MUX2_CTRL_C_PORT</a>&#160;&#160;&#160;(GPIOA)</td></tr>
 <tr class="separator:ad3a8ac7c813610ef486f042343e50bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea1ea7c77894d91f5d98879600e7d1a7" id="r_aea1ea7c77894d91f5d98879600e7d1a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea1ea7c77894d91f5d98879600e7d1a7">MUX2_CTRL_C_PIN</a>&#160;&#160;&#160;(1)</td></tr>
+<tr class="memitem:aea1ea7c77894d91f5d98879600e7d1a7" id="r_aea1ea7c77894d91f5d98879600e7d1a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea1ea7c77894d91f5d98879600e7d1a7">MUX2_CTRL_C_PIN</a>&#160;&#160;&#160;(15)</td></tr>
 <tr class="separator:aea1ea7c77894d91f5d98879600e7d1a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d9deba58709a9a382eefbbd1ca712f7" id="r_a0d9deba58709a9a382eefbbd1ca712f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d9deba58709a9a382eefbbd1ca712f7">MUX2_CTRL_D_PORT</a>&#160;&#160;&#160;(GPIOB)</td></tr>
 <tr class="separator:a0d9deba58709a9a382eefbbd1ca712f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62e3998cb2527c3d7f2e4deb88f34e8a" id="r_a62e3998cb2527c3d7f2e4deb88f34e8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62e3998cb2527c3d7f2e4deb88f34e8a">MUX2_CTRL_D_PIN</a>&#160;&#160;&#160;(2)</td></tr>
+<tr class="memitem:a62e3998cb2527c3d7f2e4deb88f34e8a" id="r_a62e3998cb2527c3d7f2e4deb88f34e8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62e3998cb2527c3d7f2e4deb88f34e8a">MUX2_CTRL_D_PIN</a>&#160;&#160;&#160;(5)</td></tr>
 <tr class="separator:a62e3998cb2527c3d7f2e4deb88f34e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a459a3946cf810b4181a32657c4baf0ef" id="r_a459a3946cf810b4181a32657c4baf0ef"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc1__values__t.html">raw_adc1_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a459a3946cf810b4181a32657c4baf0ef">raw_adc1_values</a></td></tr>
+<tr class="separator:a459a3946cf810b4181a32657c4baf0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3232d72901f67e1ba6bc7b722d6c3499" id="r_a3232d72901f67e1ba6bc7b722d6c3499"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc2__values__t.html">raw_adc2_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3232d72901f67e1ba6bc7b722d6c3499">raw_adc2_values</a></td></tr>
+<tr class="separator:a3232d72901f67e1ba6bc7b722d6c3499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c055faade567356fd6e5eb9a7c802ee" id="r_a4c055faade567356fd6e5eb9a7c802ee"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c055faade567356fd6e5eb9a7c802ee">raw_adc3_values</a></td></tr>
+<tr class="separator:a4c055faade567356fd6e5eb9a7c802ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"PDU" node source code </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a99679cd35f4db1cbd8d9f6966b69faf4" name="a99679cd35f4db1cbd8d9f6966b69faf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99679cd35f4db1cbd8d9f6966b69faf4">&#9670;&#160;</a></span>ABOX_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ABOX_CTRL_PIN&#160;&#160;&#160;(2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9f366a69b5e9cf8fb2b172472efd390b" name="a9f366a69b5e9cf8fb2b172472efd390b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f366a69b5e9cf8fb2b172472efd390b">&#9670;&#160;</a></span>ABOX_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ABOX_CTRL_PORT&#160;&#160;&#160;(GPIOD)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adf56f10c87d61396eba7567df14d92fc" name="adf56f10c87d61396eba7567df14d92fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf56f10c87d61396eba7567df14d92fc">&#9670;&#160;</a></span>AMK1_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define AMK1_CTRL_PIN&#160;&#160;&#160;(10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1d919fe7a3769e88d24677f153e12e91" name="a1d919fe7a3769e88d24677f153e12e91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d919fe7a3769e88d24677f153e12e91">&#9670;&#160;</a></span>AMK1_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define AMK1_CTRL_PORT&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a895f1d14376a4bf541ea882c537d7777" name="a895f1d14376a4bf541ea882c537d7777"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a895f1d14376a4bf541ea882c537d7777">&#9670;&#160;</a></span>AMK2_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define AMK2_CTRL_PIN&#160;&#160;&#160;(9)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a74bc0d0a051d0cf5f6d10e87b2fcfb55" name="a74bc0d0a051d0cf5f6d10e87b2fcfb55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74bc0d0a051d0cf5f6d10e87b2fcfb55">&#9670;&#160;</a></span>AMK2_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define AMK2_CTRL_PORT&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a8437cdc43b488d816a5e56f7b6457b86" name="a8437cdc43b488d816a5e56f7b6457b86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8437cdc43b488d816a5e56f7b6457b86">&#9670;&#160;</a></span>CONNECTION_LED_PIN</h2>
 
@@ -378,168 +322,588 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="adb318d03e59b00ea7add6bd309b78bf4" name="adb318d03e59b00ea7add6bd309b78bf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb318d03e59b00ea7add6bd309b78bf4">&#9670;&#160;</a></span>DAQ_CTRL_PIN</h2>
+<a id="a2a0c6a814bb29b4dbab7f2aa5fb63e9f" name="a2a0c6a814bb29b4dbab7f2aa5fb63e9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a0c6a814bb29b4dbab7f2aa5fb63e9f">&#9670;&#160;</a></span>CTRL10_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DAQ_CTRL_PIN&#160;&#160;&#160;(0)</td>
+          <td class="memname">#define CTRL10_PIN&#160;&#160;&#160;(11)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae4dc63142a4f445ebaa925b389302fb6" name="ae4dc63142a4f445ebaa925b389302fb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4dc63142a4f445ebaa925b389302fb6">&#9670;&#160;</a></span>DAQ_CTRL_PORT</h2>
+<a id="a7a62ce520afda52bf3f12ce1b42a18f1" name="a7a62ce520afda52bf3f12ce1b42a18f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a62ce520afda52bf3f12ce1b42a18f1">&#9670;&#160;</a></span>CTRL10_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DAQ_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define CTRL10_PORT&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a25cd250502f8914e7899ef386e064ed8" name="a25cd250502f8914e7899ef386e064ed8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25cd250502f8914e7899ef386e064ed8">&#9670;&#160;</a></span>DASH_CTRL_PIN</h2>
+<a id="aa927c332e6fcef0d8ee34b93e6dd0636" name="aa927c332e6fcef0d8ee34b93e6dd0636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa927c332e6fcef0d8ee34b93e6dd0636">&#9670;&#160;</a></span>CTRL11_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DASH_CTRL_PIN&#160;&#160;&#160;(12)</td>
+          <td class="memname">#define CTRL11_PIN&#160;&#160;&#160;(14)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab9d75434d05f45f52fceefbba654ccb3" name="ab9d75434d05f45f52fceefbba654ccb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9d75434d05f45f52fceefbba654ccb3">&#9670;&#160;</a></span>DASH_CTRL_PORT</h2>
+<a id="ae9d3a741a1ab16eb989f009286bea6e5" name="ae9d3a741a1ab16eb989f009286bea6e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9d3a741a1ab16eb989f009286bea6e5">&#9670;&#160;</a></span>CTRL11_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DASH_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define CTRL11_PORT&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae712d04b9fb666f3dbd0208ef6fa79b2" name="ae712d04b9fb666f3dbd0208ef6fa79b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae712d04b9fb666f3dbd0208ef6fa79b2">&#9670;&#160;</a></span>DISCHARGE_CTRL_PIN</h2>
+<a id="a6c02e6ce8582386ba18e35b5117d3b26" name="a6c02e6ce8582386ba18e35b5117d3b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c02e6ce8582386ba18e35b5117d3b26">&#9670;&#160;</a></span>CTRL12_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DISCHARGE_CTRL_PIN&#160;&#160;&#160;(15)</td>
+          <td class="memname">#define CTRL12_PIN&#160;&#160;&#160;(12)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6ca590fbb5211f395cbb82e382784e74" name="a6ca590fbb5211f395cbb82e382784e74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ca590fbb5211f395cbb82e382784e74">&#9670;&#160;</a></span>DISCHARGE_CTRL_PORT</h2>
+<a id="a31a4692eee0e5b87a9df5daedaa29b04" name="a31a4692eee0e5b87a9df5daedaa29b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31a4692eee0e5b87a9df5daedaa29b04">&#9670;&#160;</a></span>CTRL12_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DISCHARGE_CTRL_PORT&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define CTRL12_PORT&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a1699cace805f07492170059c36a49e26" name="a1699cace805f07492170059c36a49e26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1699cace805f07492170059c36a49e26">&#9670;&#160;</a></span>DL_FRONT_CTRL_PIN</h2>
+<a id="af031ba7a3b798c7cab800f2539762163" name="af031ba7a3b798c7cab800f2539762163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af031ba7a3b798c7cab800f2539762163">&#9670;&#160;</a></span>CTRL13_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DL_FRONT_CTRL_PIN&#160;&#160;&#160;(10)</td>
+          <td class="memname">#define CTRL13_PIN&#160;&#160;&#160;(2)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4ecde94ae2c0f627ddbefd251a91a9de" name="a4ecde94ae2c0f627ddbefd251a91a9de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ecde94ae2c0f627ddbefd251a91a9de">&#9670;&#160;</a></span>DL_FRONT_CTRL_PORT</h2>
+<a id="afe2011e61214ace4d230ce743557e8ea" name="afe2011e61214ace4d230ce743557e8ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe2011e61214ace4d230ce743557e8ea">&#9670;&#160;</a></span>CTRL13_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DL_FRONT_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define CTRL13_PORT&#160;&#160;&#160;(GPIOD)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a180c24c00c523825a4932bc4c0e331a3" name="a180c24c00c523825a4932bc4c0e331a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a180c24c00c523825a4932bc4c0e331a3">&#9670;&#160;</a></span>DL_REAR_CTRL_PIN</h2>
+<a id="af28fc3bb2bdd07e0daf0549bd6a91435" name="af28fc3bb2bdd07e0daf0549bd6a91435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af28fc3bb2bdd07e0daf0549bd6a91435">&#9670;&#160;</a></span>CTRL14_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DL_REAR_CTRL_PIN&#160;&#160;&#160;(11)</td>
+          <td class="memname">#define CTRL14_PIN&#160;&#160;&#160;(5)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9350e2c1491d600a5d3b7e56091a73fb" name="a9350e2c1491d600a5d3b7e56091a73fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9350e2c1491d600a5d3b7e56091a73fb">&#9670;&#160;</a></span>DL_REAR_CTRL_PORT</h2>
+<a id="a98fcea7ce405e5ba6337379faf8ec445" name="a98fcea7ce405e5ba6337379faf8ec445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98fcea7ce405e5ba6337379faf8ec445">&#9670;&#160;</a></span>CTRL14_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DL_REAR_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define CTRL14_PORT&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a923cc9dfcf8ed7661b4626a7f283ecee" name="a923cc9dfcf8ed7661b4626a7f283ecee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a923cc9dfcf8ed7661b4626a7f283ecee">&#9670;&#160;</a></span>EMETER_CTRL_PIN</h2>
+<a id="adbc45f74185ad8428c1b3fc69e6bd77f" name="adbc45f74185ad8428c1b3fc69e6bd77f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbc45f74185ad8428c1b3fc69e6bd77f">&#9670;&#160;</a></span>CTRL15_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EMETER_CTRL_PIN&#160;&#160;&#160;(11)</td>
+          <td class="memname">#define CTRL15_PIN&#160;&#160;&#160;(1)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="af82c2b3a0b9ea52e9340e0317834d145" name="af82c2b3a0b9ea52e9340e0317834d145"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af82c2b3a0b9ea52e9340e0317834d145">&#9670;&#160;</a></span>EMETER_CTRL_PORT</h2>
+<a id="ae941650e84179195b3e9f2d77391bdae" name="ae941650e84179195b3e9f2d77391bdae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae941650e84179195b3e9f2d77391bdae">&#9670;&#160;</a></span>CTRL15_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define EMETER_CTRL_PORT&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define CTRL15_PORT&#160;&#160;&#160;(GPIOB)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75d4ccc79de793a0f15bb11cf466a186" name="a75d4ccc79de793a0f15bb11cf466a186"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d4ccc79de793a0f15bb11cf466a186">&#9670;&#160;</a></span>CTRL16_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL16_PIN&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15972131f5d2084161f9a3a0e3254e48" name="a15972131f5d2084161f9a3a0e3254e48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15972131f5d2084161f9a3a0e3254e48">&#9670;&#160;</a></span>CTRL16_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL16_PORT&#160;&#160;&#160;(GPIOB)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace9f87293e1f36afccaf4ac1319bca77" name="ace9f87293e1f36afccaf4ac1319bca77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace9f87293e1f36afccaf4ac1319bca77">&#9670;&#160;</a></span>CTRL17_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL17_PIN&#160;&#160;&#160;(10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6bf6ca787d7df5f7d3b17c08a572344" name="ab6bf6ca787d7df5f7d3b17c08a572344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6bf6ca787d7df5f7d3b17c08a572344">&#9670;&#160;</a></span>CTRL17_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL17_PORT&#160;&#160;&#160;(GPIOB)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6c041db64607324901f98b8688380c1" name="ab6c041db64607324901f98b8688380c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6c041db64607324901f98b8688380c1">&#9670;&#160;</a></span>CTRL18_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL18_PIN&#160;&#160;&#160;(3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac488840edb97e998f0e69c7eec8aaf2f" name="ac488840edb97e998f0e69c7eec8aaf2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac488840edb97e998f0e69c7eec8aaf2f">&#9670;&#160;</a></span>CTRL18_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL18_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6bc4650952593354a6b48535cb3f2ec4" name="a6bc4650952593354a6b48535cb3f2ec4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc4650952593354a6b48535cb3f2ec4">&#9670;&#160;</a></span>CTRL19_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL19_PIN&#160;&#160;&#160;(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cb86ac3be1223e917ef26ecb99b94e0" name="a8cb86ac3be1223e917ef26ecb99b94e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb86ac3be1223e917ef26ecb99b94e0">&#9670;&#160;</a></span>CTRL19_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL19_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a221644410fcf8e47695509cc4acffaee" name="a221644410fcf8e47695509cc4acffaee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a221644410fcf8e47695509cc4acffaee">&#9670;&#160;</a></span>CTRL1_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL1_PIN&#160;&#160;&#160;(9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec1b517807c4a5d67de42999b33ae3a9" name="aec1b517807c4a5d67de42999b33ae3a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec1b517807c4a5d67de42999b33ae3a9">&#9670;&#160;</a></span>CTRL1_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL1_PORT&#160;&#160;&#160;(GPIOA)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48fc8024410d3ea1ac2ca8bddabca45b" name="a48fc8024410d3ea1ac2ca8bddabca45b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48fc8024410d3ea1ac2ca8bddabca45b">&#9670;&#160;</a></span>CTRL20_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL20_PIN&#160;&#160;&#160;(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0546cfd5443984b774a242a4e74206fd" name="a0546cfd5443984b774a242a4e74206fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0546cfd5443984b774a242a4e74206fd">&#9670;&#160;</a></span>CTRL20_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL20_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e513aec6d17d4491a579aed12bb150e" name="a7e513aec6d17d4491a579aed12bb150e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e513aec6d17d4491a579aed12bb150e">&#9670;&#160;</a></span>CTRL21_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL21_PIN&#160;&#160;&#160;(11)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a768c8f6ebb918890668a2e35d02e7705" name="a768c8f6ebb918890668a2e35d02e7705"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a768c8f6ebb918890668a2e35d02e7705">&#9670;&#160;</a></span>CTRL21_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL21_PORT&#160;&#160;&#160;(GPIOB)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07e3ea032bc66f0ac96547041e2faecf" name="a07e3ea032bc66f0ac96547041e2faecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e3ea032bc66f0ac96547041e2faecf">&#9670;&#160;</a></span>CTRL2_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL2_PIN&#160;&#160;&#160;(8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88abbf8927cb3a0c02230fc87c496eac" name="a88abbf8927cb3a0c02230fc87c496eac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88abbf8927cb3a0c02230fc87c496eac">&#9670;&#160;</a></span>CTRL2_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL2_PORT&#160;&#160;&#160;(GPIOA)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9a30fe8053bf411d18d9eaec71693706" name="a9a30fe8053bf411d18d9eaec71693706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a30fe8053bf411d18d9eaec71693706">&#9670;&#160;</a></span>CTRL3_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL3_PIN&#160;&#160;&#160;(9)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab68cad83ad8202d721f9c5243ab85c63" name="ab68cad83ad8202d721f9c5243ab85c63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab68cad83ad8202d721f9c5243ab85c63">&#9670;&#160;</a></span>CTRL3_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL3_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a7fd72cf1a599225f94b0d403c65e1f" name="a7a7fd72cf1a599225f94b0d403c65e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a7fd72cf1a599225f94b0d403c65e1f">&#9670;&#160;</a></span>CTRL4_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL4_PIN&#160;&#160;&#160;(10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ff580e51ce01dac1904da9d9959d05d" name="a2ff580e51ce01dac1904da9d9959d05d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ff580e51ce01dac1904da9d9959d05d">&#9670;&#160;</a></span>CTRL4_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL4_PORT&#160;&#160;&#160;(GPIOA)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30e173a83c564cbae966abf188197753" name="a30e173a83c564cbae966abf188197753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30e173a83c564cbae966abf188197753">&#9670;&#160;</a></span>CTRL5_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL5_PIN&#160;&#160;&#160;(8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6606c6589252f5289c8b3c0a252d9b2d" name="a6606c6589252f5289c8b3c0a252d9b2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6606c6589252f5289c8b3c0a252d9b2d">&#9670;&#160;</a></span>CTRL5_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL5_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5369a464fc5d7c5832653d68616d820f" name="a5369a464fc5d7c5832653d68616d820f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5369a464fc5d7c5832653d68616d820f">&#9670;&#160;</a></span>CTRL6_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL6_PIN&#160;&#160;&#160;(15)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae58102498b705ae667329e43c1766672" name="ae58102498b705ae667329e43c1766672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58102498b705ae667329e43c1766672">&#9670;&#160;</a></span>CTRL6_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL6_PORT&#160;&#160;&#160;(GPIOB)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa15d09065749c4329501460790f70e84" name="aa15d09065749c4329501460790f70e84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa15d09065749c4329501460790f70e84">&#9670;&#160;</a></span>CTRL7_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL7_PIN&#160;&#160;&#160;(6)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adfce9364aaacbe5ab3fd41815713c879" name="adfce9364aaacbe5ab3fd41815713c879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfce9364aaacbe5ab3fd41815713c879">&#9670;&#160;</a></span>CTRL7_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL7_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45edf128d80ca7115b7d7ec04d5d01c6" name="a45edf128d80ca7115b7d7ec04d5d01c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45edf128d80ca7115b7d7ec04d5d01c6">&#9670;&#160;</a></span>CTRL8_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL8_PIN&#160;&#160;&#160;(7)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a358e9d4f431bc6d8cc0a60a572377090" name="a358e9d4f431bc6d8cc0a60a572377090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a358e9d4f431bc6d8cc0a60a572377090">&#9670;&#160;</a></span>CTRL8_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL8_PORT&#160;&#160;&#160;(GPIOC)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24f4ae760c248552cd3c6091b14097ff" name="a24f4ae760c248552cd3c6091b14097ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f4ae760c248552cd3c6091b14097ff">&#9670;&#160;</a></span>CTRL9_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL9_PIN&#160;&#160;&#160;(10)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef1715062cfd167302397a470263f9fd" name="aef1715062cfd167302397a470263f9fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1715062cfd167302397a470263f9fd">&#9670;&#160;</a></span>CTRL9_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CTRL9_PORT&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -574,146 +938,6 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a27602f09ffd9390b0bb97f2510b39c70" name="a27602f09ffd9390b0bb97f2510b39c70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27602f09ffd9390b0bb97f2510b39c70">&#9670;&#160;</a></span>FAN1_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN1_CTRL_PIN&#160;&#160;&#160;(2)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3dbbfdb47d6b8e8d1451e2603d735c09" name="a3dbbfdb47d6b8e8d1451e2603d735c09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dbbfdb47d6b8e8d1451e2603d735c09">&#9670;&#160;</a></span>FAN1_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN1_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aee25ddbcb35b6d9c3ca5ec3af25b899f" name="aee25ddbcb35b6d9c3ca5ec3af25b899f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee25ddbcb35b6d9c3ca5ec3af25b899f">&#9670;&#160;</a></span>FAN2_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN2_CTRL_PIN&#160;&#160;&#160;(8)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7b135378beac14d90f8dbdc7e8dac013" name="a7b135378beac14d90f8dbdc7e8dac013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b135378beac14d90f8dbdc7e8dac013">&#9670;&#160;</a></span>FAN2_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN2_CTRL_PORT&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afbc11ffb215267408eb2c1cb7129dd6f" name="afbc11ffb215267408eb2c1cb7129dd6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbc11ffb215267408eb2c1cb7129dd6f">&#9670;&#160;</a></span>FAN3_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN3_CTRL_PIN&#160;&#160;&#160;(9)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acbfe104ce14136ca4f3ce70b5a8d8518" name="acbfe104ce14136ca4f3ce70b5a8d8518"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbfe104ce14136ca4f3ce70b5a8d8518">&#9670;&#160;</a></span>FAN3_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN3_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a97aabb66f4f0a24ed3ce7961418b5ae0" name="a97aabb66f4f0a24ed3ce7961418b5ae0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97aabb66f4f0a24ed3ce7961418b5ae0">&#9670;&#160;</a></span>FAN4_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN4_CTRL_PIN&#160;&#160;&#160;(8)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad078182246d2fb205b5e3994b106b0fa" name="ad078182246d2fb205b5e3994b106b0fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad078182246d2fb205b5e3994b106b0fa">&#9670;&#160;</a></span>FAN4_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN4_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a068d2bbbef5ba04d53efa6afbc3df452" name="a068d2bbbef5ba04d53efa6afbc3df452"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a068d2bbbef5ba04d53efa6afbc3df452">&#9670;&#160;</a></span>FAN5_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN5_CTRL_PIN&#160;&#160;&#160;(7)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae01acddab332ff97b9abc8ccaa42f202" name="ae01acddab332ff97b9abc8ccaa42f202"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae01acddab332ff97b9abc8ccaa42f202">&#9670;&#160;</a></span>FAN5_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FAN5_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a5e9e4203b861d671cdcd3bf5f08655a3" name="a5e9e4203b861d671cdcd3bf5f08655a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5e9e4203b861d671cdcd3bf5f08655a3">&#9670;&#160;</a></span>HEARTBEAT_LED_PIN</h2>
 
@@ -742,56 +966,84 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a0ed1415f4108bd0da05fe2ae93be10f1" name="a0ed1415f4108bd0da05fe2ae93be10f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ed1415f4108bd0da05fe2ae93be10f1">&#9670;&#160;</a></span>HXFAN_CTRL_PIN</h2>
+<a id="aab2eab179be33a20258710d82cf42df3" name="aab2eab179be33a20258710d82cf42df3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab2eab179be33a20258710d82cf42df3">&#9670;&#160;</a></span>LVBATT_CS_ADC_CHANNEL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define HXFAN_CTRL_PIN&#160;&#160;&#160;(6)</td>
+          <td class="memname">#define LVBATT_CS_ADC_CHANNEL&#160;&#160;&#160;(12)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab6ed7359c6e7e6ba37cc6f8791dc8caa" name="ab6ed7359c6e7e6ba37cc6f8791dc8caa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6ed7359c6e7e6ba37cc6f8791dc8caa">&#9670;&#160;</a></span>HXFAN_CTRL_PORT</h2>
+<a id="a9dab260bb70a7bafd110401babb098b4" name="a9dab260bb70a7bafd110401babb098b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dab260bb70a7bafd110401babb098b4">&#9670;&#160;</a></span>LVBATT_CS_PIN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define HXFAN_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define LVBATT_CS_PIN&#160;&#160;&#160;(0)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a452a214870e5683f1af03f7dab89e6b9" name="a452a214870e5683f1af03f7dab89e6b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a452a214870e5683f1af03f7dab89e6b9">&#9670;&#160;</a></span>MAIN_CTRL_PIN</h2>
+<a id="ab33bcd8c91a0fbb55c6fa2ed2b3663ed" name="ab33bcd8c91a0fbb55c6fa2ed2b3663ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab33bcd8c91a0fbb55c6fa2ed2b3663ed">&#9670;&#160;</a></span>LVBATT_CS_PORT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAIN_CTRL_PIN&#160;&#160;&#160;(3)</td>
+          <td class="memname">#define LVBATT_CS_PORT&#160;&#160;&#160;(GPIOB)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6c79fe099880e0f98830f687af0e2ef4" name="a6c79fe099880e0f98830f687af0e2ef4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c79fe099880e0f98830f687af0e2ef4">&#9670;&#160;</a></span>MAIN_CTRL_PORT</h2>
+<a id="a392689fc90e9b28dc75fb1a14ae8dc39" name="a392689fc90e9b28dc75fb1a14ae8dc39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a392689fc90e9b28dc75fb1a14ae8dc39">&#9670;&#160;</a></span>LVBATT_VS_ADC_CHANNEL</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MAIN_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define LVBATT_VS_ADC_CHANNEL&#160;&#160;&#160;(4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b589d55123348492e6d66ab4c7f310a" name="a8b589d55123348492e6d66ab4c7f310a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b589d55123348492e6d66ab4c7f310a">&#9670;&#160;</a></span>LVBATT_VS_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LVBATT_VS_PIN&#160;&#160;&#160;(3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a44c867b37b10bb2f6ba9c363a013cdba" name="a44c867b37b10bb2f6ba9c363a013cdba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44c867b37b10bb2f6ba9c363a013cdba">&#9670;&#160;</a></span>LVBATT_VS_PORT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LVBATT_VS_PORT&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -805,7 +1057,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX1_CTRL_A_PIN&#160;&#160;&#160;(5)</td>
+          <td class="memname">#define MUX1_CTRL_A_PIN&#160;&#160;&#160;(4)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -819,7 +1071,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX1_CTRL_A_PORT&#160;&#160;&#160;(GPIOA)</td>
+          <td class="memname">#define MUX1_CTRL_A_PORT&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -882,6 +1134,20 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="ae97cb73e2c108fce0282eb4ccebd2736" name="ae97cb73e2c108fce0282eb4ccebd2736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae97cb73e2c108fce0282eb4ccebd2736">&#9670;&#160;</a></span>MUX1_OUT_ADC_CHANNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MUX1_OUT_ADC_CHANNEL&#160;&#160;&#160;(13)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a18cafc02d9c41fed935d5cab554f93a0" name="a18cafc02d9c41fed935d5cab554f93a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a18cafc02d9c41fed935d5cab554f93a0">&#9670;&#160;</a></span>MUX1_OUT_PIN</h2>
 
@@ -889,7 +1155,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX1_OUT_PIN&#160;&#160;&#160;(4)</td>
+          <td class="memname">#define MUX1_OUT_PIN&#160;&#160;&#160;(5)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -903,7 +1169,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX1_OUT_PORT&#160;&#160;&#160;(GPIOC)</td>
+          <td class="memname">#define MUX1_OUT_PORT&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -917,7 +1183,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX2_CTRL_A_PIN&#160;&#160;&#160;(5)</td>
+          <td class="memname">#define MUX2_CTRL_A_PIN&#160;&#160;&#160;(1)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -931,7 +1197,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX2_CTRL_A_PORT&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define MUX2_CTRL_A_PORT&#160;&#160;&#160;(GPIOC)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -973,7 +1239,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX2_CTRL_C_PIN&#160;&#160;&#160;(1)</td>
+          <td class="memname">#define MUX2_CTRL_C_PIN&#160;&#160;&#160;(15)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -987,7 +1253,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX2_CTRL_C_PORT&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">#define MUX2_CTRL_C_PORT&#160;&#160;&#160;(GPIOA)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1001,7 +1267,7 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MUX2_CTRL_D_PIN&#160;&#160;&#160;(2)</td>
+          <td class="memname">#define MUX2_CTRL_D_PIN&#160;&#160;&#160;(5)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1016,6 +1282,20 @@ Macros</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define MUX2_CTRL_D_PORT&#160;&#160;&#160;(GPIOB)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1530238b4a1ad91e84ec5e69846d63c" name="ac1530238b4a1ad91e84ec5e69846d63c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1530238b4a1ad91e84ec5e69846d63c">&#9670;&#160;</a></span>MUX2_OUT_ADC_CHANNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MUX2_OUT_ADC_CHANNEL&#160;&#160;&#160;(17)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1050,198 +1330,69 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a822dd5ff0d8ccd04964442791059b80d" name="a822dd5ff0d8ccd04964442791059b80d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a822dd5ff0d8ccd04964442791059b80d">&#9670;&#160;</a></span>PUMP1_CTRL_PIN</h2>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a459a3946cf810b4181a32657c4baf0ef" name="a459a3946cf810b4181a32657c4baf0ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a459a3946cf810b4181a32657c4baf0ef">&#9670;&#160;</a></span>raw_adc1_values</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">#define PUMP1_CTRL_PIN&#160;&#160;&#160;(15)</td>
+          <td class="memname">volatile <a class="el" href="structraw__adc1__values__t.html">raw_adc1_values_t</a> raw_adc1_values</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa4bf76d894d0972d56bec97b98624fdf" name="aa4bf76d894d0972d56bec97b98624fdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4bf76d894d0972d56bec97b98624fdf">&#9670;&#160;</a></span>PUMP1_CTRL_PORT</h2>
+<a id="a3232d72901f67e1ba6bc7b722d6c3499" name="a3232d72901f67e1ba6bc7b722d6c3499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3232d72901f67e1ba6bc7b722d6c3499">&#9670;&#160;</a></span>raw_adc2_values</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">#define PUMP1_CTRL_PORT&#160;&#160;&#160;(GPIOB)</td>
+          <td class="memname">volatile <a class="el" href="structraw__adc2__values__t.html">raw_adc2_values_t</a> raw_adc2_values</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a00f6fabe3a581419a5d6679bb903434d" name="a00f6fabe3a581419a5d6679bb903434d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00f6fabe3a581419a5d6679bb903434d">&#9670;&#160;</a></span>PUMP2_CTRL_PIN</h2>
+<a id="a4c055faade567356fd6e5eb9a7c802ee" name="a4c055faade567356fd6e5eb9a7c802ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c055faade567356fd6e5eb9a7c802ee">&#9670;&#160;</a></span>raw_adc3_values</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">#define PUMP2_CTRL_PIN&#160;&#160;&#160;(14)</td>
+          <td class="memname">volatile <a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a> raw_adc3_values</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8474ea04aaadedca9fa9651d519c861e" name="a8474ea04aaadedca9fa9651d519c861e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8474ea04aaadedca9fa9651d519c861e">&#9670;&#160;</a></span>PUMP2_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PUMP2_CTRL_PORT&#160;&#160;&#160;(GPIOB)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a35989a07ee2be26376ba7f365e76a04c" name="a35989a07ee2be26376ba7f365e76a04c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35989a07ee2be26376ba7f365e76a04c">&#9670;&#160;</a></span>RAIL_24V_CS_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RAIL_24V_CS_PIN&#160;&#160;&#160;(0)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3ed0555697c004dc0b9ab9f3b2f3dffd" name="a3ed0555697c004dc0b9ab9f3b2f3dffd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ed0555697c004dc0b9ab9f3b2f3dffd">&#9670;&#160;</a></span>RAIL_24V_CS_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RAIL_24V_CS_PORT&#160;&#160;&#160;(GPIOB)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab38942ad2ff80acd3241bd339a232396" name="ab38942ad2ff80acd3241bd339a232396"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab38942ad2ff80acd3241bd339a232396">&#9670;&#160;</a></span>RAIL_24V_VS_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RAIL_24V_VS_PIN&#160;&#160;&#160;(3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aec30627f1b69bf99438a6fdc526fbfb6" name="aec30627f1b69bf99438a6fdc526fbfb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec30627f1b69bf99438a6fdc526fbfb6">&#9670;&#160;</a></span>RAIL_24V_VS_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RAIL_24V_VS_PORT&#160;&#160;&#160;(GPIOA)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5a188495c7c26449f2c795291a0d0330" name="a5a188495c7c26449f2c795291a0d0330"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a188495c7c26449f2c795291a0d0330">&#9670;&#160;</a></span>SDC_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SDC_CTRL_PIN&#160;&#160;&#160;(1)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9868a7ea5044ed55e966c70afafac558" name="a9868a7ea5044ed55e966c70afafac558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9868a7ea5044ed55e966c70afafac558">&#9670;&#160;</a></span>SDC_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SDC_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af3d68cfd876e09bd10bcd8550b8cacf4" name="af3d68cfd876e09bd10bcd8550b8cacf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3d68cfd876e09bd10bcd8550b8cacf4">&#9670;&#160;</a></span>SDC_LOOP_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SDC_LOOP_CTRL_PIN&#160;&#160;&#160;(5)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7fe1e4b16724523b6047fabd7aea2537" name="a7fe1e4b16724523b6047fabd7aea2537"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fe1e4b16724523b6047fabd7aea2537">&#9670;&#160;</a></span>SDC_LOOP_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SDC_LOOP_CTRL_PORT&#160;&#160;&#160;(GPIOC)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aaf914ef4d6d6318b9dc437c17a38bd05" name="aaf914ef4d6d6318b9dc437c17a38bd05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf914ef4d6d6318b9dc437c17a38bd05">&#9670;&#160;</a></span>TV_CTRL_PIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TV_CTRL_PIN&#160;&#160;&#160;(10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac36b18466861a504a327d1480e7b9a8a" name="ac36b18466861a504a327d1480e7b9a8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac36b18466861a504a327d1480e7b9a8a">&#9670;&#160;</a></span>TV_CTRL_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TV_CTRL_PORT&#160;&#160;&#160;(GPIOB)</td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

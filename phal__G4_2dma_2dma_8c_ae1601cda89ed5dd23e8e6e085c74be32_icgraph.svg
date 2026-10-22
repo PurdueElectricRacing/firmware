@@ -424,30 +424,12 @@ var sectionId = 'dynsection-17';
 </a>
 </g>
 </g>
-<!-- Node24 -->
-<g id="Node000024" class="node">
-<title>Node24</title>
-<g id="a_Node000024"><a xlink:href="phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
-<polygon fill="white" stroke="#666666" points="164.38,-19.25 81.62,-19.25 81.62,0 164.38,0 164.38,-19.25"/>
-<text text-anchor="middle" x="123" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_init</text>
-</a>
-</g>
-</g>
-<!-- Node20&#45;&gt;Node24 -->
-<g id="edge26_Node000020_Node000024" class="edge">
-<title>Node20&#45;&gt;Node24</title>
-<g id="a_edge26_Node000020_Node000024"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M411.03,-50.44C394.95,-42.22 373.89,-32.72 354,-27.62 289.21,-11.02 211.07,-8.42 164.57,-8.62"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="409.01,-53.33 419.49,-54.9 412.27,-47.14 409.01,-53.33"/>
-</a>
-</g>
-</g>
 <!-- Node25 -->
 <g id="Node000025" class="node">
 <title>Node25</title>
-<g id="a_Node000025"><a xlink:href="phal__G4_2usart_2usart_8c.html#a6a2d7bc858fa90a11e983e615fde1f7c" target="_top" xlink:title="Initialize a USART peripheral for DMA&#45;driven communication.">
-<polygon fill="white" stroke="#666666" points="173,-93.25 73,-93.25 73,-74 173,-74 173,-93.25"/>
-<text text-anchor="middle" x="123" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_USART_init</text>
+<g id="a_Node000025"><a xlink:href="phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" target="_top" xlink:title="Initilize SPI peripheral with the configuired structure.">
+<polygon fill="white" stroke="#666666" points="164.38,-19.25 81.62,-19.25 81.62,0 164.38,0 164.38,-19.25"/>
+<text text-anchor="middle" x="123" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_SPI_init</text>
 </a>
 </g>
 </g>
@@ -455,6 +437,24 @@ var sectionId = 'dynsection-17';
 <g id="edge27_Node000020_Node000025" class="edge">
 <title>Node20&#45;&gt;Node25</title>
 <g id="a_edge27_Node000020_Node000025"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M411.03,-50.44C394.95,-42.22 373.89,-32.72 354,-27.62 289.21,-11.02 211.07,-8.42 164.57,-8.62"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="409.01,-53.33 419.49,-54.9 412.27,-47.14 409.01,-53.33"/>
+</a>
+</g>
+</g>
+<!-- Node26 -->
+<g id="Node000026" class="node">
+<title>Node26</title>
+<g id="a_Node000026"><a xlink:href="phal__G4_2usart_2usart_8c.html#a6a2d7bc858fa90a11e983e615fde1f7c" target="_top" xlink:title="Initialize a USART peripheral for DMA&#45;driven communication.">
+<polygon fill="white" stroke="#666666" points="173,-93.25 73,-93.25 73,-74 173,-74 173,-93.25"/>
+<text text-anchor="middle" x="123" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_USART_init</text>
+</a>
+</g>
+</g>
+<!-- Node20&#45;&gt;Node26 -->
+<g id="edge28_Node000020_Node000026" class="edge">
+<title>Node20&#45;&gt;Node26</title>
+<g id="a_edge28_Node000020_Node000026"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M383.51,-68.76C324.22,-72.16 230.49,-77.53 173.38,-80.8"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="383.59,-72.26 393.37,-68.2 383.19,-65.27 383.59,-72.26"/>
 </a>
@@ -478,19 +478,19 @@ var sectionId = 'dynsection-17';
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node24 -->
-<g id="edge23_Node000021_Node000024" class="edge">
-<title>Node21&#45;&gt;Node24</title>
-<g id="a_edge23_Node000021_Node000024"><a xlink:title=" ">
+<!-- Node21&#45;&gt;Node25 -->
+<g id="edge24_Node000021_Node000025" class="edge">
+<title>Node21&#45;&gt;Node25</title>
+<g id="a_edge24_Node000021_Node000025"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M226.76,-33.92C206.47,-29.12 183.74,-23.75 164.82,-19.28"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="225.73,-37.27 236.26,-36.17 227.34,-30.46 225.73,-37.27"/>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node25 -->
-<g id="edge24_Node000021_Node000025" class="edge">
-<title>Node21&#45;&gt;Node25</title>
-<g id="a_edge24_Node000021_Node000025"><a xlink:title=" ">
+<!-- Node21&#45;&gt;Node26 -->
+<g id="edge25_Node000021_Node000026" class="edge">
+<title>Node21&#45;&gt;Node26</title>
+<g id="a_edge25_Node000021_Node000026"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M226.8,-59.32C207.17,-63.96 185.25,-69.14 166.71,-73.53"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="227.34,-62.79 236.26,-57.08 225.73,-55.98 227.34,-62.79"/>
 </a>
@@ -499,7 +499,7 @@ var sectionId = 'dynsection-17';
 <!-- Node23 -->
 <g id="Node000023" class="node">
 <title>Node23</title>
-<g id="a_Node000023"><a xlink:href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" target="_top" xlink:title=" ">
+<g id="a_Node000023"><a xlink:href="pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="37,-56.25 0,-56.25 0,-37 37,-37 37,-56.25"/>
 <text text-anchor="middle" x="18.5" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
 </a>
@@ -514,19 +514,37 @@ var sectionId = 'dynsection-17';
 </a>
 </g>
 </g>
-<!-- Node26 -->
-<g id="Node000026" class="node">
-<title>Node26</title>
-<g id="a_Node000026"><a xlink:href="dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" target="_top" xlink:title=" ">
+<!-- Node24 -->
+<g id="Node000024" class="node">
+<title>Node24</title>
+<g id="a_Node000024"><a xlink:href="a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="37,-19.25 0,-19.25 0,0 37,0 37,-19.25"/>
+<text text-anchor="middle" x="18.5" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
+</a>
+</g>
+</g>
+<!-- Node22&#45;&gt;Node24 -->
+<g id="edge23_Node000022_Node000024" class="edge">
+<title>Node22&#45;&gt;Node24</title>
+<g id="a_edge23_Node000022_Node000024"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M83.42,-32.7C67.65,-27 50.16,-20.69 37.47,-16.11"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="81.97,-35.9 92.57,-36 84.35,-29.31 81.97,-35.9"/>
+</a>
+</g>
+</g>
+<!-- Node27 -->
+<g id="Node000027" class="node">
+<title>Node27</title>
+<g id="a_Node000027"><a xlink:href="dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="37,-93.25 0,-93.25 0,-74 37,-74 37,-93.25"/>
 <text text-anchor="middle" x="18.5" y="-79.75" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
 </a>
 </g>
 </g>
-<!-- Node25&#45;&gt;Node26 -->
-<g id="edge25_Node000025_Node000026" class="edge">
-<title>Node25&#45;&gt;Node26</title>
-<g id="a_edge25_Node000025_Node000026"><a xlink:title=" ">
+<!-- Node26&#45;&gt;Node27 -->
+<g id="edge26_Node000026_Node000027" class="edge">
+<title>Node26&#45;&gt;Node27</title>
+<g id="a_edge26_Node000026_Node000027"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M61.29,-83.62C52.49,-83.62 44.08,-83.62 37.14,-83.62"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="61.04,-87.13 71.04,-83.63 61.04,-80.13 61.04,-87.13"/>
 </a>

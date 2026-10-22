@@ -59,7 +59,5 @@ var searchData=
   ['hx_5ffan_5flower_5flimit_56',['HX_FAN_LOWER_LIMIT',['../cooling__fsm_8c.html#af0c33c92c651eab14a146c4689dc80e6',1,'cooling_fsm.c']]],
   ['hx_5ffan_5foff_57',['hx_fan_off',['../cooling__callbacks_8c.html#a1abfa031f1eeadde6ab3c3da44ffb455',1,'hx_fan_off(void):&#160;cooling_callbacks.c'],['../cooling__callbacks_8h.html#a1abfa031f1eeadde6ab3c3da44ffb455',1,'hx_fan_off(void):&#160;cooling_callbacks.c']]],
   ['hx_5ffan_5fon_58',['hx_fan_on',['../cooling__callbacks_8c.html#a3d7af8ec7b3820c6e1d8a70d81a539de',1,'hx_fan_on(void):&#160;cooling_callbacks.c'],['../cooling__callbacks_8h.html#a3d7af8ec7b3820c6e1d8a70d81a539de',1,'hx_fan_on(void):&#160;cooling_callbacks.c']]],
-  ['hx_5ffan_5fupper_5flimit_59',['HX_FAN_UPPER_LIMIT',['../cooling__fsm_8c.html#ae61f78a8984f1e42b3f3e2172453e6b1',1,'cooling_fsm.c']]],
-  ['hxfan_5fctrl_5fpin_60',['HXFAN_CTRL_PIN',['../pdu_2main_8h.html#a0ed1415f4108bd0da05fe2ae93be10f1',1,'main.h']]],
-  ['hxfan_5fctrl_5fport_61',['HXFAN_CTRL_PORT',['../pdu_2main_8h.html#ab6ed7359c6e7e6ba37cc6f8791dc8caa',1,'main.h']]]
+  ['hx_5ffan_5fupper_5flimit_59',['HX_FAN_UPPER_LIMIT',['../cooling__fsm_8c.html#ae61f78a8984f1e42b3f3e2172453e6b1',1,'cooling_fsm.c']]]
 ];

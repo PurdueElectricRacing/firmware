@@ -35,7 +35,5 @@ var searchData=
   ['tsal_5frtm_5fenable_5fport_32',['TSAL_RTM_ENABLE_PORT',['../main__module_2main_8h.html#a274350ceee72215b8388bbe2c9cbdb54',1,'main.h']]],
   ['tv1_5fminus_5fpin_33',['TV1_MINUS_PIN',['../dashboard_2main_8h.html#a066756c6be4dea791982891445aa58ad',1,'main.h']]],
   ['tv1_5fminus_5fport_34',['TV1_MINUS_PORT',['../dashboard_2main_8h.html#a7c58c4c4eab42860bb3ba131bdb36d8c',1,'main.h']]],
-  ['tv_5fbutton_35',['TV_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a26bda9f3f6a5e78cc76c04562d37096d',1,'vcu.h']]],
-  ['tv_5fctrl_5fpin_36',['TV_CTRL_PIN',['../pdu_2main_8h.html#aaf914ef4d6d6318b9dc437c17a38bd05',1,'main.h']]],
-  ['tv_5fctrl_5fport_37',['TV_CTRL_PORT',['../pdu_2main_8h.html#ac36b18466861a504a327d1480e7b9a8a',1,'main.h']]]
+  ['tv_5fbutton_35',['TV_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a26bda9f3f6a5e78cc76c04562d37096d',1,'vcu.h']]]
 ];

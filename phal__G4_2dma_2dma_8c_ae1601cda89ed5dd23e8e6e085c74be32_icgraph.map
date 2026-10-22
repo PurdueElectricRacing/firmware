@@ -40,16 +40,18 @@
 <area shape="poly" id="edge17_Node000002_Node000018" title=" " alt="" coords="584,385,574,333,554,267,523,200,501,169,476,143,460,132,462,128,479,139,505,166,527,197,559,265,579,331,589,384"/>
 <area shape="rect" id="Node000021" href="$phal__G4_2dma_2dma_8c.html#a113bf99c3b1cc73c92d466d94ea88dad" title="Setup DMA callback then call PHAL_DMA_init()" alt="" coords="284,847,477,872"/>
 <area shape="poly" id="edge20_Node000020_Node000021" title=" " alt="" coords="517,846,478,850,477,845,516,840"/>
-<area shape="rect" id="Node000024" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="114,896,224,922"/>
-<area shape="poly" id="edge26_Node000020_Node000024" title=" " alt="" coords="555,857,518,874,478,887,411,901,342,909,225,913,225,908,342,903,410,896,477,882,516,869,552,852"/>
-<area shape="rect" id="Node000025" href="$phal__G4_2usart_2usart_8c.html#a6a2d7bc858fa90a11e983e615fde1f7c" title="Initialize a USART peripheral for DMA&#45;driven communication." alt="" coords="103,797,236,823"/>
-<area shape="poly" id="edge27_Node000020_Node000025" title=" " alt="" coords="517,833,236,817,237,811,517,827"/>
+<area shape="rect" id="Node000025" href="$phal__G4_2spi_2spi_8c.html#a0a4524eb6715f19d2d2128ad7f410269" title="Initilize SPI peripheral with the configuired structure." alt="" coords="114,896,224,922"/>
+<area shape="poly" id="edge27_Node000020_Node000025" title=" " alt="" coords="555,857,518,874,478,887,411,901,342,909,225,913,225,908,342,903,410,896,477,882,516,869,552,852"/>
+<area shape="rect" id="Node000026" href="$phal__G4_2usart_2usart_8c.html#a6a2d7bc858fa90a11e983e615fde1f7c" title="Initialize a USART peripheral for DMA&#45;driven communication." alt="" coords="103,797,236,823"/>
+<area shape="poly" id="edge28_Node000020_Node000026" title=" " alt="" coords="517,833,236,817,237,811,517,827"/>
 <area shape="rect" id="Node000022" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="112,847,227,872"/>
 <area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="269,862,227,862,227,857,269,857"/>
-<area shape="poly" id="edge23_Node000021_Node000024" title=" " alt="" coords="308,879,226,899,224,893,307,874"/>
-<area shape="poly" id="edge24_Node000021_Node000025" title=" " alt="" coords="307,845,227,826,228,821,308,840"/>
-<area shape="rect" id="Node000023" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,847,55,872"/>
+<area shape="poly" id="edge24_Node000021_Node000025" title=" " alt="" coords="308,879,226,899,224,893,307,874"/>
+<area shape="poly" id="edge25_Node000021_Node000026" title=" " alt="" coords="307,845,227,826,228,821,308,840"/>
+<area shape="rect" id="Node000023" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,847,55,872"/>
 <area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="96,862,55,862,55,857,96,857"/>
-<area shape="rect" id="Node000026" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,797,55,823"/>
-<area shape="poly" id="edge25_Node000025_Node000026" title=" " alt="" coords="87,813,55,813,55,808,87,808"/>
+<area shape="rect" id="Node000024" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,896,55,922"/>
+<area shape="poly" id="edge23_Node000022_Node000024" title=" " alt="" coords="117,881,56,903,54,898,116,876"/>
+<area shape="rect" id="Node000027" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,797,55,823"/>
+<area shape="poly" id="edge26_Node000026_Node000027" title=" " alt="" coords="87,813,55,813,55,808,87,808"/>
 </map>

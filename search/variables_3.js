@@ -115,11 +115,15 @@ var searchData=
   ['csd_5ftab_112',['CSD_Tab',['../sdio_8c.html#a6f24971fb957f6512c0b379c0aa5f5cb',1,'sdio.c']]],
   ['csdstruct_113',['CSDStruct',['../structSD__CSD.html#a7969da024916fa6a90017289e8aae62e',1,'SD_CSD']]],
   ['csr_114',['csr',['../structabox__init__data__t.html#adc75d842c61cbcc5ae2971a8acee981e',1,'abox_init_data_t::csr'],['../structdash__init__data__t.html#afa588434ea3e81d952d189eb0109657f',1,'dash_init_data_t::csr'],['../structmain__init__data__t.html#abbba60d27d58b017366cee884defd4be',1,'main_init_data_t::csr'],['../structpdu__init__data__t.html#a3ca7456d60cecef2f97141b817d7d00e',1,'pdu_init_data_t::csr'],['../structtv__init__data__t.html#a793f322f62ef3ebaa7df8c3c84576c50',1,'tv_init_data_t::csr'],['../structfront__driveline__init__data__t.html#af8d12cd07fcdce431197e36228185a52',1,'front_driveline_init_data_t::csr'],['../structrear__driveline__init__data__t.html#af0c7fab27a47a437b51a6c61bb0107cf',1,'rear_driveline_init_data_t::csr']]],
-  ['ctx_115',['ctx',['../structPHAL__DMA__Callback__t.html#afcf8ae67e70bb30584fc5ca3d01d8bac',1,'PHAL_DMA_Callback_t']]],
-  ['curr_5fpage_116',['curr_page',['../lcd_8c.html#af64f99df8657acc696aa097fce871251',1,'curr_page:&#160;lcd.c'],['../lcd_8h.html#af64f99df8657acc696aa097fce871251',1,'curr_page:&#160;lcd.c']]],
-  ['current_117',['current',['../structcanpiler__test__data__t.html#a84357009968a6838947b32c8aa77192e',1,'canpiler_test_data_t::current'],['../structE__METER__MEASUREMENT__data__t.html#ad42a518f6bada061e2ae5e54b05d0067',1,'E_METER_MEASUREMENT_data_t::current']]],
-  ['current_5findex_118',['current_index',['../structmenu__page__t.html#a82271a2b4009a92268ea984d5d6b53cc',1,'menu_page_t']]],
-  ['current_5flimit_119',['current_limit',['../structelcon__command__data__t.html#af601a79873c2ca95e8eee8910d2ef4e0',1,'elcon_command_data_t::current_limit'],['../structcharging__fsm__internals__data__t.html#a720183d81321b383f395b68de320f79f',1,'charging_fsm_internals_data_t::current_limit']]],
-  ['current_5fstate_120',['current_state',['../structcar__t.html#a33be29b7942689454a448a0805acba8b',1,'car_t::current_state'],['../bootloader_8c.html#ae76cae8e53cfba7733b2597c1b0eb60c',1,'current_state:&#160;bootloader.c'],['../ethernet_8c.html#aaa97b19c7e27d42aa017b67ffbeac797',1,'current_state:&#160;ethernet.c']]],
-  ['current_5fvalue_121',['current_value',['../structmenu__element__t.html#a33d8619be7bef642d1f2e02bd628cc8e',1,'menu_element_t']]]
+  ['ctrl_5fpin_115',['ctrl_pin',['../structswitch__t.html#af2e20bd9545d9d7362c641ec39024894',1,'switch_t']]],
+  ['ctrl_5fport_116',['ctrl_port',['../structswitch__t.html#aefbd296863bdd38a171dfde96d4dac5b',1,'switch_t']]],
+  ['ctx_117',['ctx',['../structPHAL__DMA__Callback__t.html#afcf8ae67e70bb30584fc5ca3d01d8bac',1,'PHAL_DMA_Callback_t']]],
+  ['curr_5fpage_118',['curr_page',['../lcd_8c.html#af64f99df8657acc696aa097fce871251',1,'curr_page:&#160;lcd.c'],['../lcd_8h.html#af64f99df8657acc696aa097fce871251',1,'curr_page:&#160;lcd.c']]],
+  ['current_119',['current',['../structcanpiler__test__data__t.html#a84357009968a6838947b32c8aa77192e',1,'canpiler_test_data_t::current'],['../structE__METER__MEASUREMENT__data__t.html#ad42a518f6bada061e2ae5e54b05d0067',1,'E_METER_MEASUREMENT_data_t::current']]],
+  ['current_5findex_120',['current_index',['../structmenu__page__t.html#a82271a2b4009a92268ea984d5d6b53cc',1,'menu_page_t']]],
+  ['current_5flimit_121',['current_limit',['../structelcon__command__data__t.html#af601a79873c2ca95e8eee8910d2ef4e0',1,'elcon_command_data_t::current_limit'],['../structcharging__fsm__internals__data__t.html#a720183d81321b383f395b68de320f79f',1,'charging_fsm_internals_data_t::current_limit']]],
+  ['current_5fma_122',['current_ma',['../structswitch__t.html#a16f555e33b4c80398797d51faf267fc3',1,'switch_t']]],
+  ['current_5fsense_5ftask_5fperiod_5fms_123',['CURRENT_SENSE_TASK_PERIOD_MS',['../current__sense_8h.html#a05e3dd8002a979fe8b542f3301c6653f',1,'current_sense.h']]],
+  ['current_5fstate_124',['current_state',['../structcar__t.html#a33be29b7942689454a448a0805acba8b',1,'car_t::current_state'],['../bootloader_8c.html#ae76cae8e53cfba7733b2597c1b0eb60c',1,'current_state:&#160;bootloader.c'],['../ethernet_8c.html#aaa97b19c7e27d42aa017b67ffbeac797',1,'current_state:&#160;ethernet.c']]],
+  ['current_5fvalue_125',['current_value',['../structmenu__element__t.html#a33d8619be7bef642d1f2e02bd628cc8e',1,'menu_element_t']]]
 ];

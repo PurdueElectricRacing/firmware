@@ -26,11 +26,7 @@ var searchData=
   ['portget_5frun_5ftime_5fcounter_5fvalue_23',['portGET_RUN_TIME_COUNTER_VALUE',['../FreeRTOSConfig_8h.html#aa7cb8c79fb40bf2d4caccf5ba9ae6737',1,'FreeRTOSConfig.h']]],
   ['prchg_5fled_5fpin_24',['PRCHG_LED_PIN',['../dashboard_2main_8h.html#a2c6705d9461ab7987893d3dcfba01694',1,'main.h']]],
   ['prchg_5fled_5fport_25',['PRCHG_LED_PORT',['../dashboard_2main_8h.html#a3d15ec5334f28944be69d9bae5a44b49',1,'main.h']]],
-  ['pump1_5fctrl_5fpin_26',['PUMP1_CTRL_PIN',['../pdu_2main_8h.html#a822dd5ff0d8ccd04964442791059b80d',1,'main.h']]],
-  ['pump1_5fctrl_5fport_27',['PUMP1_CTRL_PORT',['../pdu_2main_8h.html#aa4bf76d894d0972d56bec97b98624fdf',1,'main.h']]],
-  ['pump2_5fctrl_5fpin_28',['PUMP2_CTRL_PIN',['../pdu_2main_8h.html#a00f6fabe3a581419a5d6679bb903434d',1,'main.h']]],
-  ['pump2_5fctrl_5fport_29',['PUMP2_CTRL_PORT',['../pdu_2main_8h.html#a8474ea04aaadedca9fa9651d519c861e',1,'main.h']]],
-  ['pump_5fcheck_30',['PUMP_CHECK',['../race_8h.html#a7c7550b4b1595f88da28c89b20dd2a99',1,'race.h']]],
-  ['pwr_5floss_5fpin_31',['PWR_LOSS_PIN',['../daq_2main_8h.html#ad89a8013f44c1cf0236952774b464675',1,'main.h']]],
-  ['pwr_5floss_5fport_32',['PWR_LOSS_PORT',['../daq_2main_8h.html#a082fcbe31a8af390ca037a5d70eac72b',1,'main.h']]]
+  ['pump_5fcheck_26',['PUMP_CHECK',['../race_8h.html#a7c7550b4b1595f88da28c89b20dd2a99',1,'race.h']]],
+  ['pwr_5floss_5fpin_27',['PWR_LOSS_PIN',['../daq_2main_8h.html#ad89a8013f44c1cf0236952774b464675',1,'main.h']]],
+  ['pwr_5floss_5fport_28',['PWR_LOSS_PORT',['../daq_2main_8h.html#a082fcbe31a8af390ca037a5d70eac72b',1,'main.h']]]
 ];

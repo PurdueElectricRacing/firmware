@@ -1,15 +1,17 @@
 <map id="adc_claim_completion" name="adc_claim_completion">
-<area shape="rect" id="Node000001" title="Atomically claim transfer completion for either polling or interrupt code." alt="" coords="665,55,815,80"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html#a88783c4b103049de64fc356c016ccae2" title="Process DMA completion or error status for an ADC handle." alt="" coords="458,5,602,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="666,53,587,34,588,29,668,48"/>
-<area shape="rect" id="Node000006" href="$phal__G4_2adc_2adc_8c.html#a182c3e08bcff1970109448d9c24cb39c" title="Synchronous one&#45;buffer conversion using the DMA engine." alt="" coords="443,55,617,80"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="649,70,617,70,617,65,649,65"/>
-<area shape="rect" id="Node000007" href="$phal__G4_2adc_2adc_8c.html#a293b748ece5364814af3ba56e3572f06" title="Abort any transfer in flight and leave the ADC idle." alt="" coords="468,104,592,130"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="668,87,588,106,587,101,666,82"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#ab1d3e1e78099bd0f30e345ce46dd626a" title=" " alt="" coords="266,5,395,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="443,21,396,21,396,16,443,16"/>
-<area shape="rect" id="Node000004" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="103,5,218,31"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="250,21,218,21,218,16,250,16"/>
-<area shape="rect" id="Node000005" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+<area shape="rect" id="Node000001" title="Atomically claim transfer completion for either polling or interrupt code." alt="" coords="665,80,815,106"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html#a88783c4b103049de64fc356c016ccae2" title="Process DMA completion or error status for an ADC handle." alt="" coords="458,31,602,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="666,78,587,60,588,54,668,73"/>
+<area shape="rect" id="Node000007" href="$phal__G4_2adc_2adc_8c.html#a182c3e08bcff1970109448d9c24cb39c" title="Synchronous one&#45;buffer conversion using the DMA engine." alt="" coords="443,80,617,106"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="649,96,617,96,617,90,649,90"/>
+<area shape="rect" id="Node000008" href="$phal__G4_2adc_2adc_8c.html#a293b748ece5364814af3ba56e3572f06" title="Abort any transfer in flight and leave the ADC idle." alt="" coords="468,129,592,155"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="668,112,588,131,587,126,666,107"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#ab1d3e1e78099bd0f30e345ce46dd626a" title=" " alt="" coords="266,31,395,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="443,46,396,46,396,41,443,41"/>
+<area shape="rect" id="Node000004" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="103,31,218,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="250,46,218,46,218,41,250,41"/>
+<area shape="rect" id="Node000005" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,32,55,26,56,20,88,27"/>
+<area shape="rect" id="Node000006" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="88,60,56,66,55,60,87,54"/>
 </map>

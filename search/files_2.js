@@ -47,5 +47,7 @@ var searchData=
   ['crc_2eh_44',['crc.h',['../phal__F4_2crc_2crc_8h.html',1,'(Global Namespace)'],['../phal__G4_2crc_2crc_8h.html',1,'(Global Namespace)']]],
   ['crc_5fpriv_2ec_45',['crc_priv.c',['../crc__priv_8c.html',1,'']]],
   ['crc_5fpriv_2eh_46',['crc_priv.h',['../crc__priv_8h.html',1,'']]],
-  ['crc_5ftest_2ec_47',['crc_test.c',['../crc__test_8c.html',1,'']]]
+  ['crc_5ftest_2ec_47',['crc_test.c',['../crc__test_8c.html',1,'']]],
+  ['current_5fsense_2ec_48',['current_sense.c',['../current__sense_8c.html',1,'']]],
+  ['current_5fsense_2eh_49',['current_sense.h',['../current__sense_8h.html',1,'']]]
 ];

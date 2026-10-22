@@ -20,5 +20,11 @@ var searchData=
   ['lerp_5flut_5finit_17',['LERP_LUT_INIT',['../lerp__lut_8h.html#a0b5e49448d9451f321ee947d30651f78',1,'lerp_lut.h']]],
   ['log_5fenable_5fpin_18',['LOG_ENABLE_PIN',['../daq_2main_8h.html#a8727e5458377c0949e142bf6bd0d2306',1,'main.h']]],
   ['log_5fenable_5fport_19',['LOG_ENABLE_PORT',['../daq_2main_8h.html#adf17b767bb4e726a39c36c92eef8cad0',1,'main.h']]],
-  ['long_5fgain_5fbutton_20',['LONG_GAIN_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a7471ed6486c7bde0d56217c0ef7dbc25',1,'vcu.h']]]
+  ['long_5fgain_5fbutton_20',['LONG_GAIN_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a7471ed6486c7bde0d56217c0ef7dbc25',1,'vcu.h']]],
+  ['lvbatt_5fcs_5fadc_5fchannel_21',['LVBATT_CS_ADC_CHANNEL',['../pdu_2main_8h.html#aab2eab179be33a20258710d82cf42df3',1,'main.h']]],
+  ['lvbatt_5fcs_5fpin_22',['LVBATT_CS_PIN',['../pdu_2main_8h.html#a9dab260bb70a7bafd110401babb098b4',1,'main.h']]],
+  ['lvbatt_5fcs_5fport_23',['LVBATT_CS_PORT',['../pdu_2main_8h.html#ab33bcd8c91a0fbb55c6fa2ed2b3663ed',1,'main.h']]],
+  ['lvbatt_5fvs_5fadc_5fchannel_24',['LVBATT_VS_ADC_CHANNEL',['../pdu_2main_8h.html#a392689fc90e9b28dc75fb1a14ae8dc39',1,'main.h']]],
+  ['lvbatt_5fvs_5fpin_25',['LVBATT_VS_PIN',['../pdu_2main_8h.html#a8b589d55123348492e6d66ab4c7f310a',1,'main.h']]],
+  ['lvbatt_5fvs_5fport_26',['LVBATT_VS_PORT',['../pdu_2main_8h.html#a44c867b37b10bb2f6ba9c363a013cdba',1,'main.h']]]
 ];

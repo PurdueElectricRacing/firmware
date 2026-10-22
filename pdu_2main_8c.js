@@ -4,7 +4,20 @@ var pdu_2main_8c =
     [ "DEFINE_WATCHDOG_TASK", "pdu_2main_8c.html#a11a067a3a0541dc1ed61e5c9bb7591b5", null ],
     [ "HardFault_Handler", "pdu_2main_8c.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
     [ "main", "pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a316f501a48573fc6e77ee26cef81871c", null ],
-    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a1072641c5374921f4f988a1a797b0b71", null ],
-    [ "gpio_config", "pdu_2main_8c.html#a0445edd8b78aacc940a1a3848a9b9166", null ]
+    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a0433fb1019241ded944636b053b6194a", null ],
+    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a80fa685f6637d641a5f77e188475d81e", null ],
+    [ "RTOS_DEFINE_TASK", "pdu_2main_8c.html#a029ca396592ecd52550422fe3d5c436a", null ],
+    [ "adc1_channels", "pdu_2main_8c.html#a855cda75692c284e6b359fc369d129a9", null ],
+    [ "adc1_config", "pdu_2main_8c.html#a3c930f9fe2623c01b2a1309966bfb741", null ],
+    [ "adc1_handle", "pdu_2main_8c.html#aad78a3228b1d1bb22091448347f62037", null ],
+    [ "adc2_channels", "pdu_2main_8c.html#a3f7f0ba1b5300ae13674ea48c86e5100", null ],
+    [ "adc2_config", "pdu_2main_8c.html#acccaad749d649b4093401ef4de67b1c2", null ],
+    [ "adc2_handle", "pdu_2main_8c.html#ab04b65ae60b4c8cc8846e7041d60c5bf", null ],
+    [ "adc3_channels", "pdu_2main_8c.html#a54189ae0fa484979190c92e2dd63852d", null ],
+    [ "adc3_config", "pdu_2main_8c.html#a7cae68378cdaaa9ae3b8b4cd86bb5ae0", null ],
+    [ "adc3_handle", "pdu_2main_8c.html#ae7923c1281c8cb27ee0dce1a80af8162", null ],
+    [ "gpio_config", "pdu_2main_8c.html#a0445edd8b78aacc940a1a3848a9b9166", null ],
+    [ "raw_adc1_values", "pdu_2main_8c.html#a459a3946cf810b4181a32657c4baf0ef", null ],
+    [ "raw_adc2_values", "pdu_2main_8c.html#a3232d72901f67e1ba6bc7b722d6c3499", null ],
+    [ "raw_adc3_values", "pdu_2main_8c.html#a4c055faade567356fd6e5eb9a7c802ee", null ]
 ];

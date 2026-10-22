@@ -21,6 +21,8 @@ var searchData=
   ['strbuf_2ec_18',['strbuf.c',['../strbuf_8c.html',1,'']]],
   ['strbuf_2eh_19',['strbuf.h',['../strbuf_8h.html',1,'']]],
   ['strbuf_5ftest_2ecpp_20',['strbuf_test.cpp',['../strbuf__test_8cpp.html',1,'']]],
-  ['syscalls_2ec_21',['syscalls.c',['../syscalls_8c.html',1,'']]],
-  ['syscalls_2eh_22',['syscalls.h',['../syscalls_8h.html',1,'']]]
+  ['switch_2ec_21',['switch.c',['../switch_8c.html',1,'']]],
+  ['switch_2eh_22',['switch.h',['../switch_8h.html',1,'']]],
+  ['syscalls_2ec_23',['syscalls.c',['../syscalls_8c.html',1,'']]],
+  ['syscalls_2eh_24',['syscalls.h',['../syscalls_8h.html',1,'']]]
 ];

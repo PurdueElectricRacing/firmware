@@ -4,7 +4,5 @@ var searchData=
   ['heartbeat_5fled_5fport_1',['HEARTBEAT_LED_PORT',['../a__box_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../cannector_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../daq_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../dashboard_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../pin__defs_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;pin_defs.h'],['../main__module_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../pdu_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h'],['../torque__vector_2main_8h.html#a8a762e1254b034eba6b4993ae11cee50',1,'HEARTBEAT_LED_PORT:&#160;main.h']]],
   ['hse_5fclock_5frate_5fhz_2',['HSE_CLOCK_RATE_HZ',['../phal__F4_2rcc_2rcc_8h.html#a6f4ca605cce4be908b761c7a5bb90692',1,'rcc.h']]],
   ['hse_5fclock_5frate_5fhz_5finvalid_3',['HSE_CLOCK_RATE_HZ_INVALID',['../phal__F4_2rcc_2rcc_8h.html#a806f47f30aefdcc387743342ac78fe31',1,'rcc.h']]],
-  ['hsi_5fclock_5frate_5fhz_4',['HSI_CLOCK_RATE_HZ',['../phal__F4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'rcc.h']]],
-  ['hxfan_5fctrl_5fpin_5',['HXFAN_CTRL_PIN',['../pdu_2main_8h.html#a0ed1415f4108bd0da05fe2ae93be10f1',1,'main.h']]],
-  ['hxfan_5fctrl_5fport_6',['HXFAN_CTRL_PORT',['../pdu_2main_8h.html#ab6ed7359c6e7e6ba37cc6f8791dc8caa',1,'main.h']]]
+  ['hsi_5fclock_5frate_5fhz_4',['HSI_CLOCK_RATE_HZ',['../phal__F4_2rcc_2rcc_8h.html#a931e4bece2bc8e45e95492702b1a79db',1,'rcc.h']]]
 ];

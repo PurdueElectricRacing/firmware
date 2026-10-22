@@ -113,9 +113,11 @@ $(function(){initNavTree('pdu_2main_8c.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="phal__G4_2gpio_2gpio_8h_source.html">common/phal_G4/gpio/gpio.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="g474ret6_8h_source.html">common/phal_G4/pin_defs/g474ret6.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="phal__G4_2rcc_2rcc_8h_source.html">common/phal_G4/rcc/rcc.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="phal__G4_2adc_2adc_8h_source.html">common/phal_G4/adc/adc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="countof_8h_source.html">common/utils/countof.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="watchdog_8h_source.html">common/watchdog/watchdog.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cooling__fsm_8h_source.html">cooling_fsm.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="current__sense_8h_source.html">current_sense.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.c:</div>
 <div class="dyncontent">
@@ -128,10 +130,12 @@ Functions</h2></td></tr>
 <tr class="separator:a2af56a8bf3197b2f06cac4c0b84ffc3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a577e29103ef4d1e1121dc63cfb074498" id="r_a577e29103ef4d1e1121dc63cfb074498"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a577e29103ef4d1e1121dc63cfb074498">DEFINE_CAN_TASKS</a> ()</td></tr>
 <tr class="separator:a577e29103ef4d1e1121dc63cfb074498"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a316f501a48573fc6e77ee26cef81871c" id="r_a316f501a48573fc6e77ee26cef81871c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a316f501a48573fc6e77ee26cef81871c">RTOS_DEFINE_TASK</a> (<a class="el" href="cooling__fsm_8c.html#a7451962d8f0e593a9d72b536d858e9bf">cooling_fsm_periodic</a>, <a class="el" href="cooling__fsm_8h.html#a69c178a2ea48d1e08e9a16ebbbd253af">COOLING_FSM_PERIOD_MS</a>, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064af3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>)</td></tr>
-<tr class="separator:a316f501a48573fc6e77ee26cef81871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1072641c5374921f4f988a1a797b0b71" id="r_a1072641c5374921f4f988a1a797b0b71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1072641c5374921f4f988a1a797b0b71">RTOS_DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, 100, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>)</td></tr>
-<tr class="separator:a1072641c5374921f4f988a1a797b0b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a029ca396592ecd52550422fe3d5c436a" id="r_a029ca396592ecd52550422fe3d5c436a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a029ca396592ecd52550422fe3d5c436a">RTOS_DEFINE_TASK</a> (<a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a>, <a class="el" href="VCAN_8h.html#ab69a61a188d5c8567a9601aad4c27ac3">PDU_FAULT_SYNC_PERIOD_MS</a>, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064af3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>)</td></tr>
+<tr class="separator:a029ca396592ecd52550422fe3d5c436a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0433fb1019241ded944636b053b6194a" id="r_a0433fb1019241ded944636b053b6194a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0433fb1019241ded944636b053b6194a">RTOS_DEFINE_TASK</a> (<a class="el" href="cooling__fsm_8c.html#a7451962d8f0e593a9d72b536d858e9bf">cooling_fsm_periodic</a>, <a class="el" href="cooling__fsm_8h.html#a69c178a2ea48d1e08e9a16ebbbd253af">COOLING_FSM_PERIOD_MS</a>, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a>)</td></tr>
+<tr class="separator:a0433fb1019241ded944636b053b6194a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80fa685f6637d641a5f77e188475d81e" id="r_a80fa685f6637d641a5f77e188475d81e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80fa685f6637d641a5f77e188475d81e">RTOS_DEFINE_TASK</a> (<a class="el" href="current__sense_8c.html#ad25eae622b200363d4025160b032c656">current_sense_periodic</a>, <a class="el" href="current__sense_8h.html#a05e3dd8002a979fe8b542f3301c6653f">CURRENT_SENSE_TASK_PERIOD_MS</a>, <a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a>, <a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ae705b06e4f237bdce971224dd27bbd0d">STACK_512</a>)</td></tr>
+<tr class="separator:a80fa685f6637d641a5f77e188475d81e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11a067a3a0541dc1ed61e5c9bb7591b5" id="r_a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11a067a3a0541dc1ed61e5c9bb7591b5">DEFINE_WATCHDOG_TASK</a> ()</td></tr>
 <tr class="separator:a11a067a3a0541dc1ed61e5c9bb7591b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
@@ -141,6 +145,30 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a0445edd8b78aacc940a1a3848a9b9166" id="r_a0445edd8b78aacc940a1a3848a9b9166"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPHAL__GPIO__InitConfig__t.html">PHAL_GPIO_InitConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0445edd8b78aacc940a1a3848a9b9166">gpio_config</a> []</td></tr>
 <tr class="separator:a0445edd8b78aacc940a1a3848a9b9166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a855cda75692c284e6b359fc369d129a9" id="r_a855cda75692c284e6b359fc369d129a9"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structPHAL__ADC__ChannelConfig__t.html">PHAL_ADC_ChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a855cda75692c284e6b359fc369d129a9">adc1_channels</a> []</td></tr>
+<tr class="separator:a855cda75692c284e6b359fc369d129a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f7f0ba1b5300ae13674ea48c86e5100" id="r_a3f7f0ba1b5300ae13674ea48c86e5100"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structPHAL__ADC__ChannelConfig__t.html">PHAL_ADC_ChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f7f0ba1b5300ae13674ea48c86e5100">adc2_channels</a> []</td></tr>
+<tr class="separator:a3f7f0ba1b5300ae13674ea48c86e5100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54189ae0fa484979190c92e2dd63852d" id="r_a54189ae0fa484979190c92e2dd63852d"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structPHAL__ADC__ChannelConfig__t.html">PHAL_ADC_ChannelConfig_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54189ae0fa484979190c92e2dd63852d">adc3_channels</a> []</td></tr>
+<tr class="separator:a54189ae0fa484979190c92e2dd63852d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c930f9fe2623c01b2a1309966bfb741" id="r_a3c930f9fe2623c01b2a1309966bfb741"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structPHAL__ADC__Config__t.html">PHAL_ADC_Config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c930f9fe2623c01b2a1309966bfb741">adc1_config</a></td></tr>
+<tr class="separator:a3c930f9fe2623c01b2a1309966bfb741"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acccaad749d649b4093401ef4de67b1c2" id="r_acccaad749d649b4093401ef4de67b1c2"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structPHAL__ADC__Config__t.html">PHAL_ADC_Config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acccaad749d649b4093401ef4de67b1c2">adc2_config</a></td></tr>
+<tr class="separator:acccaad749d649b4093401ef4de67b1c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cae68378cdaaa9ae3b8b4cd86bb5ae0" id="r_a7cae68378cdaaa9ae3b8b4cd86bb5ae0"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="structPHAL__ADC__Config__t.html">PHAL_ADC_Config_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cae68378cdaaa9ae3b8b4cd86bb5ae0">adc3_config</a></td></tr>
+<tr class="separator:a7cae68378cdaaa9ae3b8b4cd86bb5ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a459a3946cf810b4181a32657c4baf0ef" id="r_a459a3946cf810b4181a32657c4baf0ef"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc1__values__t.html">raw_adc1_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a459a3946cf810b4181a32657c4baf0ef">raw_adc1_values</a></td></tr>
+<tr class="separator:a459a3946cf810b4181a32657c4baf0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3232d72901f67e1ba6bc7b722d6c3499" id="r_a3232d72901f67e1ba6bc7b722d6c3499"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc2__values__t.html">raw_adc2_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3232d72901f67e1ba6bc7b722d6c3499">raw_adc2_values</a></td></tr>
+<tr class="separator:a3232d72901f67e1ba6bc7b722d6c3499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c055faade567356fd6e5eb9a7c802ee" id="r_a4c055faade567356fd6e5eb9a7c802ee"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c055faade567356fd6e5eb9a7c802ee">raw_adc3_values</a></td></tr>
+<tr class="separator:a4c055faade567356fd6e5eb9a7c802ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad78a3228b1d1bb22091448347f62037" id="r_aad78a3228b1d1bb22091448347f62037"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad78a3228b1d1bb22091448347f62037">adc1_handle</a></td></tr>
+<tr class="separator:aad78a3228b1d1bb22091448347f62037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab04b65ae60b4c8cc8846e7041d60c5bf" id="r_ab04b65ae60b4c8cc8846e7041d60c5bf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab04b65ae60b4c8cc8846e7041d60c5bf">adc2_handle</a></td></tr>
+<tr class="separator:ab04b65ae60b4c8cc8846e7041d60c5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7923c1281c8cb27ee0dce1a80af8162" id="r_ae7923c1281c8cb27ee0dce1a80af8162"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7923c1281c8cb27ee0dce1a80af8162">adc3_handle</a></td></tr>
+<tr class="separator:ae7923c1281c8cb27ee0dce1a80af8162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>"PDU" node source code </p>
@@ -219,8 +247,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a316f501a48573fc6e77ee26cef81871c" name="a316f501a48573fc6e77ee26cef81871c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a316f501a48573fc6e77ee26cef81871c">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[1/2]</span></h2>
+<a id="a0433fb1019241ded944636b053b6194a" name="a0433fb1019241ded944636b053b6194a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0433fb1019241ded944636b053b6194a">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,37 +266,6 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064af3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1072641c5374921f4f988a1a797b0b71" name="a1072641c5374921f4f988a1a797b0b71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1072641c5374921f4f988a1a797b0b71">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">RTOS_DEFINE_TASK </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">100</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
@@ -281,7 +278,299 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a80fa685f6637d641a5f77e188475d81e" name="a80fa685f6637d641a5f77e188475d81e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80fa685f6637d641a5f77e188475d81e">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="current__sense_8c.html#ad25eae622b200363d4025160b032c656">current_sense_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="current__sense_8h.html#a05e3dd8002a979fe8b542f3301c6653f">CURRENT_SENSE_TASK_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064a579ef89a125d8a2c726f2e7f09e30514">TASK_PRIORITY_LOW</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ae705b06e4f237bdce971224dd27bbd0d">STACK_512</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a029ca396592ecd52550422fe3d5c436a" name="a029ca396592ecd52550422fe3d5c436a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a029ca396592ecd52550422fe3d5c436a">&#9670;&#160;</a></span>RTOS_DEFINE_TASK() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RTOS_DEFINE_TASK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="faults__common_8h.html#af1f330045faf14dff0057e5b9e39a713">fault_library_periodic</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="VCAN_8h.html#ab69a61a188d5c8567a9601aad4c27ac3">PDU_FAULT_SYNC_PERIOD_MS</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rtos_8h.html#a19c0e189abb7e28c6635ead489445064af3669a8c0116561e2fdb5a7f3ea9b136">TASK_PRIORITY_NORMAL</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rtos_8h.html#a957d69639fa86650c6d7ebf00f1f1f89ab0d381b18ad3cc4d98b55792abefd67e">STACK_1024</a></td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a855cda75692c284e6b359fc369d129a9" name="a855cda75692c284e6b359fc369d129a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a855cda75692c284e6b359fc369d129a9">&#9670;&#160;</a></span>adc1_channels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structPHAL__ADC__ChannelConfig__t.html">PHAL_ADC_ChannelConfig_t</a> adc1_channels[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#a392689fc90e9b28dc75fb1a14ae8dc39">LVBATT_VS_ADC_CHANNEL</a>}</div>
+<div class="line">}</div>
+<div class="ttc" id="apdu_2main_8h_html_a392689fc90e9b28dc75fb1a14ae8dc39"><div class="ttname"><a href="pdu_2main_8h.html#a392689fc90e9b28dc75fb1a14ae8dc39">LVBATT_VS_ADC_CHANNEL</a></div><div class="ttdeci">#define LVBATT_VS_ADC_CHANNEL</div><div class="ttdef"><b>Definition</b> main.h:68</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a3c930f9fe2623c01b2a1309966bfb741" name="a3c930f9fe2623c01b2a1309966bfb741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c930f9fe2623c01b2a1309966bfb741">&#9670;&#160;</a></span>adc1_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structPHAL__ADC__Config__t.html">PHAL_ADC_Config_t</a> adc1_config</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .instance      = ADC1,</div>
+<div class="line">    .channels      = <a class="code hl_variable" href="driveline_2main_8c.html#a855cda75692c284e6b359fc369d129a9">adc1_channels</a>,</div>
+<div class="line">    .channel_count = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="driveline_2main_8c.html#a855cda75692c284e6b359fc369d129a9">adc1_channels</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="driveline_2main_8c.html#a855cda75692c284e6b359fc369d129a9">adc1_channels</a>[0]),</div>
+<div class="line">}</div>
+<div class="ttc" id="adriveline_2main_8c_html_a855cda75692c284e6b359fc369d129a9"><div class="ttname"><a href="driveline_2main_8c.html#a855cda75692c284e6b359fc369d129a9">adc1_channels</a></div><div class="ttdeci">static const PHAL_ADC_ChannelConfig_t adc1_channels[]</div><div class="ttdef"><b>Definition</b> main.c:51</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aad78a3228b1d1bb22091448347f62037" name="aad78a3228b1d1bb22091448347f62037"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad78a3228b1d1bb22091448347f62037">&#9670;&#160;</a></span>adc1_handle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a> adc1_handle</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f7f0ba1b5300ae13674ea48c86e5100" name="a3f7f0ba1b5300ae13674ea48c86e5100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f7f0ba1b5300ae13674ea48c86e5100">&#9670;&#160;</a></span>adc2_channels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structPHAL__ADC__ChannelConfig__t.html">PHAL_ADC_ChannelConfig_t</a> adc2_channels[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#ae97cb73e2c108fce0282eb4ccebd2736">MUX1_OUT_ADC_CHANNEL</a>},</div>
+<div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#ac1530238b4a1ad91e84ec5e69846d63c">MUX2_OUT_ADC_CHANNEL</a>}</div>
+<div class="line">}</div>
+<div class="ttc" id="apdu_2main_8h_html_ac1530238b4a1ad91e84ec5e69846d63c"><div class="ttname"><a href="pdu_2main_8h.html#ac1530238b4a1ad91e84ec5e69846d63c">MUX2_OUT_ADC_CHANNEL</a></div><div class="ttdeci">#define MUX2_OUT_ADC_CHANNEL</div><div class="ttdef"><b>Definition</b> main.h:77</div></div>
+<div class="ttc" id="apdu_2main_8h_html_ae97cb73e2c108fce0282eb4ccebd2736"><div class="ttname"><a href="pdu_2main_8h.html#ae97cb73e2c108fce0282eb4ccebd2736">MUX1_OUT_ADC_CHANNEL</a></div><div class="ttdeci">#define MUX1_OUT_ADC_CHANNEL</div><div class="ttdef"><b>Definition</b> main.h:74</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acccaad749d649b4093401ef4de67b1c2" name="acccaad749d649b4093401ef4de67b1c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acccaad749d649b4093401ef4de67b1c2">&#9670;&#160;</a></span>adc2_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structPHAL__ADC__Config__t.html">PHAL_ADC_Config_t</a> adc2_config</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .instance      = ADC2,</div>
+<div class="line">    .channels      = <a class="code hl_variable" href="driveline_2main_8c.html#a3f7f0ba1b5300ae13674ea48c86e5100">adc2_channels</a>,</div>
+<div class="line">    .channel_count = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="driveline_2main_8c.html#a3f7f0ba1b5300ae13674ea48c86e5100">adc2_channels</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="driveline_2main_8c.html#a3f7f0ba1b5300ae13674ea48c86e5100">adc2_channels</a>[0]),</div>
+<div class="line">}</div>
+<div class="ttc" id="adriveline_2main_8c_html_a3f7f0ba1b5300ae13674ea48c86e5100"><div class="ttname"><a href="driveline_2main_8c.html#a3f7f0ba1b5300ae13674ea48c86e5100">adc2_channels</a></div><div class="ttdeci">static const PHAL_ADC_ChannelConfig_t adc2_channels[]</div><div class="ttdef"><b>Definition</b> main.c:67</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab04b65ae60b4c8cc8846e7041d60c5bf" name="ab04b65ae60b4c8cc8846e7041d60c5bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab04b65ae60b4c8cc8846e7041d60c5bf">&#9670;&#160;</a></span>adc2_handle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a> adc2_handle</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a54189ae0fa484979190c92e2dd63852d" name="a54189ae0fa484979190c92e2dd63852d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54189ae0fa484979190c92e2dd63852d">&#9670;&#160;</a></span>adc3_channels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structPHAL__ADC__ChannelConfig__t.html">PHAL_ADC_ChannelConfig_t</a> adc3_channels[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    {.channel = <a class="code hl_define" href="pdu_2main_8h.html#aab2eab179be33a20258710d82cf42df3">LVBATT_CS_ADC_CHANNEL</a>}</div>
+<div class="line">}</div>
+<div class="ttc" id="apdu_2main_8h_html_aab2eab179be33a20258710d82cf42df3"><div class="ttname"><a href="pdu_2main_8h.html#aab2eab179be33a20258710d82cf42df3">LVBATT_CS_ADC_CHANNEL</a></div><div class="ttdeci">#define LVBATT_CS_ADC_CHANNEL</div><div class="ttdef"><b>Definition</b> main.h:71</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7cae68378cdaaa9ae3b8b4cd86bb5ae0" name="a7cae68378cdaaa9ae3b8b4cd86bb5ae0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cae68378cdaaa9ae3b8b4cd86bb5ae0">&#9670;&#160;</a></span>adc3_config</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structPHAL__ADC__Config__t.html">PHAL_ADC_Config_t</a> adc3_config</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
+<div class="line">    .instance      = ADC3,</div>
+<div class="line">    .channels      = <a class="code hl_variable" href="driveline_2main_8c.html#a54189ae0fa484979190c92e2dd63852d">adc3_channels</a>,</div>
+<div class="line">    .channel_count = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="driveline_2main_8c.html#a54189ae0fa484979190c92e2dd63852d">adc3_channels</a>) / <span class="keyword">sizeof</span>(<a class="code hl_variable" href="driveline_2main_8c.html#a54189ae0fa484979190c92e2dd63852d">adc3_channels</a>[0]),</div>
+<div class="line">}</div>
+<div class="ttc" id="adriveline_2main_8c_html_a54189ae0fa484979190c92e2dd63852d"><div class="ttname"><a href="driveline_2main_8c.html#a54189ae0fa484979190c92e2dd63852d">adc3_channels</a></div><div class="ttdeci">static const PHAL_ADC_ChannelConfig_t adc3_channels[]</div><div class="ttdef"><b>Definition</b> main.c:84</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae7923c1281c8cb27ee0dce1a80af8162" name="ae7923c1281c8cb27ee0dce1a80af8162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7923c1281c8cb27ee0dce1a80af8162">&#9670;&#160;</a></span>adc3_handle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPHAL__ADC__Handle__t.html">PHAL_ADC_Handle_t</a> adc3_handle</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a0445edd8b78aacc940a1a3848a9b9166" name="a0445edd8b78aacc940a1a3848a9b9166"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0445edd8b78aacc940a1a3848a9b9166">&#9670;&#160;</a></span>gpio_config</h2>
 
@@ -290,6 +579,48 @@ Here is the call graph for this function:</div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structPHAL__GPIO__InitConfig__t.html">PHAL_GPIO_InitConfig_t</a> gpio_config[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a459a3946cf810b4181a32657c4baf0ef" name="a459a3946cf810b4181a32657c4baf0ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a459a3946cf810b4181a32657c4baf0ef">&#9670;&#160;</a></span>raw_adc1_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="structraw__adc1__values__t.html">raw_adc1_values_t</a> raw_adc1_values</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3232d72901f67e1ba6bc7b722d6c3499" name="a3232d72901f67e1ba6bc7b722d6c3499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3232d72901f67e1ba6bc7b722d6c3499">&#9670;&#160;</a></span>raw_adc2_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="structraw__adc2__values__t.html">raw_adc2_values_t</a> raw_adc2_values</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c055faade567356fd6e5eb9a7c802ee" name="a4c055faade567356fd6e5eb9a7c802ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c055faade567356fd6e5eb9a7c802ee">&#9670;&#160;</a></span>raw_adc3_values</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="structraw__adc3__values__t.html">raw_adc3_values_t</a> raw_adc3_values</td>
         </tr>
       </table>
 </div><div class="memdoc">

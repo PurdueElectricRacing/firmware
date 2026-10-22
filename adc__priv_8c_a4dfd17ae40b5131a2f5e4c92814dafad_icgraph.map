@@ -1,9 +1,11 @@
 <map id="ADC_PRIV_instance_is_supported" name="ADC_PRIV_instance_is_supported">
-<area shape="rect" id="Node000001" title="Return whether an ADC instance is supported by this driver." alt="" coords="448,5,608,46"/>
-<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html#a7357125fd70536c9c0c03a30377d93cc" title="Validate a public ADC configuration before touching hardware." alt="" coords="266,13,400,38"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="433,28,401,28,401,23,433,23"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="103,13,218,38"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="250,28,219,28,219,23,250,23"/>
-<area shape="rect" id="Node000004" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,13,55,38"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,28,55,28,55,23,87,23"/>
+<area shape="rect" id="Node000001" title="Return whether an ADC instance is supported by this driver." alt="" coords="448,23,608,64"/>
+<area shape="rect" id="Node000002" href="$phal__G4_2adc_2adc_8c.html#a7357125fd70536c9c0c03a30377d93cc" title="Validate a public ADC configuration before touching hardware." alt="" coords="266,31,400,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="433,46,401,46,401,41,433,41"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2adc_2adc_8c.html#adf65563b732ce6a236058dc45a5c04a1" title="Configure an ADC instance and its DMA channel." alt="" coords="103,31,218,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="250,46,219,46,219,41,250,41"/>
+<area shape="rect" id="Node000004" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,32,55,26,56,20,88,27"/>
+<area shape="rect" id="Node000005" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="88,60,56,66,55,60,87,54"/>
 </map>

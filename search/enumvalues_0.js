@@ -36,5 +36,7 @@ var searchData=
   ['amk_5fstate_5foff_33',['AMK_STATE_OFF',['../can__types_8h.html#ac291c3525eed827f7d9a83133652f860ade54ba9c4f4577eaaad94dd170a3ca31',1,'can_types.h']]],
   ['amk_5fstate_5frecovering_34',['AMK_STATE_RECOVERING',['../can__types_8h.html#ac291c3525eed827f7d9a83133652f860a088fe76aa7fa4eedbc5d59f8d6abe6a7',1,'can_types.h']]],
   ['amk_5fstate_5frunning_35',['AMK_STATE_RUNNING',['../can__types_8h.html#ac291c3525eed827f7d9a83133652f860a7138b5429401aca15c1f1ab6f91a179c',1,'can_types.h']]],
-  ['amk_5fstate_5fstarting_36',['AMK_STATE_STARTING',['../can__types_8h.html#ac291c3525eed827f7d9a83133652f860a993883b3a36b6646e37b47179255029b',1,'can_types.h']]]
+  ['amk_5fstate_5fstarting_36',['AMK_STATE_STARTING',['../can__types_8h.html#ac291c3525eed827f7d9a83133652f860a993883b3a36b6646e37b47179255029b',1,'can_types.h']]],
+  ['analog_5fmux1_37',['ANALOG_MUX1',['../switch_8h.html#aa55e016d255201563301767d959b94fcaeff9ed19fbd3c5af4ab31f43e30d80a6',1,'switch.h']]],
+  ['analog_5fmux2_38',['ANALOG_MUX2',['../switch_8h.html#aa55e016d255201563301767d959b94fca6d029429f4c618148b4c5c9d6d80034a',1,'switch.h']]]
 ];

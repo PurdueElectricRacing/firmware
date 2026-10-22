@@ -1,8 +1,11 @@
 /**
  * @file can.c
- * @brief F4 bxCAN initialization, filters, and interrupt-driven frame transport.
- * @copyright Copyright (c) 2021
+ * @brief F4 bxCAN initialization, filters, and interrupt-driven frame transport
+ *
+ * @author Adam Busch (busch8@purdue.edu)
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
+
 #include "common/phal_F4/can/can.h"
 
 extern uint32_t APB1ClockRateHz;

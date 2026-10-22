@@ -1,12 +1,9 @@
 /**
  * @file can.h
+ * @brief F4 bxCAN public API
+ *
  * @author Adam Busch (busch8@purdue.edu)
- * @brief F4 bxCAN public API.
- * @version 0.1
- * @date 2021-03-20
- *
- * @copyright Copyright (c) 2021
- *
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
 
 #ifndef _PHAL_CAN_H

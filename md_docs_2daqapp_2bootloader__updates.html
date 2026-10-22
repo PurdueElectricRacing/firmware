@@ -107,7 +107,7 @@ $(function(){initNavTree('md_docs_2daqapp_2bootloader__updates.html',''); initRe
 Prepare the firmware package</h1>
 <p>From the repository root, build the firmware and package:</p>
 <div class="fragment"><div class="line">python3 firmware/build_firmware.py</div>
-</div><!-- fragment --><p>The command writes <code>firmware/output/manifest.json</code>, <code>firmware/output/firmware_&lt;git-ref&gt;.tar.gz</code>, and resident images under <code>firmware/output/bootloader_&lt;NODE&gt;/</code>. Flash the matching <code>bootloader_&lt;NODE&gt;.bin</code> before the first application update. The archive contains application payloads; it does not replace resident bootloaders.</p>
+</div><!-- fragment --><p>The command writes <code>firmware/output/manifest.json</code>, <code>firmware/output/firmware_&lt;git-ref&gt;.tar.gz</code>, and resident images under <code>firmware/output/bootloader_&lt;node&gt;/</code>. Flash the matching <code>bootloader_&lt;node&gt;.bin</code> before the first application update. The archive contains application payloads; it does not replace resident bootloaders.</p>
 <h1><a class="anchor" id="autotoc_md101"></a>
 Update an application</h1>
 <ol type="1">

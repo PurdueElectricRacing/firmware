@@ -9,6 +9,7 @@
 #define SWITCH_H
 
 #include "common/phal_G4/gpio/gpio.h"
+#include "can_library/faults_common.h"
 
 typedef enum {
     SWITCH_FAN4 = 0,
@@ -44,6 +45,7 @@ typedef enum {
 typedef struct {
     float current_ma;
     GPIO_TypeDef* ctrl_port;
+    fault_id_t fault_id;
     uint8_t ctrl_pin;
     mux_id_t mux_id;
     uint8_t mux_addr;

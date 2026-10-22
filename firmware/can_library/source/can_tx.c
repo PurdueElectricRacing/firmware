@@ -21,9 +21,13 @@ volatile can_stats_t can_stats;
 #if defined(STM32F407xx)
 #define CAN_BUS_TYPE CAN_TypeDef
 #define PHAL_TX_CALLBACK PHAL_CAN_txCallback
+#define PHAL_TX_FIFO_FREE PHAL_CAN_txFifoFree
+#define PHAL_SEND PHAL_CAN_send
 #else // STM32G474xx
 #define CAN_BUS_TYPE FDCAN_GlobalTypeDef
 #define PHAL_TX_CALLBACK PHAL_FDCAN_txCallback
+#define PHAL_TX_FIFO_FREE PHAL_FDCAN_txFifoFree
+#define PHAL_SEND PHAL_FDCAN_send
 #endif
 
 // Allocate TX queues
@@ -47,11 +51,9 @@ RTOS_DEFINE_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 void CAN_tx_init(void) {
 #ifdef USE_CAN1
     RTOS_INIT_QUEUE(can1_tx_queue);
-    CAN1->IER &= ~CAN_IER_TMEIE;
 #endif
 #ifdef USE_CAN2
     RTOS_INIT_QUEUE(can2_tx_queue);
-    CAN2->IER &= ~CAN_IER_TMEIE;
 #endif
 #ifdef USE_FDCAN1
     RTOS_INIT_QUEUE(can1_tx_queue);
@@ -117,43 +119,19 @@ static inline void CAN_wake_tx_from_ISR(void) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-#if defined(USE_CAN1) || defined(USE_CAN2)
-static void CAN_drain_tx_bus(CAN_TypeDef *bus, QueueHandle_t tx_queue) {
-    CanMsgTypeDef_t tx_msg;
-    uint8_t free_index;
-
-    while (PHAL_getFreeTxMailbox(bus, &free_index)) {
-        if (xQueueReceive(tx_queue, &tx_msg, 0) != pdPASS) {
-            bus->IER &= ~CAN_IER_TMEIE;
-            return;
-        }
-
-        PHAL_txCANMessage(&tx_msg, free_index);
-        can_stats.tx_sent_count++;
-    }
-
-    if (uxQueueMessagesWaiting(tx_queue) > 0) {
-        bus->IER |= CAN_IER_TMEIE;
-    } else {
-        bus->IER &= ~CAN_IER_TMEIE;
-    }
-}
-#endif
-
-#if defined(USE_FDCAN1) || defined(USE_FDCAN2) || defined(USE_FDCAN3)
-static void CAN_drain_tx_bus(const FDCAN_GlobalTypeDef *bus, QueueHandle_t tx_queue) {
+#if defined(USE_CAN1) || defined(USE_CAN2) || defined(USE_FDCAN1) || defined(USE_FDCAN2) \
+    || defined(USE_FDCAN3)
+static void CAN_drain_tx_bus(const CAN_BUS_TYPE *bus, QueueHandle_t tx_queue) {
     CanMsgTypeDef_t tx_msg;
 
-    while (PHAL_FDCAN_txFifoFree(bus)) {
+    while (PHAL_TX_FIFO_FREE(bus)) {
         if (xQueueReceive(tx_queue, &tx_msg, 0) != pdPASS) {
             return;
         }
 
-        PHAL_FDCAN_send(&tx_msg);
+        PHAL_SEND(&tx_msg);
         can_stats.tx_sent_count++;
     }
-
-    // todo arm the TX irq only when uxQueueMessagesWaiting(tx_queue) > 0
 }
 #endif
 

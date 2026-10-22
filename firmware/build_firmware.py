@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build all firmware targets and package the G4 application images."""
+"""Build standalone, resident bootloader, and bootloadable firmware images."""
 
 from pathlib import Path
 import gzip
@@ -70,7 +70,7 @@ def stm32_crc32_words(data: bytes) -> int:
     return crc
 
 
-def verify_application_vector_address(elf_path: Path) -> None:
+def verify_vector_address(elf_path: Path, expected_address: int) -> None:
     objdump = shutil.which("arm-none-eabi-objdump")
     if objdump is None:
         raise RuntimeError("arm-none-eabi-objdump is required for package validation")
@@ -99,10 +99,10 @@ def verify_application_vector_address(elf_path: Path) -> None:
         vector_lma = int(fields[4], 16)
     except ValueError as error:
         raise RuntimeError(f"malformed .isr_vector row in {elf_path}") from error
-    if vector_vma != BL_APP_ADDRESS or vector_lma != BL_APP_ADDRESS:
+    if vector_vma != expected_address or vector_lma != expected_address:
         raise RuntimeError(
             f"{elf_path} .isr_vector starts at 0x{vector_vma:08X}/0x{vector_lma:08X}; "
-            f"expected 0x{BL_APP_ADDRESS:08X}"
+            f"expected 0x{expected_address:08X}"
         )
 
 
@@ -161,9 +161,10 @@ def build_manifest() -> Path:
     manifest_boards = []
 
     for board in BOARD_TARGETS:
-        elf = OUTPUT_DIR / board / f"{board}.elf"
-        verify_application_vector_address(elf)
-        source = OUTPUT_DIR / board / f"{board}.bin"
+        artifact = f"bootloadable_{board}"
+        elf = OUTPUT_DIR / artifact / f"{artifact}.elf"
+        verify_vector_address(elf, BL_APP_ADDRESS)
+        source = OUTPUT_DIR / artifact / f"{artifact}.bin"
         source_data = source.read_bytes()
         if not source_data or len(source_data) > BL_APP_SLOT_SIZE:
             raise RuntimeError(f"invalid application image size for {board}")
@@ -231,7 +232,7 @@ def create_tarball(manifest_path: Path) -> Path:
                         filter=normalized_tarinfo,
                     )
                     archive.add(
-                        OUTPUT_DIR / board / f"{board}.hex",
+                        OUTPUT_DIR / f"bootloadable_{board}" / f"bootloadable_{board}.hex",
                         arcname=f"hex/{board}.hex",
                         filter=normalized_tarinfo,
                     )
@@ -261,12 +262,15 @@ def build() -> None:
             str(BUILD_DIR),
             "-G",
             "Ninja",
-            "-DBOOTLOADER_BUILD=ON",
         ],
         cwd=ROOT,
         check=True,
     )
     subprocess.run(["ninja", "-C", str(BUILD_DIR), "all"], cwd=ROOT, check=True)
+    for board in BOARD_TARGETS:
+        verify_vector_address(OUTPUT_DIR / board / f"{board}.elf", 0x08000000)
+        resident = f"bootloader_{board}"
+        verify_vector_address(OUTPUT_DIR / resident / f"{resident}.elf", 0x08000000)
     create_tarball(build_manifest())
 
 

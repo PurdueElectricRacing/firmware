@@ -25,11 +25,11 @@ binaries. `f4_testing` and `g4_testing` are bench-testing targets.
 
 The [bootloader guide](source/bootloader/README.md) documents architecture,
 wire protocol, flash layout, and recovery. Use the command in [Building](#building)
-to build the firmware and resident bootloader targets; the script then writes
-relocated application binaries, CRCs, `output/manifest.json`, and
+to build all of: standalone firmware, resident bootloaders, and bootloadable applications.
+The script then packages only bootloadable application binaries, CRCs, `output/manifest.json`, and
 `firmware_<git-ref>.tar.gz`. Package copies under `output/images/` pad a final
 partial word with erased `0xFF` before recording its size and CRC. Flash the
-matching `bootloader_<NODE>` image first; DaqApp and the target share the
+matching `bootloader_<node>` image first; DaqApp and the target share the
 manifest format, CRC algorithm, address, board names, and CAN IDs.
 
 ## Building
@@ -53,6 +53,20 @@ The firmware helper creates these local build products:
 
 > [!WARNING]
 > Every invocation performs a clean build.
+
+
+### Build Outputs
+
+For non-bootloader targets, the build produces a single standalone image. For
+bootloader targets, the build produces three image variants: standalone, resident bootloader, and bootloadable application. 
+
+Each image has `.elf`, `.hex`, `.bin`, and `.elf.map` artifacts.
+
+| Variant | Example ELF |
+| --- | --- |
+| Standalone | `output/a_box/a_box.elf` |
+| Resident bootloader | `output/bootloader_a_box/bootloader_a_box.elf` |
+| Bootloadable application | `output/bootloadable_a_box/bootloadable_a_box.elf` |
 
 ## Static Analysis
 

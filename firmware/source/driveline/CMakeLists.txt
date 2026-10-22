@@ -1,15 +1,14 @@
 create_can_node_lib(DRIVELINE "CMSIS_G474;RTOS_G474")
 
 foreach(SIDE front rear)
+    string(TOUPPER ${SIDE} SIDE_UPPER)
     add_firmware_component(
+        BUILD_BOOTLOADABLE
         NAME ${SIDE}_driveline
+        DEFINES IS_${SIDE_UPPER}_DRIVELINE
         LINKER_SCRIPT "STM32G474RETX_FLASH"
         LIBS "can_node_DRIVELINE;CMSIS_G474;RTOS_G474;PHAL_G474;BOOTLOADER_COMMON;HEARTBEAT;LERP_LUT;WATCHDOG"
     )
-
-    # Pass the location define to the compiler
-    string(TOUPPER ${SIDE} SIDE_UPPER)
-    target_compile_definitions(${SIDE}_driveline.elf PRIVATE IS_${SIDE_UPPER}_DRIVELINE)
 endforeach()
 
 # Group both driveline images under one CMake target.

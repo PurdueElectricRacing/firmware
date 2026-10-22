@@ -1,14 +1,15 @@
 # One image per G4 board; APP_ID selects its IDs and pins.
 set(G4_BOOTLOADER_NODES
-    MAIN_MODULE
-    DASHBOARD
-    A_BOX
-    TORQUE_VECTOR
-    FRONT_DRIVELINE
-    REAR_DRIVELINE
+    main_module
+    dashboard
+    a_box
+    torque_vector
+    front_driveline
+    rear_driveline
 )
 
 foreach(NODE IN LISTS G4_BOOTLOADER_NODES)
+    string(TOUPPER ${NODE} APP_NODE)
     add_firmware_component(
         NAME bootloader_${NODE}
         LINKER_SCRIPT "STM32G474RETX_FLASH"
@@ -16,14 +17,14 @@ foreach(NODE IN LISTS G4_BOOTLOADER_NODES)
         IS_BOOTLOADER
     )
 
-    target_compile_definitions(bootloader_${NODE}.elf PRIVATE APP_ID=APP_${NODE})
+    target_compile_definitions(bootloader_${NODE}.elf PRIVATE APP_ID=APP_${APP_NODE})
 endforeach()
 
 add_custom_target(bootloader.elf DEPENDS
-    bootloader_MAIN_MODULE.elf
-    bootloader_DASHBOARD.elf
-    bootloader_A_BOX.elf
-    bootloader_TORQUE_VECTOR.elf
-    bootloader_FRONT_DRIVELINE.elf
-    bootloader_REAR_DRIVELINE.elf
+    bootloader_main_module.elf
+    bootloader_dashboard.elf
+    bootloader_a_box.elf
+    bootloader_torque_vector.elf
+    bootloader_front_driveline.elf
+    bootloader_rear_driveline.elf
 )

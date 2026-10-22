@@ -27,7 +27,6 @@ def check() -> None:
             str(BUILD_DIR),
             "-G",
             "Ninja",
-            "-DBOOTLOADER_BUILD=OFF",
         ],
         cwd=ROOT,
         check=True,

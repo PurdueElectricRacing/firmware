@@ -3,7 +3,7 @@
   "name": "front_driveline",
   "mcu": "../../external/fil/configs/mcus/stm32g474retx.json",
   "elf": "../../../firmware/output/front_driveline/front_driveline.elf",
-  "vector_base": "0x08008000",
+  "vector_base": "0x08000000",
   "can": {
     "FDCAN2": {
       "bus": "0"

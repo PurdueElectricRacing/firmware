@@ -31,7 +31,7 @@ static void mux_select(mux_id_t mux_id, uint8_t mux_addr) {
 
 void current_sense_periodic() {
     for (switch_id_t id = 0; id < NUM_SWITCHES; id++) {
-        switch_t *sw = &switches[id];
+        switch_t *sw = &g_switches[id];
 
         if (sw->mux_id == NO_MUX) {
             sw->current_ma = 0;

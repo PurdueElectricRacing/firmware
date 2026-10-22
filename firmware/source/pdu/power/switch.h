@@ -49,6 +49,6 @@ typedef struct {
     uint8_t mux_addr;
 } switch_t;
 
-extern switch_t switches[NUM_SWITCHES];
+extern switch_t g_switches[NUM_SWITCHES];
 
 #endif // SWITCH_H

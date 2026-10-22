@@ -24,11 +24,6 @@
 
 /* Module Includes */
 #include "cooling_fsm.h"
-#include "faults.h"
-#include "led.h"
-#include "state.h"
-#include "switches.h"
-#include "telemetry.h"
 
 GPIOInitConfig_t gpio_config[] = {
     // Status Indicators
@@ -173,18 +168,6 @@ ADCInitConfig_t adc_config = {
     .dma_mode        = ADC_DMA_CIRCULAR
 };
 
-/* SPI Configuration */
-// todo evalaute DMA streams. do we need this? can we use it for ADC?
-dma_init_t spi_rx_dma_config = SPI1_RXDMA_CONT_CONFIG(NULL, 2);
-dma_init_t spi_tx_dma_config = SPI1_TXDMA_CONT_CONFIG(NULL, 1);
-SPI_InitConfig_t spi_config = {
-    .data_len   = 8,
-    .nss_sw     = false,
-    .rx_dma_cfg = &spi_rx_dma_config,
-    .tx_dma_cfg = &spi_tx_dma_config,
-    .periph     = SPI1
-};
-
 /* With 17 items, 16 prescaler, and 640 sample time, each channel gets read every 1.4ms */
 volatile ADCReadings_t adc_readings;
 ADCChannelConfig_t adc_channel_config[] = {
@@ -229,44 +212,11 @@ extern uint32_t PLLClockRateHz;
 
 void HardFault_Handler();
 
-static void heartbeat_led_sweep(void) {
-    static int led_index = 0;
-    static bool decrement = false;
-
-    if (!decrement) {
-        LED_control(led_index, LED_ON);
-        led_index++;
-        if (led_index >= MAX_NUM_LED) {
-            led_index = MAX_NUM_LED - 1;
-            decrement = true;
-        }
-    } else {
-        LED_control(led_index, LED_OFF);
-        if (led_index == 0) {
-            decrement = false;
-        } else {
-            led_index--;
-        }
-    }
-}
-
-static void tsal_delayed_start() {
-    RTOS_delay_ms(1000);
-    switches_set_state(SW_MAIN, true);
-    vTaskDelete(NULL);
-}
-
 // Thread Defines
 DEFINE_CAN_TASKS();
-RTOS_DEFINE_TASK(switches_periodic, 15, TASK_PRIORITY_NORMAL, STACK_512);
-RTOS_DEFINE_TASK(tsal_delayed_start, 1000, TASK_PRIORITY_LOW, STACK_512);
 RTOS_DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024);
-RTOS_DEFINE_TASK(LED_periodic, 500, TASK_PRIORITY_LOW, STACK_512);
-RTOS_DEFINE_TASK(faults_periodic, 100, TASK_PRIORITY_LOW, STACK_512);
 RTOS_DEFINE_TASK(fault_library_periodic, 100, TASK_PRIORITY_LOW, STACK_1024);
-RTOS_DEFINE_TASK(telemetry_10hz, 100, TASK_PRIORITY_LOW, STACK_1024);
 DEFINE_WATCHDOG_TASK();
-DEFINE_HEARTBEAT_TASK(heartbeat_led_sweep);
 
 int main() {
     // Hardware Initialization
@@ -292,29 +242,13 @@ int main() {
 
     CAN_init();
 
-    if (!PHAL_SPI_init(&spi_config)) {
-        HardFault_Handler();
-    }
-
     PHAL_GPIO_write(LED_CTRL_BLANK_GPIO_Port, LED_CTRL_BLANK_Pin, 1);
-
-    state_init_defaults();
-    switches_init();
-    faults_init();
-
-    switches_enable_default_rails();
 
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
-    RTOS_START_TASK(switches_periodic);
-    RTOS_START_TASK(tsal_delayed_start);
     RTOS_START_TASK(cooling_fsm_periodic);
-    RTOS_START_TASK(LED_periodic);
-    RTOS_START_TASK(faults_periodic);
     RTOS_START_TASK(fault_library_periodic);
-    RTOS_START_TASK(telemetry_10hz);
     START_WATCHDOG_TASK();
-    START_HEARTBEAT_TASK();
 
     vTaskStartScheduler();
 

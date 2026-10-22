@@ -68,21 +68,14 @@ typedef struct {
  */
 bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate);
 
-/**
- * Replace this bus's filters. Initialize the bus before calling this function.
- * ID lists may be nullptr only when their count is zero. Empty lists accept all IDs.
- * Return false for an invalid bus, count, list pointer, or ID, before changing filters.
- */
+/** Replace this bus's filters. Empty lists accept all IDs; invalid input returns false. */
 bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
                          const uint32_t *sid_list,
                          uint32_t num_sid,
                          const uint32_t *xid_list,
                          uint32_t num_xid);
 
-/**
- * Queue a frame in any free mailbox. Return false for nullptr, invalid frame fields,
- * an invalid bus, or no free mailbox. Does not wait for transmission.
- */
+/** Queue a frame in any free mailbox; return false immediately if none is free. */
 bool PHAL_CAN_send(CanMsgTypeDef_t *msg);
 
 /** Return true if a mailbox is free; false for an invalid bus (including nullptr). */

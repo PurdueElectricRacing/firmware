@@ -14,8 +14,6 @@
 
 #include "common/phal_F4/phal_F4.h"
 
-#define PHAL_CAN_INIT_TIMEOUT (5000U)
-
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
 
 #define PHAL_CAN_16MHz_1M (0x033a0000)
@@ -65,7 +63,10 @@ typedef struct {
 } CanMsgTypeDef_t;
 
 
-/** Initialize the bus with an accept-all FIFO0 filter. */
+/**
+ * Initialize the bus with an accept-all FIFO0 filter, waiting for hardware acknowledgement.
+ * Return false for an invalid bus or unsupported clock/baud combination, before changing hardware.
+ */
 bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate);
 
 /** Replace this bus's filters. Empty lists accept all IDs; invalid input returns false. */

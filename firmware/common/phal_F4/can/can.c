@@ -17,116 +17,40 @@ static bool valid_bus(const CAN_TypeDef *bus) {
     return false;
 }
 
-static bool wait_init(CAN_TypeDef *bus, bool enabled) {
-    for (uint32_t timeout = 0; timeout < PHAL_CAN_INIT_TIMEOUT; ++timeout) {
-        if (((bus->MSR & CAN_MSR_INAK) != 0) == enabled)
+static bool get_bit_timing(PHAL_FDCAN_BaudRate_t bit_rate, uint32_t *timing) {
+    static const struct {
+        uint32_t clock_hz;
+        PHAL_FDCAN_BaudRate_t bit_rate;
+        uint32_t timing;
+    } timings[] = {
+        {16'000'000, FDCAN_BAUD_250K, PHAL_CAN_16MHz_250k},
+        {24'000'000, FDCAN_BAUD_250K, PHAL_CAN_24MHz_250k},
+        {36'000'000, FDCAN_BAUD_250K, PHAL_CAN_36MHz_250k},
+        {16'000'000, FDCAN_BAUD_500K, PHAL_CAN_16MHz_500k},
+        {24'000'000, FDCAN_BAUD_500K, PHAL_CAN_24MHz_500k},
+        {36'000'000, FDCAN_BAUD_500K, PHAL_CAN_36MHz_500k},
+        {42'000'000, FDCAN_BAUD_500K, PHAL_CAN_42MHz_500k},
+        {16'000'000, FDCAN_BAUD_1M, PHAL_CAN_16MHz_1M},
+        {24'000'000, FDCAN_BAUD_1M, PHAL_CAN_24MHz_1M},
+        {36'000'000, FDCAN_BAUD_1M, PHAL_CAN_36MHz_1M},
+        {42'000'000, FDCAN_BAUD_1M, PHAL_CAN_42MHz_1M},
+    };
+
+    for (uint32_t i = 0; i < sizeof(timings) / sizeof(timings[0]); ++i) {
+        if (timings[i].clock_hz == APB1ClockRateHz && timings[i].bit_rate == bit_rate) {
+            *timing = timings[i].timing;
             return true;
+        }
     }
     return false;
 }
 
-bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate) {
-    if (!valid_bus(bus))
-        return false;
-    // CAN2 depends on CAN1's clock, including for the shared filter registers.
-    RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
-#ifdef CAN2
-    if (bus == CAN2)
-        RCC->APB1ENR |= RCC_APB1ENR_CAN2EN;
-#endif
-    bus->MCR &= ~CAN_MCR_SLEEP;
-    bus->MCR |= CAN_MCR_INRQ;
-    if (!wait_init(bus, true))
-        return false;
-
-    // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    if (bit_rate == 1'000'000) {
-        switch (APB1ClockRateHz) {
-            case 16'000'000:
-                bus->BTR = PHAL_CAN_16MHz_1M;
-                break;
-            case 24'000'000:
-                bus->BTR = PHAL_CAN_24MHz_1M;
-                break;
-            case 36'000'000:
-                bus->BTR = PHAL_CAN_36MHz_1M;
-                break;
-            case 42'000'000:
-                bus->BTR = PHAL_CAN_42MHz_1M;
-                break;
-            default:
-                return false;
-        }
-    } else if (bit_rate == 500'000) {
-        switch (APB1ClockRateHz) {
-            case 16'000'000:
-                bus->BTR = PHAL_CAN_16MHz_500k;
-                break;
-            case 24'000'000:
-                bus->BTR = PHAL_CAN_24MHz_500k;
-                break;
-            case 36'000'000:
-                bus->BTR = PHAL_CAN_36MHz_500k;
-                break;
-            case 42'000'000:
-                bus->BTR = PHAL_CAN_42MHz_500k;
-                break;
-            default:
-                return false;
-        }
-    } else if (bit_rate == 250'000) {
-        switch (APB1ClockRateHz) {
-            case 16'000'000:
-                bus->BTR = PHAL_CAN_16MHz_250k;
-                break;
-            case 24'000'000:
-                bus->BTR = PHAL_CAN_24MHz_250k;
-                break;
-            case 36'000'000:
-                bus->BTR = PHAL_CAN_36MHz_250k;
-                break;
-            default:
-                return false;
-        }
-
-    } else {
-        return false;
-    }
-
-    bus->MCR |= CAN_MCR_ABOM;
-    if (!PHAL_CAN_setFilters(bus, 0, 0, 0, 0))
-        return false;
-    bus->IER &= ~CAN_IER_FMPIE1;
-    bus->IER |= CAN_IER_FMPIE0 | CAN_IER_TMEIE;
-    bus->MCR &= ~CAN_MCR_INRQ;
-    return wait_init(bus, false);
-}
-
-bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
-                         const uint32_t *sid_list,
-                         uint32_t num_sid,
-                         const uint32_t *xid_list,
-                         uint32_t num_xid) {
-    if (!valid_bus(bus) || num_sid > PHAL_CAN_MAX_NUM_SID_FILTER
-        || num_xid > PHAL_CAN_MAX_NUM_XID_FILTER || num_sid + num_xid > 28 || (num_sid && !sid_list)
-        || (num_xid && !xid_list))
-        return false;
-    for (uint32_t i = 0; i < num_sid; ++i)
-        if (sid_list[i] > 0x7FFU)
-            return false;
-    for (uint32_t i = 0; i < num_xid; ++i)
-        if (xid_list[i] > 0x1FFFFFFFU)
-            return false;
-
-    // Preserve CAN1's init state when called during initialization or by CAN2.
-    bool was_init = (CAN1->MCR & CAN_MCR_INRQ) != 0;
-    CAN1->MCR &= ~CAN_MCR_SLEEP;
-    CAN1->MCR |= CAN_MCR_INRQ;
-    if (!wait_init(CAN1, true)) {
-        if (!was_init)
-            CAN1->MCR &= ~CAN_MCR_INRQ;
-        return false;
-    }
+static void configure_filters(CAN_TypeDef *bus,
+                              const uint32_t *sid_list,
+                              uint32_t num_sid,
+                              const uint32_t *xid_list,
+                              uint32_t num_xid) {
+    // Filter configuration uses FINIT; neither CAN bus needs an INRQ transition.
     uint32_t base = 0;
 #ifdef CAN2
     if (bus == CAN2)
@@ -147,25 +71,68 @@ bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
         CAN1->sFilterRegister[base].FR2 = 0;
         CAN1->FA1R |= 1U << base;
     } else {
-        for (uint32_t i = 0; i < count; i += 2) {
-            uint32_t words[2];
-            for (uint32_t j = 0; j < 2; ++j) {
-                // Duplicate the last ID for an odd count, avoiding an extra match.
-                uint32_t index = (i + j < count) ? i + j : i;
-                words[j] =
-                    index < num_sid ? sid_list[index] << 21 : (xid_list[index - num_sid] << 3) | 4U;
+        for (uint32_t i = 0; i < count; ++i) {
+            uint32_t word = i < num_sid ? sid_list[i] << 21 : (xid_list[i - num_sid] << 3) | 4U;
+            uint32_t bank = base + i / 2;
+            if ((i % 2) == 0) {
+                CAN1->sFilterRegister[bank].FR1 = word;
+                // Duplicate the ID until the second word is filled (odd counts stay exact).
+                CAN1->sFilterRegister[bank].FR2 = word;
+                CAN1->FA1R |= 1U << bank;
+            } else {
+                CAN1->sFilterRegister[bank].FR2 = word;
             }
-            uint32_t bank                   = base + i / 2;
-            CAN1->sFilterRegister[bank].FR1 = words[0];
-            CAN1->sFilterRegister[bank].FR2 = words[1];
-            CAN1->FA1R |= 1U << bank;
         }
     }
     CAN1->FMR &= ~CAN_FMR_FINIT;
-    if (was_init)
-        return true;
-    CAN1->MCR &= ~CAN_MCR_INRQ;
-    return wait_init(CAN1, false);
+}
+
+bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate) {
+    uint32_t timing;
+    if (!valid_bus(bus) || !get_bit_timing(bit_rate, &timing))
+        return false;
+
+    // CAN2 depends on CAN1's clock, including for the shared filter registers.
+    RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
+#ifdef CAN2
+    if (bus == CAN2)
+        RCC->APB1ENR |= RCC_APB1ENR_CAN2EN;
+#endif
+    bus->MCR &= ~CAN_MCR_SLEEP;
+    bus->MCR |= CAN_MCR_INRQ;
+    while (!(bus->MSR & CAN_MSR_INAK))
+        ;
+
+    bus->BTR = timing;
+    bus->MCR |= CAN_MCR_ABOM;
+    configure_filters(bus, 0, 0, 0, 0);
+    bus->IER &= ~CAN_IER_FMPIE1;
+    bus->IER |= CAN_IER_FMPIE0 | CAN_IER_TMEIE;
+
+    bus->MCR &= ~CAN_MCR_INRQ;
+    while (bus->MSR & CAN_MSR_INAK)
+        ;
+    return true;
+}
+
+bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
+                         const uint32_t *sid_list,
+                         uint32_t num_sid,
+                         const uint32_t *xid_list,
+                         uint32_t num_xid) {
+    if (!valid_bus(bus) || num_sid > PHAL_CAN_MAX_NUM_SID_FILTER
+        || num_xid > PHAL_CAN_MAX_NUM_XID_FILTER || num_sid + num_xid > 28 || (num_sid && !sid_list)
+        || (num_xid && !xid_list))
+        return false;
+    for (uint32_t i = 0; i < num_sid; ++i)
+        if (sid_list[i] > 0x7FFU)
+            return false;
+    for (uint32_t i = 0; i < num_xid; ++i)
+        if (xid_list[i] > 0x1FFFFFFFU)
+            return false;
+
+    configure_filters(bus, sid_list, num_sid, xid_list, num_xid);
+    return true;
 }
 
 bool PHAL_CAN_send(CanMsgTypeDef_t *msg) {

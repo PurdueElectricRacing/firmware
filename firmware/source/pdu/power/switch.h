@@ -12,27 +12,30 @@
 #include "can_library/faults_common.h"
 
 typedef enum {
-    SWITCH_FAN4 = 0,
-    SWITCH_SDC,
-    SWITCH_DASH,
-    SWITCH_FAN5,
-    SWITCH_ABOX,
-    SWITCH_PUMP2,
-    SWITCH_DL_FRONT,
-    SWITCH_TV,
+    SWITCH_SDC = 0,
     SWITCH_SDC_LOOP,
-    SWITCH_HXFAN,
-    SWITCH_PUMP1,
-    SWITCH_FAN1,
-    SWITCH_DAQ,
     SWITCH_MAIN,
-    SWITCH_EMETER,
-    SWITCH_DL_REAR,
-    SWITCH_FAN3,
-    SWITCH_FAN2,
-    SWITCH_AMK2,
-    SWITCH_AMK1,
+    SWITCH_DASH,
+    SWITCH_DAQ,
+    SWITCH_ABOX,
     SWITCH_HV_BOARD,
+    SWITCH_TV,
+    SWITCH_DL_FRONT,
+    SWITCH_DL_REAR,
+    SWITCH_AMK1,
+    SWITCH_AMK2,
+
+    SWITCH_PUMP1,
+    SWITCH_PUMP2,
+    SWITCH_HXFAN,
+    SWITCH_FAN1,
+    SWITCH_FAN2,
+    SWITCH_FAN3,
+    SWITCH_FAN4,
+    SWITCH_FAN5,
+
+    SWITCH_EMETER,
+
     NUM_SWITCHES
 } switch_id_t;
 
@@ -43,13 +46,16 @@ typedef enum {
 } mux_id_t;
 
 typedef struct {
-    float current_ma;
     GPIO_TypeDef* ctrl_port;
-    fault_id_t fault_id;
     uint8_t ctrl_pin;
     mux_id_t mux_id;
     uint8_t mux_addr;
+    fault_id_t fault_id;
+    float current_ma;
 } switch_t;
+
+// todo tune this threshold
+static constexpr uint16_t SWITCH_FAULT_ADC_THRESHOLD = 3400;
 
 extern switch_t g_switches[NUM_SWITCHES];
 

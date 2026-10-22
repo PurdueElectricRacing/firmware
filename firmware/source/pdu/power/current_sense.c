@@ -42,6 +42,14 @@ void current_sense_periodic() {
         RTOS_delay_ms(MUX_SETTLE_DELAY_MS); // wait for mux to settle
 
         uint16_t adc_value = (sw->mux_id == ANALOG_MUX1) ? raw_adc2_values.mux1_out : raw_adc2_values.mux2_out;
+        
+        bool is_switch_faulted = adc_value >= SWITCH_FAULT_ADC_THRESHOLD;
+        update_fault(sw->fault_id, is_switch_faulted);
+        if (is_switch_faulted) {
+            continue;
+        }
+
+        // todo set current to an invalid value
         float current = (adc_value);  // todo resistor divider
         sw->current_ma = current;
     }

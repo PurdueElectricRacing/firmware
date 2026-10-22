@@ -74,76 +74,13 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "FAN4_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Fan4 Switch Fault"
-        },
-        {
             "fault_name": "SDC_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Sdc Switch Fault"
-        },
-        {
-            "fault_name": "DASH_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Dash Switch Fault"
-        },
-        {
-            "fault_name": "FAN5_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Fan5 Switch Fault"
-        },
-        {
-            "fault_name": "ABOX_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Abox Switch Fault"
-        },
-        {
-            "fault_name": "PUMP2_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Pump2 Switch Fault"
-        },
-        {
-            "fault_name": "DL_FRONT_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Dl Front Switch Fault"
-        },
-        {
-            "fault_name": "TV_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Tv Switch Fault"
+            "lcd_message": "SDC Switch Fault"
         },
         {
             "fault_name": "SDC_LOOP_SWITCH_FAULT",
@@ -152,43 +89,7 @@
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Sdc Loop Switch Fault"
-        },
-        {
-            "fault_name": "HXFAN_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Hxfan Switch Fault"
-        },
-        {
-            "fault_name": "PUMP1_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Pump1 Switch Fault"
-        },
-        {
-            "fault_name": "FAN1_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Fan1 Switch Fault"
-        },
-        {
-            "fault_name": "DAQ_SWITCH_FAULT",
-            "max": 1,
-            "min": 0,
-            "priority": "error",
-            "time_to_latch": 50,
-            "time_to_unlatch": 10000,
-            "lcd_message": "Daq Switch Fault"
+            "lcd_message": "SDC Loop Switch Fault"
         },
         {
             "fault_name": "MAIN_SWITCH_FAULT",
@@ -200,13 +101,58 @@
             "lcd_message": "Main Switch Fault"
         },
         {
-            "fault_name": "EMETER_SWITCH_FAULT",
+            "fault_name": "DASH_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Emeter Switch Fault"
+            "lcd_message": "Dash Switch Fault"
+        },
+        {
+            "fault_name": "DAQ_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Daq Switch Fault"
+        },
+        {
+            "fault_name": "ABOX_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Abox Switch Fault"
+        },
+        {
+            "fault_name": "HV_BOARD_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Hv Board Switch Fault"
+        },
+        {
+            "fault_name": "TV_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Tv Switch Fault"
+        },
+        {
+            "fault_name": "DL_FRONT_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Dl Front Switch Fault"
         },
         {
             "fault_name": "DL_REAR_SWITCH_FAULT",
@@ -218,13 +164,58 @@
             "lcd_message": "Dl Rear Switch Fault"
         },
         {
-            "fault_name": "FAN3_SWITCH_FAULT",
+            "fault_name": "AMK1_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Fan3 Switch Fault"
+            "lcd_message": "AMK1 Switch Fault"
+        },
+        {
+            "fault_name": "AMK2_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "AMK2 Switch Fault"
+        },
+        {
+            "fault_name": "PUMP1_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pump1 Switch Fault"
+        },
+        {
+            "fault_name": "PUMP2_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pump2 Switch Fault"
+        },
+        {
+            "fault_name": "HXFAN_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Hxfan Switch Fault"
+        },
+        {
+            "fault_name": "FAN1_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Fan1 Switch Fault"
         },
         {
             "fault_name": "FAN2_SWITCH_FAULT",
@@ -236,31 +227,40 @@
             "lcd_message": "Fan2 Switch Fault"
         },
         {
-            "fault_name": "AMK2_SWITCH_FAULT",
+            "fault_name": "FAN3_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Amk2 Switch Fault"
+            "lcd_message": "Fan3 Switch Fault"
         },
         {
-            "fault_name": "AMK1_SWITCH_FAULT",
+            "fault_name": "FAN4_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Amk1 Switch Fault"
+            "lcd_message": "Fan4 Switch Fault"
         },
         {
-            "fault_name": "HV_BOARD_SWITCH_FAULT",
+            "fault_name": "FAN5_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
             "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Hv Board Switch Fault"
+            "lcd_message": "Fan5 Switch Fault"
+        },
+        {
+            "fault_name": "EMETER_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Emeter Switch Fault"
         }
     ]
 }

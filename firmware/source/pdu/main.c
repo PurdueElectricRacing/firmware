@@ -19,6 +19,7 @@
 
 /* Module Includes */
 #include "cooling_fsm.h"
+#include "current_sense.h"
 
 PHAL_GPIO_InitConfig_t gpio_config[] = {
     // Status indicators
@@ -73,8 +74,9 @@ void HardFault_Handler();
 
 // Thread Defines
 DEFINE_CAN_TASKS();
-RTOS_DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024);
-RTOS_DEFINE_TASK(fault_library_periodic, 100, TASK_PRIORITY_LOW, STACK_1024);
+RTOS_DEFINE_TASK(fault_library_periodic, PDU_FAULT_SYNC_PERIOD_MS, TASK_PRIORITY_NORMAL, STACK_1024);
+RTOS_DEFINE_TASK(cooling_fsm_periodic, COOLING_FSM_PERIOD_MS, TASK_PRIORITY_LOW, STACK_1024);
+RTOS_DEFINE_TASK(current_sense_periodic, CURRENT_SENSE_TASK_PERIOD_MS, TASK_PRIORITY_LOW, STACK_512);
 DEFINE_WATCHDOG_TASK();
 
 int main() {
@@ -91,8 +93,9 @@ int main() {
 
     START_CAN_TASKS();
     CAN_SEND_pdu_init(WDG_get_CSR());
-    RTOS_START_TASK(cooling_fsm_periodic);
     RTOS_START_TASK(fault_library_periodic);
+    RTOS_START_TASK(current_sense_periodic);
+    RTOS_START_TASK(cooling_fsm_periodic);
     START_WATCHDOG_TASK();
 
     vTaskStartScheduler();

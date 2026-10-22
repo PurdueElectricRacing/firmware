@@ -95,9 +95,7 @@ static inline void CAN_data_init() {
 
 // Filter configuration
 {% for peripheral in ctx.peripheral_entries if peripheral.name in ctx.filters %}
-{% with periph=peripheral.name, filters=ctx.filters[peripheral.name], phal_prefix=peripheral.phal_prefix %}
 {% include "filter/peripheral.c.jinja" %}
-{% endwith %}
 {% endfor %}
 
 #endif // {{ ctx.node.name|upper }}_H

@@ -36,9 +36,13 @@ def build_peripheral_views(peripherals: tuple[str, ...]) -> tuple[PeripheralRend
     views = []
     for peripheral in peripherals:
         if peripheral.startswith("FDCAN"):
-            bus_type, arch_define, phal_prefix = "FDCAN_GlobalTypeDef", "STM32G474xx", "PHAL_FDCAN"
+            bus_type = "FDCAN_GlobalTypeDef"
+            arch_define = "STM32G474xx"
+            phal_prefix = "PHAL_FDCAN"
         elif peripheral.startswith("CAN"):
-            bus_type, arch_define, phal_prefix = "CAN_TypeDef", "STM32F407xx", "PHAL_CAN"
+            bus_type = "CAN_TypeDef"
+            arch_define = "STM32F407xx"
+            phal_prefix = "PHAL_CAN"
         else:
             raise ValueError(f"Unsupported CAN peripheral: {peripheral}")
         views.append(

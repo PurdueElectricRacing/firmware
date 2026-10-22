@@ -77,7 +77,7 @@
 #define MUX2_OUT_ADC_CHANNEL  (17)
 
 // Analog multiplexer controls
-#define MUX1_CTRL_A_PORT (GPIOC)
+#define MUX1_CTRL_A_PORT (GPIOC) // todo flip this with MUX1_OUT in altium
 #define MUX1_CTRL_A_PIN  (4)
 #define MUX1_CTRL_B_PORT (GPIOA)
 #define MUX1_CTRL_B_PIN  (6)

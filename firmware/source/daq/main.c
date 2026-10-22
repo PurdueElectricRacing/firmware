@@ -122,10 +122,10 @@ int main() {
     if (!PHAL_configureRTC(&fallback_timestamp, false)) {
         HardFault_Handler();
     }
-    if (!PHAL_initCAN(CAN1, false, VCAN_BAUD_RATE)) {
+    if (!PHAL_CAN_init(CAN1, VCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
-    if (!PHAL_initCAN(CAN2, false, MCAN_BAUD_RATE)) {
+    if (!PHAL_CAN_init(CAN2, MCAN_BAUD_RATE)) {
         HardFault_Handler();
     }
 

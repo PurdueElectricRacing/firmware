@@ -103,20 +103,8 @@ static const PHAL_ADC_Config_t adc3_config = {
     .channel_count = sizeof(adc3_channels) / sizeof(adc3_channels[0]),
 };
 
-typedef struct {
-    uint16_t lvbatt_vs;
-} raw_adc1_values_t;
 volatile raw_adc1_values_t raw_adc1_values;
-
-typedef struct {
-    uint16_t mux1_out;
-    uint16_t mux2_out;
-} raw_adc2_values_t;
 volatile raw_adc2_values_t raw_adc2_values;
-
-typedef struct {
-    uint16_t lvbatt_cs;
-} raw_adc3_values_t;
 volatile raw_adc3_values_t raw_adc3_values;
 
 static PHAL_ADC_Handle_t adc1_handle;

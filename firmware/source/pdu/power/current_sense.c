@@ -38,9 +38,10 @@ void current_sense_periodic() {
         }
 
         mux_select(sw->mux_id, sw->mux_addr);
-        RTOS_delay_ms(1); // wait for mux to settle
+        RTOS_delay_ms(2); // wait for mux to settle
 
-        // todo resistor divider
-        sw->current_ma = 0; // todo
+        uint16_t adc_value = (sw->mux_id == ANALOG_MUX1) ? raw_adc2_values.mux1_out : raw_adc2_values.mux2_out;
+        float current = (adc_value);  // todo resistor divider
+        sw->current_ma = current;
     }
 }

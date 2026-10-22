@@ -42,11 +42,11 @@ typedef enum {
 } mux_id_t;
 
 typedef struct {
+    float current_ma;
     GPIO_TypeDef* ctrl_port;
     uint8_t ctrl_pin;
     mux_id_t mux_id;
     uint8_t mux_addr;
-    uint32_t current_ma;
 } switch_t;
 
 extern switch_t switches[NUM_SWITCHES];

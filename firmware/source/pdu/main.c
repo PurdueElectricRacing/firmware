@@ -71,17 +71,54 @@ PHAL_GPIO_InitConfig_t gpio_config[] = {
     PHAL_PIN_DEFS_FDCAN1_RX_PA11,
 };
 
-static const PHAL_ADC_ChannelConfig_t adc_channels[] = {
-    {.channel = MUX1_OUT_ADC_CH},
-    {.channel = MUX2_OUT_ADC_CH},
+// !! ADC PHAL this api sucks
+static const PHAL_ADC_ChannelConfig_t adc1_channels[] = {
+    {.channel = LVBATT_VS_ADC_CHANNEL}
 };
 
-static const PHAL_ADC_Config_t adc_config = {
+static const PHAL_ADC_ChannelConfig_t adc2_channels[] = {
+    {.channel = MUX1_OUT_ADC_CHANNEL},
+    {.channel = MUX2_OUT_ADC_CHANNEL}
+};
+
+static const PHAL_ADC_ChannelConfig_t adc3_channels[] = {
+    {.channel = LVBATT_CS_ADC_CHANNEL}
+};
+
+static const PHAL_ADC_Config_t adc1_config = {
     .instance      = ADC1,
-    .channels      = adc_channels,
-    .channel_count = countof(adc_channels),
+    .channels      = adc1_channels,
+    .channel_count = sizeof(adc1_channels) / sizeof(adc1_channels[0]),
 };
 
+static const PHAL_ADC_Config_t adc2_config = {
+    .instance      = ADC2,
+    .channels      = adc2_channels,
+    .channel_count = sizeof(adc2_channels) / sizeof(adc2_channels[0]),
+};
+
+static const PHAL_ADC_Config_t adc3_config = {
+    .instance      = ADC3,
+    .channels      = adc3_channels,
+    .channel_count = sizeof(adc3_channels) / sizeof(adc3_channels[0]),
+};
+
+typedef struct {
+    uint16_t lvbatt_vs;
+} raw_adc1_values_t;
+
+typedef struct {
+    uint16_t mux1_out;
+    uint16_t mux2_out;
+} raw_adc2_values_t;
+
+typedef struct {
+    uint16_t lvbatt_cs;
+} raw_adc3_values_t;
+
+static PHAL_ADC_Handle_t adc1_handle;
+static PHAL_ADC_Handle_t adc2_handle;
+static PHAL_ADC_Handle_t adc3_handle;
 
 void HardFault_Handler();
 
@@ -99,7 +136,9 @@ int main() {
     if (!PHAL_GPIO_init(gpio_config, countof(gpio_config))) {
         HardFault_Handler();
     }
-    
+    PHAL_ADC_init(&adc1_handle, &adc1_config);
+    PHAL_ADC_init(&adc2_handle, &adc2_config);
+    PHAL_ADC_init(&adc3_handle, &adc3_config);
     PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
 
     CAN_init();

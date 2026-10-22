@@ -2,7 +2,7 @@
     "node_name": "PDU",
     "busses": {
         "VCAN": {
-            "peripheral": "CAN1",
+            "peripheral": "FDCAN1",
             "tx": [
                 {
                     "message_name": "pdu_init",

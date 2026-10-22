@@ -7,36 +7,26 @@
 
 #include "cooling_callbacks.h"
 
-#include "switches.h"
-
 void powertrain_pumps_on(void) {
-    switches_set_state(SW_PUMP_1, true);
-    switches_set_state(SW_PUMP_2, true);
+    return;
 }
 
 void powertrain_pumps_off(void) {
-    switches_set_state(SW_PUMP_1, false);
-    switches_set_state(SW_PUMP_2, false);
+    return;
 }
 
 void hx_fan_on(void) {
-    switches_set_state(SW_HXFAN, true);
+    return;
 }
 
 void hx_fan_off(void) {
-    switches_set_state(SW_HXFAN, false);
+    return;
 }
 
 void battery_fans_on(void) {
-    switches_set_state(SW_FAN_1, true);
-    switches_set_state(SW_FAN_2, true);
-    switches_set_state(SW_FAN_3, true);
-    switches_set_state(SW_FAN_4, true);
+    return;
 }
 
 void battery_fans_off(void) {
-    switches_set_state(SW_FAN_1, false);
-    switches_set_state(SW_FAN_2, false);
-    switches_set_state(SW_FAN_3, false);
-    switches_set_state(SW_FAN_4, false);
+    return;
 }

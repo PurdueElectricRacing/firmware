@@ -16,7 +16,6 @@
 #if (F4_TESTING_CHOSEN == TEST_FREERTOS_DEMO)
 
 #include "common/rtos/rtos.h"
-#include "common/log/log.h"
 #include "common/phal_F4/gpio/gpio.h"
 #include "common/phal_F4/rcc/rcc.h"
 #include "common/phal_F4/usart/usart.h"
@@ -92,7 +91,7 @@ int main() {
     if (!PHAL_initUSART(&usart_config, APB1ClockRateHz)) {
         HardFault_Handler();
     }
-    log_yellow("PER PER PER\n");
+    // log_yellow("PER PER PER\n");
 
     // Create threads
     RTOS_START_TASK(ledblink1);
@@ -131,7 +130,7 @@ void usartSend() {
         /* We were able to obtain the semaphore and can now access the
             shared resource. */
 
-        debug_printf("tick: %d\n", xTaskGetTickCount());
+        // debug_printf("tick: %d\n", xTaskGetTickCount());
 
         /* We have finished accessing the shared resource. Release the
            semaphore. */

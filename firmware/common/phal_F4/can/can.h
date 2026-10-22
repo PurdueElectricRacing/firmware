@@ -1,7 +1,7 @@
 /**
  * @file can.h
  * @author Adam Busch (busch8@purdue.edu)
- * @brief
+ * @brief F4 bxCAN public API.
  * @version 0.1
  * @date 2021-03-20
  *
@@ -16,31 +16,30 @@
 
 // Bit timing recovered from http://www.bittiming.can-wiki.info/
 
-#define PHAL_CAN_16MHz_1M (0x033a0000)
-#define PHAL_CAN_24MHz_1M (0x03270001)
-#define PHAL_CAN_36MHz_1M (0x033c0001)
-#define PHAL_CAN_42MHz_1M (0x034e0001)
+#define PHAL_CAN_16MHZ_1M (0x033a0000)
+#define PHAL_CAN_24MHZ_1M (0x03270001)
+#define PHAL_CAN_36MHZ_1M (0x033c0001)
+#define PHAL_CAN_42MHZ_1M (0x034e0001)
 
-#define PHAL_CAN_16MHz_500k (0x033a0001) // sample point = 75%, SJW = 4
-#define PHAL_CAN_24MHz_500k (0x033a0002) // sample point = 75%, SJW = 4
-#define PHAL_CAN_36MHz_500k (0x03270005)
-#define PHAL_CAN_42MHz_500k (0x034e0003) // sample point = 75%, SJW = 4
+#define PHAL_CAN_16MHZ_500K (0x033a0001) // sample point = 75%, SJW = 4
+#define PHAL_CAN_24MHZ_500K (0x033a0002) // sample point = 75%, SJW = 4
+#define PHAL_CAN_36MHZ_500K (0x03270005)
+#define PHAL_CAN_42MHZ_500K (0x034e0003) // sample point = 75%, SJW = 4
 
-#define PHAL_CAN_16MHz_250k (0x003a0003) // sample point = 75%
-#define PHAL_CAN_24MHz_250k (0x003a0005) // sample point = 75%
-#define PHAL_CAN_36MHz_250k (0x003a0008) // sample point = 75%
+#define PHAL_CAN_16MHZ_250K (0x003a0003) // sample point = 75%
+#define PHAL_CAN_24MHZ_250K (0x003a0005) // sample point = 75%
+#define PHAL_CAN_36MHZ_250K (0x003a0008) // sample point = 75%
 
 #define PHAL_CAN_MAX_NUM_SID_FILTER (28U)
 #define PHAL_CAN_MAX_NUM_XID_FILTER (8U)
-
 
 /**
  * @brief Supported baud rates for PER F4 CAN HAL.
  */
 typedef enum : uint32_t {
-    FDCAN_BAUD_250K = 250000U,
-    FDCAN_BAUD_500K = 500000U,
-    FDCAN_BAUD_1M   = 1000000U
+    FDCAN_BAUD_250K = 250'000U,
+    FDCAN_BAUD_500K = 500'000U,
+    FDCAN_BAUD_1M   = 1'000'000U
 } PHAL_FDCAN_BaudRate_t;
 
 /**
@@ -49,8 +48,7 @@ typedef enum : uint32_t {
  * used for both TX and RX.
  */
 typedef struct {
-    CAN_TypeDef *Bus; /*!< When RX - Bus = which peripheral the frame arrived on
-                           When TX - Bus = which peripheral should transmits it */
+    CAN_TypeDef *Bus; /*!< RX source or TX destination peripheral. */
     bool IDE;
 
     union {
@@ -62,24 +60,31 @@ typedef struct {
     uint8_t Data[8]; /*!< payload bytes */
 } CanMsgTypeDef_t;
 
-
 /**
  * Initialize the bus with an accept-all FIFO0 filter, waiting for hardware acknowledgement.
+ * Bus must be CAN1 or CAN2 (nullptr is rejected).
  * Return false for an invalid bus or unsupported clock/baud combination, before changing hardware.
  */
 bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate);
 
-/** Replace this bus's filters. Empty lists accept all IDs; invalid input returns false. */
+/**
+ * Replace this bus's filters. Initialize the bus before calling this function.
+ * ID lists may be nullptr only when their count is zero. Empty lists accept all IDs.
+ * Return false for an invalid bus, count, list pointer, or ID, before changing filters.
+ */
 bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
                          const uint32_t *sid_list,
                          uint32_t num_sid,
                          const uint32_t *xid_list,
                          uint32_t num_xid);
 
-/** Queue a frame in any free mailbox; return false immediately if none is free. */
+/**
+ * Queue a frame in any free mailbox. Return false for nullptr, invalid frame fields,
+ * an invalid bus, or no free mailbox. Does not wait for transmission.
+ */
 bool PHAL_CAN_send(CanMsgTypeDef_t *msg);
 
-/** Return true if at least one mailbox is free for transmission. */
+/** Return true if a mailbox is free; false for an invalid bus (including nullptr). */
 bool PHAL_CAN_txFifoFree(const CAN_TypeDef *bus);
 
 /* Override these weak callbacks in application code. RX messages live only during the callback. */

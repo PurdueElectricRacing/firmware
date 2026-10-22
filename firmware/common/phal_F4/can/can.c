@@ -2,7 +2,7 @@
  * @file can.c
  * @brief F4 bxCAN initialization, filters, and interrupt-driven frame transport
  *
- * @author Adam Busch (busch8@purdue.edu)
+ * @author Chris McGalliard
  * @author Millan Kumar (kumar798@purdue.edu)
  */
 

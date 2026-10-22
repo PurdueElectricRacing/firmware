@@ -9,7 +9,6 @@
 
 #include "can_library/generated/PDU.h"
 #include "common/bangbang/bangbang.h"
-#include "common/phal_F4/pwm/pwm.h"
 #include "common/utils/max.h"
 #include "cooling_callbacks.h"
 #include "main.h"
@@ -24,11 +23,11 @@ typedef enum {
 static cooling_state_t cooling_state      = COOLING_STATE_INIT;
 static cooling_state_t next_cooling_state = COOLING_STATE_INIT;
 
-static constexpr uint32_t PWM_FREQUENCY_HZ = 25'000; // 25kHz
-static constexpr uint8_t NUM_BATTERY_FANS  = 4;
-static constexpr uint8_t FANS_PWM_DUTY     = 50;
-static_assert(FANS_PWM_DUTY <= 99, "PWM duty cycle must be between 0 and 99");
-static_assert(FANS_PWM_DUTY >= 0, "PWM duty cycle must be between 0 and 99");
+// static constexpr uint32_t PWM_FREQUENCY_HZ = 25'000; // 25kHz
+// static constexpr uint8_t NUM_BATTERY_FANS  = 4;
+// static constexpr uint8_t FANS_PWM_DUTY     = 50;
+// static_assert(FANS_PWM_DUTY <= 99, "PWM duty cycle must be between 0 and 99");
+// static_assert(FANS_PWM_DUTY >= 0, "PWM duty cycle must be between 0 and 99");
 
 // PWM init assumes they're all on the same channel
 #define FAN_PWM_TIM (TIM1)
@@ -120,14 +119,7 @@ void cooling_fsm_periodic(void) {
 
     switch (cooling_state) {
         case COOLING_STATE_INIT: {
-            if (PHAL_initPWM(PWM_FREQUENCY_HZ, FAN_PWM_TIM, NUM_BATTERY_FANS)) {
-                // set the PWMS to full
-                PHAL_PWMsetPercent(FAN_1_PWM_TIM, FAN_1_PWM_TIM_CH, FANS_PWM_DUTY);
-                PHAL_PWMsetPercent(FAN_2_PWM_TIM, FAN_2_PWM_TIM_CH, FANS_PWM_DUTY);
-                PHAL_PWMsetPercent(FAN_3_PWM_TIM, FAN_3_PWM_TIM_CH, FANS_PWM_DUTY);
-                PHAL_PWMsetPercent(FAN_4_PWM_TIM, FAN_4_PWM_TIM_CH, FANS_PWM_DUTY);
-                next_cooling_state = COOLING_STATE_AUTO;
-            }
+            // todo PWM ctrl
             break;
         }
         case COOLING_STATE_AUTO: {

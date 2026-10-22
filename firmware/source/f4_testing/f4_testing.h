@@ -5,9 +5,8 @@
 #define TEST_FREERTOS_DEMO 0
 #define TEST_ONBOARDING_26 1
 #define TEST_PWM 2
-#define TEST_CANPILER 3
 
 // Change this define to set the test compiled
-#define F4_TESTING_CHOSEN TEST_CANPILER
+#define F4_TESTING_CHOSEN TEST_ONBOARDING_26
 
 #endif // __F4_TESTING__

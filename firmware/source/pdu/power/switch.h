@@ -59,7 +59,11 @@ static constexpr float SWITCH_SENSE_DIVIDER_GAIN = 330.0f / (180.0f + 330.0f);
 static constexpr float ADC_VREF_V                = 3.3f;
 // todo: tune margin
 static constexpr float SWITCH_FAULT_MARGIN       = 0.95f;
-static constexpr uint16_t SWITCH_FAULT_ADC_THRESHOLD = (uint16_t)(SWITCH_FAULT_SENSE_V * SWITCH_SENSE_DIVIDER_GAIN * (4095.0f / ADC_VREF_V) * SWITCH_FAULT_MARGIN);
+static constexpr float SWITCH_FAULT_ADC_THRESHOLD =
+    SWITCH_FAULT_SENSE_V
+    * SWITCH_SENSE_DIVIDER_GAIN
+    * (4095.0f / ADC_VREF_V)
+    * SWITCH_FAULT_MARGIN;
 
 
 extern switch_t g_switches[NUM_SWITCHES];

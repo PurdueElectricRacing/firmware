@@ -25,15 +25,11 @@ var searchData=
   ['throttle2_5fpin_22',['THROTTLE2_PIN',['../dashboard_2main_8h.html#ad9f3f902584d110bd59f142068f4502b',1,'main.h']]],
   ['throttle2_5fport_23',['THROTTLE2_PORT',['../dashboard_2main_8h.html#abb76b313bd4051960417f6437a41df9d',1,'main.h']]],
   ['total_5fnum_5ffaults_24',['TOTAL_NUM_FAULTS',['../fault__data_8h.html#ae501f5c8c4a093f05d0643c5218de926',1,'fault_data.h']]],
-  ['tsal_5ffault_5fpin_25',['TSAL_FAULT_PIN',['../main__module_2main_8h.html#ad5372b5d3b709a63054f421e507a02fe',1,'main.h']]],
-  ['tsal_5ffault_5fport_26',['TSAL_FAULT_PORT',['../main__module_2main_8h.html#aeab95ce015f4e09c1d13fdad04b2fc16',1,'main.h']]],
-  ['tsal_5fgreen_5fctrl_5fpin_27',['TSAL_GREEN_CTRL_PIN',['../main__module_2main_8h.html#afbd44fd53fad1150904b7dc026962c4d',1,'main.h']]],
-  ['tsal_5fgreen_5fctrl_5fport_28',['TSAL_GREEN_CTRL_PORT',['../main__module_2main_8h.html#a7d7990c640c2b22c788f313e8202c59b',1,'main.h']]],
-  ['tsal_5fred_5fctrl_5fpin_29',['TSAL_RED_CTRL_PIN',['../main__module_2main_8h.html#a8a6f9b3c2486e5504e9183b0a58a9b76',1,'main.h']]],
-  ['tsal_5fred_5fctrl_5fport_30',['TSAL_RED_CTRL_PORT',['../main__module_2main_8h.html#a87eb71f53fcd8696f4c4f9134f8df682',1,'main.h']]],
-  ['tsal_5frtm_5fenable_5fpin_31',['TSAL_RTM_ENABLE_PIN',['../main__module_2main_8h.html#aa57f7575e79ef63d975b946058a78367',1,'main.h']]],
-  ['tsal_5frtm_5fenable_5fport_32',['TSAL_RTM_ENABLE_PORT',['../main__module_2main_8h.html#a274350ceee72215b8388bbe2c9cbdb54',1,'main.h']]],
-  ['tv1_5fminus_5fpin_33',['TV1_MINUS_PIN',['../dashboard_2main_8h.html#a066756c6be4dea791982891445aa58ad',1,'main.h']]],
-  ['tv1_5fminus_5fport_34',['TV1_MINUS_PORT',['../dashboard_2main_8h.html#a7c58c4c4eab42860bb3ba131bdb36d8c',1,'main.h']]],
-  ['tv_5fbutton_35',['TV_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a26bda9f3f6a5e78cc76c04562d37096d',1,'vcu.h']]]
+  ['tsal_5fgreen_5fctrl_5fpin_25',['TSAL_GREEN_CTRL_PIN',['../main__module_2main_8h.html#afbd44fd53fad1150904b7dc026962c4d',1,'main.h']]],
+  ['tsal_5fgreen_5fctrl_5fport_26',['TSAL_GREEN_CTRL_PORT',['../main__module_2main_8h.html#a7d7990c640c2b22c788f313e8202c59b',1,'main.h']]],
+  ['tsal_5fred_5fctrl_5fpin_27',['TSAL_RED_CTRL_PIN',['../main__module_2main_8h.html#a8a6f9b3c2486e5504e9183b0a58a9b76',1,'main.h']]],
+  ['tsal_5fred_5fctrl_5fport_28',['TSAL_RED_CTRL_PORT',['../main__module_2main_8h.html#a87eb71f53fcd8696f4c4f9134f8df682',1,'main.h']]],
+  ['tv1_5fminus_5fpin_29',['TV1_MINUS_PIN',['../dashboard_2main_8h.html#a066756c6be4dea791982891445aa58ad',1,'main.h']]],
+  ['tv1_5fminus_5fport_30',['TV1_MINUS_PORT',['../dashboard_2main_8h.html#a7c58c4c4eab42860bb3ba131bdb36d8c',1,'main.h']]],
+  ['tv_5fbutton_31',['TV_BUTTON',['../dashboard_2driver__interface_2pages_2vcu_8h.html#a26bda9f3f6a5e78cc76c04562d37096d',1,'vcu.h']]]
 ];

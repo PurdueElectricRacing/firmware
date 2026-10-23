@@ -1,7 +1,5 @@
 var NAVTREEINDEX27 =
 {
-"structmotor__speeds__data__t.html#a3e56cc31cd4747497d6a8e873f3fc751":[32,0,184,3],
-"structmotor__speeds__data__t.html#a4aa78900b28c08293d699e8db327feac":[32,0,184,4],
 "structmotor__speeds__data__t.html#a5bebc95807c5e5071ce0b5bb9f313be6":[32,0,184,2],
 "structmotor__speeds__data__t.html#a9ae7b98f7b8339df1ee900797ca9460a":[32,0,184,0],
 "structmotor__speeds__data__t.html#aa6c7a77f8dfbae4b5aa2a5a9e8679bb0":[32,0,184,5],
@@ -249,5 +247,7 @@ var NAVTREEINDEX27 =
 "structsegment2__t.html#a60428cfa5e7b71227e3275287d6227bc":[32,0,251,1],
 "structsquare__centimeter__t.html":[32,0,254],
 "structsquare__centimeter__t.html#a599cb1e1ceb810bcef3c8f4e1eba8e5d":[32,0,254,0],
-"structsquare__meter__t.html":[32,0,255]
+"structsquare__meter__t.html":[32,0,255],
+"structsquare__meter__t.html#a27de3146662382049878111e7f63d70b":[32,0,255,0],
+"structsquare__millimeter__t.html":[32,0,256]
 };

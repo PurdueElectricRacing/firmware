@@ -118,13 +118,13 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#error &quot;CAN_NODE_MAIN_MODULE uses peripherals for STM32G474xx&quot;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a09389f719514180e1356522315f12b33">   26</a></span><span class="preprocessor">#define USE_FDCAN2</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a68f162d00f13a607ac12d1142ff42be9">   27</a></span><span class="preprocessor">#define USE_FDCAN3</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#aa6f2e9810d43532cf45597c1d5d527cb">   26</a></span><span class="preprocessor">#define USE_FDCAN1</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a09389f719514180e1356522315f12b33">   27</a></span><span class="preprocessor">#define USE_FDCAN2</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">typedef</span> FDCAN_GlobalTypeDef <a class="code hl_typedef" href="A__BOX_8h.html#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a>;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(<a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// Scaling Macros</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// INVA_CRIT</span></div>
@@ -246,7 +246,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="comment">// RX Dispatcher</span></div>
 <div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b">  152</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b">CAN_rx_dispatcher</a>(uint32_t <span class="keywordtype">id</span>, <span class="keyword">const</span> uint8_t *data, uint8_t len, <span class="keyword">const</span> <a class="code hl_typedef" href="A__BOX_8h.html#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a> *bus) {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">if</span> (bus == FDCAN2) {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">if</span> (bus == FDCAN1) {</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <span class="keywordflow">switch</span> (<span class="keywordtype">id</span>) {</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="VCAN_8h.html#ad844dff23576cdc1b1bb839cfcdc9285">PEDALS_MSG_ID</a>: {</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                uint64_t host_data = <a class="code hl_function" href="can__codec_8h.html#ab2e8845d8bca9455b72e15d049753334">CAN_load_payload_u64</a>(data, len);</div>
@@ -479,7 +479,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        }</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    }</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (bus == FDCAN3) {</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (bus == FDCAN2) {</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        <span class="keywordflow">switch</span> (<span class="keywordtype">id</span>) {</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>            <span class="keywordflow">case</span> <a class="code hl_variable" href="MCAN_8h.html#ae529fc5c413ee9fb6a02d0f16f6c10f4">INVA_CRIT_MSG_ID</a>: {</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>                uint64_t host_data = <a class="code hl_function" href="can__codec_8h.html#ab2e8845d8bca9455b72e15d049753334">CAN_load_payload_u64</a>(data, len);</div>
@@ -1018,7 +1018,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span>    <span class="keywordtype">bool</span> value_precharge_state</div>
 <div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span>) {</div>
 <div class="line"><a id="l00862" name="l00862"></a><span class="lineno">  862</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>        .Bus = FDCAN3,</div>
+<div class="line"><a id="l00863" name="l00863"></a><span class="lineno">  863</span>        .Bus = FDCAN2,</div>
 <div class="line"><a id="l00864" name="l00864"></a><span class="lineno">  864</span>        .StdId = <a class="code hl_variable" href="MCAN_8h.html#a85e5bb51d2cd1153e7fda684fc2e3337">MAIN_HB_AMK_MSG_ID</a>,</div>
 <div class="line"><a id="l00865" name="l00865"></a><span class="lineno">  865</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00866" name="l00866"></a><span class="lineno">  866</span>        .DLC = <a class="code hl_variable" href="MCAN_8h.html#a6cf3762e5d3217f931db6fa2b92128f8">MAIN_HB_AMK_DLC</a>,</div>
@@ -1033,7 +1033,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span> </div>
 <div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="MCAN_8h.html#a6cf3762e5d3217f931db6fa2b92128f8">MAIN_HB_AMK_DLC</a>);</div>
 <div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span> </div>
-<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a>(&amp;outgoing);</div>
+<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
 <div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>}</div>
 </div>
 <div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span> </div>
@@ -1051,7 +1051,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>    int16_t value_AMK_NegativeTorqueLimit</div>
 <div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>) {</div>
 <div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>        .Bus = FDCAN3,</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>        .Bus = FDCAN2,</div>
 <div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>        .StdId = <a class="code hl_variable" href="MCAN_8h.html#a4fab18dd9f9b0e48d449539a84dc4875">INVA_SET_MSG_ID</a>,</div>
 <div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>        .DLC = <a class="code hl_variable" href="MCAN_8h.html#a4bb8b106e70d881db8130cef38f827ab">INVA_SET_DLC</a>,</div>
@@ -1080,7 +1080,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span> </div>
 <div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="MCAN_8h.html#a4bb8b106e70d881db8130cef38f827ab">INVA_SET_DLC</a>);</div>
 <div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span> </div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a>(&amp;outgoing);</div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
 <div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>}</div>
 </div>
 <div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span> </div>
@@ -1098,7 +1098,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>    int16_t value_AMK_NegativeTorqueLimit</div>
 <div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span>) {</div>
 <div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        .Bus = FDCAN3,</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        .Bus = FDCAN2,</div>
 <div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span>        .StdId = <a class="code hl_variable" href="MCAN_8h.html#a840326a816f9e0f8ce40479b761798e5">INVB_SET_MSG_ID</a>,</div>
 <div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span>        .DLC = <a class="code hl_variable" href="MCAN_8h.html#a3e71537f5fc9a9d9cfcbf0bc080c027d">INVB_SET_DLC</a>,</div>
@@ -1127,7 +1127,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span> </div>
 <div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="MCAN_8h.html#a3e71537f5fc9a9d9cfcbf0bc080c027d">INVB_SET_DLC</a>);</div>
 <div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span> </div>
-<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a>(&amp;outgoing);</div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
 <div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>}</div>
 </div>
 <div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span> </div>
@@ -1145,7 +1145,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span>    int16_t value_AMK_NegativeTorqueLimit</div>
 <div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span>) {</div>
 <div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span>        .Bus = FDCAN3,</div>
+<div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span>        .Bus = FDCAN2,</div>
 <div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span>        .StdId = <a class="code hl_variable" href="MCAN_8h.html#a25cab959cb2ced59c67bd5aa01217e89">INVC_SET_MSG_ID</a>,</div>
 <div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span>        .DLC = <a class="code hl_variable" href="MCAN_8h.html#a4454b37fa7e07d7f46a9a84aa360380b">INVC_SET_DLC</a>,</div>
@@ -1174,7 +1174,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span> </div>
 <div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="MCAN_8h.html#a4454b37fa7e07d7f46a9a84aa360380b">INVC_SET_DLC</a>);</div>
 <div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span> </div>
-<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span>}</div>
 </div>
 <div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span> </div>
@@ -1192,7 +1192,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>    int16_t value_AMK_NegativeTorqueLimit</div>
 <div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>) {</div>
 <div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>        .Bus = FDCAN3,</div>
+<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span>        .Bus = FDCAN2,</div>
 <div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>        .StdId = <a class="code hl_variable" href="MCAN_8h.html#a81d7c556d4e75149e695067f454f066e">INVD_SET_MSG_ID</a>,</div>
 <div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span>        .DLC = <a class="code hl_variable" href="MCAN_8h.html#ae65ae728e87f7c33013c4d6fd9186532">INVD_SET_DLC</a>,</div>
@@ -1221,7 +1221,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span> </div>
 <div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="MCAN_8h.html#ae65ae728e87f7c33013c4d6fd9186532">INVD_SET_DLC</a>);</div>
 <div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span> </div>
-<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>}</div>
 </div>
 <div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span> </div>
@@ -1231,7 +1231,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>    uint32_t value_csr</div>
 <div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span>) {</div>
 <div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a89a0d77cb18209bd56185552cd409bb2">MAIN_INIT_MSG_ID</a>,</div>
 <div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a8eed5899dd678b96e1b18aa35dac1477">MAIN_INIT_DLC</a>,</div>
@@ -1244,7 +1244,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span> </div>
 <div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a8eed5899dd678b96e1b18aa35dac1477">MAIN_INIT_DLC</a>);</div>
 <div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span> </div>
-<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>}</div>
 </div>
 <div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span> </div>
@@ -1254,7 +1254,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01084" name="l01084"></a><span class="lineno"> 1084</span>    <a class="code hl_enumeration" href="can__types_8h.html#a284dac8bc8892eb42544f6d4053616de">car_state_t</a> value_car_state</div>
 <div class="line"><a id="l01085" name="l01085"></a><span class="lineno"> 1085</span>) {</div>
 <div class="line"><a id="l01086" name="l01086"></a><span class="lineno"> 1086</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01087" name="l01087"></a><span class="lineno"> 1087</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01088" name="l01088"></a><span class="lineno"> 1088</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#ac50dce2c842f7fe9d1d2b28ffa3c6da2">MAIN_HB_MSG_ID</a>,</div>
 <div class="line"><a id="l01089" name="l01089"></a><span class="lineno"> 1089</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01090" name="l01090"></a><span class="lineno"> 1090</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a74c483e7c17c51ab63570bade774208e">MAIN_HB_DLC</a>,</div>
@@ -1267,7 +1267,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01097" name="l01097"></a><span class="lineno"> 1097</span> </div>
 <div class="line"><a id="l01098" name="l01098"></a><span class="lineno"> 1098</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a74c483e7c17c51ab63570bade774208e">MAIN_HB_DLC</a>);</div>
 <div class="line"><a id="l01099" name="l01099"></a><span class="lineno"> 1099</span> </div>
-<div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01100" name="l01100"></a><span class="lineno"> 1100</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01101" name="l01101"></a><span class="lineno"> 1101</span>}</div>
 </div>
 <div class="line"><a id="l01102" name="l01102"></a><span class="lineno"> 1102</span> </div>
@@ -1280,7 +1280,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01108" name="l01108"></a><span class="lineno"> 1108</span>    int16_t value_rear_right</div>
 <div class="line"><a id="l01109" name="l01109"></a><span class="lineno"> 1109</span>) {</div>
 <div class="line"><a id="l01110" name="l01110"></a><span class="lineno"> 1110</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01111" name="l01111"></a><span class="lineno"> 1111</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01112" name="l01112"></a><span class="lineno"> 1112</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a2182a814adb3443e697e446a4e32e9d3">MOTOR_TEMPS_MSG_ID</a>,</div>
 <div class="line"><a id="l01113" name="l01113"></a><span class="lineno"> 1113</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01114" name="l01114"></a><span class="lineno"> 1114</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#ae47e182fbac66954802e4a6eaf997251">MOTOR_TEMPS_DLC</a>,</div>
@@ -1299,7 +1299,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01127" name="l01127"></a><span class="lineno"> 1127</span> </div>
 <div class="line"><a id="l01128" name="l01128"></a><span class="lineno"> 1128</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#ae47e182fbac66954802e4a6eaf997251">MOTOR_TEMPS_DLC</a>);</div>
 <div class="line"><a id="l01129" name="l01129"></a><span class="lineno"> 1129</span> </div>
-<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01130" name="l01130"></a><span class="lineno"> 1130</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01131" name="l01131"></a><span class="lineno"> 1131</span>}</div>
 </div>
 <div class="line"><a id="l01132" name="l01132"></a><span class="lineno"> 1132</span> </div>
@@ -1312,7 +1312,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01138" name="l01138"></a><span class="lineno"> 1138</span>    int16_t value_rear_right</div>
 <div class="line"><a id="l01139" name="l01139"></a><span class="lineno"> 1139</span>) {</div>
 <div class="line"><a id="l01140" name="l01140"></a><span class="lineno"> 1140</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01141" name="l01141"></a><span class="lineno"> 1141</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01142" name="l01142"></a><span class="lineno"> 1142</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a0f4ab8c859b4a91febf182184fe9b727">IGBT_TEMPS_MSG_ID</a>,</div>
 <div class="line"><a id="l01143" name="l01143"></a><span class="lineno"> 1143</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01144" name="l01144"></a><span class="lineno"> 1144</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#ae94baf7a04a6f7ae10215264fa134955">IGBT_TEMPS_DLC</a>,</div>
@@ -1331,7 +1331,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01157" name="l01157"></a><span class="lineno"> 1157</span> </div>
 <div class="line"><a id="l01158" name="l01158"></a><span class="lineno"> 1158</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#ae94baf7a04a6f7ae10215264fa134955">IGBT_TEMPS_DLC</a>);</div>
 <div class="line"><a id="l01159" name="l01159"></a><span class="lineno"> 1159</span> </div>
-<div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01160" name="l01160"></a><span class="lineno"> 1160</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01161" name="l01161"></a><span class="lineno"> 1161</span>}</div>
 </div>
 <div class="line"><a id="l01162" name="l01162"></a><span class="lineno"> 1162</span> </div>
@@ -1344,7 +1344,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01168" name="l01168"></a><span class="lineno"> 1168</span>    int16_t value_rear_right</div>
 <div class="line"><a id="l01169" name="l01169"></a><span class="lineno"> 1169</span>) {</div>
 <div class="line"><a id="l01170" name="l01170"></a><span class="lineno"> 1170</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01171" name="l01171"></a><span class="lineno"> 1171</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01171" name="l01171"></a><span class="lineno"> 1171</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01172" name="l01172"></a><span class="lineno"> 1172</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a724aadc16e611577714870c76b2aad41">MOTOR_SPEEDS_MSG_ID</a>,</div>
 <div class="line"><a id="l01173" name="l01173"></a><span class="lineno"> 1173</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01174" name="l01174"></a><span class="lineno"> 1174</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a396301f85f231e7d5e1f5cd6b7100600">MOTOR_SPEEDS_DLC</a>,</div>
@@ -1363,7 +1363,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01187" name="l01187"></a><span class="lineno"> 1187</span> </div>
 <div class="line"><a id="l01188" name="l01188"></a><span class="lineno"> 1188</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a396301f85f231e7d5e1f5cd6b7100600">MOTOR_SPEEDS_DLC</a>);</div>
 <div class="line"><a id="l01189" name="l01189"></a><span class="lineno"> 1189</span> </div>
-<div class="line"><a id="l01190" name="l01190"></a><span class="lineno"> 1190</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01190" name="l01190"></a><span class="lineno"> 1190</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01191" name="l01191"></a><span class="lineno"> 1191</span>}</div>
 </div>
 <div class="line"><a id="l01192" name="l01192"></a><span class="lineno"> 1192</span> </div>
@@ -1375,7 +1375,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01197" name="l01197"></a><span class="lineno"> 1197</span>    <span class="keywordtype">bool</span> value_bootloadable</div>
 <div class="line"><a id="l01198" name="l01198"></a><span class="lineno"> 1198</span>) {</div>
 <div class="line"><a id="l01199" name="l01199"></a><span class="lineno"> 1199</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01200" name="l01200"></a><span class="lineno"> 1200</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01201" name="l01201"></a><span class="lineno"> 1201</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a0b5c2a86e3ec0069f0b30b9224af01f5">MAIN_VERSION_MSG_ID</a>,</div>
 <div class="line"><a id="l01202" name="l01202"></a><span class="lineno"> 1202</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01203" name="l01203"></a><span class="lineno"> 1203</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#ab660b9763b2792a4d61bfd6d7989dbac">MAIN_VERSION_DLC</a>,</div>
@@ -1392,7 +1392,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01214" name="l01214"></a><span class="lineno"> 1214</span> </div>
 <div class="line"><a id="l01215" name="l01215"></a><span class="lineno"> 1215</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#ab660b9763b2792a4d61bfd6d7989dbac">MAIN_VERSION_DLC</a>);</div>
 <div class="line"><a id="l01216" name="l01216"></a><span class="lineno"> 1216</span> </div>
-<div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01217" name="l01217"></a><span class="lineno"> 1217</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01218" name="l01218"></a><span class="lineno"> 1218</span>}</div>
 </div>
 <div class="line"><a id="l01219" name="l01219"></a><span class="lineno"> 1219</span> </div>
@@ -1406,7 +1406,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01226" name="l01226"></a><span class="lineno"> 1226</span>    <span class="keywordtype">bool</span> value_is_any_stale</div>
 <div class="line"><a id="l01227" name="l01227"></a><span class="lineno"> 1227</span>) {</div>
 <div class="line"><a id="l01228" name="l01228"></a><span class="lineno"> 1228</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01229" name="l01229"></a><span class="lineno"> 1229</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01230" name="l01230"></a><span class="lineno"> 1230</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a83a0be0f5bdc59539ecde339355f2356">INVA_DIAGNOSTICS_MSG_ID</a>,</div>
 <div class="line"><a id="l01231" name="l01231"></a><span class="lineno"> 1231</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01232" name="l01232"></a><span class="lineno"> 1232</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a1ffbe761a9ce129ab85d36d877389446">INVA_DIAGNOSTICS_DLC</a>,</div>
@@ -1427,7 +1427,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01247" name="l01247"></a><span class="lineno"> 1247</span> </div>
 <div class="line"><a id="l01248" name="l01248"></a><span class="lineno"> 1248</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a1ffbe761a9ce129ab85d36d877389446">INVA_DIAGNOSTICS_DLC</a>);</div>
 <div class="line"><a id="l01249" name="l01249"></a><span class="lineno"> 1249</span> </div>
-<div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01250" name="l01250"></a><span class="lineno"> 1250</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01251" name="l01251"></a><span class="lineno"> 1251</span>}</div>
 </div>
 <div class="line"><a id="l01252" name="l01252"></a><span class="lineno"> 1252</span> </div>
@@ -1441,7 +1441,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01259" name="l01259"></a><span class="lineno"> 1259</span>    <span class="keywordtype">bool</span> value_is_any_stale</div>
 <div class="line"><a id="l01260" name="l01260"></a><span class="lineno"> 1260</span>) {</div>
 <div class="line"><a id="l01261" name="l01261"></a><span class="lineno"> 1261</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01262" name="l01262"></a><span class="lineno"> 1262</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01263" name="l01263"></a><span class="lineno"> 1263</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a0c4685c79f252106915fa862b98ca2f1">INVB_DIAGNOSTICS_MSG_ID</a>,</div>
 <div class="line"><a id="l01264" name="l01264"></a><span class="lineno"> 1264</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01265" name="l01265"></a><span class="lineno"> 1265</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a09ebc363385e928aa736a8712c4a4b62">INVB_DIAGNOSTICS_DLC</a>,</div>
@@ -1462,7 +1462,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01280" name="l01280"></a><span class="lineno"> 1280</span> </div>
 <div class="line"><a id="l01281" name="l01281"></a><span class="lineno"> 1281</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a09ebc363385e928aa736a8712c4a4b62">INVB_DIAGNOSTICS_DLC</a>);</div>
 <div class="line"><a id="l01282" name="l01282"></a><span class="lineno"> 1282</span> </div>
-<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01283" name="l01283"></a><span class="lineno"> 1283</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01284" name="l01284"></a><span class="lineno"> 1284</span>}</div>
 </div>
 <div class="line"><a id="l01285" name="l01285"></a><span class="lineno"> 1285</span> </div>
@@ -1476,7 +1476,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01292" name="l01292"></a><span class="lineno"> 1292</span>    <span class="keywordtype">bool</span> value_is_any_stale</div>
 <div class="line"><a id="l01293" name="l01293"></a><span class="lineno"> 1293</span>) {</div>
 <div class="line"><a id="l01294" name="l01294"></a><span class="lineno"> 1294</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01295" name="l01295"></a><span class="lineno"> 1295</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01296" name="l01296"></a><span class="lineno"> 1296</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#ab2d5a296c013c6850b9c7fe1b2da069f">INVC_DIAGNOSTICS_MSG_ID</a>,</div>
 <div class="line"><a id="l01297" name="l01297"></a><span class="lineno"> 1297</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01298" name="l01298"></a><span class="lineno"> 1298</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#abeb10555727ecd1b0bec6e77dbdad6ae">INVC_DIAGNOSTICS_DLC</a>,</div>
@@ -1497,7 +1497,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01313" name="l01313"></a><span class="lineno"> 1313</span> </div>
 <div class="line"><a id="l01314" name="l01314"></a><span class="lineno"> 1314</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#abeb10555727ecd1b0bec6e77dbdad6ae">INVC_DIAGNOSTICS_DLC</a>);</div>
 <div class="line"><a id="l01315" name="l01315"></a><span class="lineno"> 1315</span> </div>
-<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01316" name="l01316"></a><span class="lineno"> 1316</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01317" name="l01317"></a><span class="lineno"> 1317</span>}</div>
 </div>
 <div class="line"><a id="l01318" name="l01318"></a><span class="lineno"> 1318</span> </div>
@@ -1511,7 +1511,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01325" name="l01325"></a><span class="lineno"> 1325</span>    <span class="keywordtype">bool</span> value_is_any_stale</div>
 <div class="line"><a id="l01326" name="l01326"></a><span class="lineno"> 1326</span>) {</div>
 <div class="line"><a id="l01327" name="l01327"></a><span class="lineno"> 1327</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01328" name="l01328"></a><span class="lineno"> 1328</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a4ba73bbb5ffe200aa0f04b21c48c65eb">INVD_DIAGNOSTICS_MSG_ID</a>,</div>
 <div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a33cd19053ba2b75873bf931c17706cfa">INVD_DIAGNOSTICS_DLC</a>,</div>
@@ -1532,7 +1532,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01346" name="l01346"></a><span class="lineno"> 1346</span> </div>
 <div class="line"><a id="l01347" name="l01347"></a><span class="lineno"> 1347</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a33cd19053ba2b75873bf931c17706cfa">INVD_DIAGNOSTICS_DLC</a>);</div>
 <div class="line"><a id="l01348" name="l01348"></a><span class="lineno"> 1348</span> </div>
-<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01349" name="l01349"></a><span class="lineno"> 1349</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01350" name="l01350"></a><span class="lineno"> 1350</span>}</div>
 </div>
 <div class="line"><a id="l01351" name="l01351"></a><span class="lineno"> 1351</span> </div>
@@ -1544,7 +1544,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01356" name="l01356"></a><span class="lineno"> 1356</span>    <span class="keywordtype">bool</span> value_state</div>
 <div class="line"><a id="l01357" name="l01357"></a><span class="lineno"> 1357</span>) {</div>
 <div class="line"><a id="l01358" name="l01358"></a><span class="lineno"> 1358</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01359" name="l01359"></a><span class="lineno"> 1359</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01360" name="l01360"></a><span class="lineno"> 1360</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#ac9b40ad2783a4b287541d52f0a493232">MAIN_MODULE_FAULT_EVENT_MSG_ID</a>,</div>
 <div class="line"><a id="l01361" name="l01361"></a><span class="lineno"> 1361</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01362" name="l01362"></a><span class="lineno"> 1362</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a4f224dce48304a7e864b26924fb2480b">MAIN_MODULE_FAULT_EVENT_DLC</a>,</div>
@@ -1561,7 +1561,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01373" name="l01373"></a><span class="lineno"> 1373</span> </div>
 <div class="line"><a id="l01374" name="l01374"></a><span class="lineno"> 1374</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a4f224dce48304a7e864b26924fb2480b">MAIN_MODULE_FAULT_EVENT_DLC</a>);</div>
 <div class="line"><a id="l01375" name="l01375"></a><span class="lineno"> 1375</span> </div>
-<div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01376" name="l01376"></a><span class="lineno"> 1376</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01377" name="l01377"></a><span class="lineno"> 1377</span>}</div>
 </div>
 <div class="line"><a id="l01378" name="l01378"></a><span class="lineno"> 1378</span> </div>
@@ -1586,7 +1586,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span>    <span class="keywordtype">bool</span> value_PRECHARGE_INCOMPLETE</div>
 <div class="line"><a id="l01397" name="l01397"></a><span class="lineno"> 1397</span>) {</div>
 <div class="line"><a id="l01398" name="l01398"></a><span class="lineno"> 1398</span>    <a class="code hl_struct" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> outgoing = {</div>
-<div class="line"><a id="l01399" name="l01399"></a><span class="lineno"> 1399</span>        .Bus = FDCAN2,</div>
+<div class="line"><a id="l01399" name="l01399"></a><span class="lineno"> 1399</span>        .Bus = FDCAN1,</div>
 <div class="line"><a id="l01400" name="l01400"></a><span class="lineno"> 1400</span>        .StdId = <a class="code hl_variable" href="VCAN_8h.html#a530cb859ae70419f605fc28f092472e9">MAIN_MODULE_FAULT_SYNC_MSG_ID</a>,</div>
 <div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span>        .IDE = <span class="keyword">false</span>,</div>
 <div class="line"><a id="l01402" name="l01402"></a><span class="lineno"> 1402</span>        .DLC = <a class="code hl_variable" href="VCAN_8h.html#a390f528d89b83dc009354c654edd6b79">MAIN_MODULE_FAULT_SYNC_DLC</a>,</div>
@@ -1629,15 +1629,15 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01439" name="l01439"></a><span class="lineno"> 1439</span> </div>
 <div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span>    <a class="code hl_function" href="can__codec_8h.html#a2ba7cd673ebc72d6164e744be452602f">CAN_store_payload_u64</a>(outgoing.<a class="code hl_variable" href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">Data</a>, payload, <a class="code hl_variable" href="VCAN_8h.html#a390f528d89b83dc009354c654edd6b79">MAIN_MODULE_FAULT_SYNC_DLC</a>);</div>
 <div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span> </div>
-<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a>(&amp;outgoing);</div>
+<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span>    <a class="code hl_function" href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a>(&amp;outgoing);</div>
 <div class="line"><a id="l01443" name="l01443"></a><span class="lineno"> 1443</span>}</div>
 </div>
 <div class="line"><a id="l01444" name="l01444"></a><span class="lineno"> 1444</span> </div>
 <div class="line"><a id="l01445" name="l01445"></a><span class="lineno"> 1445</span> </div>
 <div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span><span class="comment">// Filter configuration</span></div>
-<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span><span class="comment">// FDCAN filter setup for FDCAN2</span></div>
+<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span><span class="comment">// FDCAN filter setup for FDCAN1</span></div>
 <div class="foldopen" id="foldopen01448" data-start="{" data-end="}">
-<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81"> 1448</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81">FDCAN2_set_filters</a>() {</div>
+<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0"> 1448</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0">FDCAN1_set_filters</a>() {</div>
 <div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t sid_list[] = {</div>
 <div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span>        <a class="code hl_variable" href="VCAN_8h.html#ad844dff23576cdc1b1bb839cfcdc9285">PEDALS_MSG_ID</a>,</div>
 <div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span>        <a class="code hl_variable" href="VCAN_8h.html#aa3a5500cc8f0717aa13c7da0b414d5df">START_BUTTON_MSG_ID</a>,</div>
@@ -1657,15 +1657,15 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01465" name="l01465"></a><span class="lineno"> 1465</span> </div>
 <div class="line"><a id="l01466" name="l01466"></a><span class="lineno"> 1466</span> </div>
 <div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span>    <a class="code hl_function" href="fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18">PHAL_FDCAN_setFilters</a>(</div>
-<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span>        FDCAN2,</div>
+<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span>        FDCAN1,</div>
 <div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span>        sid_list, 14,</div>
 <div class="line"><a id="l01470" name="l01470"></a><span class="lineno"> 1470</span>        NULL, 0</div>
 <div class="line"><a id="l01471" name="l01471"></a><span class="lineno"> 1471</span>    );</div>
 <div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span>}</div>
 </div>
-<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span><span class="comment">// FDCAN filter setup for FDCAN3</span></div>
+<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span><span class="comment">// FDCAN filter setup for FDCAN2</span></div>
 <div class="foldopen" id="foldopen01474" data-start="{" data-end="}">
-<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#a8af922bfefdecb656b664918f9196e74"> 1474</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#a8af922bfefdecb656b664918f9196e74">FDCAN3_set_filters</a>() {</div>
+<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"><a class="line" href="MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81"> 1474</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81">FDCAN2_set_filters</a>() {</div>
 <div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t sid_list[] = {</div>
 <div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span>        <a class="code hl_variable" href="MCAN_8h.html#ae529fc5c413ee9fb6a02d0f16f6c10f4">INVA_CRIT_MSG_ID</a>,</div>
 <div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span>        <a class="code hl_variable" href="MCAN_8h.html#afeee7313ec9cc255b59f32d388785238">INVA_INFO_MSG_ID</a>,</div>
@@ -1691,7 +1691,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span> </div>
 <div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span> </div>
 <div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span>    <a class="code hl_function" href="fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18">PHAL_FDCAN_setFilters</a>(</div>
-<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span>        FDCAN3,</div>
+<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span>        FDCAN2,</div>
 <div class="line"><a id="l01501" name="l01501"></a><span class="lineno"> 1501</span>        sid_list, 20,</div>
 <div class="line"><a id="l01502" name="l01502"></a><span class="lineno"> 1502</span>        NULL, 0</div>
 <div class="line"><a id="l01503" name="l01503"></a><span class="lineno"> 1503</span>    );</div>
@@ -1757,9 +1757,9 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="ttc" id="aMAIN__MODULE_8h_html_a8322effc5ed54b4e3eda1855832b5e47"><div class="ttname"><a href="MAIN__MODULE_8h.html#a8322effc5ed54b4e3eda1855832b5e47">UNPACK_COEFF_INVA_CRIT_AMK_DISPLAYOVERLOADINVERTER</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_INVA_CRIT_AMK_DISPLAYOVERLOADINVERTER</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:37</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a868bb86e9146fa1a0a71b56f2c7058b5"><div class="ttname"><a href="MAIN__MODULE_8h.html#a868bb86e9146fa1a0a71b56f2c7058b5">CAN_SEND_invb_diagnostics</a></div><div class="ttdeci">static void CAN_SEND_invb_diagnostics(uint32_t value_diagnostic_number, AMK_state_t value_amk_state, bool value_bError, bool value_InverterOn, bool value_is_any_stale)</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1254</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a8815202838449638bf74e9cc940381b4"><div class="ttname"><a href="MAIN__MODULE_8h.html#a8815202838449638bf74e9cc940381b4">UNPACK_COEFF_INVD_TEMPS_AMK_INVERTERTEMP</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_INVD_TEMPS_AMK_INVERTERTEMP</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:81</div></div>
-<div class="ttc" id="aMAIN__MODULE_8h_html_a8af922bfefdecb656b664918f9196e74"><div class="ttname"><a href="MAIN__MODULE_8h.html#a8af922bfefdecb656b664918f9196e74">FDCAN3_set_filters</a></div><div class="ttdeci">static void FDCAN3_set_filters()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1474</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a8bcfce9b94d677f6570b38112209ce37"><div class="ttname"><a href="MAIN__MODULE_8h.html#a8bcfce9b94d677f6570b38112209ce37">dashboard_fault_event_CALLBACK</a></div><div class="ttdeci">void dashboard_fault_event_CALLBACK()</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a8e3340e4a3ca2d481310df34f23cf7ca"><div class="ttname"><a href="MAIN__MODULE_8h.html#a8e3340e4a3ca2d481310df34f23cf7ca">CAN_SEND_igbt_temps</a></div><div class="ttdeci">static void CAN_SEND_igbt_temps(int16_t value_front_right, int16_t value_front_left, int16_t value_rear_left, int16_t value_rear_right)</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1134</div></div>
+<div class="ttc" id="aMAIN__MODULE_8h_html_a90647dbc98bbf7bc6c1e9ef85f4d2f01"><div class="ttname"><a href="MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01">CAN_enqueue_tx_FDCAN1</a></div><div class="ttdeci">void CAN_enqueue_tx_FDCAN1(CanMsgTypeDef_t *msg)</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a921b8fc35cd11cda495a0de6bad6e2e8"><div class="ttname"><a href="MAIN__MODULE_8h.html#a921b8fc35cd11cda495a0de6bad6e2e8">PACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT</a></div><div class="ttdeci">static constexpr float PACK_COEFF_MOTOR_TEMPS_FRONT_RIGHT</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:89</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a93d1225ac75f03cc7e2c62ad349e043f"><div class="ttname"><a href="MAIN__MODULE_8h.html#a93d1225ac75f03cc7e2c62ad349e043f">CAN_SEND_INVD_SET</a></div><div class="ttdeci">static void CAN_SEND_INVD_SET(uint8_t value_AMK_Control_bReserve, bool value_AMK_Control_bInverterOn, bool value_AMK_Control_bDcOn, bool value_AMK_Control_bEnable, bool value_AMK_Control_bErrorReset, uint8_t value_AMK_Control_bReserve2, int16_t value_AMK_TorqueSetpoint, int16_t value_AMK_PositiveTorqueLimit, int16_t value_AMK_NegativeTorqueLimit)</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1017</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_a941b56d7c105e7a7130ce6ad9a7cd6f6"><div class="ttname"><a href="MAIN__MODULE_8h.html#a941b56d7c105e7a7130ce6ad9a7cd6f6">is_INVC_TEMPS_stale</a></div><div class="ttdeci">static bool is_INVC_TEMPS_stale()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:745</div></div>
@@ -1799,8 +1799,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="ttc" id="aMAIN__MODULE_8h_html_ad677eac87e7b3ce2d93beda307f0ce29"><div class="ttname"><a href="MAIN__MODULE_8h.html#ad677eac87e7b3ce2d93beda307f0ce29">torque_vector_fault_sync_CALLBACK</a></div><div class="ttdeci">void torque_vector_fault_sync_CALLBACK()</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_adaddd1289b121e907065f6dc75f2d104"><div class="ttname"><a href="MAIN__MODULE_8h.html#adaddd1289b121e907065f6dc75f2d104">UNPACK_COEFF_INVA_TEMPS_AMK_MOTORTEMP</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_INVA_TEMPS_AMK_MOTORTEMP</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:44</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_ade3f5e1a8ff8333cbee9aa8d9409d19b"><div class="ttname"><a href="MAIN__MODULE_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b">CAN_rx_dispatcher</a></div><div class="ttdeci">static void CAN_rx_dispatcher(uint32_t id, const uint8_t *data, uint8_t len, const CAN_bus_t *bus)</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:152</div></div>
-<div class="ttc" id="aMAIN__MODULE_8h_html_ae0afd2c16e8c1125c2d62d717a8fc155"><div class="ttname"><a href="MAIN__MODULE_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155">CAN_enqueue_tx_FDCAN3</a></div><div class="ttdeci">void CAN_enqueue_tx_FDCAN3(CanMsgTypeDef_t *msg)</div></div>
-<div class="ttc" id="aMAIN__MODULE_8h_html_ae5353dcc79f7d3b1a2d1ef18933d5e81"><div class="ttname"><a href="MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81">FDCAN2_set_filters</a></div><div class="ttdeci">static void FDCAN2_set_filters()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1448</div></div>
+<div class="ttc" id="aMAIN__MODULE_8h_html_ae5353dcc79f7d3b1a2d1ef18933d5e81"><div class="ttname"><a href="MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81">FDCAN2_set_filters</a></div><div class="ttdeci">static void FDCAN2_set_filters()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1474</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_ae7538fdc6872aca67924cff187a77e4f"><div class="ttname"><a href="MAIN__MODULE_8h.html#ae7538fdc6872aca67924cff187a77e4f">PACK_COEFF_INVD_SET_AMK_POSITIVETORQUELIMIT</a></div><div class="ttdeci">static constexpr float PACK_COEFF_INVD_SET_AMK_POSITIVETORQUELIMIT</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:77</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_ae9412e2e9850adfe37e23644f15898a1"><div class="ttname"><a href="MAIN__MODULE_8h.html#ae9412e2e9850adfe37e23644f15898a1">UNPACK_COEFF_PACK_BMS_MAX_CELL_VOLTAGE</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_PACK_BMS_MAX_CELL_VOLTAGE</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:96</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_aeadb988c2619057b44ca1ba87a3037e7"><div class="ttname"><a href="MAIN__MODULE_8h.html#aeadb988c2619057b44ca1ba87a3037e7">is_INVC_INFO_stale</a></div><div class="ttdeci">static bool is_INVC_INFO_stale()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:736</div></div>
@@ -1809,6 +1808,7 @@ $(function(){initNavTree('MAIN__MODULE_8h_source.html',''); initResizable(true);
 <div class="ttc" id="aMAIN__MODULE_8h_html_af7f8b360ef849ca3f4c5e57f50d882d2"><div class="ttname"><a href="MAIN__MODULE_8h.html#af7f8b360ef849ca3f4c5e57f50d882d2">UNPACK_COEFF_INVD_TEMPS_AMK_IGBTTEMP</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_INVD_TEMPS_AMK_IGBTTEMP</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:82</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_af94af47ea3432996d2515d532cc54b7a"><div class="ttname"><a href="MAIN__MODULE_8h.html#af94af47ea3432996d2515d532cc54b7a">is_INVA_TEMPS_stale</a></div><div class="ttdeci">static bool is_INVA_TEMPS_stale()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:715</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_afa4a36b37769d932e302262bca46a09c"><div class="ttname"><a href="MAIN__MODULE_8h.html#afa4a36b37769d932e302262bca46a09c">is_INVB_CRIT_stale</a></div><div class="ttdeci">static bool is_INVB_CRIT_stale()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:718</div></div>
+<div class="ttc" id="aMAIN__MODULE_8h_html_afba0a04c386ae2ff86a7d67c0a0a9ad0"><div class="ttname"><a href="MAIN__MODULE_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0">FDCAN1_set_filters</a></div><div class="ttdeci">static void FDCAN1_set_filters()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:1448</div></div>
 <div class="ttc" id="aMAIN__MODULE_8h_html_aff36dceea73ab4dc71f856487bb97237"><div class="ttname"><a href="MAIN__MODULE_8h.html#aff36dceea73ab4dc71f856487bb97237">is_pdu_fault_sync_stale</a></div><div class="ttdeci">static bool is_pdu_fault_sync_stale()</div><div class="ttdef"><b>Definition</b> MAIN_MODULE.h:784</div></div>
 <div class="ttc" id="aMCAN_8h_html"><div class="ttname"><a href="MCAN_8h.html">MCAN.h</a></div><div class="ttdoc">Auto-generated CAN bus definitions for MCAN.</div></div>
 <div class="ttc" id="aMCAN_8h_html_a0250d7d60eb73a9ec591602cf4382bf7"><div class="ttname"><a href="MCAN_8h.html#a0250d7d60eb73a9ec591602cf4382bf7">INVB_ERR_2_STALE_TIMEOUT_MS</a></div><div class="ttdeci">static constexpr uint32_t INVB_ERR_2_STALE_TIMEOUT_MS</div><div class="ttdef"><b>Definition</b> MCAN.h:360</div></div>

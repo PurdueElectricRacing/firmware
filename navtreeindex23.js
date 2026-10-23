@@ -1,7 +1,5 @@
 var NAVTREEINDEX23 =
 {
-"structLWS__Config__data__t.html":[32,0,161],
-"structLWS__Config__data__t.html#a7f863d0b32dff34beb0facd46d6b86ac":[32,0,161,1],
 "structLWS__Config__data__t.html#a9d34008c09e870380801c9365c1b7a77":[32,0,161,2],
 "structLWS__Config__data__t.html#abe42f13960bb7b3661da653f136d2328":[32,0,161,0],
 "structLWS__Config__data__t.html#ae661c13120e05e7caaa580ff3207352a":[32,0,161,3],
@@ -249,5 +247,7 @@ var NAVTREEINDEX23 =
 "structSPI__InitConfig__t.html#addc6a2b00505e696c1d179696010713c":[32,0,252,7],
 "structSPI__InitConfig__t.html#ae82235e4faf01aa37ffcb212f626abc2":[32,0,252,12],
 "structSPI__InitConfig__t.html#af9eedccb06edcc4fcf10f3eca321238d":[32,0,252,9],
-"structSPMC__t.html":[32,0,253]
+"structSPMC__t.html":[32,0,253],
+"structSPMC__t.html#a009324383a55dc9bf2a85103a52193ec":[32,0,253,1],
+"structSPMC__t.html#a3dd7037229d6f97a0442de956749abe0":[32,0,253,0]
 };

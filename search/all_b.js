@@ -393,14 +393,13 @@ var searchData=
   ['building_390',['Building',['../md_README.html#autotoc_md4',1,'']]],
   ['bulk_5fhalted_391',['bulk_halted',['../structusb__context__t.html#aa74eb53226a77a04dacc8d4776359248',1,'usb_context_t']]],
   ['bulk_5fin_5faddress_392',['BULK_IN_ADDRESS',['../usb__descriptors_8h.html#a0b3c17bf918cef3aa66d8b67557e7242',1,'usb_descriptors.h']]],
-  ['bullet_5frail_393',['bullet_rail',['../structpdu__fault__sync__data__t.html#abc27795fd6656a2cfa07309bde89ff6e',1,'pdu_fault_sync_data_t']]],
-  ['bus_394',['Bus',['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
-  ['bus_20membership_395',['Bus Membership',['../md_docs_2can__graphs.html#autotoc_md87',1,'']]],
-  ['busy_396',['busy',['../structPHAL__ADC__Handle__t.html#a224a675307a5bfd35a864265bed8caf0',1,'PHAL_ADC_Handle_t']]],
-  ['button_5fexti_5fconfig_397',['button_exti_config',['../driver__interface_8c.html#ad50689b9adac1ceb68f7ef0b7fd428b0',1,'driver_interface.c']]],
-  ['button_5fexti_5firq_5fpriority_398',['BUTTON_EXTI_IRQ_PRIORITY',['../driver__interface_8c.html#aded0fb2b3dcc8dc1459eb07e60e0ef2d',1,'driver_interface.c']]],
-  ['buzzer_5fenable_399',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
-  ['buzzer_5fpin_400',['BUZZER_PIN',['../main__module_2main_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'main.h']]],
-  ['buzzer_5fport_401',['BUZZER_PORT',['../main__module_2main_8h.html#abf0d28f731e836936a87086ea8b798da',1,'main.h']]],
-  ['buzzer_5fstart_5ftime_402',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]]
+  ['bus_393',['Bus',['../structCanMsgTypeDef__t.html#a27b82ae932da76206323ac8268b3f1e6',1,'CanMsgTypeDef_t::Bus'],['../structCanMsgTypeDef__t.html#a4aa42f4d25313b588ecb4323723d2ef6',1,'CanMsgTypeDef_t::Bus']]],
+  ['bus_20membership_394',['Bus Membership',['../md_docs_2can__graphs.html#autotoc_md87',1,'']]],
+  ['busy_395',['busy',['../structPHAL__ADC__Handle__t.html#a224a675307a5bfd35a864265bed8caf0',1,'PHAL_ADC_Handle_t']]],
+  ['button_5fexti_5fconfig_396',['button_exti_config',['../driver__interface_8c.html#ad50689b9adac1ceb68f7ef0b7fd428b0',1,'driver_interface.c']]],
+  ['button_5fexti_5firq_5fpriority_397',['BUTTON_EXTI_IRQ_PRIORITY',['../driver__interface_8c.html#aded0fb2b3dcc8dc1459eb07e60e0ef2d',1,'driver_interface.c']]],
+  ['buzzer_5fenable_398',['buzzer_enable',['../structcar__t.html#a1ed45443eee3c1f1c8ff8926bdfd89ad',1,'car_t']]],
+  ['buzzer_5fpin_399',['BUZZER_PIN',['../main__module_2main_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'main.h']]],
+  ['buzzer_5fport_400',['BUZZER_PORT',['../main__module_2main_8h.html#abf0d28f731e836936a87086ea8b798da',1,'main.h']]],
+  ['buzzer_5fstart_5ftime_401',['buzzer_start_time',['../structcar__t.html#ae1b2cfa00a8296e503bfce011f51e8d5',1,'car_t']]]
 ];

@@ -1,15 +1,21 @@
 <map id="firmware/source/pdu/power/switch.c" name="firmware/source/pdu/power/switch.c">
-<area shape="rect" id="Node000001" title="switch mappings and control code" alt="" coords="103,5,242,46"/>
-<area shape="rect" id="Node000002" href="$switch_8h.html" title="switch mappings and control code" alt="" coords="94,94,163,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,48,145,82,140,79,159,45"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="187,94,246,120"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="186,45,205,79,200,82,181,48"/>
-<area shape="rect" id="Node000003" href="$phal__G4_2gpio_2gpio_8h.html" title="G4 GPIO public API." alt="" coords="53,168,204,208"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="131,120,131,152,126,152,126,120"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,256,73,282"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="108,211,66,248,62,244,104,207"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="97,256,160,282"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="131,209,131,241,126,241,126,209"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="184,256,291,282"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="157,207,210,245,207,249,154,211"/>
+<area shape="rect" id="Node000001" title="switch mappings and control code" alt="" coords="175,5,314,46"/>
+<area shape="rect" id="Node000002" href="$switch_8h.html" title="switch mappings and control code" alt="" coords="166,94,235,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,48,217,82,212,79,231,45"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="259,94,318,120"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="258,45,277,79,272,82,253,48"/>
+<area shape="rect" id="Node000003" href="$phal__G4_2gpio_2gpio_8h.html" title="G4 GPIO public API." alt="" coords="45,168,196,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="190,122,153,159,149,155,186,118"/>
+<area shape="rect" id="Node000007" href="$faults__common_8h.html" title="Event&#45;based FIDR system." alt="" coords="231,168,351,208"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="216,118,259,155,255,159,212,122"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,264,73,290"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="104,211,62,255,58,251,100,207"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="259,345,323,371"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="120,209,120,252,126,275,137,295,160,316,187,332,217,342,245,349,244,354,215,347,185,337,157,321,133,299,121,277,115,253,115,209"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="147,264,254,290"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="140,207,181,251,177,255,137,211"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="294,209,294,330,288,330,288,209"/>
+<area shape="rect" id="Node000008" href="$can__types_8h.html" title="Auto&#45;generated custom types and enums for the CAN library." alt="" coords="328,256,472,297"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="317,207,365,244,362,249,314,211"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="375,300,322,338,319,333,372,295"/>
 </map>

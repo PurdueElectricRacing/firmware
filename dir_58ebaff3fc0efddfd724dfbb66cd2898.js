@@ -4,5 +4,5 @@ var dir_58ebaff3fc0efddfd724dfbb66cd2898 =
     [ "power", "dir_7037e3bf0fd7b23130092c8741fd6f07.html", "dir_7037e3bf0fd7b23130092c8741fd6f07" ],
     [ "main.c", "pdu_2main_8c.html", "pdu_2main_8c" ],
     [ "main.h", "pdu_2main_8h.html", "pdu_2main_8h" ],
-    [ "power_rails.png", "power__rails_8png.html", null ]
+    [ "power_rails.drawio.png", "power__rails_8drawio_8png.html", null ]
 ];

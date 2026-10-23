@@ -1,22 +1,26 @@
 <map id="update_fault" name="update_fault">
-<area shape="rect" id="Node000001" title=" " alt="" coords="294,104,386,130"/>
-<area shape="rect" id="Node000002" href="$a__box_2main_8c.html#a78865f7731d4b7186cdc06c8ff03a0e4" title=" " alt="" coords="135,5,214,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="313,95,281,69,245,45,213,31,215,26,247,40,285,65,316,91"/>
-<area shape="rect" id="Node000004" href="$gps_8c.html#a161c126f960b2347813a4616b1609cda" title=" " alt="" coords="127,55,222,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="279,102,219,84,221,78,280,96"/>
-<area shape="rect" id="Node000006" href="$pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501" title="Processes pedal sensor readings and sets faults as necessary." alt="" coords="119,104,230,130"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="278,120,230,120,230,114,278,114"/>
-<area shape="rect" id="Node000008" href="$sdc_8c.html#abe061ee2b199bb82296440005e5d23fc" title=" " alt="" coords="108,153,240,179"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="280,137,221,155,219,150,279,132"/>
-<area shape="rect" id="Node000010" href="$vehicle__fsm_8c.html#a17b274e6971a721080e708c8d6eed884" title=" " alt="" coords="103,203,246,228"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="316,142,285,169,247,194,224,205,221,200,245,189,281,165,313,138"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="306,129,398,155"/>
+<area shape="rect" id="Node000002" href="$a__box_2main_8c.html#a78865f7731d4b7186cdc06c8ff03a0e4" title=" " alt="" coords="141,5,220,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="331,118,299,80,257,44,219,28,221,24,259,40,303,76,335,115"/>
+<area shape="rect" id="Node000004" href="$current__sense_8c.html#ad25eae622b200363d4025160b032c656" title=" " alt="" coords="103,55,258,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="315,124,257,94,228,83,230,78,259,89,318,119"/>
+<area shape="rect" id="Node000006" href="$gps_8c.html#a161c126f960b2347813a4616b1609cda" title=" " alt="" coords="133,104,228,130"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="290,136,227,126,228,121,291,131"/>
+<area shape="rect" id="Node000008" href="$pedals_8c.html#a87b6cf4ba55de2c1523397cc21bbf501" title="Processes pedal sensor readings and sets faults as necessary." alt="" coords="125,153,236,179"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="291,153,237,161,236,156,290,148"/>
+<area shape="rect" id="Node000010" href="$sdc_8c.html#abe061ee2b199bb82296440005e5d23fc" title=" " alt="" coords="114,203,246,228"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="316,165,259,194,230,205,228,200,257,189,314,161"/>
+<area shape="rect" id="Node000012" href="$vehicle__fsm_8c.html#a17b274e6971a721080e708c8d6eed884" title=" " alt="" coords="109,252,252,278"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="335,169,303,207,259,243,238,254,235,249,257,239,299,203,331,165"/>
 <area shape="rect" id="Node000003" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,5,55,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,21,55,21,55,16,120,16"/>
-<area shape="rect" id="Node000005" href="$torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,55,55,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="112,70,55,70,55,65,112,65"/>
-<area shape="rect" id="Node000007" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,104,55,130"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="103,120,55,120,55,114,103,114"/>
-<area shape="rect" id="Node000009" href="$main__module_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,177,55,203"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="93,182,55,189,54,184,92,177"/>
-<area shape="poly" id="edge10_Node000010_Node000009" title=" " alt="" coords="87,203,54,197,55,192,88,198"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,21,55,21,55,16,125,16"/>
+<area shape="rect" id="Node000005" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
+<area shape="rect" id="Node000007" href="$torque__vector_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,104,55,130"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="118,120,55,120,55,114,118,114"/>
+<area shape="rect" id="Node000009" href="$dashboard_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,153,55,179"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="109,169,55,169,55,164,109,164"/>
+<area shape="rect" id="Node000011" href="$main__module_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,227,55,252"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="99,231,56,238,55,233,99,226"/>
+<area shape="poly" id="edge12_Node000012_Node000011" title=" " alt="" coords="93,253,55,246,56,241,94,248"/>
 </map>

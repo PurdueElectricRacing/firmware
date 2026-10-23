@@ -41,7 +41,7 @@ var searchData=
   ['main_5fmodule_5ffault_5fsync_5fmsg_5fid_38',['MAIN_MODULE_FAULT_SYNC_MSG_ID',['../VCAN_8h.html#a530cb859ae70419f605fc28f092472e9',1,'VCAN.h']]],
   ['main_5fmodule_5ffault_5fsync_5fperiod_5fms_39',['MAIN_MODULE_FAULT_SYNC_PERIOD_MS',['../VCAN_8h.html#a5719f90b392171a25e4345a0cf107056',1,'VCAN.h']]],
   ['main_5fmodule_5ffault_5fsync_5fstale_5ftimeout_5fms_40',['MAIN_MODULE_FAULT_SYNC_STALE_TIMEOUT_MS',['../VCAN_8h.html#ac51cbefbce1ad752b27ec2b60f00e298',1,'VCAN.h']]],
-  ['main_5frail_41',['main_rail',['../structpdu__fault__sync__data__t.html#ac16a8869c520df1eae547283d40fe692',1,'pdu_fault_sync_data_t']]],
+  ['main_5fswitch_5ffault_41',['MAIN_SWITCH_FAULT',['../structpdu__fault__sync__data__t.html#a2491ac8f7149c1a642e8214b1e2520ed',1,'pdu_fault_sync_data_t']]],
   ['main_5fversion_5fdata_5ft_42',['main_version_data_t',['../structmain__version__data__t.html',1,'']]],
   ['main_5fversion_5fdlc_43',['MAIN_VERSION_DLC',['../VCAN_8h.html#ab660b9763b2792a4d61bfd6d7989dbac',1,'VCAN.h']]],
   ['main_5fversion_5flayout_5fhash_44',['MAIN_VERSION_LAYOUT_HASH',['../VCAN_8h.html#afe9998a85bd5cdd05bfa19dcc2ab78a9',1,'VCAN.h']]],

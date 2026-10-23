@@ -20,15 +20,15 @@
 {% endfor %}
 
 // Node CAN configuration
-#if !defined({{ ctx.peripheral_entries[0].arch_define }})
-#error "CAN_NODE_{{ ctx.node.name|upper }} uses peripherals for {{ ctx.peripheral_entries[0].arch_define }}"
+#if !defined(STM32G474xx)
+#error "CAN_NODE_{{ ctx.node.name|upper }} uses peripherals for STM32G474xx"
 #endif
 
 {% for periph in ctx.peripheral_entries %}
 #define USE_{{ periph.name }}
 {% endfor %}
 
-typedef {{ ctx.peripheral_entries[0].bus_type }} CAN_bus_t;
+typedef FDCAN_GlobalTypeDef CAN_bus_t;
 
 {% for periph in ctx.peripheral_entries %}
 void {{ periph.enqueue_func }}(CanMsgTypeDef_t *msg);

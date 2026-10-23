@@ -2,7 +2,7 @@
 // CAN filter setup for {{ peripheral.name }}
 static inline void {{ peripheral.name }}_set_filters() {
     {% if filters.accept_all %}
-    // Accept all messages - filters configured in {{ peripheral.phal_prefix }}_init() by default
+    // Accept all messages - filters configured in PHAL_FDCAN_init() by default
     (void)0;
     {% elif filters.std_ids or filters.ext_ids %}
     {% if filters.std_ids %}
@@ -21,7 +21,7 @@ static inline void {{ peripheral.name }}_set_filters() {
     };
     {% endif %}
 
-    {{ peripheral.phal_prefix }}_setFilters(
+    PHAL_FDCAN_setFilters(
         {{ peripheral.name }},
         {% if filters.std_ids %}
         sid_list, {{ filters.std_ids|length }},

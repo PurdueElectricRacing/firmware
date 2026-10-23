@@ -52,9 +52,6 @@ class SignalConstantsRenderView:
 class PeripheralRenderView:
     name: str
     enqueue_func: str
-    bus_type: str
-    arch_define: str
-    phal_prefix: str
 
 
 @dataclass(frozen=True)

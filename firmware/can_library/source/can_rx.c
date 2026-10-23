@@ -32,15 +32,7 @@ void CAN_rx_update(void) {
     }
 }
 
-#if defined(STM32F407xx)
-#define PHAL_RX_CALLBACK PHAL_CAN_rxCallback
-#elif defined(STM32G474xx)
-#define PHAL_RX_CALLBACK PHAL_FDCAN_rxCallback
-#else
-#error "Unsupported CAN architecture"
-#endif
-
-void PHAL_RX_CALLBACK(CanMsgTypeDef_t *msg) {
+void PHAL_FDCAN_rxCallback(CanMsgTypeDef_t *msg) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
     if (xQueueSendFromISR(can_rx_queue, msg, &xHigherPriorityTaskWoken) != pdPASS) {

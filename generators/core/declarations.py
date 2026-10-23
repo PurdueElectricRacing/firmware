@@ -16,7 +16,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 ByteOrder = Literal["little_endian", "big_endian"]
 FaultPriority = Literal["warning", "error", "fatal"]
-Peripheral = Literal["CAN1", "CAN2", "FDCAN1", "FDCAN2", "FDCAN3"]
+Peripheral = Literal["FDCAN1", "FDCAN2", "FDCAN3"]
 Number = int | float
 FiniteNumber = Annotated[Number, Field(allow_inf_nan=False)]
 BaseType = Literal[

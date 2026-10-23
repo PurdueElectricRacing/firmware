@@ -89,8 +89,8 @@ int main(void) {
     }
 
     // CAN init
-    PHAL_FDCAN_init(FDCAN2, VCAN_BAUD_RATE);
-    PHAL_FDCAN_init(FDCAN3, MCAN_BAUD_RATE);
+    PHAL_FDCAN_init(FDCAN1, VCAN_BAUD_RATE);
+    PHAL_FDCAN_init(FDCAN2, MCAN_BAUD_RATE);
     CAN_init();
 
     powertrain_init();

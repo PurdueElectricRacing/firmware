@@ -23,7 +23,6 @@ switch_t g_switches[NUM_SWITCHES] = {
         .mux_addr  = 3,
         .fault_id  = FAULT_ID_SDC_LOOP_SWITCH_FAULT,
     },
-
     [SWITCH_MAIN] = {
         .ctrl_port = CTRL14_PORT,
         .ctrl_pin  = CTRL14_PIN,
@@ -152,7 +151,6 @@ switch_t g_switches[NUM_SWITCHES] = {
         .mux_addr  = 3,
         .fault_id  = FAULT_ID_FAN5_SWITCH_FAULT,
     },
-
     [SWITCH_EMETER] = {
         .ctrl_port = CTRL15_PORT,
         .ctrl_pin  = CTRL15_PIN,

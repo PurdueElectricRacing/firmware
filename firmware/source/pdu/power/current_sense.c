@@ -35,7 +35,7 @@ void current_sense_periodic() {
 
         uint16_t adc_value = (sw->mux_id == ANALOG_MUX1) ? raw_adc2_values.mux1_out : raw_adc2_values.mux2_out;
         
-        bool is_switch_faulted = adc_value >= SWITCH_FAULT_ADC_THRESHOLD;
+        bool is_switch_faulted = adc_value >= (uint16_t)SWITCH_FAULT_ADC_THRESHOLD;
         update_fault(sw->fault_id, is_switch_faulted);
         if (is_switch_faulted) {
             continue;

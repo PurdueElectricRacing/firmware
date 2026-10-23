@@ -1,12 +1,12 @@
-#ifndef FAULTS_COMMON_H
-#define FAULTS_COMMON_H
-
 /**
  * @file faults_common.h
  * @brief Event-based FIDR system
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
+
+#ifndef FAULTS_COMMON_H
+#define FAULTS_COMMON_H
 
 #include <stdint.h>
 #include "can_library/generated/can_types.h"

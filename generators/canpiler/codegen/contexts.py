@@ -7,7 +7,7 @@ Author: Irving Wang (irvingw@purdue.edu)
 from collections import defaultdict
 
 from ..pipeline.models import CompiledNode, CompiledSignal, LinkedCan, frozen_mapping
-from .hardware import FdcanFilters, NodeHardwareMap
+from .hardware import NodeHardwareMap
 from .models import (
     NodeHeaderRenderContext,
     PeripheralRenderView,
@@ -36,9 +36,13 @@ def build_peripheral_views(peripherals: tuple[str, ...]) -> tuple[PeripheralRend
     views = []
     for peripheral in peripherals:
         if peripheral.startswith("FDCAN"):
-            bus_type, arch_define = "FDCAN_GlobalTypeDef", "STM32G474xx"
+            bus_type = "FDCAN_GlobalTypeDef"
+            arch_define = "STM32G474xx"
+            phal_prefix = "PHAL_FDCAN"
         elif peripheral.startswith("CAN"):
-            bus_type, arch_define = "CAN_TypeDef", "STM32F407xx"
+            bus_type = "CAN_TypeDef"
+            arch_define = "STM32F407xx"
+            phal_prefix = "PHAL_CAN"
         else:
             raise ValueError(f"Unsupported CAN peripheral: {peripheral}")
         views.append(
@@ -47,6 +51,7 @@ def build_peripheral_views(peripherals: tuple[str, ...]) -> tuple[PeripheralRend
                 enqueue_func=f"CAN_enqueue_tx_{peripheral}",
                 bus_type=bus_type,
                 arch_define=arch_define,
+                phal_prefix=phal_prefix,
             )
         )
     return tuple(views)
@@ -143,15 +148,6 @@ def build_node_header_context(
     )
     offset_views = tuple(value for _, value in sorted(offsets.items()))
 
-    fdcan_filters = {}
-    bxcan_filters = {}
-    if mapping is not None:
-        for peripheral, filters in mapping.filters.items():
-            if isinstance(filters, FdcanFilters):
-                fdcan_filters[peripheral] = filters
-            else:
-                bxcan_filters[peripheral] = filters
-
     return NodeHeaderRenderContext(
         node=node,
         version=version,
@@ -163,6 +159,5 @@ def build_node_header_context(
         scaling_messages=scaling,
         offset_messages=offset_views,
         stale_rx_entries=tuple(entry for entry in rx_entries if entry.msg.period_ms > 0),
-        fdcan_filters=frozen_mapping(fdcan_filters),
-        bxcan_filters=frozen_mapping(bxcan_filters),
+        filters=mapping.filters if mapping is not None else frozen_mapping({}),
     )

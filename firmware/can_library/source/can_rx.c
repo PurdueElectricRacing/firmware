@@ -32,7 +32,6 @@ void CAN_rx_update(void) {
     }
 }
 
-// TODO: fix PHALs to expose the same function
 #if defined(STM32F407xx)
 #define PHAL_RX_CALLBACK PHAL_CAN_rxCallback
 #elif defined(STM32G474xx)

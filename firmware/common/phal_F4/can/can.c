@@ -1,343 +1,247 @@
 /**
- * @file hal_can_f4.c
- * @author Chris McGalliard - Port of L4 HAL by Adam Busch (busch8@purdue.edu)
- * @brief Basic CAN Peripheral HAL library for setting up CAN peripheral and sending messages
- * @version 0.1
- * @date 2023-09-18
+ * @file can.c
+ * @brief F4 bxCAN initialization, filters, and interrupt-driven frame transport
  *
- * @copyright Copyright (c) 2021
- *
+ * @author Chris McGalliard
+ * @author Millan Kumar (kumar798@purdue.edu)
  */
+
 #include "common/phal_F4/can/can.h"
 
 extern uint32_t APB1ClockRateHz;
 
-bool PHAL_initCAN(CAN_TypeDef* bus, bool test_mode, uint32_t bit_rate) {
-    uint32_t timeout = 0;
+// CAN1 and CAN2 each own half of the 28 shared filter banks.
+static constexpr uint32_t PHAL_CAN_BANKS_PER_BUS  = 14U;
+static constexpr uint32_t PHAL_CAN_IDS_PER_BANK   = 2U;
+static constexpr uint32_t PHAL_CAN_MAX_FILTER_IDS = PHAL_CAN_BANKS_PER_BUS * PHAL_CAN_IDS_PER_BANK;
+static constexpr uint32_t PHAL_CAN_MAX_STD_ID     = 0x7FFU;
+static constexpr uint32_t PHAL_CAN_MAX_EXT_ID     = 0x1FFFFFFFU;
 
-    // Enable CAN Clock
-    if (bus == CAN1) {
-        RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
+typedef struct {
+    uint32_t clock_hz;
+    PHAL_FDCAN_BaudRate_t bit_rate;
+    uint32_t timing;
+} PHAL_CAN_bit_timing_t;
+
+static bool is_valid_bus(const CAN_TypeDef *bus) {
+    return bus == CAN1 || bus == CAN2;
+}
+
+static bool get_bit_timing(PHAL_FDCAN_BaudRate_t bit_rate, uint32_t *timing) {
+    static constexpr PHAL_CAN_bit_timing_t timings[] = {
+        {16'000'000, FDCAN_BAUD_250K, PHAL_CAN_16MHZ_250K},
+        {24'000'000, FDCAN_BAUD_250K, PHAL_CAN_24MHZ_250K},
+        {36'000'000, FDCAN_BAUD_250K, PHAL_CAN_36MHZ_250K},
+        {16'000'000, FDCAN_BAUD_500K, PHAL_CAN_16MHZ_500K},
+        {24'000'000, FDCAN_BAUD_500K, PHAL_CAN_24MHZ_500K},
+        {36'000'000, FDCAN_BAUD_500K, PHAL_CAN_36MHZ_500K},
+        {42'000'000, FDCAN_BAUD_500K, PHAL_CAN_42MHZ_500K},
+        {16'000'000, FDCAN_BAUD_1M, PHAL_CAN_16MHZ_1M},
+        {24'000'000, FDCAN_BAUD_1M, PHAL_CAN_24MHZ_1M},
+        {36'000'000, FDCAN_BAUD_1M, PHAL_CAN_36MHZ_1M},
+        {42'000'000, FDCAN_BAUD_1M, PHAL_CAN_42MHZ_1M},
+    };
+
+    if (timing == nullptr) {
+        return false;
     }
-#ifdef CAN2
-    else if (bus == CAN2) {
+
+    for (uint32_t i = 0; i < sizeof(timings) / sizeof(timings[0]); ++i) {
+        if (timings[i].clock_hz == APB1ClockRateHz && timings[i].bit_rate == bit_rate) {
+            *timing = timings[i].timing;
+            return true;
+        }
+    }
+    return false;
+}
+
+static void configure_filters(CAN_TypeDef *bus,
+                                      const uint32_t *sid_list,
+                                      uint32_t num_sid,
+                                      const uint32_t *xid_list,
+                                      uint32_t num_xid) {
+    // Internal callers validate the bus, list pointers, counts, and IDs first.
+    // Filter configuration uses FINIT; neither CAN bus needs an INRQ transition.
+    uint32_t bank_offset = (bus == CAN2) ? PHAL_CAN_BANKS_PER_BUS : 0U;
+    uint32_t bank_mask   = ((1U << PHAL_CAN_BANKS_PER_BUS) - 1U) << bank_offset;
+    CAN1->FMR |= CAN_FMR_FINIT;
+    CAN1->FMR = (CAN1->FMR & ~CAN_FMR_CAN2SB) | (PHAL_CAN_BANKS_PER_BUS << CAN_FMR_CAN2SB_Pos);
+    CAN1->FA1R &= ~bank_mask;
+    CAN1->FFA1R &= ~bank_mask; // Route this bus's banks to FIFO0.
+    CAN1->FS1R |= bank_mask;   // Two 32-bit filter words per bank.
+    CAN1->FM1R |= bank_mask;   // ID-list mode.
+
+    uint32_t count = num_sid + num_xid;
+    if (count == 0) {
+        CAN1->FM1R &= ~(1U << bank_offset); // Mask mode: accept all.
+        CAN1->sFilterRegister[bank_offset].FR1 = 0;
+        CAN1->sFilterRegister[bank_offset].FR2 = 0;
+        CAN1->FA1R |= 1U << bank_offset;
+    } else {
+        for (uint32_t i = 0; i < count; ++i) {
+            uint32_t word = i < num_sid
+                ? sid_list[i] << CAN_TI0R_STID_Pos
+                : (xid_list[i - num_sid] << CAN_TI0R_EXID_Pos) | CAN_TI0R_IDE;
+            uint32_t bank = bank_offset + i / PHAL_CAN_IDS_PER_BANK;
+            if ((i % PHAL_CAN_IDS_PER_BANK) == 0) {
+                CAN1->sFilterRegister[bank].FR1 = word;
+                // Duplicate the ID until the second word is filled (odd counts stay exact).
+                CAN1->sFilterRegister[bank].FR2 = word;
+                CAN1->FA1R |= 1U << bank;
+            } else {
+                CAN1->sFilterRegister[bank].FR2 = word;
+            }
+        }
+    }
+    CAN1->FMR &= ~CAN_FMR_FINIT;
+}
+
+bool PHAL_CAN_init(CAN_TypeDef *bus, PHAL_FDCAN_BaudRate_t bit_rate) {
+    uint32_t timing = 0;
+    if (!is_valid_bus(bus) || !get_bit_timing(bit_rate, &timing)) {
+        return false;
+    }
+
+    // CAN2 depends on CAN1's clock, including for the shared filter registers.
+    RCC->APB1ENR |= RCC_APB1ENR_CAN1EN;
+    if (bus == CAN2) {
         RCC->APB1ENR |= RCC_APB1ENR_CAN2EN;
     }
-#endif /* CAN2 */
-    else {
-        return false;
-    }
-
-    // Leave SLEEP state
     bus->MCR &= ~CAN_MCR_SLEEP;
-    // Enter INIT state
     bus->MCR |= CAN_MCR_INRQ;
-    while ((bus->MSR & CAN_MSR_SLAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
-    if (timeout == PHAL_CAN_INIT_TIMEOUT)
-        return false;
-    timeout = 0;
-
-    bus->MCR |= CAN_MCR_INRQ;
-    while (!(bus->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
-    if (timeout == PHAL_CAN_INIT_TIMEOUT)
-        return false;
-    timeout = 0;
-
-    // Bit timing recovered from http://www.bittiming.can-wiki.info/
-    if (bit_rate == 1'000'000) {
-        switch (APB1ClockRateHz) {
-            case 16'000'000:
-                bus->BTR = PHAL_CAN_16MHz_1M;  
-                break;
-            case 24'000'000:
-                bus->BTR = PHAL_CAN_24MHz_1M;
-                break;
-            case 36'000'000:
-                bus->BTR = PHAL_CAN_36MHz_1M;
-                break;
-            case 42'000'000:
-                bus->BTR = PHAL_CAN_42MHz_1M;
-                break;
-            default:
-                return false;
-        }
-    } else if (bit_rate == 500'000) {
-        switch (APB1ClockRateHz) {
-            case 16'000'000:
-                bus->BTR = PHAL_CAN_16MHz_500k;
-                break;
-            case 24'000'000:
-                bus->BTR = PHAL_CAN_24MHz_500k;
-                break;
-            case 36'000'000:
-                bus->BTR = PHAL_CAN_36MHz_500k;
-                break;
-            case 42'000'000:
-                bus->BTR = PHAL_CAN_42MHz_500k;
-                break;
-            default:
-                return false;
-        }
-    } else if (bit_rate == 250'000) {
-        switch (APB1ClockRateHz) {
-            case 16'000'000:
-                bus->BTR = PHAL_CAN_16MHz_250k;
-                break;
-            case 24'000'000:
-                bus->BTR = PHAL_CAN_24MHz_250k;
-                break;
-            case 36'000'000:
-                bus->BTR = PHAL_CAN_36MHz_250k;
-                break;
-            default:
-                return false;
-        }
-
-    } 
-    else {
-        return false;
+    while (!(bus->MSR & CAN_MSR_INAK)) {
+        // Wait for the peripheral to acknowledge initialization mode.
     }
 
-    // Keep the bus active
+    bus->BTR = timing;
     bus->MCR |= CAN_MCR_ABOM;
+    configure_filters(bus, nullptr, 0, nullptr, 0);
+    bus->IER &= ~CAN_IER_FMPIE1;
+    bus->IER |= CAN_IER_FMPIE0 | CAN_IER_TMEIE;
 
-    // Loopback mode in testing mode
-    if (test_mode) {
-        bus->BTR |= CAN_BTR_LBKM;
-    }
-
-    // Setup filters for all IDs
-    if (bus == CAN1) {
-        bus->FMR |= CAN_FMR_FINIT; // Enter init mode for filter banks
-        bus->FM1R &= ~(CAN_FM1R_FBM0_Msk); // Set bank 0 to mask mode
-        bus->FS1R &= ~(1 << CAN_FS1R_FSC0_Pos); // Set bank 0 to 16bit mode
-        bus->FA1R |= (1 << CAN_FA1R_FACT0_Pos); // Activate bank 0
-        bus->sFilterRegister[0].FR1 = 0; // Set mask to 0
-        bus->sFilterRegister[0].FR2 = 0;
-#ifdef CAN2
-        bus->FMR &= ~(CAN_FMR_CAN2SB);
-        bus->FMR |= (27 << CAN_FMR_CAN2SB_Pos);
-        bus->FM1R &= ~(CAN_FM1R_FBM27_Msk); // Set bank 27 to mask mode
-        bus->FS1R &= ~(1 << CAN_FS1R_FSC27_Pos); // Set bank 27 to 16bit mode
-        bus->FA1R |= (1 << CAN_FA1R_FACT27_Pos); // Activate bank 0
-        bus->sFilterRegister[27].FR1 = 0; // Set mask to 0
-        bus->sFilterRegister[27].FR2 = 0;
-#endif
-        bus->FMR &= ~CAN_FMR_FINIT; // Enable Filters
-    }
-
-    // Enable FIFO0/1 RX message pending interrupt
-    bus->IER |= CAN_IER_FMPIE0;
-    bus->IER |= CAN_IER_FMPIE1;
-
-    // Enable TX mailbox empty interrupt
-    bus->IER |= CAN_IER_TMEIE;
-
-    // Enter NORMAL mode
     bus->MCR &= ~CAN_MCR_INRQ;
-    while ((bus->MSR & CAN_MSR_INAK) && ++timeout < PHAL_CAN_INIT_TIMEOUT)
-        ;
-
-    return timeout != PHAL_CAN_INIT_TIMEOUT;
+    while (bus->MSR & CAN_MSR_INAK) {
+        // Wait for the peripheral to synchronize with the bus.
+    }
+    return true;
 }
 
-bool PHAL_deinitCAN(CAN_TypeDef* bus) {
-    if (bus == CAN1) {
-        RCC->APB1RSTR |= RCC_APB1RSTR_CAN1RST;
-    }
-#ifdef CAN2
-    else if (bus == CAN2) {
-        RCC->APB1RSTR |= RCC_APB1RSTR_CAN2RST;
-    }
-#endif /* CAN2 */
-    else
+bool PHAL_CAN_setFilters(CAN_TypeDef *bus,
+                         const uint32_t *sid_list,
+                         uint32_t num_sid,
+                         const uint32_t *xid_list,
+                         uint32_t num_xid) {
+    if (!is_valid_bus(bus) || num_sid > PHAL_CAN_MAX_NUM_SID_FILTER
+        || num_xid > PHAL_CAN_MAX_NUM_XID_FILTER || num_sid + num_xid > PHAL_CAN_MAX_FILTER_IDS
+        || (num_sid > 0 && sid_list == nullptr) || (num_xid > 0 && xid_list == nullptr)) {
         return false;
-    return true;
-}
-
-bool PHAL_txCANMessage(CanMsgTypeDef_t* msg, uint8_t txMbox) {
-    if (txMbox > 2)
-        return false; // invalid box
-
-    switch (txMbox) {
-        case 0:
-            if (!(msg->Bus->TSR & CAN_TSR_TME0))
-                return false; // mbx full
-            break;
-        case 1:
-            if (!(msg->Bus->TSR & CAN_TSR_TME1))
-                return false;
-            break;
-        case 2:
-            if (!(msg->Bus->TSR & CAN_TSR_TME2))
-                return false;
-            break;
     }
-
-    // if (msg->Bus->TSR & CAN_TSR_TME0)
-    // {
-    //     txMbox = 0;
-    //     txOkay = CAN_TSR_TXOK0;
-    // }
-    // else if (msg->Bus->TSR & CAN_TSR_TME1)
-    // {
-    //     txMbox = 1;
-    //     txOkay = CAN_TSR_TXOK1;
-    // }
-    // else if (msg->Bus->TSR & CAN_TSR_TME2)
-    // {
-    //     txMbox = 2;
-    //     txOkay = CAN_TSR_TXOK2;
-    // }
-    // else
-    //     return false;   // Unable to find Mailbox
-    if (!msg->IDE) {
-        msg->Bus->sTxMailBox[txMbox].TIR = (msg->StdId << CAN_TI0R_STID_Pos); // Standard ID
-    } else {
-        msg->Bus->sTxMailBox[txMbox].TIR = (msg->ExtId << CAN_TI0R_EXID_Pos) | 4; // Extended ID
-    }
-    msg->Bus->sTxMailBox[txMbox].TDTR = (msg->DLC << CAN_TDT0R_DLC_Pos); // Data Length
-    msg->Bus->sTxMailBox[txMbox].TDLR = ((uint32_t)msg->Data[3] << 24) | ((uint32_t)msg->Data[2] << 16) | ((uint32_t)msg->Data[1] << 8) | ((uint32_t)msg->Data[0]);
-    msg->Bus->sTxMailBox[txMbox].TDHR = ((uint32_t)msg->Data[7] << 24) | ((uint32_t)msg->Data[6] << 16) | ((uint32_t)msg->Data[5] << 8) | ((uint32_t)msg->Data[4]);
-
-    msg->Bus->sTxMailBox[txMbox].TIR |= (0b1 << CAN_TI0R_TXRQ_Pos); // Request TX
-
-    // while(!(msg->Bus->TSR & txOkay) && ++timeout < PHAL_CAN_TX_TIMEOUT)      // Wait for message to be sent within specified timeout
-    //     ;
-
-    // return timeout != PHAL_CAN_TX_TIMEOUT;
-    return true;
-}
-
-bool PHAL_txMailboxFree(CAN_TypeDef* bus, uint8_t mbx) {
-    switch (mbx) {
-        case 0:
-            return bus->TSR & CAN_TSR_TME0;
-        case 1:
-            return bus->TSR & CAN_TSR_TME1;
-        case 2:
-            return bus->TSR & CAN_TSR_TME2;
-        default:
+    for (uint32_t i = 0; i < num_sid; ++i) {
+        if (sid_list[i] > PHAL_CAN_MAX_STD_ID) {
             return false;
+        }
     }
-}
-
-bool PHAL_anyTxMailboxFree(CAN_TypeDef* bus) {
-    return bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2);
-}
-
-bool PHAL_getFreeTxMailbox(CAN_TypeDef* bus, uint8_t* mbx) {
-    if (bus->TSR & CAN_TSR_TME0) {
-        *mbx = 0;
-        return true;
-    } else if (bus->TSR & CAN_TSR_TME1) {
-        *mbx = 1;
-        return true;
-    } else if (bus->TSR & CAN_TSR_TME2) {
-        *mbx = 2;
-        return true;
-    } else {
-        return false; // No free mailbox
-    }
-}
-
-void PHAL_txCANAbort(CAN_TypeDef* bus, uint8_t mbx) {
-    switch (mbx) {
-        case 0:
-            bus->TSR |= CAN_TSR_ABRQ0;
-            break;
-        case 1:
-            bus->TSR |= CAN_TSR_ABRQ1;
-            break;
-        case 2:
-            bus->TSR |= CAN_TSR_ABRQ2;
-            break;
-        default:
-            break;
-    }
-}
-
-bool PHAL_rxCANMessage(CAN_TypeDef *bus, uint8_t fifo, CanMsgTypeDef_t *msg) {
-    if (fifo > 1) return false;
-    if (fifo == 0 && !(bus->RF0R & CAN_RF0R_FMP0)) return false;
-    if (fifo == 1 && !(bus->RF1R & CAN_RF1R_FMP1)) return false;
-
-    msg->Bus = bus;
-    if (bus->sFIFOMailBox[fifo].RIR & CAN_RI0R_IDE) {
-        msg->IDE = true;
-        msg->ExtId = bus->sFIFOMailBox[fifo].RIR >> CAN_RI0R_EXID_Pos;
-    } else {
-        msg->IDE = false;
-        msg->StdId = bus->sFIFOMailBox[fifo].RIR >> CAN_RI0R_STID_Pos;
+    for (uint32_t i = 0; i < num_xid; ++i) {
+        if (xid_list[i] > PHAL_CAN_MAX_EXT_ID) {
+            return false;
+        }
     }
 
-    msg->DLC = (bus->sFIFOMailBox[fifo].RDTR & CAN_RDT0R_DLC) >> CAN_RDT0R_DLC_Pos;
-
-    uint32_t low = bus->sFIFOMailBox[fifo].RDLR;
-    uint32_t high = bus->sFIFOMailBox[fifo].RDHR;
-
-    msg->Data[0] = (low >> 0) & 0xFF;
-    msg->Data[1] = (low >> 8) & 0xFF;
-    msg->Data[2] = (low >> 16) & 0xFF;
-    msg->Data[3] = (low >> 24) & 0xFF;
-    msg->Data[4] = (high >> 0) & 0xFF;
-    msg->Data[5] = (high >> 8) & 0xFF;
-    msg->Data[6] = (high >> 16) & 0xFF;
-    msg->Data[7] = (high >> 24) & 0xFF;
-
-    if (fifo == 0) bus->RF0R |= CAN_RF0R_RFOM0;
-    else bus->RF1R |= CAN_RF1R_RFOM1;
-
+    configure_filters(bus, sid_list, num_sid, xid_list, num_xid);
     return true;
 }
 
-void PHAL_CAN_rxIRQ(CAN_TypeDef *bus, uint8_t fifo) {
-    CanMsgTypeDef_t msg;
+bool PHAL_CAN_send(CanMsgTypeDef_t *msg) {
+    if (msg == nullptr || !is_valid_bus(msg->Bus) || msg->DLC > sizeof(msg->Data)
+        || (msg->IDE ? msg->ExtId > PHAL_CAN_MAX_EXT_ID : msg->StdId > PHAL_CAN_MAX_STD_ID)) {
+        return false;
+    }
+    uint32_t transmit_status = msg->Bus->TSR;
+    uint32_t mailbox_index   = 0;
+    if (transmit_status & CAN_TSR_TME0) {
+        mailbox_index = 0;
+    } else if (transmit_status & CAN_TSR_TME1) {
+        mailbox_index = 1;
+    } else if (transmit_status & CAN_TSR_TME2) {
+        mailbox_index = 2;
+    } else {
+        return false;
+    }
 
-    while (PHAL_rxCANMessage(bus, fifo, &msg)) {
+    if (!msg->IDE) {
+        msg->Bus->sTxMailBox[mailbox_index].TIR = ((uint32_t)msg->StdId << CAN_TI0R_STID_Pos);
+    } else {
+        msg->Bus->sTxMailBox[mailbox_index].TIR = (msg->ExtId << CAN_TI0R_EXID_Pos) | CAN_TI0R_IDE;
+    }
+    msg->Bus->sTxMailBox[mailbox_index].TDTR = (msg->DLC << CAN_TDT0R_DLC_Pos);
+    msg->Bus->sTxMailBox[mailbox_index].TDLR = ((uint32_t)msg->Data[3] << 24)
+        | ((uint32_t)msg->Data[2] << 16) | ((uint32_t)msg->Data[1] << 8) | ((uint32_t)msg->Data[0]);
+    msg->Bus->sTxMailBox[mailbox_index].TDHR = ((uint32_t)msg->Data[7] << 24)
+        | ((uint32_t)msg->Data[6] << 16) | ((uint32_t)msg->Data[5] << 8) | ((uint32_t)msg->Data[4]);
+
+    msg->Bus->sTxMailBox[mailbox_index].TIR |= CAN_TI0R_TXRQ;
+
+    msg->Bus->IER |= CAN_IER_TMEIE;
+    return true;
+}
+
+bool PHAL_CAN_txFifoFree(const CAN_TypeDef *bus) {
+    return is_valid_bus(bus) && (bus->TSR & (CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2));
+}
+
+static void rx_irq_handler(CAN_TypeDef *bus) {
+    while (bus->RF0R & CAN_RF0R_FMP0) {
+        CanMsgTypeDef_t msg = {.Bus = bus};
+        uint32_t identifier = bus->sFIFOMailBox[0].RIR;
+        msg.IDE             = (identifier & CAN_RI0R_IDE) != 0;
+        if (msg.IDE) {
+            msg.ExtId = identifier >> CAN_RI0R_EXID_Pos;
+        } else {
+            msg.StdId = identifier >> CAN_RI0R_STID_Pos;
+        }
+        msg.DLC = (bus->sFIFOMailBox[0].RDTR & CAN_RDT0R_DLC) >> CAN_RDT0R_DLC_Pos;
+        // Classic CAN DLC values above eight still describe an eight-byte payload.
+        if (msg.DLC > sizeof(msg.Data)) {
+            msg.DLC = sizeof(msg.Data);
+        }
+        uint32_t low  = bus->sFIFOMailBox[0].RDLR;
+        uint32_t high = bus->sFIFOMailBox[0].RDHR;
+        for (uint32_t i = 0; i < 4; ++i) {
+            msg.Data[i]     = low >> (8 * i);
+            msg.Data[i + 4] = high >> (8 * i);
+        }
+        bus->RF0R = CAN_RF0R_RFOM0;
         PHAL_CAN_rxCallback(&msg);
     }
 }
 
-void __attribute__((weak)) CAN1_RX0_IRQHandler(void) {
-    PHAL_CAN_rxIRQ(CAN1, 0);
-}
-
-void __attribute__((weak)) CAN1_RX1_IRQHandler(void) {
-    PHAL_CAN_rxIRQ(CAN1, 1);
-}
-
-void __attribute__((weak)) CAN2_RX0_IRQHandler(void) {
-    PHAL_CAN_rxIRQ(CAN2, 0);
-}
-
-void __attribute__((weak)) CAN2_RX1_IRQHandler(void) {
-    PHAL_CAN_rxIRQ(CAN2, 1);
-}
-
-void PHAL_CAN_txIRQ(CAN_TypeDef *bus) {
-    uint32_t tsr = bus->TSR;
-
-    if (tsr & CAN_TSR_RQCP0) bus->TSR = CAN_TSR_RQCP0;
-    if (tsr & CAN_TSR_RQCP1) bus->TSR = CAN_TSR_RQCP1;
-    if (tsr & CAN_TSR_RQCP2) bus->TSR = CAN_TSR_RQCP2;
-
+static void tx_irq_handler(CAN_TypeDef *bus) {
     bus->IER &= ~CAN_IER_TMEIE;
-
+    uint32_t transmit_status = bus->TSR;
+    bus->TSR                 = transmit_status & (CAN_TSR_RQCP0 | CAN_TSR_RQCP1 | CAN_TSR_RQCP2);
+    const uint32_t empty_mailboxes = CAN_TSR_TME0 | CAN_TSR_TME1 | CAN_TSR_TME2;
+    if ((transmit_status & empty_mailboxes) != empty_mailboxes) {
+        bus->IER |= CAN_IER_TMEIE;
+    }
     PHAL_CAN_txCallback(bus);
 }
 
+void CAN1_RX0_IRQHandler(void) {
+    rx_irq_handler(CAN1);
+}
+
 void CAN1_TX_IRQHandler(void) {
-    PHAL_CAN_txIRQ(CAN1);
+    tx_irq_handler(CAN1);
+}
+
+void CAN2_RX0_IRQHandler(void) {
+    rx_irq_handler(CAN2);
 }
 
 void CAN2_TX_IRQHandler(void) {
-    PHAL_CAN_txIRQ(CAN2);
+    tx_irq_handler(CAN2);
 }
 
-// ! override these in your application code!
 [[gnu::weak]]
 void PHAL_CAN_txCallback(CAN_TypeDef *can) {
     (void)can;

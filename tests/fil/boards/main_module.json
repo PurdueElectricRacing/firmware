@@ -5,10 +5,10 @@
   "elf": "../../../firmware/output/main_module/main_module.elf",
   "vector_base": "0x08000000",
   "can": {
-    "FDCAN2": {
+    "FDCAN1": {
       "bus": "0"
     },
-    "FDCAN3": {
+    "FDCAN2": {
       "bus": "1"
     }
   }

@@ -41,8 +41,7 @@ typedef enum {
 
 typedef enum {
     ANALOG_MUX1 = 0,
-    ANALOG_MUX2,
-    NO_MUX
+    ANALOG_MUX2
 } mux_id_t;
 
 typedef struct {

@@ -1,12 +1,12 @@
-#ifndef MAIN_H
-#define MAIN_H
-
 /**
  * @file main.h
  * @brief "PDU" node source code
  * 
  * @author Irving Wang (irvingw@purdue.edu)
  */
+
+#ifndef MAIN_H
+#define MAIN_H
 
 #include "common/phal_G4/gpio/gpio.h"
 

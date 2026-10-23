@@ -17,145 +17,6 @@
                     "priority": 0
                 },
                 {
-                    "message_name": "v_rails",
-                    "description": "PDU voltage rail readings",
-                    "signals": [
-                        {
-                            "signal_name": "in_24v",
-                            "description": "Unregulated 24V input",
-                            "data_type": "uint16_t",
-                            "unit": "mV"
-                        },
-                        {
-                            "signal_name": "out_5v",
-                            "description": "5v rail output voltage",
-                            "data_type": "uint16_t",
-                            "unit": "mV"
-                        },
-                        {
-                            "signal_name": "out_3v3",
-                            "description": "3v3 rail output voltage",
-                            "data_type": "uint16_t",
-                            "unit": "mV"
-                        },
-                        {
-                            "signal_name": "amk_24v",
-                            "data_type": "uint16_t",
-                            "unit": "mV"
-                        }
-                    ],
-                    "period_ms": 100,
-                    "priority": 5
-                },
-                {
-                    "message_name": "rail_currents",
-                    "description": "PDU rail currents",
-                    "signals": [
-                        {
-                            "signal_name": "i_24v",
-                            "description": "Unregulated 24V rail current",
-                            "data_type": "uint16_t",
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_5v",
-                            "description": "5v rail current",
-                            "data_type": "uint16_t",
-                            "unit": "mA"
-                        }
-                    ],
-                    "period_ms": 100,
-                    "priority": 5
-                },
-                {
-                    "message_name": "pump_and_fan_current",
-                    "description": "PDU pump and fan currents",
-                    "signals": [
-                        {
-                            "signal_name": "i_pump1",
-                            "data_type": "uint16_t",
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_pump2",
-                            "data_type": "uint16_t",
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_fan1",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_fan2",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        }
-                    ],
-                    "period_ms": 100,
-                    "priority": 5
-                },
-                {
-                    "message_name": "fan_current2",
-                    "description": "more fan currents",
-                    "signals": [
-                        {
-                            "signal_name": "i_fan3",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_fan4",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        }
-                    ],
-                    "period_ms": 100,
-                    "priority": 5
-                },
-                {
-                    "message_name": "other_currents",
-                    "description": "Other PDU currents",
-                    "signals": [
-                        {
-                            "signal_name": "i_sdc",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_aux",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_dash",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_abox",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        },
-                        {
-                            "signal_name": "i_main",
-                            "data_type": "uint16_t",
-                            "length": 12,
-                            "unit": "mA"
-                        }
-                    ],
-                    "period_ms": 100,
-                    "priority": 5
-                },
-                {
                     "message_name": "coolant_out",
                     "description": "outputs to coolant loops",
                     "signals": [
@@ -173,48 +34,6 @@
                             "signal_name": "is_batt_fans_enabled",
                             "description": "Battery fans enabled",
                             "data_type": "bool"
-                        }
-                    ],
-                    "period_ms": 1000,
-                    "priority": 4
-                },
-                {
-                    "message_name": "pdu_temps",
-                    "description": "PDU board temperatures",
-                    "signals": [
-                        {
-                            "signal_name": "internal_therm",
-                            "description": "Temperature from internal thermistor",
-                            "data_type": "uint16_t",
-                            "unit": "C"
-                        }
-                    ],
-                    "period_ms": 100,
-                    "priority": 5
-                },
-                {
-                    "message_name": "pdu_can_stats",
-                    "description": "CAN diagnostics",
-                    "signals": [
-                        {
-                            "signal_name": "can_tx_overflow",
-                            "description": "CAN Tx queue overflow count",
-                            "data_type": "uint8_t"
-                        },
-                        {
-                            "signal_name": "can_tx_fail",
-                            "description": "CAN Tx fail count (due to timeout in mailbox)",
-                            "data_type": "uint8_t"
-                        },
-                        {
-                            "signal_name": "can_rx_overflow",
-                            "description": "CAN Rx queue overflow count",
-                            "data_type": "uint8_t"
-                        },
-                        {
-                            "signal_name": "can_rx_overrun",
-                            "description": "CAN Rx FIFO overrun count",
-                            "data_type": "uint8_t"
                         }
                     ],
                     "period_ms": 1000,
@@ -255,103 +74,193 @@
     "generate_fault_messages": false,
     "faults": [
         {
-            "fault_name": "dash_rail",
+            "fault_name": "SDC_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 100,
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Dash Rail Down"
+            "lcd_message": "SDC Switch Fault"
         },
         {
-            "fault_name": "abox_rail",
+            "fault_name": "SDC_LOOP_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 100,
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "ABox Rail Down"
+            "lcd_message": "SDC Loop Switch Fault"
         },
         {
-            "fault_name": "main_rail",
+            "fault_name": "MAIN_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 100,
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Main Rail Down"
+            "lcd_message": "Main Switch Fault"
         },
         {
-            "fault_name": "v_crit",
+            "fault_name": "DASH_SWITCH_FAULT",
             "max": 1,
             "min": 0,
             "priority": "error",
-            "time_to_latch": 100,
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "5v_crit down"
+            "lcd_message": "Dash Switch Fault"
         },
         {
-            "fault_name": "v_noncrit",
+            "fault_name": "DAQ_SWITCH_FAULT",
             "max": 1,
             "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
+            "priority": "error",
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "5V_NC Rail Down"
+            "lcd_message": "Daq Switch Fault"
         },
         {
-            "fault_name": "front_driveline_rail",
+            "fault_name": "ABOX_SWITCH_FAULT",
             "max": 1,
             "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
+            "priority": "error",
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Front Driveline Rail Down"
+            "lcd_message": "Abox Switch Fault"
         },
         {
-            "fault_name": "rear_driveline_rail",
+            "fault_name": "HV_BOARD_SWITCH_FAULT",
             "max": 1,
             "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
+            "priority": "error",
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Rear Driveline Rail Down"
+            "lcd_message": "Hv Board Switch Fault"
         },
         {
-            "fault_name": "bullet_rail",
+            "fault_name": "TV_SWITCH_FAULT",
             "max": 1,
             "min": 0,
-            "priority": "warning",
-            "time_to_latch": 100,
+            "priority": "error",
+            "time_to_latch": 50,
             "time_to_unlatch": 10000,
-            "lcd_message": "Bullet Rail Down"
+            "lcd_message": "Tv Switch Fault"
         },
         {
-            "fault_name": "lv_critical_low",
-            "max": 50000,
-            "min": 20000,
-            "priority": "warning",
-            "time_to_latch": 500,
-            "time_to_unlatch": 1500,
-            "lcd_message": "LV bat Very Low (20V)"
+            "fault_name": "DL_FRONT_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Dl Front Switch Fault"
         },
         {
-            "fault_name": "lv_getting_low",
-            "max": 50000,
-            "min": 21000,
-            "priority": "warning",
-            "time_to_latch": 500,
-            "time_to_unlatch": 1500,
-            "lcd_message": "LV bat Low (21V)"
+            "fault_name": "DL_REAR_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Dl Rear Switch Fault"
         },
         {
-            "fault_name": "lv_batt_fifty",
-            "max": 50000,
-            "min": 25000,
-            "priority": "warning",
-            "time_to_latch": 500,
-            "time_to_unlatch": 1500,
-            "lcd_message": "LV bat Nominal (25V)"
+            "fault_name": "AMK1_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "AMK1 Switch Fault"
+        },
+        {
+            "fault_name": "AMK2_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "AMK2 Switch Fault"
+        },
+        {
+            "fault_name": "PUMP1_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pump1 Switch Fault"
+        },
+        {
+            "fault_name": "PUMP2_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Pump2 Switch Fault"
+        },
+        {
+            "fault_name": "HXFAN_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Hxfan Switch Fault"
+        },
+        {
+            "fault_name": "FAN1_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Fan1 Switch Fault"
+        },
+        {
+            "fault_name": "FAN2_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Fan2 Switch Fault"
+        },
+        {
+            "fault_name": "FAN3_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Fan3 Switch Fault"
+        },
+        {
+            "fault_name": "FAN4_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Fan4 Switch Fault"
+        },
+        {
+            "fault_name": "FAN5_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Fan5 Switch Fault"
+        },
+        {
+            "fault_name": "EMETER_SWITCH_FAULT",
+            "max": 1,
+            "min": 0,
+            "priority": "error",
+            "time_to_latch": 50,
+            "time_to_unlatch": 10000,
+            "lcd_message": "Emeter Switch Fault"
         }
     ]
 }

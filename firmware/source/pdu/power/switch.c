@@ -8,7 +8,6 @@
 #include "switch.h"
 #include "main.h"
 
-// todo remap when schematic is fixed
 switch_t g_switches[NUM_SWITCHES] = {
     [SWITCH_SDC] = {
         .ctrl_port = CTRL2_PORT,

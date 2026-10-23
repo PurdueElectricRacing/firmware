@@ -28,8 +28,6 @@
 #define USE_{{ periph.name }}
 {% endfor %}
 
-typedef FDCAN_GlobalTypeDef CAN_bus_t;
-
 {% for periph in ctx.peripheral_entries %}
 void {{ periph.enqueue_func }}(CanMsgTypeDef_t *msg);
 {% endfor %}

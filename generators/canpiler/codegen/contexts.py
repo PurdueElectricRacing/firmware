@@ -35,11 +35,6 @@ def build_signal_codec(signal: CompiledSignal) -> SignalCodecRenderView:
 def build_peripheral_views(peripherals: tuple[str, ...]) -> tuple[PeripheralRenderView, ...]:
     views = []
     for peripheral in peripherals:
-        if peripheral not in ("FDCAN1", "FDCAN2", "FDCAN3"):
-            raise ValueError(
-                f"Unsupported CAN peripheral: {peripheral}; "
-                "expected FDCAN1, FDCAN2, or FDCAN3"
-            )
         views.append(
             PeripheralRenderView(
                 name=peripheral,

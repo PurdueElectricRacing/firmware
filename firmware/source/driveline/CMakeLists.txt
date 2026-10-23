@@ -1,4 +1,4 @@
-create_can_node_lib(DRIVELINE "CMSIS_G474;RTOS_G474")
+create_can_node_lib(DRIVELINE)
 
 foreach(SIDE front rear)
     string(TOUPPER ${SIDE} SIDE_UPPER)

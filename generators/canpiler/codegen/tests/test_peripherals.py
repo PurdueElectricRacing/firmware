@@ -19,5 +19,3 @@ def test_fdcan_peripherals_supported(peripheral: str) -> None:
 def test_unsupported_peripheral_rejected(peripheral: str) -> None:
     with pytest.raises(ValidationError, match="peripheral"):
         BusAttachmentDeclaration(peripheral=peripheral)
-    with pytest.raises(ValueError, match="Unsupported CAN peripheral"):
-        build_peripheral_views((peripheral,))

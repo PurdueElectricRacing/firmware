@@ -1,4 +1,4 @@
-create_can_node_lib(PDU "CMSIS_G474;RTOS_G474")
+create_can_node_lib(PDU)
 
 add_firmware_component(
     NAME pdu

@@ -14,24 +14,24 @@ volatile can_stats_t can_stats;
 
 // Allocate TX queues
 #ifdef USE_FDCAN1
-RTOS_DEFINE_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+RTOS_DEFINE_QUEUE(fdcan1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 #ifdef USE_FDCAN2
-RTOS_DEFINE_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+RTOS_DEFINE_QUEUE(fdcan2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 #ifdef USE_FDCAN3
-RTOS_DEFINE_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+RTOS_DEFINE_QUEUE(fdcan3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 
 void CAN_tx_init(void) {
 #ifdef USE_FDCAN1
-    RTOS_INIT_QUEUE(can1_tx_queue);
+    RTOS_INIT_QUEUE(fdcan1_tx_queue);
 #endif
 #ifdef USE_FDCAN2
-    RTOS_INIT_QUEUE(can2_tx_queue);
+    RTOS_INIT_QUEUE(fdcan2_tx_queue);
 #endif
 #ifdef USE_FDCAN3
-    RTOS_INIT_QUEUE(can3_tx_queue);
+    RTOS_INIT_QUEUE(fdcan3_tx_queue);
 #endif
 }
 
@@ -50,19 +50,19 @@ static void CAN_enqueue_tx_to_queue(QueueHandle_t queue, CanMsgTypeDef_t *msg) {
 
 #ifdef USE_FDCAN1
 void CAN_enqueue_tx_FDCAN1(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can1_tx_queue, msg);
+    CAN_enqueue_tx_to_queue(fdcan1_tx_queue, msg);
 }
 #endif
 
 #ifdef USE_FDCAN2
 void CAN_enqueue_tx_FDCAN2(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can2_tx_queue, msg);
+    CAN_enqueue_tx_to_queue(fdcan2_tx_queue, msg);
 }
 #endif
 
 #ifdef USE_FDCAN3
 void CAN_enqueue_tx_FDCAN3(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can3_tx_queue, msg);
+    CAN_enqueue_tx_to_queue(fdcan3_tx_queue, msg);
 }
 #endif
 
@@ -76,7 +76,6 @@ static inline void CAN_wake_tx_from_ISR(void) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-#if defined(USE_FDCAN1) || defined(USE_FDCAN2) || defined(USE_FDCAN3)
 static void CAN_drain_tx_bus(const FDCAN_GlobalTypeDef *bus, QueueHandle_t tx_queue) {
     CanMsgTypeDef_t tx_msg;
 
@@ -89,20 +88,19 @@ static void CAN_drain_tx_bus(const FDCAN_GlobalTypeDef *bus, QueueHandle_t tx_qu
         can_stats.tx_sent_count++;
     }
 }
-#endif
 
 void CAN_tx_update(void) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     can_stats.tx_task_wake_count++;
 
 #ifdef USE_FDCAN1
-    CAN_drain_tx_bus(FDCAN1, can1_tx_queue);
+    CAN_drain_tx_bus(FDCAN1, fdcan1_tx_queue);
 #endif
 #ifdef USE_FDCAN2
-    CAN_drain_tx_bus(FDCAN2, can2_tx_queue);
+    CAN_drain_tx_bus(FDCAN2, fdcan2_tx_queue);
 #endif
 #ifdef USE_FDCAN3
-    CAN_drain_tx_bus(FDCAN3, can3_tx_queue);
+    CAN_drain_tx_bus(FDCAN3, fdcan3_tx_queue);
 #endif
 }
 

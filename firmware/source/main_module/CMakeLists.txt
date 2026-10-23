@@ -1,4 +1,4 @@
-create_can_node_lib(MAIN_MODULE "CMSIS_G474;RTOS_G474")
+create_can_node_lib(MAIN_MODULE)
 
 add_firmware_component(
     BUILD_BOOTLOADABLE

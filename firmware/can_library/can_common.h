@@ -13,7 +13,7 @@
 #if !defined(BOOTLOADER_FIRMWARE)
 #include "common/rtos/rtos.h"
 #endif
-#if !defined(STM32G474xx) || defined(STM32F407xx)
+#if !defined(STM32G474xx)
 #error "CAN library requires STM32G474xx (FDCAN)"
 #endif
 #include "common/phal_G4/fdcan/fdcan.h"
@@ -38,7 +38,7 @@ extern QueueHandle_t can_rx_queue;
 
 void CAN_tx_update(void);
 void CAN_rx_update(void);
-bool CAN_init(void);
+void CAN_init(void);
 void CAN_enable_IRQs(void);
 void CAN_rx_init(void);
 void CAN_tx_init(void);

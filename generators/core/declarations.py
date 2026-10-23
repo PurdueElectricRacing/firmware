@@ -199,7 +199,7 @@ class BusDeclaration(DeclarationModel):
     name: str
     bus_id: Annotated[int, Field(ge=0, le=0b111)]
     # Supported CAN baud rates. Keep in sync with PHAL_FDCAN_BaudRate_t in
-    # common/phal_F4/can/can.h and common/phal_G4/fdcan/fdcan.h.
+    # common/phal_G4/fdcan/fdcan.h.
     baud_rate: Literal[250000, 500000, 1000000]
     is_extended_id: bool
     host_fault_library: bool

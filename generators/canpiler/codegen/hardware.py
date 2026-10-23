@@ -99,7 +99,7 @@ def map_peripheral_filters(
     msgs: list[LinkedMessage],
     accept_all: bool,
 ) -> PeripheralFilters:
-    """Build PHAL ID lists; bank packing belongs to the peripheral HAL."""
+    """Build ID lists for PHAL FDCAN filter programming."""
     std_ids = tuple(msg for msg in msgs if not msg.is_extended)
     ext_ids = tuple(msg for msg in msgs if msg.is_extended)
 

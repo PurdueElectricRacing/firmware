@@ -42,7 +42,7 @@ void CAN_enable_IRQs(void) {
 #endif
 }
 
-static bool CAN_setup_filters(void) {
+static void CAN_setup_filters(void) {
 #ifdef USE_FDCAN1
     FDCAN1_set_filters();
 #endif
@@ -54,11 +54,9 @@ static bool CAN_setup_filters(void) {
 #ifdef USE_FDCAN3
     FDCAN3_set_filters();
 #endif
-
-    return true;
 }
 
-bool CAN_init(void) {
+void CAN_init(void) {
     CAN_rx_init();
     CAN_tx_init();
 
@@ -69,10 +67,5 @@ bool CAN_init(void) {
 
     CAN_setup_IRQs();
 
-    // cppcheck-suppress knownConditionTrueFalse
-    if (!CAN_setup_filters()) {
-        return false;
-    }
-
-    return true;
+    CAN_setup_filters();
 }

@@ -23,8 +23,6 @@
 #define TSAL_RED_CTRL_PIN    (3)
 #define TSAL_GREEN_CTRL_PORT (GPIOA)
 #define TSAL_GREEN_CTRL_PIN  (0)
-#define TSAL_FAULT_PORT      (GPIOB)
-#define TSAL_FAULT_PIN       (1)
 
 // Brake and Buzzer
 #define BRAKE_LIGHT_PORT (GPIOB)

@@ -3,7 +3,7 @@
   "name": "per_car_ready_to_drive",
   "events": [
     {"type": "gpio", "at_ms": 0, "board": "main_module", "pin": "PB9", "value": true},
-    {"type": "gpio", "at_ms": 0, "board": "main_module", "pin": "PB10", "value": false},
+    {"type": "gpio", "at_ms": 0, "board": "main_module", "pin": "PC4", "value": false},
     {"type": "gpio", "at_ms": 0, "board": "dashboard", "pin": "PB14", "value": true},
 
     {"type": "adc", "at_ms": 0, "board": "dashboard", "instance": "ADC1", "channel": 8, "value": 200},

@@ -54,11 +54,14 @@ typedef struct {
     float current_ma;
 } switch_t;
 
-// High power switch outputs 4.75v on fault
-//  -> scaled by R1=180, R2=330
-//  -> 4.75 * (330 / (180 + 330)) = 3.07v
-//  -> 3.07v * (4095 / 3.3v) = 3810
-static constexpr uint16_t SWITCH_FAULT_ADC_THRESHOLD = 3810;
+// High power switch outputs 4.75v on fault -> scaled by R1=180, R2=330
+static constexpr float SWITCH_FAULT_SENSE_V      = 4.75f;
+static constexpr float SWITCH_SENSE_DIVIDER_GAIN = 330.0f / (180.0f + 330.0f);
+static constexpr float ADC_VREF_V                = 3.3f;
+// todo: tune margin
+static constexpr float SWITCH_FAULT_MARGIN       = 0.95f;
+static constexpr uint16_t SWITCH_FAULT_ADC_THRESHOLD = (uint16_t)(SWITCH_FAULT_SENSE_V * SWITCH_SENSE_DIVIDER_GAIN * (4095.0f / ADC_VREF_V) * SWITCH_FAULT_MARGIN);
+
 
 extern switch_t g_switches[NUM_SWITCHES];
 

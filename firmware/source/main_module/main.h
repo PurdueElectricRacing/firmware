@@ -23,8 +23,6 @@
 #define TSAL_RED_CTRL_PIN    (3)
 #define TSAL_GREEN_CTRL_PORT (GPIOA)
 #define TSAL_GREEN_CTRL_PIN  (0)
-#define TSAL_RTM_ENABLE_PORT (GPIOB)
-#define TSAL_RTM_ENABLE_PIN  (0)
 #define TSAL_FAULT_PORT      (GPIOB)
 #define TSAL_FAULT_PIN       (1)
 

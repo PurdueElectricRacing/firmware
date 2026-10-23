@@ -2,7 +2,7 @@
     "node_name": "MAIN_MODULE",
     "busses": {
         "VCAN": {
-            "peripheral": "FDCAN2",
+            "peripheral": "FDCAN1",
             "tx": [
                 {
                     "message_name": "main_init",
@@ -301,7 +301,7 @@
             ]
         },
         "MCAN": {
-            "peripheral": "FDCAN3",
+            "peripheral": "FDCAN2",
             "tx": [
                 {
                     "message_name": "main_hb_amk",

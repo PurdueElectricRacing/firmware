@@ -1,4 +1,4 @@
-use crate::{action, app, formatter, messages, ui, widget_constructor};
+use crate::{action, app, formatter, messages, ui::{self, diagnostics::Diagnostics}, widget_constructor};
 use eframe::egui;
 
 pub enum Widget {
@@ -16,6 +16,7 @@ pub enum Widget {
     Dynamics(ui::dynamics::Dynamics),
     Jitter(ui::jitter::Jitter),
     Hil(ui::hil::Hil),
+    Diagnostics(ui::diagnostics::Diagnostics),
 }
 
 pub struct WidgetContext<'a> {
@@ -43,6 +44,7 @@ impl Widget {
             Widget::Dynamics(w) => &w.title,
             Widget::Jitter(w) => &w.title,
             Widget::Hil(w) => &w.title,
+            Widget::Diagnostics(w) => &w.title,
         }
     }
 
@@ -62,6 +64,7 @@ impl Widget {
             Widget::Dynamics(_) => widget_constructor::WidgetKind::Dynamics,
             Widget::Jitter(_) => widget_constructor::WidgetKind::Jitter,
             Widget::Hil(_) => widget_constructor::WidgetKind::Hil,
+            Widget::Diagnostics(_) => widget_constructor::WidgetKind::Diagnostics,
         }
     }
 
@@ -99,6 +102,7 @@ impl Widget {
             Widget::Dynamics(w) => w.show(ui),
             Widget::Jitter(w) => w.show(ui, context.parser),
             Widget::Hil(w) => w.show(ui),
+            Widget::Diagnostics(w) => w.show(ui),
         }
     }
 
@@ -119,6 +123,7 @@ impl Widget {
             Widget::Dynamics(w) => w.handle_can_message(msg),
             Widget::Jitter(w) => w.handle_can_message(msg),
             Widget::Hil(w) => w.handle_can_message(msg),
+            Widget::Diagnostics(w) => w.handle_can_message(msg),
             _ => {}
         }
     }

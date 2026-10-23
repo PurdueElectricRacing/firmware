@@ -1,7 +1,9 @@
 var can__tx_8c =
 [
     [ "CAN_BUS_TYPE", "can__tx_8c.html#a19febbfa229a296c51870933d2422f01", null ],
+    [ "PHAL_SEND", "can__tx_8c.html#a5110a707f707da530740ef25c8058e68", null ],
     [ "PHAL_TX_CALLBACK", "can__tx_8c.html#a31e989e8ec6169b0e3016c552cd65ef7", null ],
+    [ "PHAL_TX_FIFO_FREE", "can__tx_8c.html#a5977f3f18e24743de84478d4d9eb91e5", null ],
     [ "CAN_enqueue_tx_to_queue", "can__tx_8c.html#afc6a5aca0aef343ddacbdd8822500228", null ],
     [ "CAN_tx_init", "can__tx_8c.html#a4b594cd4b29fc669fcd91dbf783c47d8", null ],
     [ "CAN_tx_update", "can__tx_8c.html#a0a32f054a0f3baae0270d9845d2897e6", null ],

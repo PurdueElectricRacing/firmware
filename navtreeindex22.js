@@ -1,8 +1,5 @@
 var NAVTREEINDEX22 =
 {
-"structGPIOInitConfig__t.html#a9fec47b09fc90e799db443bdcffb53f4":[32,0,100,1],
-"structGPIOInitConfig__t.html#ac271361b13ba110d2af3699fe610f596":[32,0,100,2],
-"structGPIOInitConfig__t.html#af7c70bb08d9f2d4900cd0cb0a733bd72":[32,0,100,5],
 "structIMU__acceleration__data__t.html":[32,0,110],
 "structIMU__acceleration__data__t.html#a2454dc03b8e07b3fb4817f6a835c307c":[32,0,110,5],
 "structIMU__acceleration__data__t.html#a3202102b7af0641b1962ea603b102dcc":[32,0,110,4],
@@ -249,5 +246,8 @@ var NAVTREEINDEX22 =
 "structIZZE__angular__rate__data__t.html#aa27fbbc46a19025d0078ddc7a463bb9f":[32,0,147,5],
 "structIZZE__angular__rate__data__t.html#aac8149ccef8ea137a001f26534f990cf":[32,0,147,3],
 "structLWS__Config__data__t.html":[32,0,161],
-"structLWS__Config__data__t.html#a7f863d0b32dff34beb0facd46d6b86ac":[32,0,161,1]
+"structLWS__Config__data__t.html#a7f863d0b32dff34beb0facd46d6b86ac":[32,0,161,1],
+"structLWS__Config__data__t.html#a9d34008c09e870380801c9365c1b7a77":[32,0,161,2],
+"structLWS__Config__data__t.html#abe42f13960bb7b3661da653f136d2328":[32,0,161,0],
+"structLWS__Config__data__t.html#ae661c13120e05e7caaa580ff3207352a":[32,0,161,3]
 };

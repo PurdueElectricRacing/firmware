@@ -1,8 +1,5 @@
 var NAVTREEINDEX16 =
 {
-"nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9f":[33,0,1,1,15,0,3],
-"nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9fa2e33972c1a7dc61a01a89027e6125b06":[33,0,1,1,15,0,3,1],
-"nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9fa8a75113ae000e05c8d582011a849cf52":[33,0,1,1,15,0,3,2],
 "nav__pvt_8h.html#aa5a3cd3229fca20ad474c18623498c9faf1aa1c197b96b22598672c8a17c774f9":[33,0,1,1,15,0,3,0],
 "nav__pvt_8h.html#aab0b940e0c2b2f588ef823a759194126":[33,0,1,1,15,0,2],
 "nav__pvt_8h.html#aab0b940e0c2b2f588ef823a759194126a05987e46629420802937cedc13cdb76e":[33,0,1,1,15,0,2,0],
@@ -249,5 +246,8 @@ var NAVTREEINDEX16 =
 "pedals_8h.html":[33,0,1,2,4,3,1],
 "pedals_8h.html#a87b6cf4ba55de2c1523397cc21bbf501":[33,0,1,2,4,3,1,0],
 "pedals_8h.html#a8fc28f3550c5299fff7fdd9b9f252e43":[33,0,1,2,4,3,1,1],
-"pedals_8h_source.html":[33,0,1,2,4,3,1]
+"pedals_8h_source.html":[33,0,1,2,4,3,1],
+"phal__F4_2adc_2adc_8c.html":[33,0,1,1,8,0,0],
+"phal__F4_2adc_2adc_8c.html#a23932b8ec76a6b766af8b9036eb35e56":[33,0,1,1,8,0,0,2],
+"phal__F4_2adc_2adc_8c.html#a26bb2a11a3a7492c2e7ac2eb004234d8":[33,0,1,1,8,0,0,1]
 };

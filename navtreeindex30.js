@@ -1,5 +1,6 @@
 var NAVTREEINDEX30 =
 {
+"usb__control_8c.html#ac1e1e2d859f62ba905b7b5261aa3d57d":[33,0,1,2,2,0,0,10],
 "usb__control_8c.html#aca44644e94d587a8a403c6dd9ace1209":[33,0,1,2,2,0,0,8],
 "usb__control_8c.html#ae24eaf3990e4ce60f2765bf86eac5bb3":[33,0,1,2,2,0,0,13],
 "usb__control_8c.html#aee81ec5968dca95851916ce33f80e2bf":[33,0,1,2,2,0,0,15],

@@ -1,0 +1,7 @@
+<map id="PHAL_CAN_setFilters" name="PHAL_CAN_setFilters">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,159,56"/>
+<area shape="rect" id="Node000002" href="$can_8c.html#acae4ecda758065ea655c06f9f493f315" title=" " alt="" coords="207,5,318,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,30,191,25,192,31,160,35"/>
+<area shape="rect" id="Node000003" href="$can_8c.html#aa877b8e7dc2458f103b534a8851939f9" title=" " alt="" coords="216,55,309,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,51,201,57,200,62,159,56"/>
+</map>

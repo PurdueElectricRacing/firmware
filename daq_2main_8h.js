@@ -32,6 +32,7 @@ var daq_2main_8h =
     [ "SD_ERROR_LED_PIN", "daq_2main_8h.html#a4518726712a302403369500c165e93c8", null ],
     [ "SD_ERROR_LED_PORT", "daq_2main_8h.html#ac1ab875fbd97fb071782e78cd0d4f237", null ],
     [ "HardFault_Handler", "daq_2main_8h.html#a2af56a8bf3197b2f06cac4c0b84ffc3e", null ],
+    [ "last_can_rx_time_ms", "daq_2main_8h.html#a6d7ff913bb95222bc96d632a6e8d8ea4", null ],
     [ "SD_BLOCKING_TIMEOUT_TICKS", "daq_2main_8h.html#a005f8af8cd6c38ffbc9ef2e854acacd6", null ],
     [ "sd_task_handle", "daq_2main_8h.html#ad54952590a1a2fba895bd31fb775ee09", null ],
     [ "spi1_lock", "daq_2main_8h.html#ae22098d7a44a0de1e81110ffc31e5377", null ]

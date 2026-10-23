@@ -207,6 +207,7 @@ var hierarchy =
     [ "PHAL_ADC_ChannelConfig_t", "structPHAL__ADC__ChannelConfig__t.html", null ],
     [ "PHAL_ADC_Config_t", "structPHAL__ADC__Config__t.html", null ],
     [ "PHAL_ADC_Handle_t", "structPHAL__ADC__Handle__t.html", null ],
+    [ "PHAL_CAN_bit_timing_t", "structPHAL__CAN__bit__timing__t.html", null ],
     [ "PHAL_DMA_Callback_t", "structPHAL__DMA__Callback__t.html", null ],
     [ "PHAL_DMA_Handle_t", "structPHAL__DMA__Handle__t.html", null ],
     [ "PHAL_DMA_Params_t", "structPHAL__DMA__Params__t.html", null ],

@@ -10,7 +10,7 @@
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="785,38,723,46,661,58,610,75,591,85,578,96,571,116,574,138,585,161,598,181,593,184,580,164,569,140,565,115,574,92,588,80,608,70,660,53,722,41,784,32"/>
 <area shape="rect" id="Node000006" href="$node__defs_8h.html" title=" " alt="" coords="588,94,765,135"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="818,55,723,96,721,91,816,50"/>
-<area shape="rect" id="Node000007" href="$can__callback_8c.html" title="CAN callback implementation." alt="" coords="789,94,963,135"/>
+<area shape="rect" id="Node000007" href="$cannector_2can__callback_8c.html" title="CAN callback implementation." alt="" coords="789,94,963,135"/>
 <area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="879,62,879,94,874,94,874,62"/>
 <area shape="rect" id="Node000008" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="988,94,1162,135"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="936,50,1031,91,1029,96,934,55"/>

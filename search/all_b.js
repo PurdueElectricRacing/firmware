@@ -36,7 +36,7 @@ var searchData=
   ['best_5flap_5ftime_5fms_33',['best_lap_time_ms',['../structlap__timer__context__t.html#a229c2ba64fd6c9aaff63598a6252fb25',1,'lap_timer_context_t']]],
   ['best_5ftime_34',['BEST_TIME',['../race_8h.html#ac7248777f839135a76605fc4dca4767d',1,'race.h']]],
   ['binding_5fto_5felement_5findex_35',['binding_to_element_index',['../vcu_8c.html#aee9c1d376f08e7b4159c70ada5b8c4ab',1,'vcu.c']]],
-  ['bit_5frate_36',['bit_rate',['../structIZZE__IMU__config__data__t.html#a907519cf552e8b4c7198a3fe4eb2353e',1,'IZZE_IMU_config_data_t']]],
+  ['bit_5frate_36',['bit_rate',['../structPHAL__CAN__bit__timing__t.html#a6993e24c03540dfdb2ec9b9b9b5b4299',1,'PHAL_CAN_bit_timing_t::bit_rate'],['../structIZZE__IMU__config__data__t.html#a907519cf552e8b4c7198a3fe4eb2353e',1,'IZZE_IMU_config_data_t::bit_rate']]],
   ['bl_5fa_5fbox_2eh_37',['BL_A_BOX.h',['../BL__A__BOX_8h.html',1,'']]],
   ['bl_5fa_5fbox_5fcrc_38',['bl_a_box_crc',['../structcan__data__t.html#ad0bbc7e9946475c19f99bff39846a5b7',1,'can_data_t']]],
   ['bl_5fa_5fbox_5fcrc_5fdata_5ft_39',['bl_a_box_crc_data_t',['../structbl__a__box__crc__data__t.html',1,'']]],

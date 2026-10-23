@@ -40,7 +40,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="can__callback_8c.html" target="_top" xlink:title="CAN callback implementation.">
+<g id="a_Node000003"><a xlink:href="cannector_2can__callback_8c.html" target="_top" xlink:title="CAN callback implementation.">
 <polygon fill="white" stroke="#666666" points="279.75,-30.5 149,-30.5 149,0 279.75,0 279.75,-30.5"/>
 <text text-anchor="start" x="157" y="-17" font-family="Helvetica,sans-Serif" font-size="10.00">firmware/source/cannector</text>
 <text text-anchor="middle" x="214.38" y="-5.75" font-family="Helvetica,sans-Serif" font-size="10.00">/can_callback.c</text>

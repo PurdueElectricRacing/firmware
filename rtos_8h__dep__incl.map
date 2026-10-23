@@ -38,13 +38,13 @@
 <area shape="poly" id="edge54_Node000001_Node000068" title=" " alt="" coords="4070,55,4107,92,4104,95,4066,59"/>
 <area shape="rect" id="Node000069" href="$activity__leds_8h.html" title=" " alt="" coords="3675,94,3850,135"/>
 <area shape="poly" id="edge56_Node000001_Node000069" title=" " alt="" coords="3961,54,3826,96,3824,91,3959,49"/>
-<area shape="rect" id="Node000071" href="$can__callback_8c.html" title="CAN callback implementation." alt="" coords="3539,190,3714,231"/>
+<area shape="rect" id="Node000071" href="$cannector_2can__callback_8c.html" title="CAN callback implementation." alt="" coords="3539,190,3714,231"/>
 <area shape="poly" id="edge60_Node000001_Node000071" title=" " alt="" coords="3947,31,3771,36,3564,48,3468,56,3385,67,3324,80,3304,88,3293,96,3286,105,3284,114,3292,133,3320,143,3382,158,3539,190,3538,195,3381,163,3318,148,3289,137,3279,114,3281,103,3289,92,3302,83,3323,75,3384,62,3467,51,3564,42,3770,31,3947,26"/>
 <area shape="rect" id="Node000072" href="$usb__device_8c.html" title="Periodic CAN&#45;to&#45;USB forwarding; enumeration lives in usb/usb_control.c." alt="" coords="3787,190,3962,231"/>
 <area shape="poly" id="edge66_Node000001_Node000072" title=" " alt="" coords="4128,45,4171,61,4206,81,4218,93,4224,106,4224,121,4215,136,4199,150,4175,163,4111,182,4036,196,3963,205,3962,199,4035,190,4109,177,4173,158,4196,146,4211,133,4219,119,4219,107,4214,96,4203,85,4169,65,4126,50"/>
 <area shape="rect" id="Node000073" href="$cannector_2main_8h.html" title="&quot;CANnector&quot; node source code" alt="" coords="3302,94,3476,135"/>
 <area shape="poly" id="edge62_Node000001_Node000073" title=" " alt="" coords="3947,39,3738,63,3490,97,3477,99,3477,93,3489,91,3737,57,3946,34"/>
-<area shape="rect" id="Node000055" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="4481,190,4620,231"/>
+<area shape="rect" id="Node000055" href="$daq_2can__callback_2can__callback_8c.html" title="Timestamped frame producer from the CAN RX callback." alt="" coords="4455,190,4646,231"/>
 <area shape="poly" id="edge67_Node000001_Node000055" title=" " alt="" coords="4128,28,4192,35,4265,46,4339,65,4410,92,4436,108,4469,133,4531,188,4528,192,4466,137,4433,112,4408,96,4337,70,4263,52,4192,40,4128,33"/>
 <area shape="rect" id="Node000074" href="$ethernet_8c.html" title="Implementation of the ethernet thread for wireless data acquisition." alt="" coords="4479,94,4617,135"/>
 <area shape="poly" id="edge68_Node000001_Node000074" title=" " alt="" coords="4128,37,4284,61,4460,91,4479,95,4478,100,4459,97,4283,66,4128,43"/>
@@ -135,8 +135,8 @@
 <area shape="poly" id="edge63_Node000073_Node000071" title=" " alt="" coords="3454,138,3578,187,3576,192,3452,143"/>
 <area shape="poly" id="edge65_Node000073_Node000072" title=" " alt="" coords="3492,133,3788,190,3787,195,3491,138"/>
 <area shape="poly" id="edge71_Node000075_Node000041" title=" " alt="" coords="5071,150,5035,198,5010,222,4983,241,4945,256,4894,268,4767,287,4631,299,4516,305,4516,300,4631,294,4766,282,4893,263,4943,251,4980,236,5007,217,5031,194,5066,146"/>
-<area shape="poly" id="edge74_Node000076_Node000041" title=" " alt="" coords="4699,150,4673,196,4655,220,4634,240,4606,259,4577,274,4517,294,4515,289,4575,269,4604,254,4630,236,4651,216,4668,193,4695,147"/>
+<area shape="poly" id="edge74_Node000076_Node000041" title=" " alt="" coords="4707,151,4691,197,4678,220,4660,240,4628,264,4591,281,4553,293,4517,301,4516,296,4551,288,4589,276,4625,259,4657,236,4673,217,4686,195,4702,149"/>
 <area shape="poly" id="edge73_Node000076_Node000055" title=" " alt="" coords="4665,145,4585,192,4583,187,4663,141"/>
-<area shape="poly" id="edge77_Node000078_Node000041" title=" " alt="" coords="4836,146,4763,194,4674,241,4594,271,4517,292,4516,287,4592,266,4672,236,4760,189,4833,142"/>
+<area shape="poly" id="edge77_Node000078_Node000041" title=" " alt="" coords="4840,147,4776,195,4736,219,4696,241,4604,274,4517,296,4516,291,4602,269,4694,236,4734,215,4773,190,4837,142"/>
 <area shape="poly" id="edge78_Node000078_Node000077" title=" " alt="" coords="4885,149,4897,189,4892,191,4880,150"/>
 </map>

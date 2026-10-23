@@ -824,7 +824,7 @@ $(function(){initNavTree('PDU_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span> </div>
 <div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
 <div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span><span class="comment">// Filter configuration</span></div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span><span class="comment">// FDCAN filter setup for FDCAN1</span></div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span><span class="comment">// CAN filter setup for FDCAN1</span></div>
 <div class="foldopen" id="foldopen00689" data-start="{" data-end="}">
 <div class="line"><a id="l00689" name="l00689"></a><span class="lineno"><a class="line" href="PDU_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0">  689</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="PDU_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0">FDCAN1_set_filters</a>() {</div>
 <div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>    <span class="keyword">static</span> <span class="keyword">const</span> uint32_t sid_list[] = {</div>
@@ -851,8 +851,7 @@ $(function(){initNavTree('PDU_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>}</div>
 </div>
 <div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span> </div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span><span class="preprocessor">#endif </span><span class="comment">// PDU_H</span></div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><span class="preprocessor">#endif </span><span class="comment">// PDU_H</span></div>
 <div class="ttc" id="aA__BOX_8h_html_aaa440edd6f1fdf170326396b4127d865"><div class="ttname"><a href="A__BOX_8h.html#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a></div><div class="ttdeci">FDCAN_GlobalTypeDef CAN_bus_t</div><div class="ttdef"><b>Definition</b> A_BOX.h:29</div></div>
 <div class="ttc" id="aPDU_8h_html_a0d8de7fb0e371c5117510d536a328cef"><div class="ttname"><a href="PDU_8h.html#a0d8de7fb0e371c5117510d536a328cef">UNPACK_COEFF_MOTOR_TEMPS_REAR_LEFT</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_MOTOR_TEMPS_REAR_LEFT</div><div class="ttdef"><b>Definition</b> PDU.h:40</div></div>
 <div class="ttc" id="aPDU_8h_html_a0fa0081a378f22e5363f0a5e3fb47d78"><div class="ttname"><a href="PDU_8h.html#a0fa0081a378f22e5363f0a5e3fb47d78">UNPACK_COEFF_IGBT_TEMPS_REAR_LEFT</a></div><div class="ttdeci">static constexpr float UNPACK_COEFF_IGBT_TEMPS_REAR_LEFT</div><div class="ttdef"><b>Definition</b> PDU.h:35</div></div>
@@ -956,7 +955,7 @@ $(function(){initNavTree('PDU_8h_source.html',''); initResizable(true); });
 <div class="ttc" id="acan__types_8h_html_aaeae5c1fa29868d0578987e428ecfb63"><div class="ttname"><a href="can__types_8h.html#aaeae5c1fa29868d0578987e428ecfb63">fault_id_t</a></div><div class="ttdeci">fault_id_t</div><div class="ttdef"><b>Definition</b> can_types.h:22</div></div>
 <div class="ttc" id="acan__version_8h_html"><div class="ttname"><a href="can__version_8h.html">can_version.h</a></div></div>
 <div class="ttc" id="afdcan_8c_html_ac89d6a90c4f53644b4189ddb0e1fea18"><div class="ttname"><a href="fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18">PHAL_FDCAN_setFilters</a></div><div class="ttdeci">bool PHAL_FDCAN_setFilters(FDCAN_GlobalTypeDef *fdcan, const uint32_t *sid_list, uint32_t num_sid, const uint32_t *xid_list, uint32_t num_xid)</div><div class="ttdoc">Configure exact-match acceptance filters for RX FIFO0.</div><div class="ttdef"><b>Definition</b> fdcan.c:37</div></div>
-<div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdoc">Classic CAN frame.</div><div class="ttdef"><b>Definition</b> can.h:49</div></div>
+<div class="ttc" id="astructCanMsgTypeDef__t_html"><div class="ttname"><a href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a></div><div class="ttdoc">Classic CAN frame.</div><div class="ttdef"><b>Definition</b> can.h:47</div></div>
 <div class="ttc" id="astructCanMsgTypeDef__t_html_a0d52afc8b4b2d41691788a27de382b78"><div class="ttname"><a href="structCanMsgTypeDef__t.html#a0d52afc8b4b2d41691788a27de382b78">CanMsgTypeDef_t::Data</a></div><div class="ttdeci">uint8_t Data[8]</div><div class="ttdef"><b>Definition</b> can.h:58</div></div>
 <div class="ttc" id="astructa__box__fault__event__data__t_html"><div class="ttname"><a href="structa__box__fault__event__data__t.html">a_box_fault_event_data_t</a></div><div class="ttdef"><b>Definition</b> VCAN.h:22</div></div>
 <div class="ttc" id="astructa__box__fault__event__data__t_html_a3571779500d51e1699563f52c3bd8ca7"><div class="ttname"><a href="structa__box__fault__event__data__t.html#a3571779500d51e1699563f52c3bd8ca7">a_box_fault_event_data_t::idx</a></div><div class="ttdeci">fault_id_t idx</div><div class="ttdef"><b>Definition</b> VCAN.h:25</div></div>

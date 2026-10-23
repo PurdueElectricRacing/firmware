@@ -1,7 +1,9 @@
 <map id="firmware/common/phal_F4/can/can.h" name="firmware/common/phal_F4/can/can.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="89,5,242,46"/>
-<area shape="rect" id="Node000002" href="$can_8c.html" title=" " alt="" coords="5,94,158,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,59,102,95,99,92,134,56"/>
-<area shape="rect" id="Node000003" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="182,94,320,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,55,233,92,230,95,193,59"/>
+<area shape="rect" id="Node000001" title="F4 bxCAN public API." alt="" coords="201,5,354,46"/>
+<area shape="rect" id="Node000002" href="$can_8c.html" title="F4 bxCAN initialization, filters, and interrupt&#45;driven frame transport." alt="" coords="5,94,158,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,55,127,96,125,91,218,50"/>
+<area shape="rect" id="Node000003" href="$daq_2can__callback_2can__callback_8c.html" title="Timestamped frame producer from the CAN RX callback." alt="" coords="182,94,373,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="280,62,280,94,275,94,275,62"/>
+<area shape="rect" id="Node000004" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="398,94,536,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="335,50,425,91,423,96,333,55"/>
 </map>

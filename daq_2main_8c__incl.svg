@@ -160,7 +160,7 @@ var sectionId = 'dynsection-0';
 <!-- Node16 -->
 <g id="Node000016" class="node">
 <title>Node16</title>
-<g id="a_Node000016"><a xlink:href="can_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000016"><a xlink:href="can_8h.html" target="_top" xlink:title="F4 bxCAN public API.">
 <polygon fill="white" stroke="#666666" points="955.75,-218.75 846,-218.75 846,-188.25 955.75,-188.25 955.75,-218.75"/>
 <text text-anchor="start" x="854" y="-205.25" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_F4/can</text>
 <text text-anchor="middle" x="900.88" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">/can.h</text>

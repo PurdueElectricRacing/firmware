@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="F4 bxCAN initialization, filters, and interrupt&#45;driven frame transport.">
 <polygon fill="#999999" stroke="#666666" points="125.12,-207.5 10.87,-207.5 10.87,-177 125.12,-177 125.12,-207.5"/>
 <text text-anchor="start" x="18.88" y="-194" font-family="Helvetica,sans-Serif" font-size="10.00">firmware/common/phal</text>
 <text text-anchor="middle" x="68" y="-182.75" font-family="Helvetica,sans-Serif" font-size="10.00">_F4/can/can.c</text>
@@ -32,7 +32,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="can_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="can_8h.html" target="_top" xlink:title="F4 bxCAN public API.">
 <polygon fill="white" stroke="#666666" points="122.88,-141 13.12,-141 13.12,-110.5 122.88,-110.5 122.88,-141"/>
 <text text-anchor="start" x="21.12" y="-127.5" font-family="Helvetica,sans-Serif" font-size="10.00">common/phal_F4/can</text>
 <text text-anchor="middle" x="68" y="-116.25" font-family="Helvetica,sans-Serif" font-size="10.00">/can.h</text>

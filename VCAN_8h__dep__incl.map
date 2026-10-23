@@ -28,12 +28,12 @@
 <area shape="poly" id="edge44_Node000001_Node000040" title=" " alt="" coords="2227,26,2864,47,3229,66,3380,78,3495,91,3529,98,3528,103,3494,97,3379,83,3228,71,2864,52,2227,32"/>
 <area shape="rect" id="Node000042" href="$cannector_2main_8c.html" title="&quot;CANnector&quot; node source code" alt="" coords="3708,102,3883,142"/>
 <area shape="poly" id="edge46_Node000001_Node000042" title=" " alt="" coords="2228,26,2535,31,2960,44,3386,63,3563,76,3697,91,3731,98,3730,104,3697,97,3563,81,3386,68,2960,49,2535,37,2228,31"/>
-<area shape="rect" id="Node000043" href="$can__irq_8c.html" title="Timestamped frame producers from CAN RX IRQ." alt="" coords="3906,102,4045,142"/>
-<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2228,24,2570,27,3052,36,3304,45,3539,56,3742,72,3895,91,3923,98,3922,104,3894,97,3741,77,3539,62,3304,50,3052,42,2570,32,2228,30"/>
-<area shape="rect" id="Node000044" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="4069,102,4208,142"/>
-<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2227,24,2598,26,3128,34,3405,42,3665,54,3889,70,4057,91,4086,98,4085,104,4057,97,3888,76,3664,59,3405,47,3127,39,2598,31,2227,29"/>
-<area shape="rect" id="Node000045" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="4232,102,4370,142"/>
-<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2227,24,2625,24,3203,31,3506,39,3790,52,4035,69,4220,91,4249,98,4248,104,4219,97,4035,74,3790,57,3505,45,3202,37,2625,30,2227,29"/>
+<area shape="rect" id="Node000043" href="$daq_2can__callback_2can__callback_8c.html" title="Timestamped frame producer from the CAN RX callback." alt="" coords="3907,102,4098,142"/>
+<area shape="poly" id="edge47_Node000001_Node000043" title=" " alt="" coords="2227,25,2570,31,3052,42,3538,62,3741,75,3895,91,3932,98,3931,104,3894,97,3741,81,3538,67,3051,48,2569,36,2227,31"/>
+<area shape="rect" id="Node000044" href="$daq_2main_8c.html" title="&quot;DAQ&quot; node source code" alt="" coords="4122,102,4261,142"/>
+<area shape="poly" id="edge48_Node000001_Node000044" title=" " alt="" coords="2227,24,2607,25,3152,33,3438,41,3706,53,3937,70,4111,91,4139,98,4138,104,4110,97,3936,75,3706,59,3438,47,3152,38,2607,30,2227,29"/>
+<area shape="rect" id="Node000045" href="$rtc__sync_8c.html" title="Synchronization of the RTC peripheral with the GPS UTC time." alt="" coords="4285,102,4424,142"/>
+<area shape="poly" id="edge49_Node000001_Node000045" title=" " alt="" coords="2227,24,2635,24,3228,30,3539,39,3832,51,4084,68,4273,91,4302,98,4301,103,4273,97,4083,73,3831,56,3539,44,3228,36,2635,29,2227,29"/>
 <area shape="rect" id="Node000003" href="$charging__fsm_8c.html" title="Charger control state machine implementation." alt="" coords="359,301,555,342"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="443,144,611,196,620,211,622,225,619,240,611,255,583,284,547,303,544,298,579,280,607,252,614,238,617,225,615,213,607,200,442,149"/>
 <area shape="rect" id="Node000004" href="$charging__fsm_8h.html" title="Charger control state machine implementation." alt="" coords="50,205,245,246"/>

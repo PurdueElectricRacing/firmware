@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="can__callback_8c.html#a8b126471775c8ec5765594c0c9bbbdff" target="_top" xlink:title="Weak callback fired once per received frame.">
+<g id="a_Node000002"><a xlink:href="cannector_2can__callback_8c.html#a8b126471775c8ec5765594c0c9bbbdff" target="_top" xlink:title="Weak callback fired once per received frame.">
 <polygon fill="white" stroke="#666666" points="205.25,-56.25 73,-56.25 73,-37 205.25,-37 205.25,-56.25"/>
 <text text-anchor="middle" x="139.12" y="-42.75" font-family="Helvetica,sans-Serif" font-size="10.00">PHAL_FDCAN_rxCallback</text>
 </a>

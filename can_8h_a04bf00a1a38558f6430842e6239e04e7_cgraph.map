@@ -1,0 +1,9 @@
+<map id="PHAL_CAN_init" name="PHAL_CAN_init">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,122,80"/>
+<area shape="rect" id="Node000002" href="$can_8c.html#acae4ecda758065ea655c06f9f493f315" title=" " alt="" coords="170,5,281,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,51,166,33,167,39,109,57"/>
+<area shape="rect" id="Node000003" href="$can_8c.html#a831a0bf6a293d9697b6ed975ad87e850" title=" " alt="" coords="174,55,276,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,65,159,65,159,70,122,70"/>
+<area shape="rect" id="Node000004" href="$can_8c.html#aa877b8e7dc2458f103b534a8851939f9" title=" " alt="" coords="179,104,272,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="109,78,167,96,166,102,108,84"/>
+</map>

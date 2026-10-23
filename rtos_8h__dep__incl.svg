@@ -430,7 +430,7 @@ var sectionId = 'dynsection-1';
 <!-- Node71 -->
 <g id="Node000071" class="node">
 <title>Node71</title>
-<g id="a_Node000071"><a xlink:href="can__callback_8c.html" target="_top" xlink:title="CAN callback implementation.">
+<g id="a_Node000071"><a xlink:href="cannector_2can__callback_8c.html" target="_top" xlink:title="CAN callback implementation.">
 <polygon fill="white" stroke="#666666" points="2781.35,-180.38 2650.6,-180.38 2650.6,-149.88 2781.35,-149.88 2781.35,-180.38"/>
 <text text-anchor="start" x="2658.6" y="-166.88" font-family="Helvetica,sans-Serif" font-size="10.00">firmware/source/cannector</text>
 <text text-anchor="middle" x="2715.97" y="-155.62" font-family="Helvetica,sans-Serif" font-size="10.00">/can_callback.c</text>
@@ -487,10 +487,10 @@ var sectionId = 'dynsection-1';
 <!-- Node55 -->
 <g id="Node000055" class="node">
 <title>Node55</title>
-<g id="a_Node000055"><a xlink:href="can__irq_8c.html" target="_top" xlink:title="Timestamped frame producers from CAN RX IRQ.">
-<polygon fill="white" stroke="#666666" points="3460.85,-180.38 3357.1,-180.38 3357.1,-149.88 3460.85,-149.88 3460.85,-180.38"/>
-<text text-anchor="start" x="3365.1" y="-166.88" font-family="Helvetica,sans-Serif" font-size="10.00">firmware/source/daq</text>
-<text text-anchor="middle" x="3408.97" y="-155.62" font-family="Helvetica,sans-Serif" font-size="10.00">/can_irq/can_irq.c</text>
+<g id="a_Node000055"><a xlink:href="daq_2can__callback_2can__callback_8c.html" target="_top" xlink:title="Timestamped frame producer from the CAN RX callback.">
+<polygon fill="white" stroke="#666666" points="3480.72,-180.38 3337.22,-180.38 3337.22,-149.88 3480.72,-149.88 3480.72,-180.38"/>
+<text text-anchor="start" x="3345.22" y="-166.88" font-family="Helvetica,sans-Serif" font-size="10.00">firmware/source/daq</text>
+<text text-anchor="middle" x="3408.97" y="-155.62" font-family="Helvetica,sans-Serif" font-size="10.00">/can_callback/can_callback.c</text>
 </a>
 </g>
 </g>
@@ -1335,8 +1335,8 @@ var sectionId = 'dynsection-1';
 <g id="edge74_Node000076_Node000041" class="edge">
 <title>Node76&#45;&gt;Node41</title>
 <g id="a_edge74_Node000076_Node000041"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M3518.62,-211.49C3508.84,-190.88 3492.35,-162.11 3469.97,-144.25 3444.91,-124.24 3411.18,-111.79 3383.22,-104.29"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="3515.3,-212.65 3522.61,-220.32 3521.68,-209.77 3515.3,-212.65"/>
+<path fill="none" stroke="#63b8ff" d="M3524.23,-210.5C3519.14,-189.88 3509.07,-161.62 3489.97,-144.25 3460.63,-117.57 3417.16,-105.05 3383.08,-99.18"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="3520.79,-211.13 3526.36,-220.14 3527.62,-209.62 3520.79,-211.13"/>
 </a>
 </g>
 </g>
@@ -1353,8 +1353,8 @@ var sectionId = 'dynsection-1';
 <g id="edge77_Node000078_Node000041" class="edge">
 <title>Node78&#45;&gt;Node41</title>
 <g id="a_edge77_Node000078_Node000041"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M3621.81,-215.15C3592.48,-194.72 3545.36,-164.01 3500.97,-144.25 3462.88,-127.29 3417.48,-114.21 3383.19,-105.65"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="3619.62,-217.89 3629.81,-220.78 3623.65,-212.16 3619.62,-217.89"/>
+<path fill="none" stroke="#63b8ff" d="M3625.15,-214.56C3599.29,-193.82 3557.59,-163.01 3516.97,-144.25 3473.85,-124.33 3421.34,-111.05 3383.12,-103.17"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="3622.79,-217.15 3632.76,-220.74 3627.21,-211.72 3622.79,-217.15"/>
 </a>
 </g>
 </g>

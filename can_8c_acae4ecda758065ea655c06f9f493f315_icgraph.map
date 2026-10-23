@@ -1,0 +1,9 @@
+<map id="configure_filters" name="configure_filters">
+<area shape="rect" id="Node000001" title=" " alt="" coords="304,31,415,56"/>
+<area shape="rect" id="Node000002" href="$can_8c.html#a04bf00a1a38558f6430842e6239e04e7" title=" " alt="" coords="121,5,238,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="288,36,238,29,238,24,289,31"/>
+<area shape="rect" id="Node000004" href="$can_8c.html#a37f8110cea0897a52ed34ceb42554abe" title=" " alt="" coords="103,55,256,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,56,257,60,256,55,288,50"/>
+<area shape="rect" id="Node000003" href="$daq_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,21,55,21,55,16,106,16"/>
+</map>

@@ -13,16 +13,16 @@
 // Status LEDs
 #define HEARTBEAT_LED_PORT  (GPIOC)
 #define HEARTBEAT_LED_PIN   (7)
-#define ERROR_LED_PORT      (GPIOC)
-#define ERROR_LED_PIN       (9)
 #define CONNECTION_LED_PORT (GPIOC)
 #define CONNECTION_LED_PIN  (8)
+#define ERROR_LED_PORT      (GPIOC)
+#define ERROR_LED_PIN       (9)
 
 // TSAL
 #define TSAL_RED_CTRL_PORT   (GPIOC)
-#define TSAL_RED_CTRL_PIN    (15)
+#define TSAL_RED_CTRL_PIN    (3)
 #define TSAL_GREEN_CTRL_PORT (GPIOA)
-#define TSAL_GREEN_CTRL_PIN  (3)
+#define TSAL_GREEN_CTRL_PIN  (0)
 #define TSAL_RTM_ENABLE_PORT (GPIOB)
 #define TSAL_RTM_ENABLE_PIN  (0)
 #define TSAL_FAULT_PORT      (GPIOB)
@@ -34,9 +34,11 @@
 #define BUZZER_PORT      (GPIOB)
 #define BUZZER_PIN       (1)
 
-// SDC
+// MAIN SDC Control
 #define ECU_SDC_CTRL_PORT (GPIOA)
 #define ECU_SDC_CTRL_PIN  (5)
+
+// SDC MUX (read + control)
 #define SDC_MUX_PORT      (GPIOB)
 #define SDC_MUX_PIN       (9)
 #define SDC_MUX_S3_PORT   (GPIOB)

@@ -1,8 +1,5 @@
 var NAVTREEINDEX21 =
 {
-"sensors_8h.html#a3da0b33ad58b4a9b357b9ae12a3707b6":[33,0,1,2,10,1,2,2],
-"sensors_8h.html#a4e2ff3413851866d1385d942698f59e9":[33,0,1,2,10,1,2,3],
-"sensors_8h.html#a531c8f27ae12bb661be20c1a0937ab41":[33,0,1,2,10,1,2,6],
 "sensors_8h.html#a67a7ff4ca84db2e96d2a121d6c911ad3":[33,0,1,2,10,1,2,7],
 "sensors_8h.html#ab36a63ee2a00778a8acbdf1e7be4f210":[33,0,1,2,10,1,2,10],
 "sensors_8h.html#ade7f4235d894d4fdce42d7c946aef45a":[33,0,1,2,10,1,2,9],
@@ -249,5 +246,8 @@ var NAVTREEINDEX21 =
 "structINVA__ERR__2__data__t.html#a62c1a68040d2a7e578e20566511c9ca0":[32,0,116,2],
 "structINVA__ERR__2__data__t.html#ac442585f30d5214cbee637e44566379d":[32,0,116,3],
 "structINVA__ERR__2__data__t.html#aea544914108bdbc5003e8253a8d8d386":[32,0,116,0],
-"structINVA__INFO__data__t.html":[32,0,117]
+"structINVA__INFO__data__t.html":[32,0,117],
+"structINVA__INFO__data__t.html#a12867377e1b6f4171395140b7263c442":[32,0,117,6],
+"structINVA__INFO__data__t.html#a1986f9f32dbe2e07440c0e1330fb573b":[32,0,117,0],
+"structINVA__INFO__data__t.html#a38e642a6484411ff2af721d75649d8b7":[32,0,117,2]
 };

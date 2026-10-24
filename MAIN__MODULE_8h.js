@@ -9,7 +9,7 @@ var MAIN__MODULE_8h =
     [ "CAN_data_init", "MAIN__MODULE_8h.html#a7648a5b3e6b1d5a97d23a27cfdecde87", null ],
     [ "CAN_enqueue_tx_FDCAN1", "MAIN__MODULE_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01", null ],
     [ "CAN_enqueue_tx_FDCAN2", "MAIN__MODULE_8h.html#a0da956162efe3e0016f181cee58961e6", null ],
-    [ "CAN_rx_dispatcher", "MAIN__MODULE_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b", null ],
+    [ "CAN_rx_dispatcher", "MAIN__MODULE_8h.html#aba60db2ca6b351f91082c06fc4d18cd5", null ],
     [ "CAN_SEND_igbt_temps", "MAIN__MODULE_8h.html#a8e3340e4a3ca2d481310df34f23cf7ca", null ],
     [ "CAN_SEND_inva_diagnostics", "MAIN__MODULE_8h.html#ac3f6086393669753392f5360307c2bf9", null ],
     [ "CAN_SEND_INVA_SET", "MAIN__MODULE_8h.html#a35df366293bacc008a0af0096b560335", null ],

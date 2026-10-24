@@ -1,8 +1,5 @@
 var NAVTREEINDEX18 =
 {
-"phal__G4_2adc_2adc_8c.html#a673448506d450deed0ef83eaf02abbf1":[33,0,1,1,9,0,0,4],
-"phal__G4_2adc_2adc_8c.html#a7357125fd70536c9c0c03a30377d93cc":[33,0,1,1,9,0,0,1],
-"phal__G4_2adc_2adc_8c.html#a88783c4b103049de64fc356c016ccae2":[33,0,1,1,9,0,0,3],
 "phal__G4_2adc_2adc_8c.html#a9225d89f89aa3f074fe94e2b7061e864":[33,0,1,1,9,0,0,6],
 "phal__G4_2adc_2adc_8c.html#ab1d3e1e78099bd0f30e345ce46dd626a":[33,0,1,1,9,0,0,2],
 "phal__G4_2adc_2adc_8c.html#ab758a7dfb798e8808f5ae938b7637aa6":[33,0,1,1,9,0,0,5],
@@ -249,5 +246,8 @@ var NAVTREEINDEX18 =
 "pin__defs_8h.html#ad1f1b216b058db10be598edffc8e5fd1":[33,0,1,2,5,4,17],
 "pin__defs_8h.html#add9abdac0fd48542704e3ff740610bbc":[33,0,1,2,5,4,8],
 "pin__defs_8h.html#aed7730e25a3c469311b585879c0f3843":[33,0,1,2,5,4,7],
-"pin__defs_8h.html#afe3a8d8b3bd952362b630787a6855212":[33,0,1,2,5,4,11]
+"pin__defs_8h.html#afe3a8d8b3bd952362b630787a6855212":[33,0,1,2,5,4,11],
+"pin__defs_8h_source.html":[33,0,1,2,5,4],
+"power__rails_8drawio_8png.html":[33,0,1,2,9,4],
+"powertrain_8c.html":[33,0,1,2,8,0,0]
 };

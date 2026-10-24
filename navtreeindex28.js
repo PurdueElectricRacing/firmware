@@ -1,8 +1,5 @@
 var NAVTREEINDEX28 =
 {
-"structtorque__request__t.html#ae112ecb9eaa97db91fd3df4f338ee702":[32,0,263,3],
-"structtorque__vector__fault__event__data__t.html":[32,0,264],
-"structtorque__vector__fault__event__data__t.html#a0cebc4d43114a67130303f95f433ce28":[32,0,264,3],
 "structtorque__vector__fault__event__data__t.html#a45e1d52f5cfe128debe1b884e7eac4d0":[32,0,264,1],
 "structtorque__vector__fault__event__data__t.html#a962109b3bc33b946eb95766885e55a72":[32,0,264,2],
 "structtorque__vector__fault__event__data__t.html#abe4a832267ec8da9c3532ff8d213c9e0":[32,0,264,0],
@@ -249,5 +246,8 @@ var NAVTREEINDEX28 =
 "thermistor_8h.html#a8302cb9eebdd6ddbaca93f268a5cd7f8":[33,0,1,2,0,4,1,1],
 "thermistor_8h_source.html":[33,0,1,2,0,4,1],
 "timestamped__frame_8h.html":[33,0,1,1,14,0],
-"timestamped__frame_8h.html#a270cffe83263dd5f38b0bde6f9f83810":[33,0,1,1,14,0,3]
+"timestamped__frame_8h.html#a270cffe83263dd5f38b0bde6f9f83810":[33,0,1,1,14,0,3],
+"timestamped__frame_8h.html#aa49122d19022c27ac7ff1de84eb7bc61":[33,0,1,1,14,0,2],
+"timestamped__frame_8h.html#ac28171e9120619fc3fac4b2ce4052f6b":[33,0,1,1,14,0,1],
+"timestamped__frame_8h_source.html":[33,0,1,1,14,0]
 };

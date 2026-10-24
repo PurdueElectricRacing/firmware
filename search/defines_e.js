@@ -21,14 +21,11 @@ var searchData=
   ['phal_5fgpio_5finit_5finput_18',['PHAL_GPIO_INIT_INPUT',['../phal__G4_2gpio_2gpio_8h.html#a4b35649755b2dce497be19d60bbedeb7',1,'gpio.h']]],
   ['phal_5fgpio_5finit_5foutput_19',['PHAL_GPIO_INIT_OUTPUT',['../phal__G4_2gpio_2gpio_8h.html#a02e0fb7a1010d9c86e92c74a3e04881e',1,'gpio.h']]],
   ['phal_5fgpio_5finit_5foutput_5fopen_5fdrain_20',['PHAL_GPIO_INIT_OUTPUT_OPEN_DRAIN',['../phal__G4_2gpio_2gpio_8h.html#aa0cc0a5090b4e7e00b35538a73b57377',1,'gpio.h']]],
-  ['phal_5fsend_21',['PHAL_SEND',['../can__tx_8c.html#a5110a707f707da530740ef25c8058e68',1,'can_tx.c']]],
-  ['phal_5ftx_5fcallback_22',['PHAL_TX_CALLBACK',['../can__tx_8c.html#a31e989e8ec6169b0e3016c552cd65ef7',1,'can_tx.c']]],
-  ['phal_5ftx_5ffifo_5ffree_23',['PHAL_TX_FIFO_FREE',['../can__tx_8c.html#a5977f3f18e24743de84478d4d9eb91e5',1,'can_tx.c']]],
-  ['portconfigure_5ftimer_5ffor_5frun_5ftime_5fstats_24',['portCONFIGURE_TIMER_FOR_RUN_TIME_STATS',['../FreeRTOSConfig_8h.html#a727939bcdb98501e0eba0ec8a1841e1b',1,'FreeRTOSConfig.h']]],
-  ['portget_5frun_5ftime_5fcounter_5fvalue_25',['portGET_RUN_TIME_COUNTER_VALUE',['../FreeRTOSConfig_8h.html#aa7cb8c79fb40bf2d4caccf5ba9ae6737',1,'FreeRTOSConfig.h']]],
-  ['prchg_5fled_5fpin_26',['PRCHG_LED_PIN',['../dashboard_2main_8h.html#a2c6705d9461ab7987893d3dcfba01694',1,'main.h']]],
-  ['prchg_5fled_5fport_27',['PRCHG_LED_PORT',['../dashboard_2main_8h.html#a3d15ec5334f28944be69d9bae5a44b49',1,'main.h']]],
-  ['pump_5fcheck_28',['PUMP_CHECK',['../race_8h.html#a7c7550b4b1595f88da28c89b20dd2a99',1,'race.h']]],
-  ['pwr_5floss_5fpin_29',['PWR_LOSS_PIN',['../daq_2main_8h.html#ad89a8013f44c1cf0236952774b464675',1,'main.h']]],
-  ['pwr_5floss_5fport_30',['PWR_LOSS_PORT',['../daq_2main_8h.html#a082fcbe31a8af390ca037a5d70eac72b',1,'main.h']]]
+  ['portconfigure_5ftimer_5ffor_5frun_5ftime_5fstats_21',['portCONFIGURE_TIMER_FOR_RUN_TIME_STATS',['../FreeRTOSConfig_8h.html#a727939bcdb98501e0eba0ec8a1841e1b',1,'FreeRTOSConfig.h']]],
+  ['portget_5frun_5ftime_5fcounter_5fvalue_22',['portGET_RUN_TIME_COUNTER_VALUE',['../FreeRTOSConfig_8h.html#aa7cb8c79fb40bf2d4caccf5ba9ae6737',1,'FreeRTOSConfig.h']]],
+  ['prchg_5fled_5fpin_23',['PRCHG_LED_PIN',['../dashboard_2main_8h.html#a2c6705d9461ab7987893d3dcfba01694',1,'main.h']]],
+  ['prchg_5fled_5fport_24',['PRCHG_LED_PORT',['../dashboard_2main_8h.html#a3d15ec5334f28944be69d9bae5a44b49',1,'main.h']]],
+  ['pump_5fcheck_25',['PUMP_CHECK',['../race_8h.html#a7c7550b4b1595f88da28c89b20dd2a99',1,'race.h']]],
+  ['pwr_5floss_5fpin_26',['PWR_LOSS_PIN',['../daq_2main_8h.html#ad89a8013f44c1cf0236952774b464675',1,'main.h']]],
+  ['pwr_5floss_5fport_27',['PWR_LOSS_PORT',['../daq_2main_8h.html#a082fcbe31a8af390ca037a5d70eac72b',1,'main.h']]]
 ];

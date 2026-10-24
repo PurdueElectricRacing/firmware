@@ -1,0 +1,48 @@
+<map id="CAN_init" name="CAN_init">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,373,79,399"/>
+<area shape="rect" id="Node000002" href="$A__BOX_8h.html#a7648a5b3e6b1d5a97d23a27cfdecde87" title=" " alt="" coords="137,177,242,203"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,371,168,214,172,217,55,374"/>
+<area shape="rect" id="Node000009" href="$can__rx_8c.html#a41290208a3af5ab8710a8eacc7bd76c8" title=" " alt="" coords="145,324,235,350"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="78,371,134,353,135,358,80,376"/>
+<area shape="rect" id="Node000010" href="$can__init_8c.html#a36ad6677349a91f6af9d0cff15d025b0" title=" " alt="" coords="127,373,253,399"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="79,384,111,384,111,389,79,389"/>
+<area shape="rect" id="Node000021" href="$can__init_8c.html#a3b585e92c28e68093702e7d507555fad" title=" " alt="" coords="127,423,252,448"/>
+<area shape="poly" id="edge23_Node000001_Node000021" title=" " alt="" coords="80,396,135,415,134,420,78,401"/>
+<area shape="rect" id="Node000022" href="$can__tx_8c.html#a4b594cd4b29fc669fcd91dbf783c47d8" title=" " alt="" coords="145,472,235,498"/>
+<area shape="poly" id="edge24_Node000001_Node000022" title=" " alt="" coords="57,397,88,428,128,459,136,463,133,467,125,463,84,432,53,401"/>
+<area shape="rect" id="Node000003" href="$A__BOX_8h.html#af7c88385babfc4b1a9980163b092f141" title=" " alt="" coords="301,5,463,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="195,176,233,112,263,74,299,41,308,36,311,40,303,46,267,78,237,115,200,178"/>
+<area shape="rect" id="Node000004" href="$A__BOX_8h.html#ab96c9ea78ab9ad6f8a0f7dd1daf363e4" title=" " alt="" coords="317,55,447,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="205,175,246,141,300,105,308,101,311,105,302,110,249,145,208,179"/>
+<area shape="rect" id="Node000005" href="$A__BOX_8h.html#a69c040c488af2e39f59324797e8909e9" title=" " alt="" coords="308,120,456,146"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="235,174,321,148,323,153,236,179"/>
+<area shape="rect" id="Node000006" href="$A__BOX_8h.html#a3829b4361128389982af69e734c16659" title=" " alt="" coords="308,170,456,210"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="243,188,293,188,293,193,243,193"/>
+<area shape="rect" id="Node000007" href="$A__BOX_8h.html#aff36dceea73ab4dc71f856487bb97237" title=" " alt="" coords="302,235,462,260"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="236,201,323,227,321,232,235,206"/>
+<area shape="rect" id="Node000008" href="$A__BOX_8h.html#a67d98ecf4d917c5aac5c64d991d5d59a" title=" " alt="" coords="308,284,457,325"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="208,202,249,235,302,271,311,275,308,280,300,275,246,239,205,206"/>
+<area shape="rect" id="Node000011" href="$A__BOX_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="314,349,450,375"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="253,376,298,370,299,375,254,381"/>
+<area shape="rect" id="Node000019" href="$A__BOX_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="314,399,450,424"/>
+<area shape="poly" id="edge19_Node000010_Node000019" title=" " alt="" coords="254,392,299,398,298,403,253,397"/>
+<area shape="rect" id="Node000020" href="$DASHBOARD_8h.html#a8af922bfefdecb656b664918f9196e74" title=" " alt="" coords="314,448,450,474"/>
+<area shape="poly" id="edge21_Node000010_Node000020" title=" " alt="" coords="229,397,254,408,302,434,317,440,315,445,300,439,252,413,227,402"/>
+<area shape="rect" id="Node000012" href="$fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18" title="Configure exact&#45;match acceptance filters for RX FIFO0." alt="" coords="511,399,682,424"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="442,373,523,392,522,397,441,378"/>
+<area shape="rect" id="Node000013" href="$fdcan__priv_8c.html#ab936d0060d65f2f18ed211714e7b0746" title="Enter INIT mode and unlock configuration registers. Blocks until entered." alt="" coords="738,292,947,318"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="613,396,663,361,729,326,747,320,749,325,731,331,666,366,616,400"/>
+<area shape="rect" id="Node000014" href="$fdcan__priv_8c.html#ab58932032e5748d11d6fbcd04c68a322" title="Leave INIT mode, ending configuration. Blocks until left." alt="" coords="742,341,942,367"/>
+<area shape="poly" id="edge13_Node000012_Node000014" title=" " alt="" coords="652,395,729,377,766,368,767,374,730,382,653,401"/>
+<area shape="rect" id="Node000015" href="$fdcan__priv_8c.html#ab9a8c466928d1d76b5af381a357b1a66" title="Set num_xid exact&#45;match extended filters and forward to RX FIFO0." alt="" coords="730,391,955,432"/>
+<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="682,409,714,409,714,414,682,414"/>
+<area shape="rect" id="Node000017" href="$fdcan__priv_8c.html#a32bfa5f854b4e4c1744275bfbe7fbbcd" title="Write a filter action to RXGFC (accept/reject all)" alt="" coords="742,456,943,497"/>
+<area shape="poly" id="edge16_Node000012_Node000017" title=" " alt="" coords="648,422,749,449,748,455,647,427"/>
+<area shape="rect" id="Node000018" href="$fdcan__priv_8c.html#a1ac2f38c649b9608c3bac49b598d7492" title="Set num_sid exact&#45;match standard filters and forward to RX FIFO0." alt="" coords="730,522,954,562"/>
+<area shape="poly" id="edge17_Node000012_Node000018" title=" " alt="" coords="614,423,664,464,696,486,731,506,746,513,744,518,728,511,693,491,660,468,610,427"/>
+<area shape="rect" id="Node000016" href="$fdcan__priv_8c.html#ac30a34edfbc6b2742bc45ea2a2931d71" title="Base address of this peripheral&#39;s slice of shared message RAM." alt="" coords="1003,464,1199,490"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="926,430,1033,457,1032,462,925,435"/>
+<area shape="poly" id="edge18_Node000018_Node000016" title=" " alt="" coords="925,519,1032,491,1033,497,926,524"/>
+<area shape="poly" id="edge20_Node000019_Node000012" title=" " alt="" coords="450,409,496,409,496,414,450,414"/>
+<area shape="poly" id="edge22_Node000020_Node000012" title=" " alt="" coords="441,445,522,426,523,431,442,450"/>
+</map>

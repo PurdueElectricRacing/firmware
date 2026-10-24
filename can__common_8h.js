@@ -8,7 +8,7 @@ var can__common_8h =
     [ "NVIC_TX_IRQ_PRIO", "can__common_8h.html#a6ffa339c97f16ac674f3d8bbe43ed9b4", null ],
     [ "START_CAN_TASKS", "can__common_8h.html#ac317291d89637f7774465ae715792e48", null ],
     [ "CAN_enable_IRQs", "can__common_8h.html#a07e18f33cac0ec4f9597c0b46cde9c17", null ],
-    [ "CAN_init", "can__common_8h.html#aecd3668d7c5e693e061db7650203b304", null ],
+    [ "CAN_init", "can__common_8h.html#ace7de72cc97ae2a35d63c3a4a4772a31", null ],
     [ "CAN_rx_init", "can__common_8h.html#a41290208a3af5ab8710a8eacc7bd76c8", null ],
     [ "CAN_rx_update", "can__common_8h.html#a17c3ccba85ec0a1100ae04581b8f5d09", null ],
     [ "CAN_tx_init", "can__common_8h.html#a4b594cd4b29fc669fcd91dbf783c47d8", null ],

@@ -1,8 +1,5 @@
 var NAVTREEINDEX10 =
 {
-"dearunits_8h.html#afec2a2001f95e64f49b11244d7c2298a":[33,0,1,1,3,0,0,94],
-"dearunits_8h_source.html":[33,0,1,1,3,0,0],
-"dearunits__priv_8h.html":[33,0,1,1,3,2],
 "dearunits__priv_8h.html#a0512bb6d8f39e89220aeee6c51868720":[33,0,1,1,3,2,0],
 "dearunits__priv_8h.html#a20855effed9c963dea26924ed2a7dbd0":[33,0,1,1,3,2,1],
 "dearunits__priv_8h.html#a2ea120531c0642c11c9800269e3400a1":[33,0,1,1,3,2,4],
@@ -249,5 +246,8 @@ var NAVTREEINDEX10 =
 "dma__wiring_8h.html#a139c0682e2a9488cd549bc9510ddfc44aeeb10f92df3fd11994bffaf91a12b90f":[33,0,1,1,9,2,4,2,0],
 "dma__wiring_8h.html#a139c0682e2a9488cd549bc9510ddfc44af11aef034cea37d97ce50515c10542c6":[33,0,1,1,9,2,4,2,1],
 "dma__wiring_8h.html#a139c0682e2a9488cd549bc9510ddfc44af4ba20dd95777f327e1f052e72c0a60f":[33,0,1,1,9,2,4,2,12],
-"dma__wiring_8h.html#a139c0682e2a9488cd549bc9510ddfc44af5201a7cdf466a564bd1e2d0b53ee652":[33,0,1,1,9,2,4,2,11]
+"dma__wiring_8h.html#a139c0682e2a9488cd549bc9510ddfc44af5201a7cdf466a564bd1e2d0b53ee652":[33,0,1,1,9,2,4,2,11],
+"dma__wiring_8h.html#a13b365bb92a4c627f592966a123aad95":[33,0,1,1,9,2,4,7],
+"dma__wiring_8h.html#a2f1e50116d323d46ccdd8ace56847c95":[33,0,1,1,9,2,4,14],
+"dma__wiring_8h.html#a4396459854ee794efaf904c7bb9e7604":[33,0,1,1,9,2,4,18]
 };

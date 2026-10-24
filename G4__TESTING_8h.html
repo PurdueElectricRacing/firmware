@@ -118,7 +118,7 @@ $(function(){initNavTree('G4__TESTING_8h.html',''); initResizable(true); });
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for G4_TESTING.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="G4__TESTING_8h__incl.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="G4__TESTING_8h__incl.svg" width="100%" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="G4__TESTING_8h_source.html">Go to the source code of this file.</a></p>
@@ -137,8 +137,8 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a0da956162efe3e0016f181cee58961e6" id="r_a0da956162efe3e0016f181cee58961e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0da956162efe3e0016f181cee58961e6">CAN_enqueue_tx_FDCAN2</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
 <tr class="separator:a0da956162efe3e0016f181cee58961e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3f5e1a8ff8333cbee9aa8d9409d19b" id="r_ade3f5e1a8ff8333cbee9aa8d9409d19b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade3f5e1a8ff8333cbee9aa8d9409d19b">CAN_rx_dispatcher</a> (uint32_t id, const uint8_t *data, uint8_t len, const <a class="el" href="A__BOX_8h.html#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a> *bus)</td></tr>
-<tr class="separator:ade3f5e1a8ff8333cbee9aa8d9409d19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba60db2ca6b351f91082c06fc4d18cd5" id="r_aba60db2ca6b351f91082c06fc4d18cd5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba60db2ca6b351f91082c06fc4d18cd5">CAN_rx_dispatcher</a> (uint32_t id, const uint8_t *data, uint8_t len, const FDCAN_GlobalTypeDef *bus)</td></tr>
+<tr class="separator:aba60db2ca6b351f91082c06fc4d18cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7648a5b3e6b1d5a97d23a27cfdecde87" id="r_a7648a5b3e6b1d5a97d23a27cfdecde87"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7648a5b3e6b1d5a97d23a27cfdecde87">CAN_data_init</a> ()</td></tr>
 <tr class="separator:a7648a5b3e6b1d5a97d23a27cfdecde87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dd169a014710a024d96f6504fa03fa8" id="r_a1dd169a014710a024d96f6504fa03fa8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1dd169a014710a024d96f6504fa03fa8">CAN_SEND_IZZE_IMU_config</a> (uint16_t value_programming_constant, uint16_t value_NEW_CAN_BASE_ID, <a class="el" href="can__types_8h.html#a0fa2eb21105888473f77c19fcc765f33">izze_gyro_scale_t</a> value_gyro_scale, <a class="el" href="can__types_8h.html#af24ee168f1f45392a7283176708bf46f">izze_accel_scale_t</a> value_accel_scale, <a class="el" href="can__types_8h.html#ad285c396350863ac8dcac9fe63d06c0d">izze_output_data_rate_t</a> value_output_data_rate, <a class="el" href="can__types_8h.html#ac53123818bf3c22481006fdf5ae0ceaf">izze_bit_rate_t</a> value_bit_rate)</td></tr>
@@ -232,8 +232,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ade3f5e1a8ff8333cbee9aa8d9409d19b" name="ade3f5e1a8ff8333cbee9aa8d9409d19b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade3f5e1a8ff8333cbee9aa8d9409d19b">&#9670;&#160;</a></span>CAN_rx_dispatcher()</h2>
+<a id="aba60db2ca6b351f91082c06fc4d18cd5" name="aba60db2ca6b351f91082c06fc4d18cd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba60db2ca6b351f91082c06fc4d18cd5">&#9670;&#160;</a></span>CAN_rx_dispatcher()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,7 +259,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="A__BOX_8h.html#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>&#160;)</td>
+          <td class="paramtype">const FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>&#160;)</td>
         </tr>
       </table>
   </td>

@@ -7,7 +7,7 @@ var TORQUE__VECTOR_8h =
     [ "bl_torque_vector_start_CALLBACK", "TORQUE__VECTOR_8h.html#a8320b1a093bb801b88d92d0cc0eb7b40", null ],
     [ "CAN_data_init", "TORQUE__VECTOR_8h.html#a7648a5b3e6b1d5a97d23a27cfdecde87", null ],
     [ "CAN_enqueue_tx_FDCAN2", "TORQUE__VECTOR_8h.html#a0da956162efe3e0016f181cee58961e6", null ],
-    [ "CAN_rx_dispatcher", "TORQUE__VECTOR_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b", null ],
+    [ "CAN_rx_dispatcher", "TORQUE__VECTOR_8h.html#aba60db2ca6b351f91082c06fc4d18cd5", null ],
     [ "CAN_SEND_gps_coordinates", "TORQUE__VECTOR_8h.html#a2c9e25bb67dce2c39e27baa8abece5a3", null ],
     [ "CAN_SEND_gps_speed_heading", "TORQUE__VECTOR_8h.html#abe37eb8c0322d854d5fd55adec36b922", null ],
     [ "CAN_SEND_gps_time", "TORQUE__VECTOR_8h.html#a4450e1f3f7253174d7e25c3cc0ce8f78", null ],

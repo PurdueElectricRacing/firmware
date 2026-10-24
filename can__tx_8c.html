@@ -98,7 +98,6 @@ $(function(){initNavTree('can__tx_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">can_tx.c File Reference</div></div>
@@ -112,20 +111,9 @@ $(function(){initNavTree('can__tx_8c.html',''); initResizable(true); });
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for can_tx.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="can__tx_8c__incl.svg" width="624" height="288"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="can__tx_8c__incl.svg" width="100%" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a19febbfa229a296c51870933d2422f01" id="r_a19febbfa229a296c51870933d2422f01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19febbfa229a296c51870933d2422f01">CAN_BUS_TYPE</a>&#160;&#160;&#160;FDCAN_GlobalTypeDef</td></tr>
-<tr class="separator:a19febbfa229a296c51870933d2422f01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31e989e8ec6169b0e3016c552cd65ef7" id="r_a31e989e8ec6169b0e3016c552cd65ef7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31e989e8ec6169b0e3016c552cd65ef7">PHAL_TX_CALLBACK</a>&#160;&#160;&#160;<a class="el" href="fdcan_8c.html#a6dc613665f4dce3d09b2b533423435d3">PHAL_FDCAN_txCallback</a></td></tr>
-<tr class="separator:a31e989e8ec6169b0e3016c552cd65ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5977f3f18e24743de84478d4d9eb91e5" id="r_a5977f3f18e24743de84478d4d9eb91e5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5977f3f18e24743de84478d4d9eb91e5">PHAL_TX_FIFO_FREE</a>&#160;&#160;&#160;<a class="el" href="fdcan_8c.html#a26df92531762951c8f1d6d84493cee1b">PHAL_FDCAN_txFifoFree</a></td></tr>
-<tr class="separator:a5977f3f18e24743de84478d4d9eb91e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5110a707f707da530740ef25c8058e68" id="r_a5110a707f707da530740ef25c8058e68"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5110a707f707da530740ef25c8058e68">PHAL_SEND</a>&#160;&#160;&#160;<a class="el" href="fdcan_8c.html#a60b2ed63ebdff4e98f2eca10a4961dda">PHAL_FDCAN_send</a></td></tr>
-<tr class="separator:a5110a707f707da530740ef25c8058e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4b594cd4b29fc669fcd91dbf783c47d8" id="r_a4b594cd4b29fc669fcd91dbf783c47d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b594cd4b29fc669fcd91dbf783c47d8">CAN_tx_init</a> (void)</td></tr>
@@ -134,10 +122,13 @@ Functions</h2></td></tr>
 <tr class="separator:afc6a5aca0aef343ddacbdd8822500228"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5664a7d48c464c991a40149f57036040" id="r_a5664a7d48c464c991a40149f57036040"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5664a7d48c464c991a40149f57036040">CAN_wake_tx_from_ISR</a> (void)</td></tr>
 <tr class="separator:a5664a7d48c464c991a40149f57036040"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2807e28a1e0280aa5b27c86241c78f9" id="r_ab2807e28a1e0280aa5b27c86241c78f9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2807e28a1e0280aa5b27c86241c78f9">CAN_drain_tx_bus</a> (const FDCAN_GlobalTypeDef *bus, QueueHandle_t tx_queue)</td></tr>
+<tr class="separator:ab2807e28a1e0280aa5b27c86241c78f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a32f054a0f3baae0270d9845d2897e6" id="r_a0a32f054a0f3baae0270d9845d2897e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a32f054a0f3baae0270d9845d2897e6">CAN_tx_update</a> (void)</td></tr>
 <tr class="separator:a0a32f054a0f3baae0270d9845d2897e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3db81b1d6a25e642805bff87a4c2b1c4" id="r_a3db81b1d6a25e642805bff87a4c2b1c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3db81b1d6a25e642805bff87a4c2b1c4">PHAL_TX_CALLBACK</a> (<a class="el" href="#a19febbfa229a296c51870933d2422f01">CAN_BUS_TYPE</a> *bus)</td></tr>
-<tr class="separator:a3db81b1d6a25e642805bff87a4c2b1c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22ef7ba70554ac2c5d125a84c9b82ca" id="r_aa22ef7ba70554ac2c5d125a84c9b82ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa22ef7ba70554ac2c5d125a84c9b82ca">PHAL_FDCAN_txCallback</a> (FDCAN_GlobalTypeDef *bus)</td></tr>
+<tr class="memdesc:aa22ef7ba70554ac2c5d125a84c9b82ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weak callback fired when a queued frame finishes transmitting.  <br /></td></tr>
+<tr class="separator:aa22ef7ba70554ac2c5d125a84c9b82ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -149,64 +140,46 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Common CAN TX queue, task, and callback handling. </p>
 <dl class="section author"><dt>Author</dt><dd>Irving Wang (<a href="#" onclick="location.href='mai'+'lto:'+'irv'+'in'+'gw@'+'pu'+'rdu'+'e.'+'edu'; return false;">irvin<span class="obfuscator">.nosp@m.</span>gw@p<span class="obfuscator">.nosp@m.</span>urdue<span class="obfuscator">.nosp@m.</span>.edu</a>) </dd></dl>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a19febbfa229a296c51870933d2422f01" name="a19febbfa229a296c51870933d2422f01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19febbfa229a296c51870933d2422f01">&#9670;&#160;</a></span>CAN_BUS_TYPE</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ab2807e28a1e0280aa5b27c86241c78f9" name="ab2807e28a1e0280aa5b27c86241c78f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2807e28a1e0280aa5b27c86241c78f9">&#9670;&#160;</a></span>CAN_drain_tx_bus()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">#define CAN_BUS_TYPE&#160;&#160;&#160;FDCAN_GlobalTypeDef</td>
+          <td class="memname">static void CAN_drain_tx_bus </td>
+          <td>(</td>
+          <td class="paramtype">const FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5110a707f707da530740ef25c8058e68" name="a5110a707f707da530740ef25c8058e68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5110a707f707da530740ef25c8058e68">&#9670;&#160;</a></span>PHAL_SEND</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">#define PHAL_SEND&#160;&#160;&#160;<a class="el" href="fdcan_8c.html#a60b2ed63ebdff4e98f2eca10a4961dda">PHAL_FDCAN_send</a></td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QueueHandle_t</td>          <td class="paramname"><span class="paramname"><em>tx_queue</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="can__tx_8c_ab2807e28a1e0280aa5b27c86241c78f9_cgraph.svg" width="100%" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__tx_8c_ab2807e28a1e0280aa5b27c86241c78f9_icgraph.svg" width="300" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
-<a id="a31e989e8ec6169b0e3016c552cd65ef7" name="a31e989e8ec6169b0e3016c552cd65ef7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31e989e8ec6169b0e3016c552cd65ef7">&#9670;&#160;</a></span>PHAL_TX_CALLBACK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PHAL_TX_CALLBACK&#160;&#160;&#160;<a class="el" href="fdcan_8c.html#a6dc613665f4dce3d09b2b533423435d3">PHAL_FDCAN_txCallback</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5977f3f18e24743de84478d4d9eb91e5" name="a5977f3f18e24743de84478d4d9eb91e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5977f3f18e24743de84478d4d9eb91e5">&#9670;&#160;</a></span>PHAL_TX_FIFO_FREE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define PHAL_TX_FIFO_FREE&#160;&#160;&#160;<a class="el" href="fdcan_8c.html#a26df92531762951c8f1d6d84493cee1b">PHAL_FDCAN_txFifoFree</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
 <a id="afc6a5aca0aef343ddacbdd8822500228" name="afc6a5aca0aef343ddacbdd8822500228"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc6a5aca0aef343ddacbdd8822500228">&#9670;&#160;</a></span>CAN_enqueue_tx_to_queue()</h2>
 
@@ -272,6 +245,11 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="can__tx_8c_a0a32f054a0f3baae0270d9845d2897e6_cgraph.svg" width="100%" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -300,29 +278,39 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="can__tx_8c_a5664a7d48c464c991a40149f57036040_icgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__tx_8c_a5664a7d48c464c991a40149f57036040_icgraph.svg" width="402" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a3db81b1d6a25e642805bff87a4c2b1c4" name="a3db81b1d6a25e642805bff87a4c2b1c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3db81b1d6a25e642805bff87a4c2b1c4">&#9670;&#160;</a></span>PHAL_TX_CALLBACK()</h2>
+<a id="aa22ef7ba70554ac2c5d125a84c9b82ca" name="aa22ef7ba70554ac2c5d125a84c9b82ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22ef7ba70554ac2c5d125a84c9b82ca">&#9670;&#160;</a></span>PHAL_FDCAN_txCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PHAL_TX_CALLBACK </td>
+          <td class="memname">void PHAL_FDCAN_txCallback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a19febbfa229a296c51870933d2422f01">CAN_BUS_TYPE</a> *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span></td><td>)</td>
+          <td class="paramtype">FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>fdcan</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Weak callback fired when a queued frame finishes transmitting. </p>
+<p>Called from FDCANx_IT1_IRQHandler (interrupt context).</p>
+<p>Default implementation does nothing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fdcan</td><td>the peripheral instance that completed a transmission </td></tr>
+  </table>
+  </dd>
+</dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="can__tx_8c_a3db81b1d6a25e642805bff87a4c2b1c4_cgraph.svg" width="384" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="can__tx_8c_aa22ef7ba70554ac2c5d125a84c9b82ca_cgraph.svg" width="402" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

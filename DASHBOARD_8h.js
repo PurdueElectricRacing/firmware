@@ -9,7 +9,7 @@ var DASHBOARD_8h =
     [ "CAN_data_init", "DASHBOARD_8h.html#a7648a5b3e6b1d5a97d23a27cfdecde87", null ],
     [ "CAN_enqueue_tx_FDCAN2", "DASHBOARD_8h.html#a0da956162efe3e0016f181cee58961e6", null ],
     [ "CAN_enqueue_tx_FDCAN3", "DASHBOARD_8h.html#ae0afd2c16e8c1125c2d62d717a8fc155", null ],
-    [ "CAN_rx_dispatcher", "DASHBOARD_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b", null ],
+    [ "CAN_rx_dispatcher", "DASHBOARD_8h.html#aba60db2ca6b351f91082c06fc4d18cd5", null ],
     [ "CAN_SEND_brake_pressure", "DASHBOARD_8h.html#afe40772ed6befe92217e2ef9974843f3", null ],
     [ "CAN_SEND_dash_init", "DASHBOARD_8h.html#acbd59e401bb0a994fb66880221f0b106", null ],
     [ "CAN_SEND_dash_version", "DASHBOARD_8h.html#a6b12b430bca3cc7e4ac1f91708a6e2ec", null ],

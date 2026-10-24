@@ -1,0 +1,26 @@
+<map id="CAN_setup_filters" name="CAN_setup_filters">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,112,132,138"/>
+<area shape="rect" id="Node000002" href="$A__BOX_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="180,63,316,88"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,109,183,90,184,96,119,114"/>
+<area shape="rect" id="Node000010" href="$A__BOX_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="180,112,316,138"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="132,122,164,122,164,128,132,128"/>
+<area shape="rect" id="Node000011" href="$DASHBOARD_8h.html#a8af922bfefdecb656b664918f9196e74" title=" " alt="" coords="180,161,316,187"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="119,136,184,154,183,159,117,141"/>
+<area shape="rect" id="Node000003" href="$fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18" title="Configure exact&#45;match acceptance filters for RX FIFO0." alt="" coords="364,112,534,138"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,86,380,105,378,110,303,92"/>
+<area shape="rect" id="Node000004" href="$fdcan__priv_8c.html#ab936d0060d65f2f18ed211714e7b0746" title="Enter INIT mode and unlock configuration registers. Blocks until entered." alt="" coords="590,5,800,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="466,109,516,74,581,40,599,33,601,38,583,45,519,79,469,114"/>
+<area shape="rect" id="Node000005" href="$fdcan__priv_8c.html#ab58932032e5748d11d6fbcd04c68a322" title="Leave INIT mode, ending configuration. Blocks until left." alt="" coords="595,55,795,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="504,109,582,90,619,82,620,87,583,95,506,114"/>
+<area shape="rect" id="Node000006" href="$fdcan__priv_8c.html#ab9a8c466928d1d76b5af381a357b1a66" title="Set num_xid exact&#45;match extended filters and forward to RX FIFO0." alt="" coords="582,104,808,145"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="535,122,567,122,567,128,535,128"/>
+<area shape="rect" id="Node000008" href="$fdcan__priv_8c.html#a32bfa5f854b4e4c1744275bfbe7fbbcd" title="Write a filter action to RXGFC (accept/reject all)" alt="" coords="594,170,796,210"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="501,136,602,163,601,168,500,141"/>
+<area shape="rect" id="Node000009" href="$fdcan__priv_8c.html#a1ac2f38c649b9608c3bac49b598d7492" title="Set num_sid exact&#45;match standard filters and forward to RX FIFO0." alt="" coords="583,235,807,276"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="467,136,516,177,549,200,584,220,599,227,597,232,581,225,546,204,513,181,463,140"/>
+<area shape="rect" id="Node000007" href="$fdcan__priv_8c.html#ac30a34edfbc6b2742bc45ea2a2931d71" title="Base address of this peripheral&#39;s slice of shared message RAM." alt="" coords="856,177,1052,203"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="779,143,886,170,885,176,778,148"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="778,232,885,205,886,210,779,237"/>
+<area shape="poly" id="edge11_Node000010_Node000003" title=" " alt="" coords="316,122,348,122,348,128,316,128"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="303,158,378,139,380,145,304,163"/>
+</map>

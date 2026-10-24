@@ -1,24 +1,29 @@
 <map id="firmware/can_library/source/can_init.c" name="firmware/can_library/source/can_init.c">
-<area shape="rect" id="Node000001" title="CAN library initialization, IRQ setup, and filter setup." alt="" coords="200,5,336,46"/>
-<area shape="rect" id="Node000002" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="88,102,263,127"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,48,201,93,198,89,245,45"/>
-<area shape="rect" id="Node000011" href="$can__router_8h.html" title="Auto&#45;generated system&#45;wide CAN node inclusion router." alt="" coords="288,94,432,135"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="290,45,330,81,326,85,287,48"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,256,69,282"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,129,60,247,56,243,163,126"/>
-<area shape="rect" id="Node000004" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="208,183,341,208"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="192,126,249,171,246,175,189,130"/>
-<area shape="poly" id="edge10_Node000004_Node000003" title=" " alt="" coords="235,211,84,256,83,251,233,206"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="93,256,186,282"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="253,211,177,251,175,246,250,207"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="210,256,258,282"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="270,210,251,244,246,242,265,207"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="282,256,349,282"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="283,207,303,241,299,244,279,210"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="373,256,448,282"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="299,207,375,246,373,251,296,211"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="472,256,528,282"/>
-<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="313,206,457,252,456,257,312,211"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="551,256,619,282"/>
-<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="331,206,537,253,536,258,330,212"/>
+<area shape="rect" id="Node000001" title="CAN library initialization, IRQ setup, and filter setup." alt="" coords="526,5,663,46"/>
+<area shape="rect" id="Node000002" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="415,102,590,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="576,48,528,93,525,89,572,45"/>
+<area shape="rect" id="Node000013" href="$can__router_8h.html" title="Auto&#45;generated system&#45;wide CAN node inclusion router." alt="" coords="614,94,759,135"/>
+<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="617,45,657,81,653,85,614,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="555,271,618,297"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="506,127,512,171,520,197,530,222,544,242,561,259,557,263,540,245,526,225,515,199,507,172,501,128"/>
+<area shape="rect" id="Node000004" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="311,190,444,216"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="487,130,409,183,406,179,484,125"/>
+<area shape="rect" id="Node000011" href="$fdcan_8h.html" title="G4 FDCAN public API implementation." alt="" coords="540,183,700,223"/>
+<area shape="poly" id="edge11_Node000002_Node000011" title=" " alt="" coords="521,125,583,171,580,176,517,130"/>
+<area shape="poly" id="edge10_Node000004_Node000003" title=" " alt="" coords="411,214,541,263,539,268,409,219"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,271,99,297"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="328,219,114,271,113,265,327,214"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="122,271,171,297"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="343,219,186,272,185,267,341,214"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="195,271,261,297"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="356,219,265,266,263,261,353,214"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="286,271,360,297"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="371,218,342,260,337,257,367,215"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="384,271,440,297"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="385,215,403,256,398,258,380,217"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="464,271,531,297"/>
+<area shape="poly" id="edge9_Node000004_Node000010" title=" " alt="" coords="397,214,468,261,465,265,394,218"/>
+<area shape="poly" id="edge12_Node000011_Node000003" title=" " alt="" coords="614,225,600,258,595,256,609,223"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="642,271,750,297"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="641,222,676,258,672,262,637,226"/>
 </map>

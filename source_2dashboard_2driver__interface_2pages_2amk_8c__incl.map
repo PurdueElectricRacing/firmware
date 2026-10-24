@@ -1,59 +1,62 @@
 <map id="firmware/source/dashboard/driver_interface/pages/amk.c" name="firmware/source/dashboard/driver_interface/pages/amk.c">
-<area shape="rect" id="Node000001" title="AMK page implementation." alt="" coords="995,5,1187,46"/>
-<area shape="rect" id="Node000002" href="$source_2dashboard_2driver__interface_2pages_2amk_8h.html" title="AMK page implementation." alt="" coords="712,102,768,127"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="995,45,891,66,781,97,778,98,776,93,779,91,889,61,994,39"/>
-<area shape="rect" id="Node000003" href="$DASHBOARD_8h.html" title="Auto&#45;generated CAN driver for DASHBOARD." alt="" coords="792,94,936,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1040,49,931,91,929,86,1038,44"/>
-<area shape="rect" id="Node000019" href="$nextion_8h.html" title="Nextion display driver interface." alt="" coords="1277,279,1448,304"/>
-<area shape="poly" id="edge29_Node000001_Node000019" title=" " alt="" coords="1188,43,1236,62,1279,92,1312,133,1336,179,1352,225,1361,263,1356,264,1346,227,1331,182,1308,136,1276,96,1234,67,1186,48"/>
-<area shape="rect" id="Node000022" href="$colors_8h.html" title="Color definitions for LCD display." alt="" coords="1050,360,1116,386"/>
-<area shape="poly" id="edge34_Node000001_Node000022" title=" " alt="" coords="1125,44,1168,76,1211,119,1228,143,1239,169,1242,196,1236,224,1212,265,1181,301,1148,331,1117,353,1114,349,1144,327,1177,297,1208,262,1231,222,1237,196,1234,171,1223,146,1207,122,1165,80,1122,49"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="766,434,829,459"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="855,136,833,183,824,230,815,296,802,419,797,418,810,295,818,229,828,182,850,134"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="984,279,1048,304"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="938,128,982,148,1001,163,1017,181,1026,201,1029,223,1026,264,1021,263,1024,223,1021,203,1013,184,997,166,979,152,936,132"/>
-<area shape="rect" id="Node000006" href="$can__codec_8h.html" title="Force&#45;inlined helpers for generated CAN signal packing and unpacking." alt="" coords="843,190,1003,216"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="880,134,908,176,904,179,875,137"/>
-<area shape="rect" id="Node000007" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="559,279,734,304"/>
-<area shape="poly" id="edge8_Node000003_Node000007" title=" " alt="" coords="792,135,678,164,614,185,607,203,609,224,618,246,630,265,625,268,613,248,604,226,602,203,610,181,676,159,791,130"/>
-<area shape="rect" id="Node000015" href="$can__types_8h.html" title="Auto&#45;generated custom types and enums for the CAN library." alt="" coords="391,271,535,312"/>
-<area shape="poly" id="edge18_Node000003_Node000015" title=" " alt="" coords="792,135,675,163,600,185,542,222,494,263,491,259,539,218,598,180,674,158,791,130"/>
-<area shape="rect" id="Node000016" href="$can__version_8h.html" title=" " alt="" coords="1077,183,1222,223"/>
-<area shape="poly" id="edge20_Node000003_Node000016" title=" " alt="" coords="930,133,1071,175,1069,180,929,138"/>
-<area shape="rect" id="Node000017" href="$SCAN_8h.html" title="Auto&#45;generated CAN bus definitions for SCAN." alt="" coords="624,183,768,223"/>
-<area shape="poly" id="edge21_Node000003_Node000017" title=" " alt="" coords="827,138,749,178,746,173,825,133"/>
-<area shape="rect" id="Node000018" href="$VCAN_8h.html" title="Auto&#45;generated CAN bus definitions for VCAN." alt="" coords="355,183,499,223"/>
-<area shape="poly" id="edge25_Node000003_Node000018" title=" " alt="" coords="792,135,781,137,518,185,515,186,514,181,517,180,780,132,791,130"/>
-<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="921,217,892,290,844,387,819,423,815,420,839,384,887,288,916,215"/>
-<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="938,214,994,267,991,271,934,218"/>
-<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="661,303,777,421,773,424,657,307"/>
-<area shape="rect" id="Node000008" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="183,360,316,386"/>
-<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="586,308,326,359,325,354,585,302"/>
-<area shape="poly" id="edge17_Node000008_Node000004" title=" " alt="" coords="317,381,335,383,751,437,750,442,334,388,316,386"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="438,434,531,459"/>
-<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="290,384,430,426,429,431,289,389"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="5,434,54,459"/>
-<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="213,389,69,435,68,430,211,384"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="78,434,144,459"/>
-<area shape="poly" id="edge13_Node000008_Node000011" title=" " alt="" coords="227,389,149,428,147,424,225,384"/>
-<area shape="rect" id="Node000012" title=" " alt="" coords="168,434,243,459"/>
-<area shape="poly" id="edge14_Node000008_Node000012" title=" " alt="" coords="245,387,223,422,219,419,240,384"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="267,434,323,459"/>
-<area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="259,384,281,419,277,422,255,387"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="346,434,414,459"/>
-<area shape="poly" id="edge16_Node000008_Node000014" title=" " alt="" coords="273,384,346,424,344,428,270,389"/>
-<area shape="poly" id="edge19_Node000015_Node000004" title=" " alt="" coords="507,310,758,424,756,429,505,315"/>
-<area shape="poly" id="edge22_Node000017_Node000004" title=" " alt="" coords="716,222,733,244,749,270,766,309,779,349,795,418,790,419,774,351,761,311,744,273,729,247,712,225"/>
-<area shape="poly" id="edge23_Node000017_Node000007" title=" " alt="" coords="687,225,663,267,659,264,683,223"/>
-<area shape="poly" id="edge24_Node000017_Node000015" title=" " alt="" coords="644,226,531,268,529,263,642,221"/>
-<area shape="poly" id="edge26_Node000018_Node000004" title=" " alt="" coords="409,226,393,245,380,267,374,290,376,300,381,310,405,332,443,353,491,371,545,388,658,416,751,435,750,440,657,422,544,394,489,376,441,357,402,336,377,314,371,302,369,290,375,265,388,242,404,222"/>
-<area shape="poly" id="edge27_Node000018_Node000007" title=" " alt="" coords="478,221,603,270,601,275,476,226"/>
-<area shape="poly" id="edge28_Node000018_Node000015" title=" " alt="" coords="437,223,451,256,446,258,433,225"/>
-<area shape="poly" id="edge30_Node000019_Node000004" title=" " alt="" coords="1338,308,1247,347,1129,388,1052,407,974,423,845,442,844,437,973,418,1050,402,1127,383,1245,342,1336,303"/>
-<area shape="rect" id="Node000020" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="1271,360,1335,386"/>
-<area shape="poly" id="edge31_Node000019_Node000020" title=" " alt="" coords="1356,307,1323,349,1319,346,1352,303"/>
-<area shape="poly" id="edge32_Node000020_Node000004" title=" " alt="" coords="1270,382,1226,388,845,441,844,436,1225,383,1270,376"/>
-<area shape="rect" id="Node000021" title=" " alt="" coords="1269,434,1336,459"/>
-<area shape="poly" id="edge33_Node000020_Node000021" title=" " alt="" coords="1306,386,1306,418,1300,418,1300,386"/>
-<area shape="poly" id="edge35_Node000022_Node000004" title=" " alt="" coords="1050,385,845,436,844,431,1049,380"/>
+<area shape="rect" id="Node000001" title="AMK page implementation." alt="" coords="1062,5,1255,46"/>
+<area shape="rect" id="Node000002" href="$source_2dashboard_2driver__interface_2pages_2amk_8h.html" title="AMK page implementation." alt="" coords="850,102,907,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1075,49,999,70,919,97,917,97,915,92,918,91,997,65,1074,44"/>
+<area shape="rect" id="Node000003" href="$DASHBOARD_8h.html" title="Auto&#45;generated CAN driver for DASHBOARD." alt="" coords="930,94,1075,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1124,49,1052,89,1050,84,1122,44"/>
+<area shape="rect" id="Node000021" href="$nextion_8h.html" title="Nextion display driver interface." alt="" coords="1481,190,1652,216"/>
+<area shape="poly" id="edge30_Node000001_Node000021" title=" " alt="" coords="1227,44,1292,65,1361,92,1456,137,1534,180,1532,184,1454,142,1359,96,1291,70,1225,49"/>
+<area shape="rect" id="Node000024" href="$colors_8h.html" title="Color definitions for LCD display." alt="" coords="1281,102,1348,127"/>
+<area shape="poly" id="edge35_Node000001_Node000024" title=" " alt="" coords="1195,44,1281,91,1278,96,1193,49"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="916,360,980,386"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="930,135,919,137,861,144,786,149,714,161,687,171,669,184,662,198,661,215,670,255,687,290,702,310,724,327,748,340,801,358,854,367,901,370,900,375,854,372,800,363,746,345,721,331,698,314,683,293,665,256,656,215,657,197,664,181,684,166,713,156,785,144,860,138,918,132,929,130"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="712,279,776,304"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="930,135,919,137,881,142,846,143,785,138,758,139,732,146,707,160,682,184,676,194,675,204,682,226,698,248,717,267,714,271,694,251,677,229,670,205,671,192,678,181,704,155,730,141,757,134,785,133,846,137,880,137,918,132,929,130"/>
+<area shape="rect" id="Node000006" href="$can__codec_8h.html" title="Force&#45;inlined helpers for generated CAN signal packing and unpacking." alt="" coords="692,190,852,216"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="951,138,820,187,818,182,949,133"/>
+<area shape="rect" id="Node000007" href="$can__common_8h.html" title="Common functions and data structures used in every node in the CAN library." alt="" coords="391,190,566,216"/>
+<area shape="poly" id="edge8_Node000003_Node000007" title=" " alt="" coords="930,135,919,137,752,163,586,185,560,190,559,184,585,180,752,157,918,132,929,130"/>
+<area shape="rect" id="Node000017" href="$can__types_8h.html" title="Auto&#45;generated custom types and enums for the CAN library." alt="" coords="985,271,1129,312"/>
+<area shape="poly" id="edge21_Node000003_Node000017" title=" " alt="" coords="1015,134,1034,182,1053,255,1048,257,1029,184,1010,136"/>
+<area shape="rect" id="Node000018" href="$can__version_8h.html" title=" " alt="" coords="1094,183,1239,223"/>
+<area shape="poly" id="edge23_Node000003_Node000018" title=" " alt="" coords="1041,133,1117,173,1115,178,1038,138"/>
+<area shape="rect" id="Node000019" href="$SCAN_8h.html" title="Auto&#45;generated CAN bus definitions for SCAN." alt="" coords="876,183,1020,223"/>
+<area shape="poly" id="edge24_Node000003_Node000019" title=" " alt="" coords="992,137,971,171,966,168,988,134"/>
+<area shape="rect" id="Node000020" href="$VCAN_8h.html" title="Auto&#45;generated CAN bus definitions for VCAN." alt="" coords="1262,183,1407,223"/>
+<area shape="poly" id="edge27_Node000003_Node000020" title=" " alt="" coords="1076,132,1248,177,1247,182,1074,137"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="786,214,926,347,923,351,783,218"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="770,217,755,265,750,263,765,215"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="497,214,629,310,701,334,775,351,844,361,901,367,900,372,843,366,774,356,699,339,627,314,494,219"/>
+<area shape="rect" id="Node000008" href="$rtos_8h.html" title="Wrapper macros for FreeRTOS constructs (tasks, queues, semaphores) to simplify static memory allocati..." alt="" coords="241,279,374,304"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="456,219,347,274,344,269,453,214"/>
+<area shape="rect" id="Node000015" href="$fdcan_8h.html" title="G4 FDCAN public API implementation." alt="" coords="399,271,558,312"/>
+<area shape="poly" id="edge18_Node000007_Node000015" title=" " alt="" coords="481,216,481,256,476,256,476,216"/>
+<area shape="poly" id="edge17_Node000008_Node000004" title=" " alt="" coords="354,302,387,309,534,331,679,348,901,366,901,371,678,353,533,336,386,315,353,308"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="365,360,458,386"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="325,303,386,348,383,353,322,307"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="482,360,531,386"/>
+<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="339,303,469,354,467,359,337,308"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="5,360,72,386"/>
+<area shape="poly" id="edge13_Node000008_Node000011" title=" " alt="" coords="267,308,87,360,85,355,266,303"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="96,360,170,386"/>
+<area shape="poly" id="edge14_Node000008_Node000012" title=" " alt="" coords="282,308,175,356,172,351,280,303"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="194,360,251,386"/>
+<area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="297,307,248,351,245,347,293,303"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="274,360,342,386"/>
+<area shape="poly" id="edge16_Node000008_Node000014" title=" " alt="" coords="310,305,310,344,305,344,305,305"/>
+<area shape="poly" id="edge19_Node000015_Node000004" title=" " alt="" coords="559,306,578,309,901,362,900,367,577,315,558,311"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="554,360,662,386"/>
+<area shape="poly" id="edge20_Node000015_Node000016" title=" " alt="" coords="512,310,577,349,574,354,509,315"/>
+<area shape="poly" id="edge22_Node000017_Node000004" title=" " alt="" coords="1032,315,978,353,975,348,1029,310"/>
+<area shape="poly" id="edge25_Node000019_Node000004" title=" " alt="" coords="950,224,950,345,945,345,945,224"/>
+<area shape="poly" id="edge26_Node000019_Node000017" title=" " alt="" coords="974,222,1022,259,1019,264,971,226"/>
+<area shape="poly" id="edge28_Node000020_Node000004" title=" " alt="" coords="1305,226,1232,269,1142,314,1066,342,996,363,994,357,1064,337,1140,310,1230,265,1303,222"/>
+<area shape="poly" id="edge29_Node000020_Node000017" title=" " alt="" coords="1272,227,1135,269,1134,264,1270,221"/>
+<area shape="poly" id="edge31_Node000021_Node000004" title=" " alt="" coords="1561,218,1524,266,1496,293,1464,314,1424,328,1371,340,1240,357,1104,368,995,373,995,367,1103,362,1240,352,1370,335,1423,323,1461,310,1493,289,1520,263,1557,215"/>
+<area shape="rect" id="Node000022" href="$strbuf_8h.html" title="Fixed&#45;size string builder. Useful for building large CMD strings before transmission." alt="" coords="1533,279,1597,304"/>
+<area shape="poly" id="edge32_Node000021_Node000022" title=" " alt="" coords="1569,216,1568,263,1563,263,1564,216"/>
+<area shape="poly" id="edge33_Node000022_Node000004" title=" " alt="" coords="1537,308,1515,315,1368,342,1221,360,1091,369,995,373,995,368,1090,364,1220,354,1367,337,1514,309,1536,303"/>
+<area shape="rect" id="Node000023" title=" " alt="" coords="1532,360,1599,386"/>
+<area shape="poly" id="edge34_Node000022_Node000023" title=" " alt="" coords="1568,305,1568,344,1562,344,1562,305"/>
+<area shape="poly" id="edge36_Node000024_Node000004" title=" " alt="" coords="1340,125,1387,152,1408,167,1421,181,1428,203,1421,225,1392,251,1348,276,1293,297,1230,316,1101,347,995,367,994,362,1100,342,1229,311,1291,292,1346,271,1389,247,1416,222,1423,203,1416,184,1404,171,1384,157,1337,130"/>
 </map>

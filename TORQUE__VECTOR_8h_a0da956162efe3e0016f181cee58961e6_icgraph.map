@@ -34,7 +34,7 @@
 <area shape="poly" id="edge9_Node000008_Node000003" title=" " alt="" coords="667,119,589,104,590,98,668,114"/>
 <area shape="rect" id="Node000010" href="$imu_8c.html#a4e2ff3413851866d1385d942698f59e9" title="Callback function for handling IZZE acceleration data." alt="" coords="187,383,390,408"/>
 <area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="635,389,391,396,391,390,635,384"/>
-<area shape="rect" id="Node000011" href="$TORQUE__VECTOR_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b" title=" " alt="" coords="5,325,139,351"/>
+<area shape="rect" id="Node000011" href="$TORQUE__VECTOR_8h.html#aba60db2ca6b351f91082c06fc4d18cd5" title=" " alt="" coords="5,325,139,351"/>
 <area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="218,381,186,373,119,354,120,349,187,368,219,376"/>
 <area shape="rect" id="Node000013" href="$imu_8c.html#a033e363e85c9a7712d85b7fb947a94c0" title="Finalize the IMU decoupling calibration by deriving the rotation matrix from the accumulated accelero..." alt="" coords="187,268,391,294"/>
 <area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="635,286,392,284,392,279,635,281"/>

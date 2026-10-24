@@ -111,7 +111,7 @@ $(function(){initNavTree('can__rx_8c.html',''); initResizable(true); });
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for can_rx.c:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="can__rx_8c__incl.svg" width="624" height="288"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="can__rx_8c__incl.svg" width="100%" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -122,8 +122,9 @@ Functions</h2></td></tr>
 <tr class="separator:a41290208a3af5ab8710a8eacc7bd76c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17c3ccba85ec0a1100ae04581b8f5d09" id="r_a17c3ccba85ec0a1100ae04581b8f5d09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17c3ccba85ec0a1100ae04581b8f5d09">CAN_rx_update</a> (void)</td></tr>
 <tr class="separator:a17c3ccba85ec0a1100ae04581b8f5d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad145f059cfb89afdb69fbd8b10cd6998" id="r_ad145f059cfb89afdb69fbd8b10cd6998"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad145f059cfb89afdb69fbd8b10cd6998">PHAL_RX_CALLBACK</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
-<tr class="separator:ad145f059cfb89afdb69fbd8b10cd6998"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b126471775c8ec5765594c0c9bbbdff" id="r_a8b126471775c8ec5765594c0c9bbbdff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b126471775c8ec5765594c0c9bbbdff">PHAL_FDCAN_rxCallback</a> (<a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *msg)</td></tr>
+<tr class="memdesc:a8b126471775c8ec5765594c0c9bbbdff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weak callback fired once per received frame.  <br /></td></tr>
+<tr class="separator:a8b126471775c8ec5765594c0c9bbbdff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -180,20 +181,30 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ad145f059cfb89afdb69fbd8b10cd6998" name="ad145f059cfb89afdb69fbd8b10cd6998"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad145f059cfb89afdb69fbd8b10cd6998">&#9670;&#160;</a></span>PHAL_RX_CALLBACK()</h2>
+<a id="a8b126471775c8ec5765594c0c9bbbdff" name="a8b126471775c8ec5765594c0c9bbbdff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b126471775c8ec5765594c0c9bbbdff">&#9670;&#160;</a></span>PHAL_FDCAN_rxCallback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PHAL_RX_CALLBACK </td>
+          <td class="memname">void PHAL_FDCAN_rxCallback </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structCanMsgTypeDef__t.html">CanMsgTypeDef_t</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Weak callback fired once per received frame. </p>
+<p>Called from FDCANx_IT0_IRQHandler (interrupt context) for every frame popped from RX FIFO0.</p>
+<p>Default implementation does nothing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>the received frame (valid only for the duration of the call) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

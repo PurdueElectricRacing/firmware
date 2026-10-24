@@ -1,46 +1,55 @@
 <map id="PHAL_FDCAN_priv_enterConfig" name="PHAL_FDCAN_priv_enterConfig">
-<area shape="rect" id="Node000001" title="Enter INIT mode and unlock configuration registers. Blocks until entered." alt="" coords="505,277,715,303"/>
-<area shape="rect" id="Node000002" href="$fdcan_8c.html#aba16c779399bc36e855cefa3df29c74d" title="Initialize an FDCAN peripheral for classic (non&#45;FD) CAN operation." alt="" coords="306,80,439,106"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="580,269,388,108,391,104,583,265"/>
-<area shape="rect" id="Node000007" href="$fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18" title="Configure exact&#45;match acceptance filters for RX FIFO0." alt="" coords="287,449,457,475"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="580,315,393,451,390,447,577,310"/>
-<area shape="rect" id="Node000003" href="$bootloader_8c.html#a0e6fcac4f931dc8811b83333d9eaa780" title="Configure the node&#45;specific transport and announce readiness." alt="" coords="140,104,202,130"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="291,105,203,116,202,111,290,100"/>
-<area shape="rect" id="Node000005" href="$cannector_2main_8c.html#acdef7a1fd863a6d3770c1268cb06add3" title=" " alt="" coords="146,5,196,31"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="322,76,238,45,195,29,197,24,240,40,323,71"/>
-<area shape="rect" id="Node000006" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="146,55,196,80"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="290,85,196,73,196,68,291,80"/>
-<area shape="rect" id="Node000004" href="$bootloader_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,104,55,130"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="124,120,55,120,55,114,124,114"/>
-<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="364,434,352,374,329,296,313,255,292,214,267,176,237,143,220,132,201,125,203,120,223,127,241,139,271,173,296,211,317,252,334,294,358,373,370,433"/>
-<area shape="rect" id="Node000008" href="$A__BOX_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="103,153,239,179"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="362,435,348,383,323,318,286,251,264,220,237,192,222,182,225,177,241,188,268,216,291,248,328,316,353,382,367,433"/>
-<area shape="rect" id="Node000009" href="$BL__A__BOX_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="103,203,239,228"/>
-<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="359,436,342,393,316,341,281,288,237,242,221,231,223,227,241,237,285,284,321,338,347,391,364,434"/>
-<area shape="rect" id="Node000010" href="$MAIN__MODULE_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="103,252,239,278"/>
-<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="355,437,309,365,276,325,237,291,219,281,222,276,241,287,280,321,313,361,359,434"/>
-<area shape="rect" id="Node000011" href="$PDU_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="103,301,239,327"/>
-<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="348,439,300,390,270,363,238,340,216,330,219,325,240,336,273,359,304,386,352,435"/>
-<area shape="rect" id="Node000012" href="$A__BOX_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,351,239,376"/>
-<area shape="poly" id="edge12_Node000007_Node000012" title=" " alt="" coords="336,443,238,390,212,379,214,374,240,385,338,439"/>
-<area shape="rect" id="Node000013" href="$BL__DASHBOARD_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,400,239,426"/>
-<area shape="poly" id="edge13_Node000007_Node000013" title=" " alt="" coords="301,448,226,429,227,424,303,442"/>
-<area shape="rect" id="Node000014" href="$BL__FRONT__DRIVELINE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,449,239,475"/>
-<area shape="poly" id="edge14_Node000007_Node000014" title=" " alt="" coords="271,465,239,465,239,460,271,460"/>
-<area shape="rect" id="Node000015" href="$BL__MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,499,239,524"/>
-<area shape="poly" id="edge15_Node000007_Node000015" title=" " alt="" coords="303,482,227,501,226,495,301,477"/>
-<area shape="rect" id="Node000016" href="$BL__REAR__DRIVELINE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,548,239,574"/>
-<area shape="poly" id="edge16_Node000007_Node000016" title=" " alt="" coords="338,486,240,539,214,550,212,545,238,534,336,481"/>
-<area shape="rect" id="Node000017" href="$BL__TORQUE__VECTOR_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,597,239,623"/>
-<area shape="poly" id="edge17_Node000007_Node000017" title=" " alt="" coords="352,489,304,539,273,565,240,588,219,599,216,594,238,584,270,561,300,535,348,485"/>
-<area shape="rect" id="Node000018" href="$DASHBOARD_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,647,239,672"/>
-<area shape="poly" id="edge18_Node000007_Node000018" title=" " alt="" coords="359,490,313,563,280,603,241,638,222,648,219,644,237,633,276,599,309,560,355,487"/>
-<area shape="rect" id="Node000019" href="$DRIVELINE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,696,239,722"/>
-<area shape="poly" id="edge19_Node000007_Node000019" title=" " alt="" coords="364,491,347,533,321,586,285,640,241,687,223,698,221,693,237,683,281,637,316,583,342,531,359,489"/>
-<area shape="rect" id="Node000020" href="$MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,745,239,771"/>
-<area shape="poly" id="edge20_Node000007_Node000020" title=" " alt="" coords="367,491,353,543,328,608,291,676,268,708,241,736,225,747,222,743,237,732,264,705,286,674,323,606,348,541,362,490"/>
-<area shape="rect" id="Node000021" href="$TORQUE__VECTOR_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="103,795,239,820"/>
-<area shape="poly" id="edge21_Node000007_Node000021" title=" " alt="" coords="370,491,358,552,334,630,317,672,296,713,271,751,241,785,225,796,222,792,237,782,267,748,292,710,313,670,329,628,352,550,364,490"/>
-<area shape="rect" id="Node000022" href="$DASHBOARD_8h.html#a8af922bfefdecb656b664918f9196e74" title=" " alt="" coords="103,844,239,870"/>
-<area shape="poly" id="edge22_Node000007_Node000022" title=" " alt="" coords="371,491,362,559,341,651,324,700,302,749,275,794,241,835,226,846,223,841,237,831,270,791,297,746,319,698,336,650,357,558,366,490"/>
+<area shape="rect" id="Node000001" title="Enter INIT mode and unlock configuration registers. Blocks until entered." alt="" coords="801,280,1010,306"/>
+<area shape="rect" id="Node000002" href="$fdcan_8c.html#aba16c779399bc36e855cefa3df29c74d" title="Initialize an FDCAN peripheral for classic (non&#45;FD) CAN operation." alt="" coords="601,81,734,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="875,272,683,109,687,105,879,268"/>
+<area shape="rect" id="Node000007" href="$fdcan_8c.html#ac89d6a90c4f53644b4189ddb0e1fea18" title="Configure exact&#45;match acceptance filters for RX FIFO0." alt="" coords="583,452,753,478"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="875,317,689,454,686,449,872,313"/>
+<area shape="rect" id="Node000003" href="$bootloader_8c.html#a0e6fcac4f931dc8811b83333d9eaa780" title="Configure the node&#45;specific transport and announce readiness." alt="" coords="435,107,498,132"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="586,107,499,118,498,113,586,102"/>
+<area shape="rect" id="Node000005" href="$cannector_2main_8c.html#acdef7a1fd863a6d3770c1268cb06add3" title=" " alt="" coords="442,5,491,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="616,78,490,30,492,25,618,73"/>
+<area shape="rect" id="Node000006" href="$a__box_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,143,55,168"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="586,89,418,83,321,87,224,97,177,107,130,120,56,148,54,143,129,115,176,102,224,92,321,81,419,78,586,84"/>
+<area shape="rect" id="Node000004" href="$bootloader_2main_8c.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="262,107,312,132"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="419,122,312,122,312,117,419,117"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="660,437,648,377,625,299,608,257,588,217,563,179,533,146,516,134,497,127,499,122,519,129,536,141,567,176,592,214,613,255,630,297,653,375,665,436"/>
+<area shape="rect" id="Node000008" href="$A__BOX_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="398,304,535,330"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="644,442,596,392,566,366,533,343,512,333,514,328,536,339,569,362,600,388,648,438"/>
+<area shape="rect" id="Node000012" href="$BL__A__BOX_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="398,353,535,379"/>
+<area shape="poly" id="edge13_Node000007_Node000012" title=" " alt="" coords="631,446,534,393,508,382,510,377,536,388,634,441"/>
+<area shape="rect" id="Node000013" href="$MAIN__MODULE_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="398,403,535,428"/>
+<area shape="poly" id="edge14_Node000007_Node000013" title=" " alt="" coords="597,450,521,432,523,426,598,445"/>
+<area shape="rect" id="Node000014" href="$PDU_8h.html#afba0a04c386ae2ff86a7d67c0a0a9ad0" title=" " alt="" coords="398,452,535,478"/>
+<area shape="poly" id="edge15_Node000007_Node000014" title=" " alt="" coords="567,468,535,468,535,462,567,462"/>
+<area shape="rect" id="Node000015" href="$A__BOX_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,501,535,527"/>
+<area shape="poly" id="edge16_Node000007_Node000015" title=" " alt="" coords="598,485,523,503,521,498,597,479"/>
+<area shape="rect" id="Node000016" href="$BL__DASHBOARD_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,551,535,576"/>
+<area shape="poly" id="edge18_Node000007_Node000016" title=" " alt="" coords="634,488,536,542,510,553,508,548,534,537,631,484"/>
+<area shape="rect" id="Node000017" href="$BL__FRONT__DRIVELINE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,600,535,626"/>
+<area shape="poly" id="edge19_Node000007_Node000017" title=" " alt="" coords="648,492,600,541,569,568,536,591,514,602,512,597,533,587,566,564,596,537,644,488"/>
+<area shape="rect" id="Node000018" href="$BL__MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,649,535,675"/>
+<area shape="poly" id="edge20_Node000007_Node000018" title=" " alt="" coords="655,493,609,566,575,606,536,640,517,651,515,646,533,636,571,602,604,562,651,490"/>
+<area shape="rect" id="Node000019" href="$BL__REAR__DRIVELINE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,699,535,724"/>
+<area shape="poly" id="edge21_Node000007_Node000019" title=" " alt="" coords="660,493,643,536,616,589,581,643,536,690,519,700,516,696,533,685,577,639,612,586,638,534,655,491"/>
+<area shape="rect" id="Node000020" href="$BL__TORQUE__VECTOR_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,748,535,774"/>
+<area shape="poly" id="edge22_Node000007_Node000020" title=" " alt="" coords="663,494,648,545,623,611,587,679,563,711,536,739,520,750,517,745,533,735,559,707,582,676,618,609,643,544,658,492"/>
+<area shape="rect" id="Node000021" href="$DASHBOARD_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,797,535,823"/>
+<area shape="poly" id="edge23_Node000007_Node000021" title=" " alt="" coords="665,494,653,554,630,633,613,675,592,716,567,754,536,788,521,799,518,795,533,784,563,751,588,713,608,672,625,631,648,553,660,493"/>
+<area shape="rect" id="Node000022" href="$DRIVELINE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,847,535,872"/>
+<area shape="poly" id="edge24_Node000007_Node000022" title=" " alt="" coords="667,493,658,562,637,654,620,703,598,751,570,797,536,837,522,848,519,844,533,834,566,794,593,749,615,701,631,652,653,561,662,493"/>
+<area shape="rect" id="Node000023" href="$MAIN__MODULE_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,156,535,182"/>
+<area shape="poly" id="edge25_Node000007_Node000023" title=" " alt="" coords="658,437,643,386,618,321,582,253,559,222,533,195,517,184,520,180,536,191,563,219,587,251,623,319,648,384,663,436"/>
+<area shape="rect" id="Node000024" href="$TORQUE__VECTOR_8h.html#ae5353dcc79f7d3b1a2d1ef18933d5e81" title=" " alt="" coords="398,205,535,231"/>
+<area shape="poly" id="edge26_Node000007_Node000024" title=" " alt="" coords="655,438,638,396,612,344,577,290,533,244,516,234,519,229,536,240,581,287,616,341,643,394,660,436"/>
+<area shape="rect" id="Node000025" href="$DASHBOARD_8h.html#a8af922bfefdecb656b664918f9196e74" title=" " alt="" coords="398,255,535,280"/>
+<area shape="poly" id="edge27_Node000007_Node000025" title=" " alt="" coords="651,440,604,367,571,328,533,294,515,283,517,279,536,289,575,324,609,364,655,437"/>
+<area shape="rect" id="Node000009" href="$can__init_8c.html#a36ad6677349a91f6af9d0cff15d025b0" title=" " alt="" coords="224,279,350,304"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="382,308,351,303,351,298,383,302"/>
+<area shape="rect" id="Node000010" href="$can__init_8c.html#ace7de72cc97ae2a35d63c3a4a4772a31" title=" " alt="" coords="103,192,176,218"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="250,273,162,220,164,216,252,268"/>
+<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="94,187,54,169,56,164,96,183"/>
+<area shape="rect" id="Node000011" href="$pdu_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,192,55,218"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="87,208,55,208,55,202,87,202"/>
+<area shape="poly" id="edge17_Node000015_Node000009" title=" " alt="" coords="401,495,397,492,374,470,355,445,324,392,302,342,290,306,295,304,307,340,328,390,359,442,378,467,400,488,404,491"/>
+<area shape="poly" id="edge28_Node000025_Node000009" title=" " alt="" coords="383,281,351,286,351,280,382,276"/>
 </map>

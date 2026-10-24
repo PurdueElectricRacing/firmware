@@ -1,8 +1,5 @@
 var NAVTREEINDEX25 =
 {
-"structcan__data__t.html#a4945a940f48559420558aa078431c6c4":[32,0,57,43],
-"structcan__data__t.html#a4f072d93cbb200fd0f660b304612df1b":[32,0,57,53],
-"structcan__data__t.html#a4f592219d884449cf892701104296746":[32,0,57,21],
 "structcan__data__t.html#a5dabe503866cbe6acad4b15e514f5410":[32,0,57,23],
 "structcan__data__t.html#a61c161c70b1b34323fec529e6752b46b":[32,0,57,52],
 "structcan__data__t.html#a665d7b06c6035a1a02bbd3667fd5efae":[32,0,57,36],
@@ -249,5 +246,8 @@ var NAVTREEINDEX25 =
 "structfront__oil__temps__data__t.html#acc26222cf6abb9339ad0002dbe63666f":[32,0,96,2],
 "structfront__oil__temps__data__t.html#adff0e7bb1f650bc9b681c302af7fbdad":[32,0,96,0],
 "structfront__oil__temps__data__t.html#aea7bb72646070d0186c59c696396b8fa":[32,0,96,1],
-"structfront__shockpots__data__t.html":[32,0,97]
+"structfront__shockpots__data__t.html":[32,0,97],
+"structfront__shockpots__data__t.html#a0f0e2911c217dcf3fbf58b8536818aa6":[32,0,97,3],
+"structfront__shockpots__data__t.html#a84a2ff187ec8bc431b0a17cd46131d3a":[32,0,97,2],
+"structfront__shockpots__data__t.html#aa128a3a63f67b2466c344eebde84f0dd":[32,0,97,1]
 };

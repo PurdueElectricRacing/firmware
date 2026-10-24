@@ -100,7 +100,6 @@ $(function(){initNavTree('A__BOX_8h.html',''); initResizable(true); });
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">A_BOX.h File Reference</div></div>
@@ -120,7 +119,7 @@ $(function(){initNavTree('A__BOX_8h.html',''); initResizable(true); });
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for A_BOX.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h__incl.svg" width="100%" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h__incl.svg" width="100%" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -141,11 +140,6 @@ Macros</h2></td></tr>
 <tr class="separator:aa6f2e9810d43532cf45597c1d5d527cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09389f719514180e1356522315f12b33" id="r_a09389f719514180e1356522315f12b33"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a09389f719514180e1356522315f12b33">USE_FDCAN2</a></td></tr>
 <tr class="separator:a09389f719514180e1356522315f12b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:aaa440edd6f1fdf170326396b4127d865" id="r_aaa440edd6f1fdf170326396b4127d865"><td class="memItemLeft" align="right" valign="top">typedef FDCAN_GlobalTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a></td></tr>
-<tr class="separator:aaa440edd6f1fdf170326396b4127d865"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -171,8 +165,8 @@ Functions</h2></td></tr>
 <tr class="separator:ac99ef32e8e9aab31934d767d7b481ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad677eac87e7b3ce2d93beda307f0ce29" id="r_ad677eac87e7b3ce2d93beda307f0ce29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad677eac87e7b3ce2d93beda307f0ce29">torque_vector_fault_sync_CALLBACK</a> ()</td></tr>
 <tr class="separator:ad677eac87e7b3ce2d93beda307f0ce29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3f5e1a8ff8333cbee9aa8d9409d19b" id="r_ade3f5e1a8ff8333cbee9aa8d9409d19b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade3f5e1a8ff8333cbee9aa8d9409d19b">CAN_rx_dispatcher</a> (uint32_t id, const uint8_t *data, uint8_t len, const <a class="el" href="#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a> *bus)</td></tr>
-<tr class="separator:ade3f5e1a8ff8333cbee9aa8d9409d19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba60db2ca6b351f91082c06fc4d18cd5" id="r_aba60db2ca6b351f91082c06fc4d18cd5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba60db2ca6b351f91082c06fc4d18cd5">CAN_rx_dispatcher</a> (uint32_t id, const uint8_t *data, uint8_t len, const FDCAN_GlobalTypeDef *bus)</td></tr>
+<tr class="separator:aba60db2ca6b351f91082c06fc4d18cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69c040c488af2e39f59324797e8909e9" id="r_a69c040c488af2e39f59324797e8909e9"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69c040c488af2e39f59324797e8909e9">is_elcon_status_stale</a> ()</td></tr>
 <tr class="separator:a69c040c488af2e39f59324797e8909e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7c88385babfc4b1a9980163b092f141" id="r_af7c88385babfc4b1a9980163b092f141"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7c88385babfc4b1a9980163b092f141">is_charge_request_stale</a> ()</td></tr>
@@ -308,21 +302,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="aaa440edd6f1fdf170326396b4127d865" name="aaa440edd6f1fdf170326396b4127d865"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa440edd6f1fdf170326396b4127d865">&#9670;&#160;</a></span>CAN_bus_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef FDCAN_GlobalTypeDef <a class="el" href="#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="afee46e4bedccf3787997711f5a21d9d3" name="afee46e4bedccf3787997711f5a21d9d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afee46e4bedccf3787997711f5a21d9d3">&#9670;&#160;</a></span>bl_a_box_start_CALLBACK()</h2>
@@ -433,8 +412,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ade3f5e1a8ff8333cbee9aa8d9409d19b" name="ade3f5e1a8ff8333cbee9aa8d9409d19b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade3f5e1a8ff8333cbee9aa8d9409d19b">&#9670;&#160;</a></span>CAN_rx_dispatcher()</h2>
+<a id="aba60db2ca6b351f91082c06fc4d18cd5" name="aba60db2ca6b351f91082c06fc4d18cd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba60db2ca6b351f91082c06fc4d18cd5">&#9670;&#160;</a></span>CAN_rx_dispatcher()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +439,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="#aaa440edd6f1fdf170326396b4127d865">CAN_bus_t</a> *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>&#160;)</td>
+          <td class="paramtype">const FDCAN_GlobalTypeDef *</td>          <td class="paramname"><span class="paramname"><em>bus</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -472,12 +451,12 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_ade3f5e1a8ff8333cbee9aa8d9409d19b_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_aba60db2ca6b351f91082c06fc4d18cd5_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_ade3f5e1a8ff8333cbee9aa8d9409d19b_icgraph.svg" width="304" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_aba60db2ca6b351f91082c06fc4d18cd5_icgraph.svg" width="304" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1428,6 +1407,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_afba0a04c386ae2ff86a7d67c0a0a9ad0_cgraph.svg" width="100%" height="511"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_afba0a04c386ae2ff86a7d67c0a0a9ad0_icgraph.svg" width="540" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -1457,6 +1441,11 @@ Here is the call graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_ae5353dcc79f7d3b1a2d1ef18933d5e81_cgraph.svg" width="100%" height="511"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="A__BOX_8h_ae5353dcc79f7d3b1a2d1ef18933d5e81_icgraph.svg" width="540" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

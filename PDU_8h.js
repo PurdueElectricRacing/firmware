@@ -6,7 +6,7 @@ var PDU_8h =
     [ "a_box_fault_sync_CALLBACK", "PDU_8h.html#ac6ea10a098cfdf4504d664bee642ad9f", null ],
     [ "CAN_data_init", "PDU_8h.html#a7648a5b3e6b1d5a97d23a27cfdecde87", null ],
     [ "CAN_enqueue_tx_FDCAN1", "PDU_8h.html#a90647dbc98bbf7bc6c1e9ef85f4d2f01", null ],
-    [ "CAN_rx_dispatcher", "PDU_8h.html#ade3f5e1a8ff8333cbee9aa8d9409d19b", null ],
+    [ "CAN_rx_dispatcher", "PDU_8h.html#aba60db2ca6b351f91082c06fc4d18cd5", null ],
     [ "CAN_SEND_coolant_out", "PDU_8h.html#af237495897276dabfb25440f4d41d374", null ],
     [ "CAN_SEND_pdu_fault_event", "PDU_8h.html#a80badc80d1121e8d450502c72b46f28a", null ],
     [ "CAN_SEND_pdu_fault_sync", "PDU_8h.html#ae708f591718b4d247f28ab7cd0cb78a3", null ],

@@ -1,8 +1,5 @@
 var NAVTREEINDEX27 =
 {
-"structpVCU__struct.html#a66fc6d51d1ef4d1dce4811bc969560a4":[32,0,221,59],
-"structpVCU__struct.html#a69488d0989c2d0e2b73b94d2a1b90b18":[32,0,221,22],
-"structpVCU__struct.html#a6bfbe914cb4741334a57637387a32d91":[32,0,221,41],
 "structpVCU__struct.html#a6ceb565f9df4c66f1e80ff8f55173c33":[32,0,221,24],
 "structpVCU__struct.html#a707752b8f9e9b867d79abf3d2824c181":[32,0,221,42],
 "structpVCU__struct.html#a739d1bf5aad1b6b2dc2fdcacf0ffef47":[32,0,221,57],
@@ -249,5 +246,8 @@ var NAVTREEINDEX27 =
 "structtorque__request__t.html":[32,0,263],
 "structtorque__request__t.html#a3d703852f96edaff8315ecfbd6177f5c":[32,0,263,0],
 "structtorque__request__t.html#a459816998ad64658b2841fbed79c9bfd":[32,0,263,2],
-"structtorque__request__t.html#a6044c54ed73c86aa64f9b43e9369fa48":[32,0,263,1]
+"structtorque__request__t.html#a6044c54ed73c86aa64f9b43e9369fa48":[32,0,263,1],
+"structtorque__request__t.html#ae112ecb9eaa97db91fd3df4f338ee702":[32,0,263,3],
+"structtorque__vector__fault__event__data__t.html":[32,0,264],
+"structtorque__vector__fault__event__data__t.html#a0cebc4d43114a67130303f95f433ce28":[32,0,264,3]
 };

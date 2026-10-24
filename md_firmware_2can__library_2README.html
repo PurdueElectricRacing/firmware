@@ -108,7 +108,7 @@ $(function(){initNavTree('md_firmware_2can__library_2README.html',''); initResiz
 <li><code>dbc/</code>: Generated CAN database files at the repository root.</li>
 </ul>
 <p><b>Core Files:</b></p><ul>
-<li><a href="../../firmware/can_library/source/can_init.c"><code>can_init.c</code></a> / <a href="../../firmware/can_library/can_common.h"><code>can_common.h</code></a>: Bus/peripheral initialization and <code><a class="el" href="can__common_8h.html#aecd3668d7c5e693e061db7650203b304">CAN_init()</a></code>.</li>
+<li><a href="../../firmware/can_library/source/can_init.c"><code>can_init.c</code></a> / <a href="../../firmware/can_library/can_common.h"><code>can_common.h</code></a>: Bus/peripheral initialization and <code><a class="el" href="can__common_8h.html#ace7de72cc97ae2a35d63c3a4a4772a31">CAN_init()</a></code>.</li>
 <li><a href="../../firmware/can_library/source/can_rx.c"><code>can_rx.c</code></a>: CAN RX task and the shared <code>can_data</code> instance.</li>
 <li><a href="../../firmware/can_library/source/can_tx.c"><code>can_tx.c</code></a>: CAN TX task and per-peripheral software queues.</li>
 <li><a href="../../firmware/can_library/source/faults_common.c"><code>faults_common.c</code></a> / <a href="../../firmware/can_library/faults_common.h"><code>faults_common.h</code></a>: System-wide fault management.</li>
@@ -128,12 +128,12 @@ Stale Detection</h1>
 Usage</h1>
 <ol type="1">
 <li>Define your CAN network and global faults in <code>generators/configs/</code>; the generator validates them with its Pydantic declaration models.<ol type="a">
-<li>Use FDCAN peripherals on G4 and CAN peripherals on F4.</li>
+<li>Use STM32G474 peripherals <code>FDCAN1</code>, <code>FDCAN2</code>, or <code>FDCAN3</code>.</li>
 </ol>
 </li>
 <li>Add <code>can_node_&lt;NODE_NAME&gt;</code> to <code>LIBS</code> in your board's <code>add_firmware_component(...)</code> call (must match the uppercase node name from CMake).</li>
 <li>Include the generated header for your node (e.g. <code>#include "can_library/generated/PDU.h"</code> / <code>#include "can_library/generated/&lt;NODE_NAME&gt;.h"</code>) in your <code>main.c</code>.</li>
-<li>Initialize the CAN library in your <code>main.c</code> with <code><a class="el" href="can__common_8h.html#aecd3668d7c5e693e061db7650203b304">CAN_init()</a></code>.</li>
+<li>Initialize the CAN library in your <code>main.c</code> with <code><a class="el" href="can__common_8h.html#ace7de72cc97ae2a35d63c3a4a4772a31">CAN_init()</a></code>.</li>
 <li>Setup CAN tasks in your <code>main.c</code> using <code><a class="el" href="can__common_8h.html#a35dcd4b006eb1dd53b4e6fdd725b0e31">DEFINE_CAN_TASKS()</a></code> and <code><a class="el" href="can__common_8h.html#ac317291d89637f7774465ae715792e48">START_CAN_TASKS()</a></code>.</li>
 </ol>
 <p>The most recent rx'd data is available in the <code>can_data</code> struct, which is updated by the CAN RX task. Sending CAN messages is done via the generated <code>CAN_SEND_&lt;message_name&gt;()</code> functions, which enqueue messages to be sent by the CAN TX task.</p>

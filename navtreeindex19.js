@@ -1,8 +1,5 @@
 var NAVTREEINDEX19 =
 {
-"pin__defs_8h_source.html":[33,0,1,2,5,4],
-"power__rails_8drawio_8png.html":[33,0,1,2,9,4],
-"powertrain_8c.html":[33,0,1,2,8,0,0],
 "powertrain_8c.html#a02ec81ffc56b69d59884d5d0b95c33e9":[33,0,1,2,8,0,0,5],
 "powertrain_8c.html#a059575ddd2df3c7c23a2ad1eb3ee564b":[33,0,1,2,8,0,0,1],
 "powertrain_8c.html#a07b2a922769a3755b4c94780afa4fb48":[33,0,1,2,8,0,0,8],
@@ -249,5 +246,8 @@ var NAVTREEINDEX19 =
 "sdio_8c.html#a1c49d266e4f9ba33b7a425361a30d227":[33,0,1,1,11,0,17],
 "sdio_8c.html#a277ac25c6a1f8b507fc73417dc397234":[33,0,1,1,11,0,41],
 "sdio_8c.html#a34c053adf6c432bad5d856d470094519":[33,0,1,1,11,0,31],
-"sdio_8c.html#a3bfd1b1d1688b6d1804e1a0c7d4fe7b6":[33,0,1,1,11,0,0]
+"sdio_8c.html#a3bfd1b1d1688b6d1804e1a0c7d4fe7b6":[33,0,1,1,11,0,0],
+"sdio_8c.html#a3c927d4d98ffb6f3cc2442b09c19926c":[33,0,1,1,11,0,19],
+"sdio_8c.html#a3e4fe525a02f74c64e92474c32490e41":[33,0,1,1,11,0,12],
+"sdio_8c.html#a42ab410b834d74d7f3ee757dc888b8cc":[33,0,1,1,11,0,28]
 };

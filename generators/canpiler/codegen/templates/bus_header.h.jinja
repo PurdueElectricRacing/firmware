@@ -9,10 +9,17 @@
  */
 
 #include <stdint.h>
+#if defined(STM32F407xx)
+#include "common/phal_F4/can/can.h"
+#elif defined(STM32G474xx)
+#include "common/phal_G4/fdcan/fdcan.h"
+#else
+#error "Unsupported CAN target"
+#endif
 #include "can_library/generated/can_types.h"
 
 static constexpr uint32_t {{ bus_name|upper }}_BUS_ID = {{ declaration.bus_id }};
-static constexpr uint32_t {{ bus_name|upper }}_BAUD_RATE = {{ declaration.baud_rate }}U;
+static constexpr PHAL_FDCAN_BaudRate_t {{ bus_name|upper }}_BAUD_RATE = {{ declaration.baud_label }};
 
 {% for msg in messages %}
 static constexpr uint32_t {{ msg.macro_name }}_MSG_ID = {{ msg.final_id|to_c_hex }};

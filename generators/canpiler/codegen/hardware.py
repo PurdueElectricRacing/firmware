@@ -11,10 +11,9 @@ from typing import Mapping
 from ..pipeline.models import CompiledNode, LinkedCan, LinkedMessage, frozen_mapping
 from core.utils import print_as_warning
 
-# Both PHAL APIs expose these per-ID-type limits; bxCAN also has a combined cap.
+# PHAL FDCAN per-ID-type filter limits.
 MAX_SID_FILTERS = 28
 MAX_XID_FILTERS = 8
-MAX_BXCAN_FILTERS = 28
 
 
 @dataclass(frozen=True)
@@ -46,11 +45,6 @@ def map_hardware(linked: LinkedCan) -> HardwareMap:
         hardware_map[node.name] = map_node_hardware(node, linked)
 
     return frozen_mapping(hardware_map)
-
-
-def is_fdcan_peripheral(periph: str) -> bool:
-    """Check if peripheral is FDCAN (G4) vs bxCAN (F4)"""
-    return periph.startswith("FDCAN")
 
 
 def map_node_hardware(
@@ -105,25 +99,18 @@ def map_peripheral_filters(
     msgs: list[LinkedMessage],
     accept_all: bool,
 ) -> PeripheralFilters:
-    """Build PHAL ID lists; bank packing belongs to the peripheral HAL."""
+    """Build ID lists for PHAL FDCAN filter programming."""
     std_ids = tuple(msg for msg in msgs if not msg.is_extended)
     ext_ids = tuple(msg for msg in msgs if msg.is_extended)
-    arch = "FDCAN" if is_fdcan_peripheral(periph) else "bxCAN"
 
     if len(std_ids) > MAX_SID_FILTERS:
         raise ValueError(
-            f"Node '{node_name}' exceeds {arch} standard ID filter limit for {periph} "
+            f"Node '{node_name}' exceeds FDCAN standard ID filter limit for {periph} "
             f"({len(std_ids)} > {MAX_SID_FILTERS})"
         )
     if len(ext_ids) > MAX_XID_FILTERS:
         raise ValueError(
-            f"Node '{node_name}' exceeds {arch} extended ID filter limit for {periph} "
+            f"Node '{node_name}' exceeds FDCAN extended ID filter limit for {periph} "
             f"({len(ext_ids)} > {MAX_XID_FILTERS})"
         )
-    if not is_fdcan_peripheral(periph) and len(msgs) > MAX_BXCAN_FILTERS:
-        raise ValueError(
-            f"Node '{node_name}' exceeds bxCAN combined ID filter limit for {periph} "
-            f"({len(msgs)} > {MAX_BXCAN_FILTERS})"
-        )
-
     return PeripheralFilters(accept_all=accept_all, std_ids=std_ids, ext_ids=ext_ids)

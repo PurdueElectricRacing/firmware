@@ -1,6 +1,3 @@
-#ifndef CAN_COMMON_H
-#define CAN_COMMON_H
-
 /**
  * @file can_common.h
  * @brief Common functions and data structures used in every node in the CAN library
@@ -8,18 +5,18 @@
  * @author Irving Wang (irvingw@purdue.edu)
  */
 
+#ifndef CAN_COMMON_H
+#define CAN_COMMON_H
+
 #include <stdint.h>
 
 #if !defined(BOOTLOADER_FIRMWARE)
 #include "common/rtos/rtos.h"
 #endif
-#if defined(STM32F407xx)
-#include "common/phal_F4/can/can.h"
-#elif defined(STM32G474xx)
-#include "common/phal_G4/fdcan/fdcan.h"
-#else
-#error "Unsupported CAN target"
+#if !defined(STM32G474xx)
+#error "CAN library requires STM32G474xx (FDCAN)"
 #endif
+#include "common/phal_G4/fdcan/fdcan.h"
 
 #if !defined(BOOTLOADER_FIRMWARE)
 typedef struct {
@@ -41,7 +38,7 @@ extern QueueHandle_t can_rx_queue;
 
 void CAN_tx_update(void);
 void CAN_rx_update(void);
-bool CAN_init(void);
+void CAN_init(void);
 void CAN_enable_IRQs(void);
 void CAN_rx_init(void);
 void CAN_tx_init(void);

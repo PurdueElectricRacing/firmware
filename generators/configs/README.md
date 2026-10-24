@@ -13,7 +13,7 @@ Validated by the Pydantic models in `core/declarations.py`. Describes each logic
 ## Node-to-Bus Mapping (per node JSON, under `busses`)
 Maps a firmware node onto hardware peripherals and message lists.
 
-- `peripheral`: Hardware peripheral identifier. Allowed values: `CAN1`, `CAN2`, `FDCAN1`, `FDCAN2`, `FDCAN3`.
+- `peripheral`: Hardware peripheral identifier. Allowed values: `FDCAN1`, `FDCAN2`, `FDCAN3` (STM32G474 only).
 - `accept_all_messages`: Boolean. If true, disables hardware filter optimization (promiscuous mode).
 - `tx`: Array of TX message definitions for this node on this bus.
 - `rx`: Array of RX message definitions for this node on this bus.

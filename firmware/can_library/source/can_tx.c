@@ -12,57 +12,26 @@ extern TaskHandle_t CAN_tx_update_handle;
 
 volatile can_stats_t can_stats;
 
-#if !defined(STM32F407xx) && !defined(STM32G474xx)
-#error "Unsupported architecture"
-#elif defined(STM32F407xx) && defined(STM32G474xx)
-#error "Multiple architectures defined"
-#endif
-
-#if defined(STM32F407xx)
-#define CAN_BUS_TYPE CAN_TypeDef
-#define PHAL_TX_CALLBACK PHAL_CAN_txCallback
-#define PHAL_TX_FIFO_FREE PHAL_CAN_txFifoFree
-#define PHAL_SEND PHAL_CAN_send
-#else // STM32G474xx
-#define CAN_BUS_TYPE FDCAN_GlobalTypeDef
-#define PHAL_TX_CALLBACK PHAL_FDCAN_txCallback
-#define PHAL_TX_FIFO_FREE PHAL_FDCAN_txFifoFree
-#define PHAL_SEND PHAL_FDCAN_send
-#endif
-
 // Allocate TX queues
-#ifdef USE_CAN1
-RTOS_DEFINE_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-#endif
-#ifdef USE_CAN2
-RTOS_DEFINE_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
-#endif
 #ifdef USE_FDCAN1
-RTOS_DEFINE_QUEUE(can1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+RTOS_DEFINE_QUEUE(fdcan1_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 #ifdef USE_FDCAN2
-RTOS_DEFINE_QUEUE(can2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+RTOS_DEFINE_QUEUE(fdcan2_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
 #ifdef USE_FDCAN3
-RTOS_DEFINE_QUEUE(can3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
+RTOS_DEFINE_QUEUE(fdcan3_tx_queue, CanMsgTypeDef_t, CAN_TX_QUEUE_LENGTH);
 #endif
-
 
 void CAN_tx_init(void) {
-#ifdef USE_CAN1
-    RTOS_INIT_QUEUE(can1_tx_queue);
-#endif
-#ifdef USE_CAN2
-    RTOS_INIT_QUEUE(can2_tx_queue);
-#endif
 #ifdef USE_FDCAN1
-    RTOS_INIT_QUEUE(can1_tx_queue);
+    RTOS_INIT_QUEUE(fdcan1_tx_queue);
 #endif
 #ifdef USE_FDCAN2
-    RTOS_INIT_QUEUE(can2_tx_queue);
+    RTOS_INIT_QUEUE(fdcan2_tx_queue);
 #endif
 #ifdef USE_FDCAN3
-    RTOS_INIT_QUEUE(can3_tx_queue);
+    RTOS_INIT_QUEUE(fdcan3_tx_queue);
 #endif
 }
 
@@ -79,33 +48,21 @@ static void CAN_enqueue_tx_to_queue(QueueHandle_t queue, CanMsgTypeDef_t *msg) {
     }
 }
 
-#ifdef USE_CAN1
-void CAN_enqueue_tx_CAN1(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can1_tx_queue, msg);
-}
-#endif
-
-#ifdef USE_CAN2
-void CAN_enqueue_tx_CAN2(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can2_tx_queue, msg);
-}
-#endif
-
 #ifdef USE_FDCAN1
 void CAN_enqueue_tx_FDCAN1(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can1_tx_queue, msg);
+    CAN_enqueue_tx_to_queue(fdcan1_tx_queue, msg);
 }
 #endif
 
 #ifdef USE_FDCAN2
 void CAN_enqueue_tx_FDCAN2(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can2_tx_queue, msg);
+    CAN_enqueue_tx_to_queue(fdcan2_tx_queue, msg);
 }
 #endif
 
 #ifdef USE_FDCAN3
 void CAN_enqueue_tx_FDCAN3(CanMsgTypeDef_t *msg) {
-    CAN_enqueue_tx_to_queue(can3_tx_queue, msg);
+    CAN_enqueue_tx_to_queue(fdcan3_tx_queue, msg);
 }
 #endif
 
@@ -119,44 +76,35 @@ static inline void CAN_wake_tx_from_ISR(void) {
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
-#if defined(USE_CAN1) || defined(USE_CAN2) || defined(USE_FDCAN1) || defined(USE_FDCAN2) \
-    || defined(USE_FDCAN3)
-static void CAN_drain_tx_bus(const CAN_BUS_TYPE *bus, QueueHandle_t tx_queue) {
+static void CAN_drain_tx_bus(const FDCAN_GlobalTypeDef *bus, QueueHandle_t tx_queue) {
     CanMsgTypeDef_t tx_msg;
 
-    while (PHAL_TX_FIFO_FREE(bus)) {
+    while (PHAL_FDCAN_txFifoFree(bus)) {
         if (xQueueReceive(tx_queue, &tx_msg, 0) != pdPASS) {
             return;
         }
 
-        PHAL_SEND(&tx_msg);
+        PHAL_FDCAN_send(&tx_msg);
         can_stats.tx_sent_count++;
     }
 }
-#endif
 
 void CAN_tx_update(void) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     can_stats.tx_task_wake_count++;
 
-#ifdef USE_CAN1
-    CAN_drain_tx_bus(CAN1, can1_tx_queue);
-#endif
-#ifdef USE_CAN2
-    CAN_drain_tx_bus(CAN2, can2_tx_queue);
-#endif
 #ifdef USE_FDCAN1
-    CAN_drain_tx_bus(FDCAN1, can1_tx_queue);
+    CAN_drain_tx_bus(FDCAN1, fdcan1_tx_queue);
 #endif
 #ifdef USE_FDCAN2
-    CAN_drain_tx_bus(FDCAN2, can2_tx_queue);
+    CAN_drain_tx_bus(FDCAN2, fdcan2_tx_queue);
 #endif
 #ifdef USE_FDCAN3
-    CAN_drain_tx_bus(FDCAN3, can3_tx_queue);
+    CAN_drain_tx_bus(FDCAN3, fdcan3_tx_queue);
 #endif
 }
 
-void PHAL_TX_CALLBACK(CAN_BUS_TYPE *bus) {
+void PHAL_FDCAN_txCallback(FDCAN_GlobalTypeDef *bus) {
     (void)bus;
     CAN_wake_tx_from_ISR();
     can_stats.tx_callback_count++;

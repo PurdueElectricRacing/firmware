@@ -1,4 +1,4 @@
-create_can_node_lib(TORQUE_VECTOR "CMSIS_G474;RTOS_G474")
+create_can_node_lib(TORQUE_VECTOR)
 
 add_firmware_component(
     BUILD_BOOTLOADABLE

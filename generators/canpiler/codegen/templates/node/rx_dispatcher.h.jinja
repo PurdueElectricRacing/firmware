@@ -1,5 +1,5 @@
 // RX Dispatcher
-static inline void CAN_rx_dispatcher(uint32_t id, const uint8_t *data, uint8_t len, const CAN_bus_t *bus) {
+static inline void CAN_rx_dispatcher(uint32_t id, const uint8_t *data, uint8_t len, const FDCAN_GlobalTypeDef *bus) {
     {% for periph, entries in ctx.rx_entries_by_peripheral.items() %}
     {{ "if" if loop.first else "else if" }} (bus == {{ periph }}) {
         switch (id) {

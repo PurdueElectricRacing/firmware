@@ -1,4 +1,4 @@
-create_can_node_lib(DASHBOARD "CMSIS_G474;RTOS_G474")
+create_can_node_lib(DASHBOARD)
 
 add_firmware_component(
     BUILD_BOOTLOADABLE

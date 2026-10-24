@@ -9,7 +9,13 @@
  */
 
 #include <stdint.h>
-#include "can_library/can_common.h"
+#if defined(STM32F407xx)
+#include "common/phal_F4/can/can.h"
+#elif defined(STM32G474xx)
+#include "common/phal_G4/fdcan/fdcan.h"
+#else
+#error "Unsupported CAN target"
+#endif
 #include "can_library/generated/can_types.h"
 
 static constexpr uint32_t {{ bus_name|upper }}_BUS_ID = {{ declaration.bus_id }};

@@ -1,4 +1,4 @@
-create_can_node_lib(G4_TESTING "CMSIS_G474;RTOS_G474")
+create_can_node_lib(G4_TESTING)
 
 add_firmware_component(
     NAME g4_testing

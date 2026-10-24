@@ -1,12 +1,12 @@
-#ifndef CAN_CODEC_H
-#define CAN_CODEC_H
-
 /**
  * @file can_codec.h
  * @brief Force-inlined helpers for generated CAN signal packing and unpacking.
  *
  * @author Irving Wang (irvingw@purdue.edu)
  */
+
+#ifndef CAN_CODEC_H
+#define CAN_CODEC_H
 
 #include <stdint.h>
 #include <string.h>

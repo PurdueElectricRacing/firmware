@@ -35,23 +35,10 @@ def build_signal_codec(signal: CompiledSignal) -> SignalCodecRenderView:
 def build_peripheral_views(peripherals: tuple[str, ...]) -> tuple[PeripheralRenderView, ...]:
     views = []
     for peripheral in peripherals:
-        if peripheral.startswith("FDCAN"):
-            bus_type = "FDCAN_GlobalTypeDef"
-            arch_define = "STM32G474xx"
-            phal_prefix = "PHAL_FDCAN"
-        elif peripheral.startswith("CAN"):
-            bus_type = "CAN_TypeDef"
-            arch_define = "STM32F407xx"
-            phal_prefix = "PHAL_CAN"
-        else:
-            raise ValueError(f"Unsupported CAN peripheral: {peripheral}")
         views.append(
             PeripheralRenderView(
                 name=peripheral,
                 enqueue_func=f"CAN_enqueue_tx_{peripheral}",
-                bus_type=bus_type,
-                arch_define=arch_define,
-                phal_prefix=phal_prefix,
             )
         )
     return tuple(views)
@@ -65,11 +52,6 @@ def build_node_header_context(
 ) -> NodeHeaderRenderContext:
     peripherals = tuple(sorted({bus.peripheral for bus in node.busses.values()}))
     peripheral_views = build_peripheral_views(peripherals)
-    if len({item.bus_type for item in peripheral_views}) != 1 or len({
-        item.arch_define for item in peripheral_views
-    }) != 1:
-        raise ValueError(f"Node {node.name} mixes incompatible CAN peripheral families")
-
     rx_entries = []
     tx_entries = []
     for bus_name in sorted(node.busses):
